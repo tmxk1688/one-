@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>剧本创作编辑器 - 天马行空创意网</title>
+    <style>
+        /* 复用首页的CSS样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        header {
+            background-color: #fff;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        
+        .logo img {
+            margin-right: 10px;
+            height: 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-main {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+        
+        .logo-sub {
+            font-size: 12px;
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .search {
+            display: flex;
+        }
+        
+        .search input {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .search button {
+            padding: 8px 15px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #0066cc;
+            margin-top: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: #0052a3;
+        }
+        
+        nav ul li .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0066cc;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+        
+        nav ul li .dropdown li {
+            display: block;
+        }
+        
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .banner h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .banner p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        /* Script Writing Editor */
+        .script-editor {
+            margin-top: 20px;
+        }
+        
+        /* 工具栏 */
+        .toolbar {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toolbar h3 {
+            margin-bottom: 15px;
+            color: #0066cc;
+            font-size: 18px;
+        }
+        
+        .toolbar-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .toolbar-btn {
+            padding: 8px 15px;
+            background-color: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #495057;
+            transition: all 0.3s ease;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #dee2e6;
+            border-color: #ced4da;
+        }
+        
+        .toolbar-btn.active {
+            background-color: #0066cc;
+            color: white;
+            border-color: #0066cc;
+        }
+        
+        /* 剧本信息 */
+        .script-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .script-info h3 {
+            margin-bottom: 15px;
+            color: #0066cc;
+            font-size: 18px;
+        }
+        
+        .script-info-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .script-info-field {
+            margin-bottom: 15px;
+        }
+        
+        .script-info-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .script-info-field input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        /* 编辑区域 */
+        .editor-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .editor-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .scene-outline {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .scene-outline h4 {
+            margin-bottom: 15px;
+            color: #0066cc;
+            font-size: 16px;
+        }
+        
+        .scene-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .scene-item {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .scene-item:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .scene-item.active {
+            background-color: #0066cc;
+            color: white;
+        }
+        
+        .add-scene-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .add-scene-btn:hover {
+            background-color: #218838;
+        }
+        
+        /* 剧本编辑区 */
+        .script-content {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .script-content h4 {
+            margin-bottom: 15px;
+            color: #0066cc;
+            font-size: 16px;
+        }
+        
+        #scriptText {
+            width: 100%;
+            height: 500px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: 'Courier New', Courier, monospace;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        
+        /* 保存和分享按钮 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+        
+        .share-btn {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+        
+        /* 保存提示 */
+        .save-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .save-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .save-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* 分享弹窗 */
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .share-modal.show {
+            display: flex;
+        }
+        
+        .share-modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .share-modal-content h3 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .share-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .share-link {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .share-link:hover {
+            background-color: #e9ecef;
+            transform: translateY(-3px);
+        }
+        
+        .share-link i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .share-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .share-modal-btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .share-modal-btn.primary {
+            background-color: #0066cc;
+            color: white;
+        }
+        
+        .share-modal-btn.primary:hover {
+            background-color: #0052a3;
+        }
+        
+        .share-modal-btn.secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .share-modal-btn.secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .container {
+                width: 95%;
+            }
+            
+            .editor-area {
+                grid-template-columns: 1fr;
+            }
+            
+            .script-info-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- 新年主题样式 -->
+    <link rel="stylesheet" href="css/newyear.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="photo/logo.png" alt="Logo">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="搜索...">
+                <button>🔍</button>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="#">服务系统</a>
+                    <ul class="dropdown">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank">工作系统</a></li>
+                <li>
+                    <a href="#">下载专区</a>
+                    <ul class="dropdown">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="banner">
+        <div class="container banner-content">
+            <h1>剧本创作编辑器</h1>
+            <p>专业的剧本创作工具，支持多场景编辑、格式设置、保存和分享功能</p>
+        </div>
+    </div>
+    
+    <div class="container main-content">
+        <div class="script-editor">
+            <!-- 剧本信息 -->
+            <div class="script-info">
+                <h3>剧本信息</h3>
+                <div class="script-info-fields">
+                    <div class="script-info-field">
+                        <label for="scriptTitle">剧本标题</label>
+                        <input type="text" id="scriptTitle" placeholder="请输入剧本标题">
+                    </div>
+                    <div class="script-info-field">
+                        <label for="scriptAuthor">编剧</label>
+                        <input type="text" id="scriptAuthor" placeholder="请输入编剧姓名">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <h3>格式工具</h3>
+                <div class="toolbar-buttons">
+                    <button class="toolbar-btn" onclick="applyFormat('scene-heading')">场景标题</button>
+                    <button class="toolbar-btn" onclick="applyFormat('action')">动作描述</button>
+                    <button class="toolbar-btn" onclick="applyFormat('character')">角色名</button>
+                    <button class="toolbar-btn" onclick="applyFormat('dialogue')">对话</button>
+                    <button class="toolbar-btn" onclick="applyFormat('parenthetical')">括号说明</button>
+                    <button class="toolbar-btn" onclick="applyFormat('transition')">转场</button>
+                </div>
+            </div>
+            
+            <!-- 编辑区域 -->
+            <div class="editor-container">
+                <div class="editor-area">
+                    <!-- 场景大纲 -->
+                    <div class="scene-outline">
+                        <h4>场景大纲</h4>
+                        <div class="scene-list" id="sceneList">
+                            <!-- 场景列表将动态生成 -->
+                        </div>
+                        <button class="add-scene-btn" onclick="addScene()">+ 添加场景</button>
+                    </div>
+                    
+                    <!-- 剧本内容编辑 -->
+                    <div class="script-content">
+                        <h4>剧本内容</h4>
+                        <textarea id="scriptText" placeholder="开始编写你的剧本内容..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- 操作按钮 -->
+                <div class="action-buttons">
+                    <button class="action-btn save-btn" onclick="saveScript()">💾 保存剧本</button>
+                    <button class="action-btn share-btn" onclick="showShareModal()">📤 分享剧本</button>
+                </div>
+                
+                <!-- 保存提示 -->
+                <div class="save-message" id="saveMessage"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 分享弹窗 -->
+    <div class="share-modal" id="shareModal">
+        <div class="share-modal-content">
+            <h3>分享剧本</h3>
+            <div class="share-links">
+                <a href="#" class="share-link" onclick="shareToWechat()">
+                    <i>💬</i>
+                    <span>微信</span>
+                </a>
+                <a href="#" class="share-link" onclick="shareToWeibo()">
+                    <i>📱</i>
+                    <span>微博</span>
+                </a>
+                <a href="#" class="share-link" onclick="copyShareLink()">
+                    <i>🔗</i>
+                    <span>复制链接</span>
+                </a>
+            </div>
+            <div class="share-modal-buttons">
+                <button class="share-modal-btn primary" onclick="closeShareModal()">确定</button>
+                <button class="share-modal-btn secondary" onclick="closeShareModal()">取消</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利.</p>
+            <div class="disclaimer">
+                <h3>免责声明</h3>
+                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+                <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 剧本数据
+        let scriptData = {
+            title: '',
+            author: '',
+            scenes: [
+                { id: 1, title: '场景 1', content: '' }
+            ],
+            currentSceneId: 1
+        };
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 加载保存的剧本
+            loadScript();
+            // 初始化场景列表
+            updateSceneList();
+        });
+        
+        // 添加场景
+        function addScene() {
+            const newSceneId = scriptData.scenes.length + 1;
+            scriptData.scenes.push({
+                id: newSceneId,
+                title: `场景 ${newSceneId}`,
+                content: ''
+            });
+            scriptData.currentSceneId = newSceneId;
+            updateSceneList();
+            updateScriptContent();
+        }
+        
+        // 更新场景列表
+        function updateSceneList() {
+            const sceneList = document.getElementById('sceneList');
+            sceneList.innerHTML = '';
+            
+            scriptData.scenes.forEach(scene => {
+                const sceneItem = document.createElement('div');
+                sceneItem.className = `scene-item ${scene.id === scriptData.currentSceneId ? 'active' : ''}`;
+                sceneItem.innerHTML = `<strong>${scene.title}</strong>`;
+                sceneItem.onclick = () => {
+                    switchScene(scene.id);
+                };
+                sceneList.appendChild(sceneItem);
+            });
+        }
+        
+        // 切换场景
+        function switchScene(sceneId) {
+            // 保存当前场景内容
+            const currentScene = scriptData.scenes.find(scene => scene.id === scriptData.currentSceneId);
+            if (currentScene) {
+                currentScene.content = document.getElementById('scriptText').value;
+            }
+            
+            // 切换到新场景
+            scriptData.currentSceneId = sceneId;
+            updateSceneList();
+            updateScriptContent();
+        }
+        
+        // 更新剧本内容
+        function updateScriptContent() {
+            const currentScene = scriptData.scenes.find(scene => scene.id === scriptData.currentSceneId);
+            if (currentScene) {
+                document.getElementById('scriptText').value = currentScene.content;
+            }
+        }
+        
+        // 应用格式
+        function applyFormat(formatType) {
+            const textarea = document.getElementById('scriptText');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const selectedText = textarea.value.substring(start, end);
+            
+            let formattedText = '';
+            
+            switch (formatType) {
+                case 'scene-heading':
+                    formattedText = `INT. ${selectedText || '地点'} - ${selectedText ? '时间' : '白天'}\n`;
+                    break;
+                case 'action':
+                    formattedText = `${selectedText}\n`;
+                    break;
+                case 'character':
+                    formattedText = `${selectedText.toUpperCase()}\n`;
+                    break;
+                case 'dialogue':
+                    formattedText = `${selectedText}\n`;
+                    break;
+                case 'parenthetical':
+                    formattedText = `(${selectedText})\n`;
+                    break;
+                case 'transition':
+                    formattedText = `${selectedText.toUpperCase()} TO: ${selectedText ? '下一个场景' : '地点'}\n`;
+                    break;
+            }
+            
+            // 插入格式化文本
+            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
+            textarea.focus();
+            textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
+        }
+        
+        // 保存剧本
+        function saveScript() {
+            // 保存当前场景内容
+            const currentScene = scriptData.scenes.find(scene => scene.id === scriptData.currentSceneId);
+            if (currentScene) {
+                currentScene.content = document.getElementById('scriptText').value;
+            }
+            
+            // 更新剧本信息
+            scriptData.title = document.getElementById('scriptTitle').value;
+            scriptData.author = document.getElementById('scriptAuthor').value;
+            
+            // 保存到本地存储
+            localStorage.setItem('scriptData', JSON.stringify(scriptData));
+            
+            // 显示保存成功提示
+            showSaveMessage('剧本保存成功！', 'success');
+        }
+        
+        // 加载剧本
+        function loadScript() {
+            const savedScript = localStorage.getItem('scriptData');
+            if (savedScript) {
+                scriptData = JSON.parse(savedScript);
+                // 更新表单
+                document.getElementById('scriptTitle').value = scriptData.title;
+                document.getElementById('scriptAuthor').value = scriptData.author;
+            }
+        }
+        
+        // 显示保存消息
+        function showSaveMessage(message, type) {
+            const saveMessage = document.getElementById('saveMessage');
+            saveMessage.textContent = message;
+            saveMessage.className = `save-message ${type}`;
+            saveMessage.style.display = 'block';
+            
+            // 3秒后隐藏消息
+            setTimeout(() => {
+                saveMessage.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 显示分享弹窗
+        function showShareModal() {
+            document.getElementById('shareModal').classList.add('show');
+        }
+        
+        // 关闭分享弹窗
+        function closeShareModal() {
+            document.getElementById('shareModal').classList.remove('show');
+        }
+        
+        // 分享到微信
+        function shareToWechat() {
+            alert('微信分享功能正在开发中...');
+        }
+        
+        // 分享到微博
+        function shareToWeibo() {
+            alert('微博分享功能正在开发中...');
+        }
+        
+        // 复制分享链接
+        function copyShareLink() {
+            // 生成分享链接
+            const shareUrl = window.location.href;
+            // 复制到剪贴板
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert('分享链接已复制到剪贴板！');
+            }).catch(err => {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制链接。');
+            });
+        }
+        
+        // 点击弹窗外部关闭弹窗
+        window.addEventListener('click', function(event) {
+            const shareModal = document.getElementById('shareModal');
+            if (event.target === shareModal) {
+                closeShareModal();
+            }
+        });
+    </script>
+    
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+</body>
+</html>

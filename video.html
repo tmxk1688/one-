@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频区 - 天马行空创意网 - TianMa Creative Network</title>
+    <style>
+        /* 复用首页的CSS样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; }
+        .container { width: 1200px; margin: 0 auto; }
+        header { background-color: #fff; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-weight: bold; 
+            color: #0066cc; 
+        }
+        .logo img { 
+            margin-right: 10px; 
+            height: 50px; 
+        }
+        .logo-main { 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+        }
+        .logo-sub { 
+            font-size: 12px; 
+            color: #666; 
+            font-weight: normal; 
+        }
+        .search { display: flex; }
+        .search input { padding: 8px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; }
+        .search button { padding: 8px 15px; background-color: #0066cc; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        nav { background-color: #0066cc; margin-top: 10px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { position: relative; }
+        nav ul li a { display: block; padding: 15px 20px; color: white; text-decoration: none; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #0052a3; }
+        nav ul li .dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: #0066cc; min-width: 200px; z-index: 1000; }
+        nav ul li:hover .dropdown { display: block; }
+        nav ul li .dropdown li { display: block; }
+        .banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.1"/><circle cx="60" cy="80" r="2" fill="white" opacity="0.1"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="20" r="1.5" fill="white" opacity="0.1"/></svg>');
+            background-size: 200px 200px;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            from { transform: translateX(0) translateY(0); }
+            to { transform: translateX(-200px) translateY(-200px); }
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .banner p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .banner-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .banner-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .main-content { display: flex; margin-top: 20px; gap: 20px; }
+        .sidebar { width: 250px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .sidebar-section { padding: 15px; border-bottom: 1px solid #eee; }
+        .sidebar-section h3 { color: #0066cc; margin-bottom: 15px; font-size: 18px; }
+        .login-form input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .login-form button { width: 100%; padding: 10px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .login-options { display: flex; justify-content: space-between; margin-top: 10px; font-size: 14px; }
+        .login-options a { color: #0066cc; text-decoration: none; }
+        .other-login { margin-top: 15px; }
+        .sidebar-links { list-style: none; }
+        .sidebar-links li { margin-bottom: 10px; }
+        .sidebar-links li a { color: #333; text-decoration: none; display: block; padding: 5px 0; }
+        .sidebar-links li a:hover { color: #0066cc; }
+        .content { flex: 1; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px; }
+        .content-section { margin-bottom: 30px; }
+        .content-section h2 { color: #0066cc; margin-bottom: 20px; font-size: 22px; }
+        .content-section h3 { color: #333; margin-bottom: 15px; font-size: 18px; }
+        /* 电影播放模式样式 */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; margin-top: 20px; }
+        .video-item { 
+            border: 1px solid #eee; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background-color: #000;
+            overflow: hidden;
+        }
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .video-thumbnail:hover img {
+            opacity: 1;
+        }
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 102, 204, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+        .play-btn::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 20px solid white;
+            margin-left: 3px;
+        }
+        .play-btn:hover {
+            background-color: rgba(0, 102, 204, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-item .video-info { padding: 20px; }
+        .video-item .video-info h4 { color: #0066cc; margin-bottom: 12px; font-size: 18px; }
+        .video-item .video-info p { font-size: 14px; color: #666; margin-bottom: 8px; line-height: 1.6; }
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        /* 视频播放模态框 */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .video-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1200px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #2d2d2d;
+            color: white;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-modal:hover {
+            color: #0066cc;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-video {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        /* 视频缩略图样式 */
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-thumbnail:hover img {
+            opacity: 1;
+        }
+        
+        /* 视频操作栏样式 */
+        .video-actions {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #495057;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+            color: #0066cc;
+        }
+        
+        .action-btn.liked {
+            background-color: #ffebee;
+            border-color: #f44336;
+            color: #f44336;
+        }
+        
+        /* 评论区样式 */
+        .comments-section {
+            margin-top: 20px;
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+        }
+        
+        .comments-section h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .comment-form {
+            margin-bottom: 20px;
+        }
+        
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 80px;
+            margin-bottom: 10px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .comment-submit {
+            padding: 8px 20px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .comment-submit:hover {
+            background-color: #0052a3;
+        }
+        
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .comment-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .comment-author {
+            font-weight: bold;
+            color: #0066cc;
+            font-size: 14px;
+        }
+        
+        .comment-time {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .comment-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .modal-video {
+                height: 400px;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-actions {
+                flex-wrap: wrap;
+            }
+        }
+        footer { background-color: #333; color: white; text-align: center; padding: 20px 0; margin-top: 30px; }
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="photo/logo.png" alt="Logo">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </div>
+            <div class="slogan" style="font-size: 20px; font-weight: bold; background: linear-gradient(135deg, #0066cc, #00aaff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 2px 4px rgba(0,0,0,0.1); font-family: 'STXingkai', 'STKaiti', cursive; letter-spacing: 3px; font-stretch: expanded;">
+                拥抱创意 点亮人生
+            </div>
+            <div class="search" style="display: flex; gap: 0;">
+                <input type="text" placeholder="搜索..." style="padding: 8px 12px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; border-right: none; outline: none; transition: border-color 0.3s;">
+                <button style="padding: 8px 15px; background: linear-gradient(135deg, #0066cc, #00aaff); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-weight: bold;">
+                    🔍
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="#">服务系统</a>
+                    <ul class="dropdown">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank">团队考核系统</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank">工作系统</a></li>
+                <li>
+                    <a href="#">下载专区</a>
+                    <ul class="dropdown">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="banner">
+        <div class="container banner-content">
+            <h1>视频区</h1>
+            <p>展示团队创作的各类视频作品</p>
+        </div>
+    </div>
+    
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>服务登录</h3>
+                <form class="login-form">
+                    <input type="text" placeholder="请输入账号/手机">
+                    <input type="password" placeholder="密码">
+                    <button type="submit">登录</button>
+                    <div class="login-options">
+                        <a href="#">手机快捷登录</a>
+                        <a href="#">注册></a>
+                    </div>
+                    <div class="other-login">
+                        
+                        <!-- 可以添加第三方登录图标 -->
+                    </div>
+                </form>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>服务范围</h3>
+                <ul class="sidebar-links">
+                    <li><a href="contribute.html">投稿</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>新闻动态</h3>
+                <ul class="sidebar-links">
+                    <li><a href="news.html">MORE+</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <div class="content-section">
+                <h2>视频区</h2>
+                <p>本专区展示团队创作的各类视频作品，包括微电影、短视频、宣传视频等。</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>电影列表</h2>
+                <div class="video-grid">
+                    <!-- 视频1 -->
+                    <div class="video-item">
+                        <div class="video-thumbnail" style="height: auto; background-color: transparent;">
+                            <!-- 使用B站iframe播放器 -->
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113513435694718&bvid=BV11HSKYoEvx&cid=26853442834&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%; height: 200px;"></iframe>
+                        </div>
+                        <div class="video-info">
+                            <h4>2024年天马行空创意团队形象宣传片</h4>
+                            <p>团队短视频作品</p>
+                            <p>发布时间：2024-09-01</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 视频2 -->
+                    <div class="video-item">
+                        <div class="video-thumbnail" style="height: auto; background-color: transparent;">
+                            <!-- 使用B站iframe播放器 -->
+                            <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=905785479&bvid=BV1vP4y1z77C&cid=978774211&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%; height: 200px;"></iframe>
+                        </div>
+                        <div class="video-info">
+                            <h4>微电影《绝意人生》</h4>
+                            <p>平凡的人，
+                                有一个独特的选择，
+                                就是去寻找绝对的意义。
+                            </p>
+                            <p>发布时间：2023-10-06</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 视频播放模态框 -->
+            <div class="video-modal" id="videoModal">
+                <div class="video-modal-content">
+                    <div class="modal-header">
+                        <h3 id="modalTitle">视频播放</h3>
+                        <button class="close-modal" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <video class="modal-video" id="modalVideo" controls autoplay>
+                            您的浏览器不支持HTML5视频。
+                        </video>
+                        
+                        <!-- 视频操作栏 -->
+                        <div class="video-actions">
+                            <button class="action-btn" id="likeBtn" onclick="toggleLike()">
+                                <span>👍</span>
+                                <span id="likeCount">0</span> 点赞
+                            </button>
+                            <button class="action-btn" onclick="showComments()">
+                                <span>💬</span>
+                                <span id="commentCount">0</span> 评论
+                            </button>
+                            <button class="action-btn">
+                                <span>📤</span> 分享
+                            </button>
+                        </div>
+                        
+                        <!-- 评论区 -->
+                        <div class="comments-section" id="commentsSection">
+                            <h3>评论区</h3>
+                            
+                            <!-- 评论表单 -->
+                            <div class="comment-form">
+                                <textarea class="comment-input" id="commentInput" placeholder="写下你的评论..."></textarea>
+                                <button class="comment-submit" onclick="submitComment()">发表评论</button>
+                            </div>
+                            
+                            <!-- 评论列表 -->
+                            <div class="comments-list" id="commentsList">
+                                <!-- 评论会通过JavaScript动态添加 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利.</p>
+            <div class="disclaimer">
+                <h3>免责声明</h3>
+                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+                <p>如有侵权，请联系我们删除相关内容。联系方式：txkcytd@foxmail.com</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 电影播放模式JavaScript功能
+        
+        // 获取模态框元素
+        const videoModal = document.getElementById('videoModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalTitle = document.getElementById('modalTitle');
+        const likeBtn = document.getElementById('likeBtn');
+        const likeCount = document.getElementById('likeCount');
+        const commentInput = document.getElementById('commentInput');
+        const commentCount = document.getElementById('commentCount');
+        const commentsList = document.getElementById('commentsList');
+        const commentsSection = document.getElementById('commentsSection');
+        
+        // 全局变量
+        let currentVideo = '';
+        let liked = false;
+        let comments = [];
+        
+        // 播放视频函数
+        function playVideo(videoUrl, videoTitle) {
+            // 设置当前视频
+            currentVideo = videoUrl;
+            
+            // 设置模态框标题
+            modalTitle.textContent = videoTitle;
+            
+            // 设置视频源
+            modalVideo.src = videoUrl;
+            
+            // 显示模态框
+            videoModal.style.display = 'block';
+            
+            // 自动播放视频
+            modalVideo.play();
+            
+            // 初始化点赞和评论
+            initVideoData();
+        }
+        
+        // 关闭模态框函数
+        function closeModal() {
+            // 暂停视频
+            modalVideo.pause();
+            modalVideo.currentTime = 0;
+            
+            // 清空视频源
+            modalVideo.src = '';
+            
+            // 隐藏模态框
+            videoModal.style.display = 'none';
+            
+            // 重置评论输入
+            commentInput.value = '';
+        }
+        
+        // 点击模态框外部关闭模态框
+        window.addEventListener('click', function(event) {
+            if (event.target === videoModal) {
+                closeModal();
+            }
+        });
+        
+        // 按下ESC键关闭模态框
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && videoModal.style.display === 'block') {
+                closeModal();
+            }
+        });
+        
+        // 生成视频缩略图和时长
+        function generateVideoThumbnails() {
+            const videoItems = document.querySelectorAll('.video-item');
+            
+            videoItems.forEach(item => {
+                const videoThumbnail = item.querySelector('.video-thumbnail');
+                // 检查是否有onclick事件，如果没有则跳过（说明是B站iframe播放器）
+                if (!videoThumbnail.onclick) {
+                    return;
+                }
+                
+                try {
+                    const videoUrl = videoThumbnail.onclick.toString().match(/'([^']+)'/)[1];
+                    const durationElement = item.querySelector('.video-duration');
+                    const thumbnailImg = item.querySelector('.video-thumbnail img');
+                    
+                    if (!durationElement || !thumbnailImg) {
+                        return;
+                    }
+                    
+                    const tempVideo = document.createElement('video');
+                    tempVideo.src = videoUrl;
+                    tempVideo.preload = 'metadata';
+                    
+                    tempVideo.addEventListener('loadedmetadata', function() {
+                        // 设置视频时长
+                        const duration = tempVideo.duration;
+                        const minutes = Math.floor(duration / 60);
+                        const seconds = Math.floor(duration % 60);
+                        durationElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                        
+                        // 检查是否已设置自定义封面
+                        const hasCustomCover = thumbnailImg.hasAttribute('data-cover');
+                        if (!hasCustomCover) {
+                            // 生成缩略图
+                            generateThumbnail(tempVideo, thumbnailImg);
+                        }
+                    });
+                } catch (error) {
+                    // 如果处理失败，跳过当前视频项
+                    console.error('处理视频项失败:', error);
+                }
+            });
+        }
+        
+        // 生成单个视频缩略图
+        function generateThumbnail(video, imgElement) {
+            // 确保视频准备就绪
+            video.currentTime = 0.5; // 取视频0.5秒处的画面作为封面
+            
+            video.addEventListener('seeked', function() {
+                // 创建画布并绘制视频帧
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // 将画布转换为DataURL并设置为图片源
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                imgElement.src = dataUrl;
+            });
+        }
+        
+        // 初始化视频数据
+        function initVideoData() {
+            // 初始化点赞数据
+            const savedLike = localStorage.getItem(`like_${currentVideo}`);
+            liked = savedLike === 'true';
+            likeBtn.className = liked ? 'action-btn liked' : 'action-btn';
+            likeCount.textContent = liked ? 1 : 0;
+            
+            // 初始化评论数据
+            const savedComments = localStorage.getItem(`comments_${currentVideo}`);
+            comments = savedComments ? JSON.parse(savedComments) : [];
+            commentCount.textContent = comments.length;
+            
+            // 渲染评论列表
+            renderComments();
+        }
+        
+        // 切换点赞状态
+        function toggleLike() {
+            liked = !liked;
+            
+            // 更新按钮样式
+            likeBtn.className = liked ? 'action-btn liked' : 'action-btn';
+            
+            // 更新点赞数
+            likeCount.textContent = liked ? 1 : 0;
+            
+            // 保存点赞状态到localStorage
+            localStorage.setItem(`like_${currentVideo}`, liked.toString());
+        }
+        
+        // 显示/隐藏评论区
+        function showComments() {
+            if (commentsSection.style.display === 'none') {
+                commentsSection.style.display = 'block';
+            } else {
+                commentsSection.style.display = commentsSection.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+        
+        // 提交评论
+        function submitComment() {
+            const content = commentInput.value.trim();
+            if (!content) return;
+            
+            // 创建新评论
+            const newComment = {
+                id: Date.now(),
+                author: '匿名用户',
+                content: content,
+                time: new Date().toISOString()
+            };
+            
+            // 添加评论
+            comments.push(newComment);
+            
+            // 更新评论数
+            commentCount.textContent = comments.length;
+            
+            // 保存评论到localStorage
+            localStorage.setItem(`comments_${currentVideo}`, JSON.stringify(comments));
+            
+            // 渲染评论列表
+            renderComments();
+            
+            // 清空评论输入
+            commentInput.value = '';
+        }
+        
+        // 渲染评论列表
+        function renderComments() {
+            // 清空评论列表
+            commentsList.innerHTML = '';
+            
+            // 渲染每条评论
+            comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment-item';
+                
+                // 格式化时间
+                const commentTime = new Date(comment.time).toLocaleString();
+                
+                commentElement.innerHTML = `
+                    <div class="comment-header">
+                        <span class="comment-author">${comment.author}</span>
+                        <span class="comment-time">${commentTime}</span>
+                    </div>
+                    <div class="comment-content">${comment.content}</div>
+                `;
+                
+                commentsList.appendChild(commentElement);
+            });
+        }
+        
+        // 页面加载完成后生成视频缩略图和时长
+        document.addEventListener('DOMContentLoaded', function() {
+            generateVideoThumbnails();
+        });
+    </script>
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+    <!-- 新年主题样式 -->
+    <link rel="stylesheet" href="css/newyear.css">
+    <!-- 新年主题脚本 -->
+    <script src="js/newyear.js"></script>
+</body>
+</html>

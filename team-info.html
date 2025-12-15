@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>团队档案信息查询系统 - 天马行空创意网 - TianMa Creative Network</title>
+
+    <style>
+        /* 复用首页的CSS样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; }
+        .container { width: 1200px; margin: 0 auto; }
+        header { background-color: #fff; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-weight: bold; 
+            color: #0066cc; 
+        }
+        .logo img { 
+            margin-right: 10px; 
+            height: 50px; 
+        }
+        .logo-main { 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+        }
+        .logo-sub { 
+            font-size: 12px; 
+            color: #666; 
+            font-weight: normal; 
+        }
+        .search { display: flex; }
+        .search input { padding: 8px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; }
+        .search button { padding: 8px 15px; background-color: #0066cc; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        nav { background-color: #0066cc; margin-top: 10px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { position: relative; }
+        nav ul li a { display: block; padding: 15px 20px; color: white; text-decoration: none; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #0052a3; }
+        nav ul li .dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: #0066cc; min-width: 200px; z-index: 1000; }
+        nav ul li:hover .dropdown { display: block; }
+        nav ul li .dropdown li { display: block; }
+        .banner {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.15"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.15"/><circle cx="60" cy="80" r="2" fill="white" opacity="0.15"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.15"/><circle cx="90" cy="20" r="1.5" fill="white" opacity="0.15"/></svg>');
+            background-size: 200px 200px;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            from { transform: translateX(0) translateY(0); }
+            to { transform: translateX(-200px) translateY(-200px); }
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            font-weight: 700;
+        }
+        
+        .banner p {
+            font-size: 20px;
+            margin-bottom: 35px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.6;
+        }
+        
+        .banner-btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .banner-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+        
+        .banner-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .main-content { 
+            display: flex; 
+            margin-top: 20px; 
+            gap: 20px; 
+            flex-wrap: wrap;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar:hover {
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+        
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .sidebar-section:last-child {
+            border-bottom: none;
+        }
+        
+        .sidebar-section h3 {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-section h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+        
+        .sidebar-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .sidebar-section a {
+            color: #4facfe;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .sidebar-section a:hover {
+            color: #00f2fe;
+            text-decoration: underline;
+        }
+        
+        .sidebar-links {
+            list-style: none;
+        }
+        
+        .sidebar-links li {
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-links li:hover {
+            background: #f8f9ff;
+            padding-left: 10px;
+        }
+        
+        .sidebar-links li a {
+            color: #333;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .sidebar-links li a::before {
+            content: '📌';
+            margin-right: 8px;
+            color: #4facfe;
+        }
+        
+        .sidebar-links li a:hover {
+            color: #4facfe;
+            text-decoration: none;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .container {
+                width: 95%;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .content {
+                min-width: auto;
+            }
+            
+            .search {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .banner {
+                padding: 60px 20px;
+            }
+            
+            .banner h1 {
+                font-size: 28px;
+            }
+            
+            .banner p {
+                font-size: 16px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                width: 100%;
+            }
+            
+            nav ul li .dropdown {
+                position: static;
+                display: block;
+            }
+        }
+        .content-section { margin-bottom: 30px; }
+        .content-section h2 {
+            color: #4facfe;
+            margin-bottom: 25px;
+            font-size: 26px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .content-section h2::before {
+            content: '';
+            width: 6px;
+            height: 28px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            margin-right: 12px;
+            border-radius: 3px;
+        }
+        
+        .content-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        
+        .search-section {
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .search-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .search-section ul {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .search-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .search-section ul li strong {
+            color: #4facfe;
+        }
+        .team-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .team-table th, .team-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .team-table th { background-color: #f0f0f0; font-weight: bold; }
+        .team-table tr:hover { background-color: #f9f9f9; }
+        footer { background-color: #333; color: white; text-align: center; padding: 20px 0; margin-top: 30px; }
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        /* 公众号关注广告 */
+        .wechat-ad {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px;
+            z-index: 1000;
+        }
+        
+        .wechat-ad h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .wechat-ad .qrcode {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .wechat-ad p {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .wechat-ad .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 18px;
+            color: #999;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wechat-ad .close-btn:hover {
+            color: #333;
+        }
+        
+        /* 弹窗广告 */
+        .popup-ad {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .popup-ad.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-ad .popup-content {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            width: 500px;
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .popup-ad .popup-header {
+            background-color: #0066cc;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .popup-ad .popup-body {
+            padding: 20px;
+        }
+        
+        .popup-ad .popup-body img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        
+        .popup-ad .popup-footer {
+            padding: 0 20px 20px;
+            text-align: center;
+        }
+        
+        .popup-ad .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .popup-ad .popup-close:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+        
+        .popup-ad .popup-action {
+            padding: 10px 30px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .popup-ad .popup-action:hover {
+            background-color: #0052a3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="photo/logo.png" alt="Logo">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </div>
+            <div class="slogan" style="font-size: 20px; font-weight: bold; background: linear-gradient(135deg, #0066cc, #00aaff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 2px 4px rgba(0,0,0,0.1); font-family: 'STXingkai', 'STKaiti', cursive; letter-spacing: 3px; font-stretch: expanded;">
+                拥抱创意 点亮人生
+            </div>
+            <div class="search" style="display: flex; gap: 0;">
+                <input type="text" placeholder="搜索..." style="padding: 8px 12px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; border-right: none; outline: none; transition: border-color 0.3s;">
+                <button style="padding: 8px 15px; background: linear-gradient(135deg, #0066cc, #00aaff); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-weight: bold;">
+                    🔍
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="#">服务系统</a>
+                    <ul class="dropdown">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank">团队考核系统</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank">工作系统</a></li>
+                <li>
+                    <a href="#">下载专区</a>
+                    <ul class="dropdown">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="banner">
+        <div class="container banner-content">
+            <h1>团队档案信息查询系统</h1>
+            <p>查询团队成员档案信息，管理个人资料</p>
+        </div>
+    </div>
+    
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>服务登录</h3>
+                <form class="login-form">
+                    <input type="text" placeholder="请输入账号/手机" id="username">
+                    <input type="password" placeholder="密码" id="password">
+                    <button type="submit" id="loginBtn">登录</button>
+                    <div class="login-options">
+                        <a href="#">手机快捷登录</a>
+                        <a href="register.html">注册></a>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>查询功能</h3>
+                <ul class="sidebar-links">
+                    <li><a href="https://m1fntjcd.yichafen.com" target="_blank">身份卡号查询</a></li>
+                    <li><a href="https://m1fntjcd.yichafen.com" target="_blank">个人档案信息</a></li>
+                    <li><a href="https://m1fntjcd.yichafen.com" target="_blank">增值服务查询</a></li>
+                    <li><a href="https://www.kaoshixing.com/login/account/login/625432?nextUrl=https%3A%2F%2Fv.kaoshixing.com%2Fexam%2FaiInterview%2Fpc%2F%23%2Flist" target="_blank">学习中心</a></li>
+                    <li><a href="#" onclick="showQueryType('exam')">考试预约</a></li>
+                </ul>
+            </div>
+            
+            <!-- 演职人员申请独立区域 -->
+            <div class="sidebar-section" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); border-radius: 8px; margin: 15px;">
+                <h3 style="color: white; text-align: center;">演职人员申请</h3>
+                <div style="text-align: center; padding: 15px 0;">
+                    <p style="color: white; margin-bottom: 15px; font-weight: bold;">2026年新春晚会</p>
+                    <a href="#" onclick="showQueryType('crewApplication')" style="display: inline-block; padding: 12px 30px; background: white; color: #ff6b6b; text-decoration: none; border-radius: 50px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">立即申请</a>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <!-- 身份卡号查询 -->
+            <div id="idCardQuery" class="content-section query-section">
+                <h2>身份卡号查询</h2>
+                <div class="search-section">
+                    <iframe src="https://m1fntjcd.yichafen.com" width="100%" height="600px" frameborder="0" style="border-radius: 10px;"></iframe>
+                </div>
+            </div>
+            
+            <!-- 个人档案信息 -->
+            <div id="personalQuery" class="content-section query-section" style="display: none;">
+                <h2>个人档案信息</h2>
+                <div class="search-section">
+                    <iframe src="https://m1fntjcd.yichafen.com" width="100%" height="600px" frameborder="0" style="border-radius: 10px;"></iframe>
+                </div>
+            </div>
+            
+            <!-- 充值记录查询 -->
+            <div id="rechargeQuery" class="content-section query-section" style="display: none;">
+                <h2>充值记录查询</h2>
+                <div class="search-section">
+                    <iframe src="https://m1fntjcd.yichafen.com" width="100%" height="600px" frameborder="0" style="border-radius: 10px;"></iframe>
+                </div>
+            </div>
+            
+            <!-- 增值服务查询 -->
+            <div id="servicesQuery" class="content-section query-section" style="display: none;">
+                <h2>增值服务查询</h2>
+                <div class="search-section">
+                    <iframe src="https://m1fntjcd.yichafen.com" width="100%" height="600px" frameborder="0" style="border-radius: 10px;"></iframe>
+                </div>
+            </div>
+            
+            <!-- 学习中心 -->
+            <div id="learningQuery" class="content-section query-section" style="display: none;">
+                <h2>学习中心</h2>
+                <div class="search-section">
+                    <p>查看学习记录和课程信息</p>
+                    <form onsubmit="queryLearning(event)">
+                        <div style="display: flex; gap: 10px; margin: 20px 0;">
+                            <input type="text" placeholder="请输入身份卡号" style="padding: 10px; width: 300px; border: 1px solid #ddd; border-radius: 4px;">
+                            <button type="submit" class="banner-btn" style="padding: 10px 20px;">查询</button>
+                        </div>
+                    </form>
+                    <div id="learningResult" style="margin-top: 20px;"></div>
+                </div>
+            </div>
+            
+            <!-- 考试预约 -->
+            <div id="examQuery" class="content-section query-section" style="display: none;">
+                <h2>考试预约</h2>
+                <div class="search-section">
+                    <form onsubmit="handleExamBooking(event)">
+                        <h3 style="color: #4facfe; margin-bottom: 15px; margin-top: 20px;">考试预约表单</h3>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label for="examName" style="display: block; margin-bottom: 5px; font-weight: bold;">考试名称：</label>
+                            <input type="text" id="examName" name="examName" placeholder="请输入考试名称" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label for="examName" style="display: block; margin-bottom: 15px; font-weight: bold;">身份信息：</label>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                                <div>
+                                    <label for="name" style="display: block; margin-bottom: 5px;">姓名：</label>
+                                    <input type="text" id="name" name="name" placeholder="请输入姓名" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                <div>
+                                    <label for="idCard" style="display: block; margin-bottom: 5px;">身份卡号码：</label>
+                                    <input type="text" id="idCard" name="idCard" placeholder="请输入身份卡号码" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label for="examDate" style="display: block; margin-bottom: 5px; font-weight: bold;">选择考试日期：</label>
+                            <input type="date" id="examDate" name="examDate" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label for="examLocation" style="display: block; margin-bottom: 5px; font-weight: bold;">选择考点：</label>
+                            <select id="examLocation" name="examLocation" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                <option value="online">学习中心线上</option>
+                                <option value="offline">纸质线下</option>
+                            </select>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <div>
+                                    <label for="verificationCode" style="display: block; margin-bottom: 5px; font-weight: bold;">验证码：</label>
+                                    <input type="text" id="verificationCode" name="verificationCode" placeholder="请输入验证码" required style="padding: 10px; width: 150px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                <div style="flex: 1;">
+                                    <div id="captchaImage" style="width: 120px; height: 40px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; letter-spacing: 2px; cursor: pointer; user-select: none;">验证码</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="banner-btn" style="padding: 12px 30px; font-size: 16px;">提交预约</button>
+                    </form>
+                    
+                    <!-- 预约结果显示区域 -->
+                    <div id="bookingResult" style="margin-top: 30px; display: none;">
+                        <h3 style="color: #28a745; margin-bottom: 20px;">预约成功！</h3>
+                        <div id="bookingDetails" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                            <!-- 预约详情将在这里动态显示 -->
+                        </div>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <button id="saveAsImageBtn" class="banner-btn" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">保存为图片</button>
+                            <button id="sendEmailBtn" class="banner-btn" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">发送到邮箱</button>
+                        </div>
+                        <canvas id="bookingCanvas" style="display: none;"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 演职人员申请 -->
+            <div id="crewApplicationQuery" class="content-section query-section" style="display: none;">
+                <h2>演职人员申请</h2>
+                <div class="search-section">
+                    <form onsubmit="handleCrewApplication(event)">
+                        <h3 style="color: #4facfe; margin-bottom: 15px; margin-top: 20px;">2026年天马行空创意团队“天马行空-马到成功”新春晚会演职人员申请表</h3>
+                        
+                        <!-- 头像上传 -->
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 10px; font-weight: bold;">头像上传：</label>
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div id="avatarPreview" style="width: 120px; height: 120px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #666; font-size: 30px; overflow: hidden; cursor: pointer; border: 2px dashed #4facfe;">
+                                    📷
+                                </div>
+                                <div>
+                                    <input type="file" id="avatar" name="avatar" accept="image/*" required style="display: none;">
+                                    <button type="button" onclick="document.getElementById('avatar').click()" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">选择头像</button>
+                                    <p style="color: #666; font-size: 14px; margin-top: 5px;">支持JPG、PNG格式，大小不超过2MB</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 基本信息 -->
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: #4facfe; margin-bottom: 15px; font-size: 18px;">基本信息</h3>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                                <div>
+                                    <label for="crewName" style="display: block; margin-bottom: 5px; font-weight: bold;">姓名：</label>
+                                    <input type="text" id="crewName" name="crewName" placeholder="请输入姓名" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                <div>
+                                    <label for="gender" style="display: block; margin-bottom: 5px; font-weight: bold;">性别：</label>
+                                    <select id="gender" name="gender" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                        <option value="">请选择性别</option>
+                                        <option value="男">男</option>
+                                        <option value="女">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 联系方式 -->
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: #4facfe; margin-bottom: 10px; font-size: 18px;">联系方式</h3>
+                            <p style="color: #666; margin-bottom: 15px; font-size: 14px;"><strong>注：请至少填写一种联系方式</strong></p>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                                <div>
+                                    <label for="wechat" style="display: block; margin-bottom: 5px; font-weight: bold;">微信：</label>
+                                    <input type="text" id="wechat" name="wechat" placeholder="请输入微信账号" style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                <div>
+                                    <label for="qq" style="display: block; margin-bottom: 5px; font-weight: bold;">QQ：</label>
+                                    <input type="text" id="qq" name="qq" placeholder="请输入QQ号" style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                <div>
+                                    <label for="phone" style="display: block; margin-bottom: 5px; font-weight: bold;">电话：</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="请输入手机号码" style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 团队和分组选择 -->
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: #4facfe; margin-bottom: 15px; font-size: 18px;">团队和分组选择</h3>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label for="team" style="display: block; margin-bottom: 5px; font-weight: bold;">所属团队：</label>
+                                <select id="team" name="team" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                    <option value="天马行空创意团队">天马行空创意团队</option>
+                                </select>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label for="group" style="display: block; margin-bottom: 5px; font-weight: bold;">分组选择：</label>
+                                <select id="group" name="group" required style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 4px;">
+                                    <option value="">请选择分组</option>
+                                    <option value="导演组">导演组</option>
+                                    <option value="副导演组">副导演组</option>
+                                    <option value="摄影组">摄影组</option>
+                                    <option value="演员组-舞蹈">演员组-舞蹈</option>
+                                    <option value="演员组-音乐">演员组-音乐</option>
+                                    <option value="演员组-相声">演员组-相声</option>
+                                    <option value="演员组-小品">演员组-小品</option>
+                                    <option value="演员组-短片">演员组-短片</option>
+                                    <option value="演员组-魔术">演员组-魔术</option>
+                                    <option value="演员组-微电影">演员组-微电影</option>
+                                    <option value="后期组-平面设计">后期组-平面设计</option>
+                                    <option value="后期组-节目包装">后期组-节目包装</option>
+                                    <option value="后期组-视频剪辑">后期组-视频剪辑</option>
+                                    <option value="后期组-特效制作">后期组-特效制作</option>
+                                    <option value="主持人组">主持人组</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- 签署确认书 -->
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: #4facfe; margin-bottom: 15px; font-size: 18px;">签署确认书</h3>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 15px; max-height: 400px; overflow-y: auto;">
+                                <h4 style="color: #333; margin-bottom: 15px;">《2026年天马行空创意团队“天马行空-马到成功”新春晚会节目演职人员确认签署书》</h4>
+                                <p style="line-height: 1.8; margin-bottom: 15px;">本人确认自愿参加2026年天马行空创意团队“天马行空-马到成功”新春晚会的演职工作，承诺遵守团队纪律，按时参加排练和演出，服从导演组安排，认真完成各项任务。</p>
+                                <p style="line-height: 1.8; margin-bottom: 15px;">本节目为团队自行组织并进行收录的类型节目。</p>
+                                <p style="line-height: 1.8; margin-bottom: 15px;">本签署书已经确认本人的肖像权，可以进行节目录制并上传其网络。</p>
+                                <p style="line-height: 1.8; margin-bottom: 15px;">本人保证所提供的所有信息真实有效，如有虚假，愿意承担相应责任。</p>
+                                <p style="line-height: 1.8; margin-bottom: 15px;">晚会时间：2026年2月10日 20:00</p>
+                                <p style="line-height: 1.8; margin-bottom: 15px;">晚会地点：线上直播</p>
+                                <p style="line-height: 1.8; margin-bottom: 15px;">签署人：____________________</p>
+                                <p style="line-height: 1.8;">签署日期：____________________</p>
+                            </div>
+                            
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input type="checkbox" id="agree" name="agree" required style="width: 18px; height: 18px;">
+                                <label for="agree" style="color: #333; font-weight: bold;">我已认真阅读并同意上述条款，自愿参加此次晚会演职工作。</label>
+                            </div>
+                        </div>
+                        
+                        <!-- 验证码 -->
+                        <div style="margin-bottom: 25px;">
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <div>
+                                    <label for="crewVerificationCode" style="display: block; margin-bottom: 5px; font-weight: bold;">验证码：</label>
+                                    <input type="text" id="crewVerificationCode" name="verificationCode" placeholder="请输入验证码" required style="padding: 10px; width: 150px; border: 1px solid #ddd; border-radius: 4px;">
+                                </div>
+                                <div style="flex: 1;">
+                                    <div id="crewCaptchaImage" style="width: 120px; height: 40px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; font-weight: bold; letter-spacing: 2px; cursor: pointer; user-select: none;">验证码</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="banner-btn" style="padding: 12px 30px; font-size: 16px;">提交申请</button>
+                    </form>
+                    
+                    <!-- 申请结果显示区域 -->
+                    <div id="crewResult" style="margin-top: 30px; display: none;">
+                        <h3 style="color: #28a745; margin-bottom: 20px;">申请提交成功！</h3>
+                        <div id="crewDetails" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                            <!-- 申请详情将在这里动态显示 -->
+                        </div>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+                            <button id="crewSaveAsImageBtn" class="banner-btn" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">保存为图片</button>
+                            <button id="crewSendEmailBtn" class="banner-btn" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">发送到邮箱</button>
+                        </div>
+                        <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; border: 1px solid #f5c6cb;">
+                            <h4 style="margin-bottom: 10px; font-weight: bold;">重要提示：</h4>
+                            <p style="margin-bottom: 10px;">请将提交成功的图片发送到天马行空创意团队公众号或者邮箱：<strong>zsz@tmxkcy.xyz</strong></p>
+                            <p style="margin-bottom: 10px;">发送后会收到回复信息，如不发送则提交不成功，导演将无法收到您的申请信息。</p>
+                            <p>感谢您的参与！</p>
+                        </div>
+                        <canvas id="crewCanvas" style="display: none;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利.</p>
+            <div class="disclaimer">
+                <h3>免责声明</h3>
+                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+                <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 切换查询类型
+        function showQueryType(type) {
+            // 隐藏所有查询区域
+            document.querySelectorAll('.query-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // 显示选中的查询区域，先检查元素是否存在
+            const targetSection = document.getElementById(type + 'Query');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+        }
+        
+        // 身份卡号查询
+        function queryIdCard(event) {
+            event.preventDefault();
+            const input = event.target.querySelector('input');
+            const resultDiv = document.getElementById('idCardResult');
+            
+            if (!input.value.trim()) {
+                alert('请输入查询内容');
+                return;
+            }
+            
+            // 模拟查询结果
+            resultDiv.innerHTML = `
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>身份证号</th>
+                            <th>身份卡号</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${input.value}</td>
+                            <td>110101********1234</td>
+                            <td>TM20240001</td>
+                            <td>有效</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        }
+        
+        // 个人档案信息查询
+        function queryPersonalInfo(event) {
+            event.preventDefault();
+            const input = event.target.querySelector('input');
+            const resultDiv = document.getElementById('personalResult');
+            
+            if (!input.value.trim()) {
+                alert('请输入身份卡号');
+                return;
+            }
+            
+            // 模拟查询结果
+            resultDiv.innerHTML = `
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: #0066cc; margin-bottom: 15px;">个人档案信息</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                        <div><strong>身份卡号：</strong>${input.value}</div>
+                        <div><strong>姓名：</strong>张三</div>
+                        <div><strong>性别：</strong>男</div>
+                        <div><strong>出生日期：</strong>1990-01-01</div>
+                        <div><strong>身份证号：</strong>110101********1234</div>
+                        <div><strong>联系电话：</strong>138****8888</div>
+                        <div><strong>邮箱：</strong>zhangsan@example.com</div>
+                        <div><strong>加入日期：</strong>2023-01-15</div>
+                        <div><strong>职位：</strong>设计师</div>
+                        <div><strong>部门：</strong>设计部</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 充值记录查询
+        function queryRecharge(event) {
+            event.preventDefault();
+            const input = event.target.querySelector('input');
+            const resultDiv = document.getElementById('rechargeResult');
+            
+            if (!input.value.trim()) {
+                alert('请输入身份卡号');
+                return;
+            }
+            
+            // 模拟查询结果
+            resultDiv.innerHTML = `
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>充值时间</th>
+                            <th>充值金额</th>
+                            <th>支付方式</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-12-01 14:30</td>
+                            <td>¥100.00</td>
+                            <td>微信支付</td>
+                            <td>成功</td>
+                        </tr>
+                        <tr>
+                            <td>2024-11-15 10:20</td>
+                            <td>¥50.00</td>
+                            <td>支付宝</td>
+                            <td>成功</td>
+                        </tr>
+                        <tr>
+                            <td>2024-10-20 09:15</td>
+                            <td>¥200.00</td>
+                            <td>银行卡</td>
+                            <td>成功</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        }
+        
+        // 增值服务查询
+        function queryServices(event) {
+            event.preventDefault();
+            const input = event.target.querySelector('input');
+            const resultDiv = document.getElementById('servicesResult');
+            
+            if (!input.value.trim()) {
+                alert('请输入身份卡号');
+                return;
+            }
+            
+            // 模拟查询结果
+            resultDiv.innerHTML = `
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>服务名称</th>
+                            <th>开通时间</th>
+                            <th>到期时间</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>高级会员</td>
+                            <td>2024-01-01</td>
+                            <td>2025-01-01</td>
+                            <td>有效</td>
+                        </tr>
+                        <tr>
+                            <td>学习课程</td>
+                            <td>2024-06-01</td>
+                            <td>2024-12-31</td>
+                            <td>有效</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        }
+        
+        // 学习中心查询
+        function queryLearning(event) {
+            event.preventDefault();
+            const input = event.target.querySelector('input');
+            const resultDiv = document.getElementById('learningResult');
+            
+            if (!input.value.trim()) {
+                alert('请输入身份卡号');
+                return;
+            }
+            
+            // 模拟查询结果
+            resultDiv.innerHTML = `
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>课程名称</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>进度</th>
+                            <th>成绩</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>设计基础</td>
+                            <td>2024-03-01</td>
+                            <td>2024-04-30</td>
+                            <td>100%</td>
+                            <td>95</td>
+                        </tr>
+                        <tr>
+                            <td>创意设计</td>
+                            <td>2024-05-01</td>
+                            <td>2024-06-30</td>
+                            <td>100%</td>
+                            <td>92</td>
+                        </tr>
+                        <tr>
+                            <td>高级设计技巧</td>
+                            <td>2024-07-01</td>
+                            <td>2024-08-31</td>
+                            <td>80%</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        }
+        
+        // 考试预约查询
+        function queryExam(event) {
+            event.preventDefault();
+            const input = event.target.querySelector('input');
+            const resultDiv = document.getElementById('examResult');
+            
+            if (!input.value.trim()) {
+                alert('请输入身份卡号');
+                return;
+            }
+            
+            // 模拟查询结果
+            resultDiv.innerHTML = `
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th>考试名称</th>
+                            <th>考试时间</th>
+                            <th>考试地点</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>设计师认证考试</td>
+                            <td>2024-12-20 14:00</td>
+                            <td>线上考试</td>
+                            <td>已预约</td>
+                            <td><button style="padding: 5px 10px; background-color: #0066cc; color: white; border: none; border-radius: 3px; cursor: pointer;">取消预约</button></td>
+                        </tr>
+                        <tr>
+                            <td>高级设计师考试</td>
+                            <td>2025-01-15 09:00</td>
+                            <td>线上考试</td>
+                            <td>可预约</td>
+                            <td><button style="padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer;">立即预约</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        }
+        
+        // 登录功能
+        document.getElementById('loginBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                alert('请输入账号和密码');
+                return;
+            }
+            
+            alert('登录成功！');
+        });
+        
+        // 考试预约表单处理
+        function handleExamBooking(event) {
+            event.preventDefault();
+            
+            // 获取表单数据
+            const formData = new FormData(event.target);
+            const examName = document.getElementById('examName').value;
+            const name = document.getElementById('name').value;
+            const idCard = document.getElementById('idCard').value;
+            const examDate = document.getElementById('examDate').value;
+            const examLocation = document.getElementById('examLocation').value;
+            const verificationCode = document.getElementById('verificationCode').value;
+            
+            // 验证表单数据
+            if (!examName || !name || !idCard || !examDate || !examLocation || !verificationCode) {
+                alert('请填写所有必填信息');
+                return;
+            }
+            
+            // 生成考试码（8位随机字母数字组合）
+            const generateExamCode = () => {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 排除易混淆字符
+                let code = '';
+                for (let i = 0; i < 8; i++) {
+                    code += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return code;
+            };
+            const examCode = generateExamCode();
+            
+            // 格式化考点名称
+            const locationName = examLocation === 'online' ? '学习中心线上' : '纸质线下';
+            
+            // 显示预约结果
+            const resultDiv = document.getElementById('bookingResult');
+            const detailsDiv = document.getElementById('bookingDetails');
+            
+            // 格式化日期
+            const formattedDate = new Date(examDate).toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // 生成预约详情
+            detailsDiv.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 15px;">
+                    <div><strong>考试名称：</strong></div>
+                    <div>${examName}</div>
+                    <div><strong>姓名：</strong></div>
+                    <div>${name}</div>
+                    <div><strong>身份卡号码：</strong></div>
+                    <div>${idCard}</div>
+                    <div><strong>考试日期：</strong></div>
+                    <div>${formattedDate}</div>
+                    <div><strong>考点：</strong></div>
+                    <div>${locationName}</div>
+                    <div><strong>所属团队：</strong></div>
+                    <div>天马行空创意团队</div>
+                    <div><strong>考试码：</strong></div>
+                    <div style="font-weight: bold; color: #4facfe;">${examCode}</div>
+                    <div><strong>预约时间：</strong></div>
+                    <div>${new Date().toLocaleString('zh-CN')}</div>
+                    <div><strong>预约状态：</strong></div>
+                    <div style="color: #28a745;">预约成功</div>
+                </div>
+            `;
+            
+            resultDiv.style.display = 'block';
+        }
+        
+        // 生成验证码函数（移到全局作用域，以便在所有地方都能访问）
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+            let captcha = '';
+            for (let i = 0; i < 4; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return captcha;
+        }
+        
+        // 保存为图片功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化验证码
+            const captchaImage = document.getElementById('captchaImage');
+            if (captchaImage) {
+                captchaImage.textContent = generateCaptcha();
+                // 点击刷新验证码
+                captchaImage.addEventListener('click', function() {
+                    this.textContent = generateCaptcha();
+                });
+            }
+            
+            // 保存为图片
+            document.getElementById('saveAsImageBtn')?.addEventListener('click', function() {
+                const detailsDiv = document.getElementById('bookingDetails');
+                
+                // 使用html2canvas库将div转换为图片
+                html2canvas(detailsDiv, {
+                    backgroundColor: '#ffffff',
+                    scale: 2
+                }).then(canvas => {
+                    // 创建下载链接
+                    const link = document.createElement('a');
+                    link.href = canvas.toDataURL('image/png');
+                    link.download = 'exam-booking.png';
+                    link.click();
+                });
+            });
+            
+            // 发送到邮箱
+            document.getElementById('sendEmailBtn')?.addEventListener('click', function() {
+                const examName = document.getElementById('examName').value;
+                const name = document.getElementById('name').value;
+                const idCard = document.getElementById('idCard').value;
+                const examDate = document.getElementById('examDate').value;
+                const examLocation = document.getElementById('examLocation').value;
+                const detailsDiv = document.getElementById('bookingDetails');
+                
+                // 从详情中获取考试码和其他信息
+                const examCodeElement = detailsDiv.querySelector('div:nth-child(13)');
+                const examCode = examCodeElement ? examCodeElement.textContent : '';
+                
+                // 格式化日期
+                const formattedDate = new Date(examDate).toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                // 格式化考点名称
+                const locationName = examLocation === 'online' ? '学习中心线上' : '纸质线下';
+                
+                // 生成完整的邮件内容
+            const fullEmailBody = `
+                尊敬的${name}：
+                
+                您的考试预约已成功提交，详情如下：
+                
+                考试名称：${examName}
+                姓名：${name}
+                身份卡号码：${idCard}
+                考试日期：${formattedDate}
+                考点：${locationName}
+                所属团队：天马行空创意团队
+                考试码：${examCode}
+                预约时间：${new Date().toLocaleString('zh-CN')}
+                
+                祝您考试顺利！
+                
+                天马行空创意团队
+            `;
+            
+            // 自动保存图片
+            html2canvas(detailsDiv, {
+                backgroundColor: '#ffffff',
+                scale: 2
+            }).then(canvas => {
+                // 创建下载链接
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'exam-booking.png';
+                link.click();
+                
+                // 跳转到邮箱发送页面
+                const mailtoLink = `mailto:zsz@tmxkcy.xyz?subject=考试预约确认 - ${encodeURIComponent(examName)}&body=${encodeURIComponent(fullEmailBody)}`;
+                window.open(mailtoLink);
+                
+                // 显示成功提示
+                setTimeout(() => {
+                    alert(`预约信息已发送到邮箱 zsz@tmxkcy.xyz！`);
+                }, 1000);
+            });
+            });
+        });
+        
+        // 演职人员申请功能
+        // 头像预览功能
+        let avatarDataURL = ''; // 保存头像的DataURL
+        document.addEventListener('DOMContentLoaded', function() {
+            // 头像上传预览
+            const avatarInput = document.getElementById('avatar');
+            const avatarPreview = document.getElementById('avatarPreview');
+            
+            if (avatarInput && avatarPreview) {
+                avatarInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            avatarDataURL = event.target.result; // 保存头像DataURL
+                            avatarPreview.innerHTML = `<img src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+                
+                // 点击头像预览区域也可以选择图片
+                avatarPreview.addEventListener('click', function() {
+                    avatarInput.click();
+                });
+            }
+            
+            // 演职人员申请验证码
+            const crewCaptchaImage = document.getElementById('crewCaptchaImage');
+            if (crewCaptchaImage) {
+                crewCaptchaImage.textContent = generateCaptcha();
+                // 点击刷新验证码
+                crewCaptchaImage.addEventListener('click', function() {
+                    this.textContent = generateCaptcha();
+                });
+            }
+            
+            // 保存演职人员申请为图片
+            document.getElementById('crewSaveAsImageBtn')?.addEventListener('click', function() {
+                const detailsDiv = document.getElementById('crewDetails');
+                
+                // 使用html2canvas库将div转换为图片
+                html2canvas(detailsDiv, {
+                    backgroundColor: '#ffffff',
+                    scale: 2
+                }).then(canvas => {
+                    // 创建下载链接
+                    const link = document.createElement('a');
+                    link.href = canvas.toDataURL('image/png');
+                    link.download = 'crew-application.png';
+                    link.click();
+                });
+            });
+            
+            // 演职人员申请发送到邮箱
+            document.getElementById('crewSendEmailBtn')?.addEventListener('click', function() {
+                const crewName = document.getElementById('crewName').value;
+                const gender = document.getElementById('gender').value;
+                const wechat = document.getElementById('wechat').value;
+                const qq = document.getElementById('qq').value;
+                const phone = document.getElementById('phone').value;
+                const team = document.getElementById('team').value;
+                const group = document.getElementById('group').value;
+                const detailsDiv = document.getElementById('crewDetails');
+                
+                // 从详情中获取申请码
+                const applicationCodeElement = detailsDiv.querySelector('div:nth-child(15)');
+                const applicationCode = applicationCodeElement ? applicationCodeElement.textContent : '';
+                
+                // 生成完整的邮件内容
+            const fullEmailBody = `
+                尊敬的${crewName}：
+                
+                您的演职人员申请已成功提交，详情如下：
+                
+                姓名：${crewName}
+                性别：${gender}
+                微信：${wechat}
+                QQ：${qq}
+                电话：${phone}
+                所属团队：${team}
+                分组：${group}
+                申请码：${applicationCode}
+                申请时间：${new Date().toLocaleString('zh-CN')}
+                
+                请将申请成功的图片发送到天马行空创意团队公众号或者邮箱：zsz@tmxkcy.xyz
+                发送后会收到回复信息，如不发送则提交不成功，导演将无法收到您的申请信息。
+                
+                感谢您的参与！
+                
+                天马行空创意团队
+            `;
+            
+            // 自动保存图片
+            html2canvas(detailsDiv, {
+                backgroundColor: '#ffffff',
+                scale: 2
+            }).then(canvas => {
+                // 创建下载链接
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'crew-application.png';
+                link.click();
+                
+                // 跳转到邮箱发送页面
+                const mailtoLink = `mailto:zsz@tmxkcy.xyz?subject=演职人员申请确认 - ${encodeURIComponent(crewName)}&body=${encodeURIComponent(fullEmailBody)}`;
+                window.open(mailtoLink);
+                
+                // 显示成功提示
+                setTimeout(() => {
+                    alert(`申请信息已发送到邮箱 zsz@tmxkcy.xyz！`);
+                }, 1000);
+            });
+            });
+        });
+        
+        // 演职人员申请表单处理
+        function handleCrewApplication(event) {
+            event.preventDefault();
+            
+            // 获取表单数据
+            const crewName = document.getElementById('crewName').value;
+            const gender = document.getElementById('gender').value;
+            const wechat = document.getElementById('wechat').value;
+            const qq = document.getElementById('qq').value;
+            const phone = document.getElementById('phone').value;
+            const team = document.getElementById('team').value;
+            const group = document.getElementById('group').value;
+            
+            // 验证表单数据
+            if (!crewName || !gender || !team || !group) {
+                alert('请填写所有必填信息');
+                return;
+            }
+            
+            // 验证至少填写了一种联系方式
+            if (!wechat.trim() && !qq.trim() && !phone.trim()) {
+                alert('请至少填写一种联系方式');
+                return;
+            }
+            
+            // 生成申请码（8位随机字母数字组合）
+            const generateApplicationCode = () => {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 排除易混淆字符
+                let code = '';
+                for (let i = 0; i < 8; i++) {
+                    code += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return 'Crew-' + code;
+            };
+            const applicationCode = generateApplicationCode();
+            
+            // 显示申请结果
+            const resultDiv = document.getElementById('crewResult');
+            const detailsDiv = document.getElementById('crewDetails');
+            
+            // 生成申请详情
+            detailsDiv.innerHTML = `
+                <div style="display: flex; gap: 30px; align-items: flex-start;">
+                    <!-- 头像显示 -->
+                    <div style="flex-shrink: 0;">
+                        <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 3px solid #4facfe; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            ${avatarDataURL ? `<img src="${avatarDataURL}" style="width: 100%; height: 100%; object-fit: cover;">` : '<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); display: flex; align-items: center; justify-content: center; color: #666; font-size: 40px;">📷</div>'}
+                        </div>
+                    </div>
+                    
+                    <!-- 详细信息 -->
+                    <div style="flex: 1;">
+                        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 15px;">
+                            <div><strong>姓名：</strong></div>
+                            <div>${crewName}</div>
+                            <div><strong>性别：</strong></div>
+                            <div>${gender}</div>
+                            <div><strong>微信：</strong></div>
+                            <div>${wechat}</div>
+                            <div><strong>QQ：</strong></div>
+                            <div>${qq}</div>
+                            <div><strong>电话：</strong></div>
+                            <div>${phone}</div>
+                            <div><strong>所属团队：</strong></div>
+                            <div>${team}</div>
+                            <div><strong>分组：</strong></div>
+                            <div>${group}</div>
+                            <div><strong>申请码：</strong></div>
+                            <div style="font-weight: bold; color: #4facfe;">${applicationCode}</div>
+                            <div><strong>申请时间：</strong></div>
+                            <div>${new Date().toLocaleString('zh-CN')}</div>
+                            <div><strong>状态：</strong></div>
+                            <div style="color: #28a745;">申请成功</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 签署确认书 -->
+                <div style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <h4 style="color: #333; margin-bottom: 15px; text-align: center;">《2026年天马行空创意团队“天马行空-马到成功”新春晚会节目演职人员确认签署书》</h4>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">本人${crewName}确认自愿参加2026年天马行空创意团队“天马行空-马到成功”新春晚会的演职工作，承诺遵守团队纪律，按时参加排练和演出，服从导演组安排，认真完成各项任务。</p>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">本节目为团队自行组织并进行收录的类型节目。</p>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">本签署书已经确认本人的肖像权，可以进行节目录制并上传其网络。</p>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">本人保证所提供的所有信息真实有效，如有虚假，愿意承担相应责任。</p>
+                    <p style="line-height: 1.8; margin-bottom: 20px;">晚会时间：2026年2月10日 20:00</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                        <div>
+                            <p style="font-weight: bold; margin-bottom: 10px;">签署人：</p>
+                            <div style="width: 200px; height: 50px; background: white; border: 1px solid #ddd; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #4facfe;">${crewName}</div>
+                        </div>
+                        <div>
+                            <p style="font-weight: bold; margin-bottom: 10px;">签署日期：</p>
+                            <div style="width: 200px; height: 50px; background: white; border: 1px solid #ddd; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #4facfe;">${new Date().toLocaleDateString('zh-CN')}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            resultDiv.style.display = 'block';
+        }
+        
+        // 加载html2canvas库
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        document.head.appendChild(script);
+    </script>
+    <!-- 新年主题样式 -->
+    <link rel="stylesheet" href="css/newyear.css">
+    
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+    
+    <!-- 新年主题功能 -->
+    <script src="js/newyear.js"></script>
+</body>
+</html>

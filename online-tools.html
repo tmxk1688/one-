@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线工具 - 天马行空创意网</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; }
+        .container { width: 1200px; margin: 0 auto; }
+        
+        /* Header */
+        header { background-color: #fff; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .logo img { margin-right: 10px; height: 50px; }
+        .logo-main { font-size: 24px; margin-bottom: 2px; }
+        .logo-sub { font-size: 12px; color: #666; font-weight: normal; }
+        .search { display: flex; }
+        .search input { padding: 8px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; }
+        .search button { padding: 8px 15px; background-color: #0066cc; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        
+        /* Navigation */
+        nav { background-color: #0066cc; margin-top: 10px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { position: relative; }
+        nav ul li a { display: block; padding: 15px 20px; color: white; text-decoration: none; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #0052a3; }
+        nav ul li .dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: #0066cc; min-width: 200px; z-index: 1000; }
+        nav ul li:hover .dropdown { display: block; }
+        nav ul li .dropdown li { display: block; }
+        
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        /* Tools Section */
+        .tools-section {
+            margin-bottom: 30px;
+        }
+        
+        .tools-section h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .tools-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        /* Tool Card */
+        .tool-card {
+            background-color: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: #ddd;
+        }
+        
+        .tool-card h4 {
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .tool-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .tool-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-link:hover {
+            background-color: #0052a3;
+            transform: translateY(-1px);
+        }
+        
+        /* Tool Category */
+        .tool-category {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        /* Search Section */
+        .search-section {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .search-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .search-section form {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-section input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .search-section button {
+            padding: 12px 24px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .search-section button:hover {
+            background-color: #0052a3;
+        }
+        
+        /* Tool Tags */
+        .tool-tags {
+            margin: 10px 0;
+        }
+        
+        .tool-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: #e0e0e0;
+            color: #666;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        /* Footer */
+        footer { background-color: #333; color: white; text-align: center; padding: 20px 0; margin-top: 30px; }
+        
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #ccc;
+        }
+    </style>
+    <!-- 新年主题样式 -->
+    <link rel="stylesheet" href="css/newyear.css">
+    <style>
+        /* 权限码验证弹窗样式 */
+        .permission-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .permission-modal.show {
+            display: flex;
+        }
+        
+        .permission-modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .permission-modal-content h3 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .permission-modal-content p {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .permission-input-group {
+            margin-bottom: 20px;
+        }
+        
+        .permission-input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .permission-input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .permission-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .permission-modal-buttons button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .permission-modal-buttons .btn-primary {
+            background-color: #0066cc;
+            color: white;
+        }
+        
+        .permission-modal-buttons .btn-primary:hover {
+            background-color: #0052a3;
+        }
+        
+        .permission-modal-buttons .btn-cancel {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .permission-modal-buttons .btn-cancel:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* 工具链接样式调整 */
+        .tool-link {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="photo/logo.png" alt="Logo">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="搜索...">
+                <button>🔍</button>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="#">服务系统</a>
+                    <ul class="dropdown">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank">工作系统</a></li>
+                <li>
+                    <a href="#">下载专区</a>
+                    <ul class="dropdown">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="banner">
+        <div class="container banner-content">
+            <h1>在线工具</h1>
+            <p>访问各种实用在线工具，包含录制、设计、AI等工具</p>
+        </div>
+    </div>
+    
+    <div class="container main-content">
+        <!-- 工具搜索 -->
+        <div class="search-section">
+            <h3>搜索工具</h3>
+            <form onsubmit="searchTools(event)">
+                <input type="text" id="searchInput" placeholder="输入工具名称或关键词搜索...">
+                <button type="submit">搜索</button>
+            </form>
+        </div>
+        
+        <!-- 所有工具 -->
+        <div class="tools-section">
+            <h2>实用工具集合</h2>
+            
+            <!-- AI工具 -->
+            <div class="tool-category">
+                <h3>🔍 AI工具</h3>
+                <div class="tools-grid">
+                    <!-- VGO.PUB -->
+                    <div class="tool-card" data-tool-name="VGO.PUB" data-tool-tags="AI,视频,处理">
+                        <h4>VGO.PUB</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">AI</span>
+                            <span class="tool-tag">视频</span>
+                            <span class="tool-tag">处理</span>
+                        </div>
+                        <p>一款强大的AI视频处理工具，支持视频编辑、转码、压缩等功能。</p>
+                        <a href="https://vgo.pub/" class="tool-link" target="_blank">访问工具</a>
+                    </div>
+                    
+                    <!-- FOGSIGHT.AI -->
+                    <div class="tool-card" data-tool-name="Fogsight AI" data-tool-tags="AI,分析,智能">
+                        <h4>Fogsight AI</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">AI</span>
+                            <span class="tool-tag">分析</span>
+                            <span class="tool-tag">智能</span>
+                        </div>
+                        <p>智能AI分析工具，提供图像识别、数据分析等功能。</p>
+                        <a href="https://fogsight.ai/" class="tool-link" target="_blank">访问工具</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 设计工具 -->
+            <div class="tool-category">
+                <h3>🎨 设计工具</h3>
+                <div class="tools-grid">
+                    <!-- FONT.ITTOOLS.CC -->
+                    <div class="tool-card" data-tool-name="字体工具" data-tool-tags="字体,设计,工具">
+                        <h4>字体工具</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">字体</span>
+                            <span class="tool-tag">设计</span>
+                            <span class="tool-tag">工具</span>
+                        </div>
+                        <p>提供字体下载、字体预览、字体转换等字体相关工具。</p>
+                        <a href="https://font.ittools.cc/" class="tool-link" target="_blank">访问工具</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 媒体工具 -->
+            <div class="tool-category">
+                <h3>🎬 媒体工具</h3>
+                <div class="tools-grid">
+                    <!-- TOOLWA.COM/RECORD -->
+                    <div class="tool-card" data-tool-name="在线录屏" data-tool-tags="录屏,视频,录制">
+                        <h4>在线录屏</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">录屏</span>
+                            <span class="tool-tag">视频</span>
+                            <span class="tool-tag">录制</span>
+                        </div>
+                        <p>免费在线录屏工具，支持屏幕录制、摄像头录制等功能。</p>
+                        <a href="https://toolwa.com/record/" class="tool-link" target="_blank">访问工具</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 实用工具 -->
+            <div class="tool-category">
+                <h3>🔧 实用工具</h3>
+                <div class="tools-grid">
+                    <!-- YEAH6.COM -->
+                    <div class="tool-card" data-tool-name="Yeah6工具集" data-tool-tags="工具集,实用,在线">
+                        <h4>Yeah6工具集</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">工具集</span>
+                            <span class="tool-tag">实用</span>
+                            <span class="tool-tag">在线</span>
+                        </div>
+                        <p>集合多种实用在线工具，包括转换、计算、查询等功能。</p>
+                        <a href="https://www.yeah6.com/" class="tool-link" target="_blank">访问工具</a>
+                    </div>
+                    
+                    <!-- PAYWALLBUSTER.COM -->
+                    <div class="tool-card" data-tool-name="Paywall Buster" data-tool-tags="付费墙,绕过,阅读">
+                        <h4>Paywall Buster</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">付费墙</span>
+                            <span class="tool-tag">绕过</span>
+                            <span class="tool-tag">阅读</span>
+                        </div>
+                        <p>帮助绕过付费墙，免费阅读付费文章的工具。</p>
+                        <a href="https://paywallbuster.com/" class="tool-link" target="_blank">访问工具</a>
+                    </div>
+                    
+                    <!-- E123.TOP -->
+                    <div class="tool-card" data-tool-name="E123工具" data-tool-tags="工具,在线,实用">
+                        <h4>E123工具</h4>
+                        <div class="tool-tags">
+                            <span class="tool-tag">工具</span>
+                            <span class="tool-tag">在线</span>
+                            <span class="tool-tag">实用</span>
+                        </div>
+                        <p>提供多种在线实用工具，包括查询、转换、生成等功能。</p>
+                        <a href="https://e123.top/" class="tool-link" target="_blank">访问工具</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利.</p>
+            <div class="disclaimer">
+                <h3>免责声明</h3>
+                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+                <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 工具搜索功能
+        function searchTools(event) {
+            event.preventDefault();
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const toolCards = document.querySelectorAll('.tool-card');
+            
+            if (!searchTerm) {
+                // 如果搜索为空，显示所有工具
+                toolCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                return;
+            }
+            
+            // 搜索工具
+            toolCards.forEach(card => {
+                const toolName = card.dataset.toolName.toLowerCase();
+                const toolTags = card.dataset.toolTags.toLowerCase();
+                
+                if (toolName.includes(searchTerm) || toolTags.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // 添加回车键搜索支持
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchTools(e);
+            }
+        });
+        
+        // 权限码验证功能
+        let currentToolLink = '';
+        
+        // 正确的权限码（实际应用中应该从服务器获取或使用更安全的验证方式）
+        const CORRECT_PERMISSION_CODE = 'tmxk2025';
+        
+        // 文档加载完成后，修改所有工具链接的点击事件
+        document.addEventListener('DOMContentLoaded', function() {
+            const toolLinks = document.querySelectorAll('.tool-link');
+            
+            toolLinks.forEach(link => {
+                // 保存原始链接
+                const originalHref = link.getAttribute('href');
+                // 移除原始链接属性
+                link.removeAttribute('href');
+                // 添加点击事件
+                link.addEventListener('click', function() {
+                    // 保存当前工具链接
+                    currentToolLink = originalHref;
+                    // 显示权限码验证弹窗
+                    showPermissionModal();
+                });
+            });
+        });
+        
+        // 显示权限码验证弹窗
+        function showPermissionModal() {
+            document.getElementById('permissionModal').classList.add('show');
+            // 聚焦到输入框
+            document.getElementById('permissionCode').focus();
+        }
+        
+        // 关闭权限码验证弹窗
+        function closePermissionModal() {
+            document.getElementById('permissionModal').classList.remove('show');
+            // 清空输入框
+            document.getElementById('permissionCode').value = '';
+            // 重置当前工具链接
+            currentToolLink = '';
+        }
+        
+        // 验证权限码
+        function verifyPermissionCode() {
+            const inputCode = document.getElementById('permissionCode').value.trim();
+            
+            if (!inputCode) {
+                alert('请输入访问权限码！');
+                return;
+            }
+            
+            // 验证权限码
+            if (inputCode === CORRECT_PERMISSION_CODE) {
+                // 验证通过，跳转到工具链接
+                window.open(currentToolLink, '_blank');
+                // 关闭弹窗
+                closePermissionModal();
+            } else {
+                // 验证失败，显示错误提示
+                alert('访问权限码错误，请重新输入！');
+                // 清空输入框并聚焦
+                document.getElementById('permissionCode').value = '';
+                document.getElementById('permissionCode').focus();
+            }
+        }
+        
+        // 点击弹窗外部关闭弹窗
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('permissionModal');
+            if (event.target === modal) {
+                closePermissionModal();
+            }
+        });
+        
+        // 按下ESC键关闭弹窗
+        window.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('permissionModal');
+            if (event.key === 'Escape' && modal.classList.contains('show')) {
+                closePermissionModal();
+            }
+        });
+    </script>
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+    
+    <!-- 权限码验证弹窗 -->
+    <div class="permission-modal" id="permissionModal">
+        <div class="permission-modal-content">
+            <h3>工具访问权限验证</h3>
+            <p>请输入访问权限码，以访问该工具</p>
+            <div class="permission-input-group">
+                <label for="permissionCode">访问权限码</label>
+                <input type="text" id="permissionCode" placeholder="请输入访问权限码">
+            </div>
+            <!-- 权限码获取提示 -->
+            <p style="font-size: 14px; color: #fa709a; text-align: center; margin-top: 15px; padding: 10px; background-color: #fff3f6; border-radius: 4px;">
+                💡 提示：访问权限码可通过关注我们的微信公众号获取，回复「权限码」即可获得。
+            </p>
+            <div class="permission-modal-buttons">
+                <button class="btn-primary" onclick="verifyPermissionCode()">验证</button>
+                <button class="btn-cancel" onclick="closePermissionModal()">取消</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

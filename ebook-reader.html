@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电子书阅读 - 天马行空创意网</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; }
+        .container { width: 1200px; margin: 0 auto; }
+        
+        /* Header */
+        header { background-color: #fff; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .logo img { margin-right: 10px; height: 50px; }
+        .logo-main { font-size: 24px; margin-bottom: 2px; }
+        .logo-sub { font-size: 12px; color: #666; font-weight: normal; }
+        .search { display: flex; }
+        .search input { padding: 8px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; }
+        .search button { padding: 8px 15px; background-color: #0066cc; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        
+        /* Navigation */
+        nav { background-color: #0066cc; margin-top: 10px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { position: relative; }
+        nav ul li a { display: block; padding: 15px 20px; color: white; text-decoration: none; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #0052a3; }
+        nav ul li .dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: #0066cc; min-width: 200px; z-index: 1000; }
+        nav ul li:hover .dropdown { display: block; }
+        nav ul li .dropdown li { display: block; }
+        
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Main Content */
+        .main-content { display: flex; margin-top: 20px; gap: 20px; }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-section h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .book-category {
+            margin-bottom: 15px;
+        }
+        
+        .book-category h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .book-list {
+            list-style: none;
+        }
+        
+        .book-list li {
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .book-list li:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Reader Content */
+        .reader-content {
+            flex: 1;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 600px;
+        }
+        
+        .reader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .reader-title {
+            font-size: 24px;
+            color: #0066cc;
+        }
+        
+        .reader-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .control-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* Book Display */
+        .book-display {
+            background-color: #fafafa;
+            padding: 30px;
+            border-radius: 8px;
+            min-height: 400px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        .book-info {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .book-cover {
+            width: 150px;
+            height: 200px;
+            margin: 0 auto 15px;
+            background-color: #eee;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .book-meta {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .book-chapters {
+            margin-top: 20px;
+        }
+        
+        .chapter-list {
+            list-style: none;
+        }
+        
+        .chapter-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .chapter-list li:hover {
+            background-color: #f0f0f0;
+            transform: translateX(5px);
+        }
+        
+        /* Footer */
+        footer { background-color: #333; color: white; text-align: center; padding: 20px 0; margin-top: 30px; }
+        
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0066cc;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <!-- 新年主题样式 -->
+    <link rel="stylesheet" href="css/newyear.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="photo/logo.png" alt="Logo">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="搜索...">
+                <button>🔍</button>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="#">服务系统</a>
+                    <ul class="dropdown">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank">工作系统</a></li>
+                <li>
+                    <a href="#">下载专区</a>
+                    <ul class="dropdown">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="banner">
+        <div class="container banner-content">
+            <h1>电子书阅读</h1>
+            <p>在线浏览精彩电子书，丰富你的知识世界</p>
+        </div>
+    </div>
+    
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>分类浏览</h3>
+                <div class="book-category">
+                    <h4>推荐书籍</h4>
+                    <ul class="book-list" id="recommendedBooks">
+                        <!-- 推荐书籍将通过API加载 -->
+                    </ul>
+                </div>
+                
+                <div class="book-category">
+                    <h4>热门分类</h4>
+                    <ul class="book-list">
+                        <li onclick="loadBooksByCategory('技术')">技术</li>
+                        <li onclick="loadBooksByCategory('文学')">文学</li>
+                        <li onclick="loadBooksByCategory('历史')">历史</li>
+                        <li onclick="loadBooksByCategory('艺术')">艺术</li>
+                        <li onclick="loadBooksByCategory('商业')">商业</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>我的书架</h3>
+                <ul class="book-list" id="myBookshelf">
+                    <!-- 我的书架将通过API加载 -->
+                </ul>
+            </div>
+        </aside>
+        
+        <main class="reader-content">
+            <div class="reader-header">
+                <h2 class="reader-title" id="bookTitle">请选择一本书籍</h2>
+                <div class="reader-controls">
+                    <button class="control-btn" onclick="prevPage()">上一页</button>
+                    <button class="control-btn" onclick="nextPage()">下一页</button>
+                    <select class="control-btn" onchange="changeFontSize(this.value)">
+                        <option value="14">小</option>
+                        <option value="16" selected>中</option>
+                        <option value="18">大</option>
+                        <option value="20">特大</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="book-display" id="bookDisplay">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span>加载书籍列表...</span>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 电子书API配置
+        const EBOOK_API_URL = 'https://api.example.com/ebooks'; // 实际API地址
+        let currentBook = null;
+        let currentPage = 1;
+        let fontSize = 16;
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRecommendedBooks();
+            loadMyBookshelf();
+        });
+        
+        // 加载推荐书籍
+        async function loadRecommendedBooks() {
+            const recommendedBooksList = document.getElementById('recommendedBooks');
+            recommendedBooksList.innerHTML = '<li style="text-align: center; color: #666;">加载中...</li>';
+            
+            try {
+                // 模拟API请求
+                // const response = await fetch(`${EBOOK_API_URL}/recommended`);
+                // const books = await response.json();
+                
+                // 模拟数据
+                const books = [
+                    { id: 1, title: 'JavaScript高级程序设计', author: 'Nicholas C. Zakas' },
+                    { id: 2, title: 'Python编程：从入门到实践', author: 'Eric Matthes' },
+                    { id: 3, title: '设计模式', author: 'Erich Gamma' },
+                    { id: 4, title: '算法导论', author: 'Thomas H. Cormen' }
+                ];
+                
+                recommendedBooksList.innerHTML = '';
+                books.forEach(book => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <strong>${book.title}</strong><br>
+                        <small>${book.author}</small>
+                    `;
+                    li.onclick = () => loadBook(book.id);
+                    recommendedBooksList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('加载推荐书籍失败:', error);
+                recommendedBooksList.innerHTML = '<li style="text-align: center; color: #ff0000;">加载失败</li>';
+            }
+        }
+        
+        // 按分类加载书籍
+        async function loadBooksByCategory(category) {
+            const recommendedBooksList = document.getElementById('recommendedBooks');
+            recommendedBooksList.innerHTML = '<li style="text-align: center; color: #666;">加载中...</li>';
+            
+            try {
+                // 模拟API请求
+                // const response = await fetch(`${EBOOK_API_URL}/category/${encodeURIComponent(category)}`);
+                // const books = await response.json();
+                
+                // 模拟数据
+                const books = [
+                    { id: 5, title: `${category}入门指南`, author: '专家作者' },
+                    { id: 6, title: `${category}进阶实战`, author: '行业专家' },
+                    { id: 7, title: `${category}经典案例`, author: '知名作家' }
+                ];
+                
+                recommendedBooksList.innerHTML = '';
+                books.forEach(book => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <strong>${book.title}</strong><br>
+                        <small>${book.author}</small>
+                    `;
+                    li.onclick = () => loadBook(book.id);
+                    recommendedBooksList.appendChild(li);
+                });
+            } catch (error) {
+                console.error(`加载${category}分类书籍失败:', error`);
+                recommendedBooksList.innerHTML = '<li style="text-align: center; color: #ff0000;">加载失败</li>';
+            }
+        }
+        
+        // 加载我的书架
+        async function loadMyBookshelf() {
+            const myBookshelf = document.getElementById('myBookshelf');
+            myBookshelf.innerHTML = '<li style="text-align: center; color: #666;">加载中...</li>';
+            
+            try {
+                // 模拟API请求
+                // const response = await fetch(`${EBOOK_API_URL}/bookshelf`);
+                // const books = await response.json();
+                
+                // 模拟数据
+                const books = [
+                    { id: 1, title: 'JavaScript高级程序设计', author: 'Nicholas C. Zakas' },
+                    { id: 3, title: '设计模式', author: 'Erich Gamma' }
+                ];
+                
+                myBookshelf.innerHTML = '';
+                if (books.length === 0) {
+                    myBookshelf.innerHTML = '<li style="text-align: center; color: #666;">书架为空</li>';
+                    return;
+                }
+                
+                books.forEach(book => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <strong>${book.title}</strong><br>
+                        <small>${book.author}</small>
+                    `;
+                    li.onclick = () => loadBook(book.id);
+                    myBookshelf.appendChild(li);
+                });
+            } catch (error) {
+                console.error('加载我的书架失败:', error);
+                myBookshelf.innerHTML = '<li style="text-align: center; color: #ff0000;">加载失败</li>';
+            }
+        }
+        
+        // 加载书籍详情
+        async function loadBook(bookId) {
+            const bookDisplay = document.getElementById('bookDisplay');
+            const bookTitle = document.getElementById('bookTitle');
+            
+            bookDisplay.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span>加载书籍内容...</span>
+                </div>
+            `;
+            
+            try {
+                // 模拟API请求
+                // const response = await fetch(`${EBOOK_API_URL}/${bookId}`);
+                // const book = await response.json();
+                
+                // 模拟书籍数据
+                const book = {
+                    id: bookId,
+                    title: 'JavaScript高级程序设计',
+                    author: 'Nicholas C. Zakas',
+                    cover: 'https://example.com/book-cover.jpg',
+                    description: '本书是JavaScript领域的经典著作，全面介绍了JavaScript的核心概念和高级特性。',
+                    chapters: [
+                        { id: 1, title: '第一章：JavaScript概述', content: 'JavaScript是一种轻量级的编程语言...' },
+                        { id: 2, title: '第二章：HTML中的JavaScript', content: '在HTML页面中使用JavaScript...' },
+                        { id: 3, title: '第三章：基本概念', content: 'JavaScript的基本语法和数据类型...' }
+                    ]
+                };
+                
+                currentBook = book;
+                currentPage = 1;
+                
+                bookTitle.textContent = book.title;
+                
+                bookDisplay.innerHTML = `
+                    <div class="book-info">
+                        <div class="book-cover">
+                            <img src="${book.cover}" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                        </div>
+                        <h3>${book.title}</h3>
+                        <p>作者：${book.author}</p>
+                        <p style="color: #666; margin-top: 10px;">${book.description}</p>
+                    </div>
+                    
+                    <div class="book-chapters">
+                        <h3>目录</h3>
+                        <ul class="chapter-list">
+                            ${book.chapters.map(chapter => `
+                                <li onclick="loadChapter(${chapter.id})">
+                                    ${chapter.title}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('加载书籍失败:', error);
+                bookDisplay.innerHTML = '<p style="text-align: center; color: #ff0000;">加载书籍失败，请稍后重试</p>';
+            }
+        }
+        
+        // 加载章节内容
+        function loadChapter(chapterId) {
+            if (!currentBook) return;
+            
+            const chapter = currentBook.chapters.find(ch => ch.id === chapterId);
+            if (!chapter) return;
+            
+            const bookDisplay = document.getElementById('bookDisplay');
+            
+            bookDisplay.innerHTML = `
+                <h3>${chapter.title}</h3>
+                <div id="chapterContent" style="margin-top: 20px; font-size: ${fontSize}px; line-height: 1.8;">
+                    ${chapter.content}
+                    <p style="margin-top: 30px; color: #666;">... 章节内容继续 ...</p>
+                </div>
+            `;
+        }
+        
+        // 上一页
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePageDisplay();
+            }
+        }
+        
+        // 下一页
+        function nextPage() {
+            currentPage++;
+            updatePageDisplay();
+        }
+        
+        // 更新页码显示
+        function updatePageDisplay() {
+            // 实际项目中，这里会根据currentPage加载对应内容
+            console.log('当前页码:', currentPage);
+        }
+        
+        // 更改字体大小
+        function changeFontSize(size) {
+            fontSize = parseInt(size);
+            const chapterContent = document.getElementById('chapterContent');
+            if (chapterContent) {
+                chapterContent.style.fontSize = `${fontSize}px`;
+            }
+        }
+        
+        // 添加到书架
+        function addToBookshelf(bookId) {
+            // 模拟API请求
+            // fetch(`${EBOOK_API_URL}/${bookId}/add-to-shelf`, {
+            //     method: 'POST'
+            // });
+            
+            alert('已添加到书架');
+            loadMyBookshelf(); // 刷新我的书架
+        }
+    </script>
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+</body>
+</html>
