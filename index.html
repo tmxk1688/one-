@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>天马行空创意网 - TianMa Creative Network</title>
+    <link rel="icon" href="photo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="photo/logo.png" type="image/png">
     <style>
         * {
             margin: 0;
@@ -953,6 +955,8 @@
             background-color: #0052a3;
         }
     </style>
+    <!-- 引入二维码生成库 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 </head>
 <body>
     <header>
@@ -1010,28 +1014,22 @@
         </div>
         
         <!-- 新春晚会宣传小窗口 -->
-        <div style="position: absolute; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); width: 250px; animation: float 3s ease-in-out infinite; z-index: 10; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3);">
-            <style>
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-10px); }
-                }
-            </style>
-            <div style="text-align: center; margin-bottom: 15px;">
-                <h3 style="color: #ff4757; margin-bottom: 10px; font-size: 18px; font-weight: bold;">🐎 新春晚会预告 🐎</h3>
-                <h4 style="color: #ff3742; margin-bottom: 15px; font-size: 16px;">天马行空-马到成功</h4>
+        <div style="position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.95); padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 220px; z-index: 10; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3);">
+            <div style="text-align: center; margin-bottom: 12px;">
+                <h3 style="color: #ff4757; margin-bottom: 8px; font-size: 16px; font-weight: bold;">🐎 新春晚会预告</h3>
+                <h4 style="color: #ff3742; margin-bottom: 12px; font-size: 14px;">天马行空-马到成功</h4>
             </div>
-            <div style="margin-bottom: 15px;">
-                <p style="color: #333; font-size: 14px; margin-bottom: 8px;"><strong style="color: #ff4757;">📅 时间：</strong>2026年2月10日 20:00</p>
-                <p style="color: #333; font-size: 14px; margin-bottom: 8px;"><strong style="color: #ff4757;">📍 地点：</strong>线上直播</p>
-                <p style="color: #333; font-size: 14px;"><strong style="color: #ff4757;">📱 直播平台：</strong>抖音 | 哔哩哔哩</p>
+            <div style="margin-bottom: 12px; font-size: 13px;">
+                <p style="color: #333; margin-bottom: 6px;"><strong style="color: #ff4757;">📅</strong> 2026年2月10日 20:00</p>
+                <p style="color: #333; margin-bottom: 6px;"><strong style="color: #ff4757;">📍</strong> 线上直播</p>
+                <p style="color: #333;"><strong style="color: #ff4757;">📱</strong> 抖音 | 哔哩哔哩</p>
             </div>
-            <div style="display: flex; gap: 8px; margin-bottom: 15px; justify-content: center; flex-wrap: wrap;">
-                <span style="background: #ffd700; color: #333; padding: 3px 8px; border-radius: 10px; font-size: 12px; font-weight: bold;">精彩节目</span>
-                <span style="background: #28a745; color: white; padding: 3px 8px; border-radius: 10px; font-size: 12px; font-weight: bold;">互动游戏</span>
-                <span style="background: #007bff; color: white; padding: 3px 8px; border-radius: 10px; font-size: 12px; font-weight: bold;">抽奖活动</span>
+            <div style="display: flex; gap: 6px; margin-bottom: 12px; justify-content: center; flex-wrap: wrap;">
+                <span style="background: #ffd700; color: #333; padding: 2px 6px; border-radius: 8px; font-size: 11px; font-weight: bold;">精彩节目</span>
+                <span style="background: #28a745; color: white; padding: 2px 6px; border-radius: 8px; font-size: 11px; font-weight: bold;">互动游戏</span>
+                <span style="background: #007bff; color: white; padding: 2px 6px; border-radius: 8px; font-size: 11px; font-weight: bold;">抽奖活动</span>
             </div>
-            <a href="newyear-special.html" style="display: block; background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%); color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 14px; font-weight: bold; text-align: center; transition: all 0.3s ease;">立即查看</a>
+            <a href="newyear-special.html" style="display: block; background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%); color: white; padding: 6px 12px; border-radius: 18px; text-decoration: none; font-size: 13px; font-weight: bold; text-align: center; transition: all 0.3s ease;">立即查看</a>
         </div>
     </div>
     
@@ -1100,6 +1098,16 @@
             <div class="content-section">
                 <h2>团队热点</h2>
                 <div class="team-grid">
+                    <a href="program-recruitment.html" style="text-decoration: none; color: #333;">
+                        <div class="team-item" style="cursor: pointer; transition: transform 0.2s; transform: scale(1.05);">
+                            <div style="height: 150px; background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; margin-bottom: 10px; text-align: center; padding: 10px;">
+                                2026年新春晚会节目火热征集中！
+                            </div>
+                            <p style="text-align: center; font-weight: bold; color: #ff6b6b;">点击查看详情</p>
+                            <p style="text-align: center; font-size: 14px; color: #666;">天马行空-马到成功</p>
+                        </div>
+                    </a>
+                    
                     <a href="news-detail1.html" style="text-decoration: none; color: #333;">
                         <div class="team-item" style="cursor: pointer; transition: transform 0.2s; transform: scale(1.05);">
                             <div style="height: 150px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; font-weight: bold; margin-bottom: 10px; text-align: center; padding: 10px;">
@@ -1239,7 +1247,29 @@
     <!-- 回到顶部按钮 -->
     <button id="backToTop" class="back-to-top" title="回到顶部">↑</button>
     
-    <!-- 弹窗广告 -->
+    <!-- 手机版二维码弹窗 -->
+    <div class="popup-ad show" id="mobileQRPopup" style="background-color: rgba(0,0,0,0.8);">
+        <div class="popup-content" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+            <div class="popup-header" style="background-color: transparent; text-align: center; padding: 20px 15px 10px;">
+                <span style="font-size: 24px; font-weight: bold; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.3);">📱 手机版网站</span>
+                <div class="popup-close" id="closeMobileQRPopup" style="background-color: rgba(255,255,255,0.2); color: white; top: 15px; right: 15px; width: 35px; height: 35px; font-size: 28px;">&times;</div>
+            </div>
+            <div class="popup-body" style="text-align: center; padding: 20px;">
+                <!-- 手机版二维码 -->
+                <div style="width: 250px; height: 250px; margin: 0 auto 20px; background-color: white; display: flex; align-items: center; justify-content: center; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); padding: 10px;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=http://m.tmxkcy.xyz" alt="手机版二维码" style="width: 230px; height: 230px;" />
+                </div>
+                <h3 style="color: white; margin-bottom: 15px; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">访问手机版网站</h3>
+                <p style="color: rgba(255,255,255,0.9); font-size: 16px; margin-bottom: 20px; line-height: 1.6;">使用手机浏览器扫描上方二维码，或直接访问 m.tmxkcy.xyz，体验专为移动设备优化的网站版本！</p>
+                <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 20px;">
+                    <a href="http://m.tmxkcy.xyz" target="_blank" style="display: inline-block; padding: 12px 25px; background-color: white; color: #667eea; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;">立即访问</a>
+                    <button id="laterBtn" style="padding: 12px 25px; background-color: transparent; color: white; border: 2px solid white; border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;">稍后再说</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 原弹窗广告 -->
     <div class="popup-ad" id="popupAd">
         <div class="popup-content">
             <div class="popup-header">
@@ -1262,7 +1292,7 @@
     
     <footer>
         <div class="container">
-            <p>© 2024 天马行空创意网. 保留所有权利.</p>
+            <p>© 2024 天马行空创意网. 保留所有权利. <a href="http://m.tmxkcy.xyz" target="_blank" style="color: #0066cc; text-decoration: none;">手机版</a></p>
             <div class="disclaimer">
                 <h3>免责声明</h3>
                 <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
@@ -1354,6 +1384,28 @@
                     backToTopBtn.classList.add('show');
                 } else {
                     backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            // 手机版二维码弹窗关闭功能
+            const mobileQRPopup = document.getElementById('mobileQRPopup');
+            const closeMobileQRPopup = document.getElementById('closeMobileQRPopup');
+            const laterBtn = document.getElementById('laterBtn');
+            
+            // 关闭按钮事件
+            closeMobileQRPopup.addEventListener('click', function() {
+                mobileQRPopup.classList.remove('show');
+            });
+            
+            // 稍后再说按钮事件
+            laterBtn.addEventListener('click', function() {
+                mobileQRPopup.classList.remove('show');
+            });
+            
+            // 点击弹窗外部关闭弹窗
+            mobileQRPopup.addEventListener('click', function(e) {
+                if (e.target === mobileQRPopup) {
+                    mobileQRPopup.classList.remove('show');
                 }
             });
             
@@ -1539,8 +1591,10 @@
             function handleMouseEnter(e) {
                 if (gameOver) return;
                 
-                const row = parseInt(e.target.dataset.row);
-                const col = parseInt(e.target.dataset.col);
+                // 获取落子点元素（考虑事件冒泡）
+                const cell = e.currentTarget;
+                const row = parseInt(cell.dataset.row);
+                const col = parseInt(cell.dataset.col);
                 
                 if (board[row][col] !== '') return;
                 
@@ -1557,11 +1611,12 @@
                 preview.style.top = '2px';
                 preview.style.zIndex = '7';
                 
-                e.target.appendChild(preview);
+                cell.appendChild(preview);
             }
             
             function handleMouseLeave(e) {
-                const preview = e.target.querySelector('.preview-stone');
+                const cell = e.currentTarget;
+                const preview = cell.querySelector('.preview-stone');
                 if (preview) {
                     preview.remove();
                 }
@@ -1571,13 +1626,15 @@
             function handleCellClick(e) {
                 if (gameOver) return;
                 
-                const row = parseInt(e.target.dataset.row);
-                const col = parseInt(e.target.dataset.col);
+                // 获取落子点元素（考虑事件冒泡）
+                const cell = e.currentTarget;
+                const row = parseInt(cell.dataset.row);
+                const col = parseInt(cell.dataset.col);
                 
                 if (board[row][col] !== '') return;
                 
                 // 移除预览棋子
-                const preview = e.target.querySelector('.preview-stone');
+                const preview = cell.querySelector('.preview-stone');
                 if (preview) {
                     preview.remove();
                 }
@@ -1598,7 +1655,7 @@
                 stone.style.top = '2px';
                 stone.style.zIndex = '10';
                 
-                e.target.appendChild(stone);
+                cell.appendChild(stone);
                 
                 // 检查胜负
                 if (checkWin(row, col)) {

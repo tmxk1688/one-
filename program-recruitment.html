@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年天马行空创意团队新春晚会节目火热征集中！</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+        }
+        
+        /* 顶部导航栏 */
+        .header {
+            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: normal;
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", "AR PL UKai CN", "AR PL KaitiM GB", "KaiTi_GB2312", serif;
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 海报容器 */
+        .poster {
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 海报头部 */
+        .poster-header-section {
+            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 装饰元素 */
+        .decoration {
+            position: absolute;
+            font-size: 60px;
+            opacity: 0.15;
+            z-index: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* 浮动动画 */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        /* 装饰元素位置优化 */
+        .decor-left-top {
+            top: 20px;
+            left: 30px;
+            animation-delay: 0s;
+        }
+        
+        .decor-right-top {
+            top: 30px;
+            right: 30px;
+            animation-delay: 1s;
+        }
+        
+        .decor-left-bottom {
+            bottom: 20px;
+            left: 40px;
+            animation-delay: 2s;
+        }
+        
+        .decor-right-bottom {
+            bottom: 30px;
+            right: 40px;
+            animation-delay: 3s;
+        }
+        
+        /* 标题区域 */
+        .poster-header {
+            text-align: center;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+            transform: translateY(-10px);
+        }
+        
+        .poster-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            animation: fadeInDown 1s ease-out;
+            /* 烫金效果 */
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 25%, #ffed4e 50%, #ffd700 75%, #ffffff 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                2px 2px 3px rgba(139, 69, 19, 0.8), /* 深棕色阴影，增强立体感 */
+                -1px -1px 2px rgba(255, 255, 255, 0.5), /* 高光效果，模拟金属反光 */
+                0 0 15px rgba(255, 215, 0, 0.5), /* 金色光晕，增强光泽感 */
+                0 0 30px rgba(255, 215, 0, 0.3); /* 外层光晕，增强奢华感 */
+            animation: 
+                fadeInDown 1s ease-out,
+                shimmer 3s ease-in-out infinite; /* 光泽流动动画 */
+        }
+        
+        .poster-subtitle {
+            font-size: 24px;
+            margin-bottom: 25px;
+            font-weight: 300;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            /* 烫金效果 */
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 25%, #ffed4e 50%, #ffd700 75%, #ffffff 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                1px 1px 2px rgba(139, 69, 19, 0.8), /* 深棕色阴影，增强立体感 */
+                -0.5px -0.5px 1px rgba(255, 255, 255, 0.5), /* 高光效果，模拟金属反光 */
+                0 0 10px rgba(255, 215, 0, 0.4), /* 金色光晕，增强光泽感 */
+                0 0 20px rgba(255, 215, 0, 0.2); /* 外层光晕，增强奢华感 */
+            animation: 
+                fadeInUp 1s ease-out 0.3s both,
+                shimmer 3s ease-in-out infinite 0.3s; /* 光泽流动动画，延迟执行 */
+        }
+        
+        /* 光泽流动动画 */
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        /* 标题淡入动画 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 拉幕动画样式 */
+        .poster-header-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 幕布基础样式 */
+        .curtain {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+            z-index: 10;
+            transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 左侧幕布 */
+        .curtain-left {
+            left: 0;
+            transform-origin: left center;
+            animation: curtain-open-left 2s ease-out 0.5s both;
+        }
+        
+        /* 右侧幕布 */
+        .curtain-right {
+            right: 0;
+            transform-origin: right center;
+            animation: curtain-open-right 2s ease-out 0.5s both;
+        }
+        
+        /* 左侧幕布拉开动画 */
+        @keyframes curtain-open-left {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+        
+        /* 右侧幕布拉开动画 */
+        @keyframes curtain-open-right {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(100%);
+            }
+        }
+        
+        /* 增强视觉效果的阴影 */
+        .curtain::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.3));
+        }
+        
+        .curtain-left::after {
+            right: 0;
+        }
+        
+        .curtain-right::after {
+            left: 0;
+            transform: scaleX(-1);
+        }
+        
+        /* 确保海报内容在幕布之上 */
+        .poster-header-section {
+            position: relative;
+            z-index: 5;
+        }
+        
+        /* 分隔线 */
+        .divider {
+            height: 3px;
+            background: #c8102e;
+            margin: 30px 0;
+            border: none;
+        }
+        
+        /* 播出平台信息模块 */
+        .broadcast-platforms {
+            padding: 20px;
+            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .platforms-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .platforms-title {
+            font-size: 22px;
+            color: white;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", "AR PL UKai CN", "AR PL KaitiM GB", "KaiTi_GB2312", serif;
+        }
+        
+        .platforms-status {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 20px;
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", "AR PL UKai CN", "AR PL KaitiM GB", "KaiTi_GB2312", serif;
+        }
+        
+        .platforms-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            justify-items: center;
+        }
+        
+        .platform-item {
+            font-size: 18px;
+            color: white;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", "AR PL UKai CN", "AR PL KaitiM GB", "KaiTi_GB2312", serif;
+            transition: all 0.3s ease;
+        }
+        
+        .platform-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .broadcast-platforms {
+                padding: 15px;
+            }
+            
+            .platforms-list {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 10px;
+            }
+            
+            .platform-item {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+        }
+        
+        /* 装饰线条 */
+        .decorative-line {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.6);
+            margin: 20px 0;
+            border: none;
+        }
+        
+        /* 标语样式 */
+        .slogan {
+            margin-top: 25px;
+            font-size: 20px;
+            color: white;
+            opacity: 0.95;
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", "AR PL UKai CN", "AR PL KaitiM GB", "KaiTi_GB2312", serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        /* 内容区域通用样式 */
+        .content-section {
+            padding: 40px;
+        }
+        
+        /* 核心信息区域 */
+        .core-info {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .info-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #c8102e;
+            font-weight: bold;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            text-align: center;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-label {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .info-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c8102e;
+        }
+        
+        /* 节目类型区域 */
+        .program-types {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            color: #c8102e;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .program-item {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .program-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-color: #c8102e;
+        }
+        
+        .program-item h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #c8102e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .program-item p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* 要求区域 */
+        .requirements {
+            margin-bottom: 40px;
+        }
+        
+        .requirements ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .requirements li {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #c8102e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .requirements li:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 联系方式区域 */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-info h3 {
+            color: #c8102e;
+            margin-bottom: 25px;
+            font-size: 24px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .contact-item {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .contact-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .contact-item span {
+            color: #666;
+        }
+        
+        /* 二维码区域 */
+        .qr-codes {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .qr-code {
+            text-align: center;
+        }
+        
+        .qr-placeholder {
+            width: 180px;
+            height: 180px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .qr-label {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        /* 底部祝福 */
+        .footer-blessing {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            font-family: "KaiTi", "楷体", "STKaiti", "Kaiti SC", "AR PL UKai CN", "AR PL KaitiM GB", "KaiTi_GB2312", serif;
+        }
+        
+        .blessing-text {
+            font-size: 24px;
+            color: #c8102e;
+            margin-bottom: 15px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+        
+        .blessing-subtext {
+            font-size: 18px;
+            color: #666;
+            line-height: 2;
+        }
+        
+        /* 装饰元素 */
+        .decoration {
+            position: absolute;
+            font-size: 48px;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .decor-left-top {
+            top: 20px;
+            left: 20px;
+        }
+        
+        .decor-right-top {
+            top: 20px;
+            right: 20px;
+        }
+        
+        .decor-left-bottom {
+            bottom: 20px;
+            left: 20px;
+        }
+        
+        .decor-right-bottom {
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .poster {
+                padding: 20px;
+            }
+            
+            .poster-title {
+                font-size: 32px;
+            }
+            
+            .poster-subtitle {
+                font-size: 18px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .qr-codes {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-logo">
+                <img src="photo/logo.png" alt="天马行空创意团队" style="width: 40px; height: 40px; vertical-align: middle;">
+                <span>天马行空创意团队</span>
+            </div>
+            <div class="header-title">2026年新春晚会节目征集</div>
+        </div>
+    </header>
+    
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 海报容器 -->
+        <div class="poster">
+            <!-- 海报头部 -->
+            <div class="poster-header-container">
+                <!-- 拉幕动画容器 -->
+                <div class="curtain curtain-left"></div>
+                <div class="curtain curtain-right"></div>
+                
+                <div class="poster-header-section">
+                    <!-- 装饰元素 -->
+                    <div class="decoration decor-left-top">🏮</div>
+                    <div class="decoration decor-right-top">🎊</div>
+                    <div class="decoration decor-left-bottom">🧧</div>
+                    <div class="decoration decor-right-bottom">🐎</div>
+                    
+                    <!-- 标题区域 -->
+                    <div class="poster-header">
+                        <h1 class="poster-title">2026年新春晚会节目征集活动</h1>
+                        <h2 class="poster-subtitle">天马行空 - 马到成功</h2>
+                        <div class="decorative-line"></div>
+                        <div class="slogan">拥抱创意 点亮人生</div>
+                        
+                        <!-- 播出平台信息模块 -->
+                        <div class="broadcast-platforms">
+                            <div class="platforms-content">
+                                <div class="platforms-status">线上播出</div>
+                                <div class="platforms-list">
+                                    <div class="platform-item">抖音</div>
+                                    <div class="platform-item">Bilibili</div>
+                                    <div class="platform-item">视频号</div>
+                                    <div class="platform-item">天马行空创意网</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 内容区域 -->
+            <div class="content-section">
+                <!-- 核心信息 -->
+                <div class="core-info">
+                    <h3 class="info-title">节目征集</h3>
+                    <p>面向全网公开征集节目，无论您是专业演员还是业余爱好者，只要您有创意、有才华，都可以报名参加！</p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">报名时间</div>
+                            <div class="info-value">2025.12.20起</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">截止日期</div>
+                            <div class="info-value">2026.01.15</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">名单公布</div>
+                            <div class="info-value">2026.01.20</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">晚会时间</div>
+                            <div class="info-value">2026.02.10 20:00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <hr class="divider">
+                
+                <!-- 节目类型 -->
+                <div class="program-types">
+                    <h3 class="section-title">节目类型</h3>
+                    <div class="program-grid">
+                        <div class="program-item">
+                            <h4>🎵 音乐类</h4>
+                            <p>歌曲演唱、乐器演奏、乐队表演等</p>
+                        </div>
+                        <div class="program-item">
+                            <h4>💃 舞蹈类</h4>
+                            <p>民族舞、现代舞、街舞、拉丁舞等</p>
+                        </div>
+                        <div class="program-item">
+                            <h4>🎭 语言类</h4>
+                            <p>相声、小品、朗诵、脱口秀等</p>
+                        </div>
+                        <div class="program-item">
+                            <h4>🎬 影像类</h4>
+                            <p>短片、微电影、创意视频等</p>
+                        </div>
+                        <div class="program-item">
+                            <h4>✨ 其他类</h4>
+                            <p>魔术、杂技、武术、创意表演</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <hr class="divider">
+                
+                <!-- 节目要求 -->
+                <div class="requirements">
+                    <h3 class="section-title">节目要求</h3>
+                    <ul>
+                        <li>内容积极向上，符合社会主义核心价值观，传递正能量</li>
+                        <li>富有创意和创新性，能够展现独特的艺术魅力</li>
+                        <li>主题鲜明，形式新颖，具有观赏性和感染力</li>
+                        <li>节目时长控制在3-10分钟以内，特殊节目可适当延长</li>
+                        <li>节目上传格式为MP4，分辨率不少于1080p60帧</li>
+                        <li>不得侵犯他人知识产权，所有节目内容必须原创或获得合法授权</li>
+                        <li>未成年人参与者必须取得监护人同意</li>
+                    </ul>
+                </div>
+                
+                <!-- 分隔线 -->
+                <hr class="divider">
+                
+                <!-- 联系方式 -->
+                <div class="contact-section">
+                    <div class="contact-info">
+                        <h3>联系方式</h3>
+                        <div class="contact-item">
+                            <strong>邮件主题格式：</strong>
+                            <span>【2026年天马行空创意团队新春晚会节目征集】+姓名+节目名称+内容</span>
+                        </div>
+                        <div class="contact-item">
+                            <strong>团队邮箱：</strong>
+                            <span>zsz@tmxkcy.xyz</span><br>
+                            <span>tmxkcytd@foxmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <strong>官方网站：</strong>
+                            <span><a href="http://www.tmxkcy.xyz" target="_blank" style="color: #c8102e; text-decoration: underline;">http://www.tmxkcy.xyz</a></span>
+                        </div>
+                        <div class="contact-item">
+                            <strong>手机端：</strong>
+                            <span><a href="http://m.tmxkcy.xyz" target="_blank" style="color: #c8102e; text-decoration: underline;">http://m.tmxkcy.xyz</a></span>
+                        </div>
+                        <div class="contact-item">
+                            <strong>投稿窗口：</strong>
+                            <span><a href="https://www.squareshows.com/pages/tmxkcy/" target="_blank" style="color: #c8102e; text-decoration: underline;">https://www.squareshows.com/pages/tmxkcy/</a></span>
+                        </div>
+                    </div>
+                    
+                    <!-- 操作区域 -->
+                    <div class="action-section">
+                        <div class="action-item">
+                            <a href="资料下载/2026年天马行空创意团队“天马行空-马到成功”新春晚会节目征集表.docx" download class="action-btn download-btn">
+                                📥 下载报名表
+                            </a>
+                            <div class="action-label">点击下载节目征集表</div>
+                        </div>
+                        <div class="action-item">
+                            <a href="https://www.squareshows.com/pages/tmxkcy/form/2MQATndM5Jc" target="_blank" class="action-btn apply-btn">
+                                📝 填写申请表
+                            </a>
+                            <div class="action-label">点击进入报名系统</div>
+                        </div>
+                        <div class="action-item">
+                            <a href="资料下载/版权登记说明.txt" download class="action-btn copyright-btn">
+                                ©️ 版权登记说明
+                            </a>
+                            <div class="action-label">点击下载版权登记指南</div>
+                        </div>
+                    </div>
+                    
+                    <style>
+                        /* 操作区域样式 */
+                        .action-section {
+                            display: flex;
+                            gap: 20px;
+                            justify-content: center;
+                            align-items: center;
+                            flex-wrap: wrap;
+                        }
+                        
+                        .action-item {
+                            text-align: center;
+                            min-width: 200px;
+                        }
+                        
+                        .action-btn {
+                            display: block;
+                            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+                            color: white;
+                            text-decoration: none;
+                            padding: 18px 25px;
+                            border-radius: 8px;
+                            font-weight: bold;
+                            transition: all 0.3s ease;
+                            font-size: 16px;
+                            margin-bottom: 15px;
+                            box-shadow: 0 2px 8px rgba(200, 16, 46, 0.2);
+                        }
+                        
+                        .action-btn:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 15px rgba(200, 16, 46, 0.4);
+                        }
+                        
+                        .apply-btn {
+                            background: linear-gradient(135deg, #2ed573 0%, #1e90ff 100%);
+                            box-shadow: 0 2px 8px rgba(46, 213, 115, 0.2);
+                        }
+                        
+                        .apply-btn:hover {
+                            box-shadow: 0 4px 15px rgba(46, 213, 115, 0.4);
+                        }
+                        
+                        .copyright-btn {
+                            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+                            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+                        }
+                        
+                        .copyright-btn:hover {
+                            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+                        }
+                        
+                        .action-label {
+                            font-size: 16px;
+                            color: #333;
+                            font-weight: 500;
+                        }
+                        
+                        /* 响应式设计 */
+                        @media (max-width: 768px) {
+                            .action-section {
+                                flex-direction: column;
+                                gap: 20px;
+                            }
+                            
+                            .action-item {
+                                min-width: auto;
+                                width: 100%;
+                            }
+                        }
+                    </style>
+                </div>
+                
+                <!-- 底部祝福 -->
+                <div class="footer-blessing">
+                    <div class="blessing-text">金鞍耀新春，创意踏歌行！</div>
+                    <div class="blessing-subtext">愿每一个闪耀舞台的你，都如骏马驰聘，不负热爱、不负韶华；</div>
+                    <div class="blessing-subtext">愿天马行空的我们，以灵感为翼，以协作为缰，新岁策马扬鞭，事事马到成功！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 功能按钮区域 -->
+    <div class="function-buttons">
+        <!-- 投稿按钮 -->
+        <div class="popup-container">
+            <!-- 触发按钮 -->
+            <button class="popup-trigger" id="popupTrigger">
+                📝 我要投稿
+            </button>
+            
+            <!-- 弹窗内容 -->
+            <div class="popup-content" id="popupContent">
+                <div class="popup-header">
+                    <h3>节目投稿</h3>
+                    <button class="close-btn" id="closePopup">&times;</button>
+                </div>
+                <div class="popup-body">
+                    <p>点击下方链接前往官方投稿窗口：</p>
+                    <a href="https://www.squareshows.com/pages/tmxkcy/" target="_blank" class="submit-btn">
+                        前往投稿窗口
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 问题反馈按钮 -->
+        <div class="feedback-container">
+            <!-- 触发按钮 -->
+            <button class="feedback-trigger" id="feedbackTrigger">
+                ❓ 帮助中心
+            </button>
+            
+            <!-- 弹窗内容 -->
+            <div class="feedback-content" id="feedbackContent">
+                <div class="popup-header">
+                    <h3>常见问题解答</h3>
+                    <button class="close-btn" id="closeFeedback">&times;</button>
+                </div>
+                <div class="popup-body faq-content">
+                    <!-- 1. 如何报名？ -->
+                    <div class="faq-section">
+                        <h4>1. 如何报名？</h4>
+                        <div class="faq-item">
+                            <strong>报名条件：</strong>
+                            <p>面向全网公开征集，无论您是专业演员还是业余爱好者，只要您有创意、有才华，都可以报名参加。</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>报名流程：</strong>
+                            <ol>
+                                <li>下载并填写节目征集表</li>
+                                <li>准备节目相关材料</li>
+                                <li>通过报名系统提交申请表</li>
+                                <li>等待审核结果通知</li>
+                                <li>审核通过后确认参加</li>
+                            </ol>
+                        </div>
+                        <div class="faq-item">
+                            <strong>报名截止时间：</strong>
+                            <p>2026年1月15日</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>确认方式：</strong>
+                            <p>报名成功后，将通过邮件发送确认信息，请确保邮箱填写正确。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2. 如何投稿？ -->
+                    <div class="faq-section">
+                        <h4>2. 如何投稿？</h4>
+                        <div class="faq-item">
+                            <strong>稿件格式要求：</strong>
+                            <ul>
+                                <li>文件类型：MP4格式</li>
+                                <li>分辨率：不少于1080p60帧</li>
+                                <li>时长：3-10分钟以内，特殊节目可适当延长</li>
+                                <li>命名规范：节目名称+类型+表演者姓名</li>
+                                <li>文件大小：建议不超过500MB</li>
+                            </ul>
+                        </div>
+                        <div class="faq-item">
+                            <strong>内容范围：</strong>
+                            <p>内容积极向上，符合社会主义核心价值观，传递正能量，富有创意和创新性。</p>
+                            <p><strong>禁忌：</strong>不得涉及违法违规内容，不得侵犯他人知识产权。</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>投稿渠道：</strong>
+                            <p>通过官方投稿窗口提交：<a href="https://www.squareshows.com/pages/tmxkcy/" target="_blank" style="color: #c8102e;">https://www.squareshows.com/pages/tmxkcy/</a></p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>审核周期：</strong>
+                            <p>投稿后5-7个工作日内完成审核，审核结果将通过邮件通知。</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>投稿截止时间：</strong>
+                            <p>2026年1月15日</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 联系信息 -->
+                    <div class="faq-contact">
+                        <p>更多问题请联系邮箱：<a href="mailto:zsz@tmxkcy.xyz" style="color: #c8102e;">zsz@tmxkcy.xyz</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 弹窗控制脚本
+        const popupTrigger = document.getElementById('popupTrigger');
+        const popupContent = document.getElementById('popupContent');
+        const closePopup = document.getElementById('closePopup');
+        
+        // 问题反馈弹窗
+        const feedbackTrigger = document.getElementById('feedbackTrigger');
+        const feedbackContent = document.getElementById('feedbackContent');
+        const closeFeedback = document.getElementById('closeFeedback');
+        
+        // 显示投稿弹窗
+        popupTrigger.addEventListener('click', () => {
+            popupContent.style.display = 'block';
+            feedbackContent.style.display = 'none';
+        });
+        
+        // 关闭投稿弹窗
+        closePopup.addEventListener('click', () => {
+            popupContent.style.display = 'none';
+        });
+        
+        // 显示FAQ弹窗
+        feedbackTrigger.addEventListener('click', () => {
+            feedbackContent.style.display = 'block';
+            popupContent.style.display = 'none';
+        });
+        
+        // 关闭FAQ弹窗
+        closeFeedback.addEventListener('click', () => {
+            feedbackContent.style.display = 'none';
+        });
+        
+        // 点击弹窗外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target === popupContent) {
+                popupContent.style.display = 'none';
+            } else if (e.target === feedbackContent) {
+                feedbackContent.style.display = 'none';
+            }
+        });
+    </script>
+    
+    <style>
+        /* 功能按钮容器 */
+        .function-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        /* 弹窗容器通用样式 */
+        .popup-container,
+        .feedback-container {
+            position: relative;
+        }
+        
+        /* 按钮通用样式 */
+        .popup-trigger,
+        .feedback-trigger {
+            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            font-family: 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+        }
+        
+        .popup-trigger:hover,
+        .feedback-trigger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(200, 16, 46, 0.4);
+        }
+        
+        .popup-trigger:active,
+        .feedback-trigger:active {
+            transform: translateY(0);
+        }
+        
+        /* 脉冲动画 */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                box-shadow: 0 6px 25px rgba(200, 16, 46, 0.4);
+            }
+            100% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        /* 弹窗内容通用样式 */
+        .popup-content,
+        .feedback-content {
+            display: none;
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            width: 380px;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        /* 投稿弹窗定位调整 */
+        .popup-content {
+            right: 0;
+        }
+        
+        /* 滑入动画 */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 弹窗头部 */
+        .popup-header {
+            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .popup-header h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 弹窗内容区域 */
+        .popup-body {
+            padding: 25px;
+        }
+        
+        .popup-body p {
+            margin-bottom: 25px;
+            font-size: 16px;
+            text-align: center;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 提交按钮 */
+        .submit-btn {
+            display: block;
+            background: linear-gradient(135deg, #c8102e 0%, #8b0000 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-family: 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+            box-shadow: 0 2px 8px rgba(200, 16, 46, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(200, 16, 46, 0.4);
+        }
+        
+        /* FAQ内容样式 */
+        .faq-content {
+            max-height: 700px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .faq-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .faq-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .faq-section h4 {
+            color: #c8102e;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .faq-item {
+            margin-bottom: 12px;
+        }
+        
+        .faq-item strong {
+            display: block;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .faq-item p {
+            margin: 0 0 8px 0;
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .faq-item ul,
+        .faq-item ol {
+            margin: 0 0 8px 20px;
+            color: #666;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+        
+        .faq-item li {
+            margin-bottom: 6px;
+        }
+        
+        .faq-item a {
+            color: #c8102e;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .faq-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .faq-contact {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .faq-contact p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* 滚动条样式 */
+        .faq-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .faq-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .faq-content::-webkit-scrollbar-thumb {
+            background: #c8102e;
+            border-radius: 4px;
+        }
+        
+        .faq-content::-webkit-scrollbar-thumb:hover {
+            background: #a80e26;
+        }
+        
+        /* Firefox滚动条样式 */
+        .faq-content {
+            scrollbar-width: thin;
+            scrollbar-color: #c8102e #f1f1f1;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .function-buttons {
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                justify-content: center;
+            }
+            
+            .popup-trigger,
+            .feedback-trigger {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .popup-content,
+            .feedback-content {
+                width: 280px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                bottom: 70px;
+            }
+        }
+    </style>
+</body>
+</html>

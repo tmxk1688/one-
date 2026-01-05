@@ -864,8 +864,8 @@
             <div class="content-section live-section">
                 <h2>📺 直播入口</h2>
                 <div class="live-status">直播暂未开始</div>
-                <div class="live-stream" style="display: flex; align-items: center; justify-content: center; background: #000; padding: 20px; border-radius: 10px; margin: 20px 0; height: 500px; color: white; font-size: 24px; font-weight: bold;">
-                    直播暂未开始
+                <div class="live-stream">
+                    <iframe style="width: 100%;height: 500px;" src="https://www.bilibili.com/blackboard/live/live-activity-player.html?cid=1917297360&quality=0" frameborder="no" framespacing="0" scrolling="no" allow="autoplay; encrypted-media" allowfullscreen="true"></iframe>
                 </div>
             </div>
             
@@ -935,6 +935,7 @@
                 <h3>🚀 快速导航</h3>
                 <ul class="sidebar-links">
                     <li><a href="#">直播入口</a></li>
+                    <li><a href="program-recruitment.html">节目征集</a></li>
                     <li><a href="#">节目单下载</a></li>
                     <li><a href="#">精彩回放</a></li>
                     <li><a href="#">晚会花絮</a></li>
@@ -1037,25 +1038,33 @@
         }
         
         // 关闭视频弹窗
-        document.getElementById('close-modal').addEventListener('click', function() {
-            const modal = document.getElementById('video-modal');
-            const video = document.getElementById('popup-video');
-            if (video) {
-                video.pause();
-            }
-            modal.style.display = 'none';
-        });
-        
-        // 点击弹窗外部关闭
-        document.getElementById('video-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
+        const closeModalBtn = document.getElementById('close-modal');
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', function() {
+                const modal = document.getElementById('video-modal');
                 const video = document.getElementById('popup-video');
                 if (video) {
                     video.pause();
                 }
-            }
-        });
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // 点击弹窗外部关闭
+        const videoModal = document.getElementById('video-modal');
+        if (videoModal) {
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                    const video = document.getElementById('popup-video');
+                    if (video) {
+                        video.pause();
+                    }
+                }
+            });
+        }
     </script>
     
     <!--Start of Gullchat.com Script-->
