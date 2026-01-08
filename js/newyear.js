@@ -13,56 +13,9 @@ class NewYearTheme {
     
     // 初始化新年主题
     init() {
-        this.createPopup();
-        this.createCountdownPopup();
         this.createDecorations();
-        this.createCountdownWindow();
         this.startCountdown();
         this.bindEvents();
-    }
-    
-    // 创建新年弹窗
-        createPopup() {
-            // 检查是否已经显示过弹窗
-            const hasSeenPopup = localStorage.getItem('newyearPopupSeen');
-            if (hasSeenPopup) return;
-            
-            // 创建弹窗元素
-            const popup = document.createElement('div');
-            popup.className = 'newyear-popup';
-            popup.innerHTML = `
-                <div class="newyear-popup-content">
-                    <div class="newyear-popup-close">&times;</div>
-                    <div class="newyear-decoration">🧧</div>
-                    <h2 class="newyear-title">新年快乐！</h2>
-                    <p class="newyear-message">
-                        天马行空创意网祝您新年快乐，万事如意！<br>
-                        感谢您一直以来的支持与陪伴！
-                    </p>
-                    <div class="countdown">
-                        <span class="countdown-item" id="days">00</span> 天
-                        <span class="countdown-item" id="hours">00</span> 时
-                        <span class="countdown-item" id="minutes">00</span> 分
-                        <span class="countdown-item" id="seconds">00</span> 秒
-                    </div>
-                    <div class="newyear-live-platforms" style="margin: 15px 0; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; text-align: center;">
-                        <h3 style="color: #ff6b6b; margin-bottom: 10px; font-size: 16px;">📱 直播平台</h3>
-                        <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
-                            <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); color: white; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold;">🎵 抖音</div>
-                            <div style="background: linear-gradient(135deg, #00a1d6 0%, #00b5e5 100%); color: white; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold;">📺 Bilibili</div>
-                        </div>
-                    </div>
-                    <div class="newyear-decoration">🎉</div>
-                    <button class="newyear-btn" id="newyearEnter">进入网站</button>
-                </div>
-            `;
-        
-        document.body.appendChild(popup);
-        this.popup = popup;
-        this.isPopupShown = true;
-        
-        // 记录弹窗已显示
-        localStorage.setItem('newyearPopupSeen', 'true');
     }
     
     // 创建装饰元素 - 挂在banner上
@@ -94,74 +47,6 @@ class NewYearTheme {
                 this.decorations.push(element);
             });
         });
-    }
-    
-    // 创建跨年弹窗 - 显示距离2026年还有多少天
-    createCountdownPopup() {
-        // 检查是否已经显示过跨年弹窗
-        const hasSeenCountdownPopup = localStorage.getItem('newyearCountdownPopupSeen');
-        if (hasSeenCountdownPopup) return;
-        
-        // 设置目标日期为2026年1月1日
-        const targetDate = new Date('2026-01-01T00:00:00');
-        const now = new Date();
-        const diff = targetDate - now;
-        
-        // 如果已经过了2026年，不显示弹窗
-        if (diff <= 0) return;
-        
-        // 创建跨年弹窗元素
-        const countdownPopup = document.createElement('div');
-        countdownPopup.className = 'newyear-countdown-popup';
-        
-        // 计算距离2026年的天数
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        countdownPopup.innerHTML = `
-            <div class="newyear-countdown-popup-content">
-                <div class="newyear-countdown-popup-close">&times;</div>
-                <div class="newyear-countdown-decoration">🎊</div>
-                <h2 class="newyear-countdown-title">距离2026年还有</h2>
-                <div class="newyear-countdown-main">
-                    <div class="newyear-countdown-main-unit">
-                        <span class="newyear-countdown-main-number" id="countdown-popup-days">${String(days).padStart(3, '0')}</span>
-                        <div class="newyear-countdown-main-label">天</div>
-                    </div>
-                    <div class="newyear-countdown-main-unit">
-                        <span class="newyear-countdown-main-number" id="countdown-popup-hours">${String(hours).padStart(2, '0')}</span>
-                        <div class="newyear-countdown-main-label">时</div>
-                    </div>
-                    <div class="newyear-countdown-main-unit">
-                        <span class="newyear-countdown-main-number" id="countdown-popup-minutes">${String(minutes).padStart(2, '0')}</span>
-                        <div class="newyear-countdown-main-label">分</div>
-                    </div>
-                    <div class="newyear-countdown-main-unit">
-                        <span class="newyear-countdown-main-number" id="countdown-popup-seconds">${String(seconds).padStart(2, '0')}</span>
-                        <div class="newyear-countdown-main-label">秒</div>
-                    </div>
-                </div>
-                <div class="newyear-countdown-message">
-                    🎉 新年的钟声即将敲响！<br>
-                    🧧 祝您在新的一年里万事如意！<br>
-                    💫 感谢您一直以来的支持与陪伴！
-                </div>
-                <div class="newyear-countdown-decoration">✨</div>
-                <button class="newyear-btn" id="countdown-popup-enter">进入网站</button>
-            </div>
-        `;
-        
-        document.body.appendChild(countdownPopup);
-        this.countdownPopup = countdownPopup;
-        this.isCountdownPopupShown = true;
-        
-        // 记录跨年弹窗已显示
-        localStorage.setItem('newyearCountdownPopupSeen', 'true');
-        
-        // 开始跨年弹窗的实时倒计时
-        this.startCountdownPopup();
     }
     
     // 创建左下角跨年倒计时窗口
@@ -301,102 +186,14 @@ class NewYearTheme {
         }
     }
     
-    // 开始跨年弹窗的实时倒计时
-    startCountdownPopup() {
-        const targetDate = new Date('2026-01-01T00:00:00');
-        
-        this.updateCountdownPopup(targetDate);
-        this.countdownPopupInterval = setInterval(() => {
-            this.updateCountdownPopup(targetDate);
-        }, 1000);
-    }
-    
-    // 更新跨年弹窗的倒计时
-    updateCountdownPopup(targetDate) {
-        const now = new Date();
-        const diff = targetDate - now;
-        
-        if (diff <= 0) {
-            clearInterval(this.countdownPopupInterval);
-            this.closeCountdownPopup();
-            return;
-        }
-        
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        // 更新跨年弹窗的倒计时显示
-        const popupDaysEl = document.getElementById('countdown-popup-days');
-        const popupHoursEl = document.getElementById('countdown-popup-hours');
-        const popupMinutesEl = document.getElementById('countdown-popup-minutes');
-        const popupSecondsEl = document.getElementById('countdown-popup-seconds');
-        
-        if (popupDaysEl) popupDaysEl.textContent = String(days).padStart(3, '0');
-        if (popupHoursEl) popupHoursEl.textContent = String(hours).padStart(2, '0');
-        if (popupMinutesEl) popupMinutesEl.textContent = String(minutes).padStart(2, '0');
-        if (popupSecondsEl) popupSecondsEl.textContent = String(seconds).padStart(2, '0');
-    }
-    
     // 绑定事件
     bindEvents() {
-        // 关闭弹窗
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('newyear-popup-close') || e.target.id === 'newyearEnter') {
-                this.closePopup();
-            }
-        });
-        
-        // 点击弹窗外部关闭
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('newyear-popup')) {
-                this.closePopup();
-            }
-        });
-        
         // 关闭倒计时窗口
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('countdown-window-close')) {
                 this.closeCountdownWindow();
             }
         });
-        
-        // 关闭倒计时弹窗
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('newyear-countdown-popup-close') || e.target.id === 'countdown-popup-enter') {
-                this.closeCountdownPopup();
-            }
-        });
-        
-        // 点击倒计时弹窗外部关闭
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('newyear-countdown-popup')) {
-                this.closeCountdownPopup();
-            }
-        });
-    }
-    
-    // 关闭弹窗
-    closePopup() {
-        if (this.popup) {
-            this.popup.style.animation = 'fadeOut 0.5s ease';
-            setTimeout(() => {
-                this.popup.remove();
-                this.popup = null;
-            }, 500);
-        }
-    }
-    
-    // 关闭倒计时弹窗
-    closeCountdownPopup() {
-        if (this.countdownPopup) {
-            this.countdownPopup.style.animation = 'fadeOut 0.5s ease';
-            setTimeout(() => {
-                this.countdownPopup.remove();
-                this.countdownPopup = null;
-            }, 500);
-        }
     }
     
     // 关闭倒计时窗口

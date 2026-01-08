@@ -283,15 +283,17 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1) inset;
             font-size: 18px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            border: 2px solid transparent;
+            border: 2px solid rgba(255,255,255,0.2);
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         /* 按钮悬停效果 */
@@ -302,8 +304,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .banner-btn:hover::before {
@@ -311,15 +313,36 @@
         }
         
         .banner-btn:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,255,255,0.3) inset;
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            border-color: rgba(255,255,255,0.5);
+            border-color: rgba(255,255,255,0.6);
         }
         
         .banner-btn:active {
-            transform: translateY(-1px) scale(0.98);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transform: translateY(-2px) scale(0.97);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.2) inset;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .banner-btn {
+                padding: 14px 30px;
+                font-size: 16px;
+                letter-spacing: 0.5px;
+            }
+            
+            .banner-btn:hover {
+                transform: translateY(-4px) scale(1.03);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .banner-btn {
+                padding: 12px 24px;
+                font-size: 14px;
+                border-radius: 40px;
+            }
         }
         
         /* Main Content */
@@ -375,6 +398,30 @@
         .login-options a {
             color: #0066cc;
             text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 2px 6px;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .login-options a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #0066cc, #00aaff);
+            transition: width 0.3s ease;
+        }
+        
+        .login-options a:hover {
+            color: #0052a3;
+            background: rgba(0, 102, 204, 0.1);
+        }
+        
+        .login-options a:hover::after {
+            width: 100%;
         }
         
         .other-login {
@@ -393,11 +440,33 @@
             color: #333;
             text-decoration: none;
             display: block;
-            padding: 5px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar-links li a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 102, 204, 0.2));
+            transition: width 0.3s ease;
+            z-index: -1;
         }
         
         .sidebar-links li a:hover {
             color: #0066cc;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+        }
+        
+        .sidebar-links li a:hover::before {
+            width: 100%;
         }
         
         /* Content */
@@ -618,6 +687,26 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-grid a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 170, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .team-grid a:hover::before {
+            opacity: 1;
         }
         
         /* 响应式设计 */
@@ -883,9 +972,12 @@
         }
         
         .popup-ad .popup-content {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             width: 500px;
             max-width: 90%;
             position: relative;
@@ -893,7 +985,9 @@
         }
         
         .popup-ad .popup-header {
-            background-color: #0066cc;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             color: white;
             padding: 15px;
             font-size: 18px;
@@ -901,6 +995,9 @@
         }
         
         .popup-ad .popup-body {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             padding: 20px;
         }
         
@@ -911,13 +1008,16 @@
         }
         
         .popup-ad .popup-footer {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             padding: 0 20px 20px;
             text-align: center;
         }
         
         .popup-ad .popup-footer p {
             margin-bottom: 15px;
-            color: #666;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         .popup-ad .popup-close {
@@ -955,8 +1055,7 @@
             background-color: #0052a3;
         }
     </style>
-    <!-- 引入二维码生成库 -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    
 </head>
 <body>
     <header>
@@ -989,8 +1088,8 @@
                     <a href="#">服务系统</a>
                     <ul class="dropdown">
                         <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="exam-center.html">在线考试中心</a></li>
                         <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank">团队考核系统</a></li>
-
                     </ul>
                 </li>
                 <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank">工作系统</a></li>
@@ -1249,10 +1348,13 @@
     
     <!-- 手机版二维码弹窗 -->
     <div class="popup-ad show" id="mobileQRPopup" style="background-color: rgba(0,0,0,0.8);">
-        <div class="popup-content" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+        <div class="popup-content" style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 15px; box-shadow: 0 10px 40px rgba(31, 38, 135, 0.37);">
             <div class="popup-header" style="background-color: transparent; text-align: center; padding: 20px 15px 10px;">
                 <span style="font-size: 24px; font-weight: bold; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.3);">📱 手机版网站</span>
                 <div class="popup-close" id="closeMobileQRPopup" style="background-color: rgba(255,255,255,0.2); color: white; top: 15px; right: 15px; width: 35px; height: 35px; font-size: 28px;">&times;</div>
+                <div style="position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 20px; font-size: 14px; font-weight: bold;">
+                    自动关闭 <span id="countdown">3</span>s
+                </div>
             </div>
             <div class="popup-body" style="text-align: center; padding: 20px;">
                 <!-- 手机版二维码 -->
@@ -1273,16 +1375,16 @@
     <div class="popup-ad" id="popupAd">
         <div class="popup-content">
             <div class="popup-header">
-                <span>创意活动推荐</span>
-                <div class="popup-close" id="closePopupAd">&times;</div>
+                <span style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">创意活动推荐</span>
+                <div class="popup-close" id="closePopupAd" style="color: white;">&times;</div>
             </div>
             <div class="popup-body">
                 <!-- 这里可以放置广告图片 -->
                 <div style="height:250px;background-color:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#666;">
                     广告图片区域
                 </div>
-                <h3 style="color:#0066cc;margin-bottom:10px;">创意项目征集</h3>
-                <p>我们正在寻找有创意的项目，欢迎提交你的想法！</p>
+                <h3 style="color:white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); margin-bottom:10px;">创意项目征集</h3>
+                <p style="color: rgba(255, 255, 255, 0.9);">我们正在寻找有创意的项目，欢迎提交你的想法！</p>
             </div>
             <div class="popup-footer">
                 <button class="popup-action">立即参与</button>
@@ -1387,24 +1489,63 @@
                 }
             });
             
+            // 搜索功能
+            const searchDiv = document.querySelector('.search');
+            const searchInput = searchDiv.querySelector('input');
+            const searchButton = searchDiv.querySelector('button');
+            
+            // 添加按钮点击事件
+            searchButton.addEventListener('click', function() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                }
+            });
+            
+            // 添加回车键提交
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                    }
+                }
+            });
+            
             // 手机版二维码弹窗关闭功能
             const mobileQRPopup = document.getElementById('mobileQRPopup');
             const closeMobileQRPopup = document.getElementById('closeMobileQRPopup');
             const laterBtn = document.getElementById('laterBtn');
+            const countdownEl = document.getElementById('countdown');
+            let countdown = 3;
+            
+            // 倒计时自动关闭功能
+            const countdownInterval = setInterval(function() {
+                countdown--;
+                countdownEl.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    mobileQRPopup.classList.remove('show');
+                }
+            }, 1000);
             
             // 关闭按钮事件
             closeMobileQRPopup.addEventListener('click', function() {
+                clearInterval(countdownInterval);
                 mobileQRPopup.classList.remove('show');
             });
             
             // 稍后再说按钮事件
             laterBtn.addEventListener('click', function() {
+                clearInterval(countdownInterval);
                 mobileQRPopup.classList.remove('show');
             });
             
             // 点击弹窗外部关闭弹窗
             mobileQRPopup.addEventListener('click', function(e) {
                 if (e.target === mobileQRPopup) {
+                    clearInterval(countdownInterval);
                     mobileQRPopup.classList.remove('show');
                 }
             });
@@ -1893,9 +2034,16 @@
     <link rel="stylesheet" href="css/newyear.css">
     <!-- 新年主题脚本 -->
     <script src="js/newyear.js"></script>
+    <script src="js/search-common.js"></script>
     
     <!--Start of Gullchat.com Script-->
     <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
     <!--End of Gullchat.com Script-->
+    
+    <!-- Wenjuan Layer Begin -->
+    <div id="idy_floatdiv" style="position:fixed;left:0;bottom:0%;width:24px;height:76px;background:#E6B30B;line-height: 24px;writing-mode:vertical-rl;text-align:center;font-family:PingFangSC-Regular;font-size:12px;">
+        <a href="https://www.wenjuan.com/s/UZBZJvkySyB/" target="blank" style="color:#ffffff;text-decoration:none;">加入我们</a>
+    </div>
+    <!-- Wenjuan Layer End -->
 </body>
 </html>
