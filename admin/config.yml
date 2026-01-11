@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: tmxk1688/tmxkcy.xyz
+  branch: main
+
+media_folder: "static/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "news"
+    label: "新闻"
+    folder: "content/news"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime" }
+      - { label: "作者", name: "author", widget: "string" }
+      - { label: "摘要", name: "excerpt", widget: "text" }
+      - { label: "内容", name: "body", widget: "markdown" }
+      - { label: "封面图", name: "cover_image", widget: "image", required: false }

@@ -390,5 +390,164 @@
     <!--End of Gullchat.com Script-->
     <!-- 通用搜索功能 -->
     <script src="js/search-common.js"></script>
+    
+    <!-- 静态新闻内容加载脚本 -->
+    <script>
+        // 静态新闻数据缓存
+        let newsCache = null;
+        let lastUpdateTime = 0;
+        const CACHE_DURATION = 30 * 60 * 1000; // 30分钟缓存
+        
+        // DOM元素
+        const newsList = document.querySelector('.news-list');
+        
+        // 显示加载状态
+        function showLoading() {
+            newsList.innerHTML = '<li class="news-item loading" style="text-align: center; padding: 40px; color: #0066cc; font-size: 16px;">加载中...</li>';
+        }
+        
+        // 显示错误信息
+        function showError(message) {
+            newsList.innerHTML = `
+                <li class="news-item error" style="text-align: center; padding: 40px; color: #ff4444; font-size: 16px;">
+                    <p>${message}</p>
+                    <button onclick="loadNews()" style="margin-top: 20px; padding: 10px 20px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">重试</button>
+                </li>
+            `;
+        }
+        
+        // 渲染新闻列表
+        function renderNews(newsItems) {
+            if (!newsItems || newsItems.length === 0) {
+                newsList.innerHTML = '<li class="news-item empty" style="text-align: center; padding: 40px; color: #999; font-size: 16px;">暂无新闻内容</li>';
+                return;
+            }
+            
+            // 按日期排序（最新在前）
+            newsItems.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // 渲染新闻列表
+            newsList.innerHTML = newsItems.map(item => `
+                <li class="news-item">
+                    ${item.cover_image ? `<img src="${item.cover_image}" alt="${item.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">` : ''}
+                    <h3><a href="news/${item.slug}.html">${item.title}</a></h3>
+                    <div class="news-meta">
+                        <span>📅 ${new Date(item.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                        ${item.author ? `<span>👤 ${item.author}</span>` : ''}
+                        ${item.read_count ? `<span>👁️ 阅读：${item.read_count}</span>` : ''}
+                    </div>
+                    <div class="news-excerpt">
+                        ${item.excerpt}
+                    </div>
+                    <a href="news/${item.slug}.html" class="news-read-more">阅读更多</a>
+                </li>
+            `).join('');
+        }
+        
+        // 加载静态新闻内容
+        function loadNews() {
+            // 检查缓存是否有效
+            const now = Date.now();
+            if (newsCache && (now - lastUpdateTime) < CACHE_DURATION) {
+                renderNews(newsCache);
+                return;
+            }
+            
+            showLoading();
+            
+            // 尝试从多种来源加载新闻
+            const loadPromises = [
+                // 1. 从本地JSON文件加载（构建时生成）
+                fetch('static/news.json').then(res => res.json()),
+                // 2. 从GitHub API加载（作为 fallback）
+                fetch('https://api.github.com/repos/tmxk1688/tmxkcy.xyz/contents/content/news?ref=main')
+                    .then(res => res.json())
+                    .then(files => {
+                        // 过滤出Markdown文件
+                        const mdFiles = files.filter(file => file.name.endsWith('.md'));
+                        
+                        // 加载并解析每个新闻文件
+                        return Promise.all(mdFiles.map(file => {
+                            return fetch(file.download_url)
+                                .then(res => res.text())
+                                .then(content => {
+                                    // 解析Markdown文件头和内容
+                                    const frontmatterRegex = /---[\s\S]*?---/;
+                                    const frontmatterMatch = content.match(frontmatterRegex);
+                                    let frontmatter = {};
+                                    let body = content;
+                                    
+                                    if (frontmatterMatch) {
+                                        const frontmatterText = frontmatterMatch[0].replace(/---/g, '');
+                                        body = content.replace(frontmatterRegex, '');
+                                        
+                                        // 解析YAML frontmatter
+                                        frontmatterText.split('\n').forEach(line => {
+                                            const parts = line.split(':');
+                                            if (parts.length >= 2) {
+                                                const key = parts[0].trim();
+                                                const value = parts.slice(1).join(':').trim().replace(/^['"]|['"]$/g, '');
+                                                frontmatter[key] = value;
+                                            }
+                                        });
+                                    }
+                                    
+                                    return {
+                                        title: frontmatter.title || '无标题',
+                                        date: frontmatter.date || file.updated_at,
+                                        author: frontmatter.author || '未知作者',
+                                        excerpt: frontmatter.excerpt || body.substring(0, 150) + '...',
+                                        slug: file.name.replace('.md', ''),
+                                        cover_image: frontmatter.cover_image || '',
+                                        read_count: Math.floor(Math.random() * 200) + 50 // 模拟阅读量
+                                    };
+                                });
+                        }));
+                    })
+            ];
+            
+            // 使用Promise.race来获取最快的响应
+            Promise.race(loadPromises)
+                .then(newsItems => {
+                    if (Array.isArray(newsItems)) {
+                        // 更新缓存
+                        newsCache = newsItems;
+                        lastUpdateTime = now;
+                        
+                        // 渲染新闻
+                        renderNews(newsItems);
+                    } else {
+                        throw new Error('Invalid news data format');
+                    }
+                })
+                .catch(error => {
+                    console.error('加载新闻失败:', error);
+                    
+                    // 如果有缓存，使用缓存数据
+                    if (newsCache) {
+                        renderNews(newsCache);
+                    } else {
+                        showError('加载新闻失败，请稍后重试');
+                    }
+                });
+        }
+        
+        // 初始化加载新闻
+        document.addEventListener('DOMContentLoaded', loadNews);
+        
+        // 监听页面可见性变化，当页面重新可见时更新新闻
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                loadNews();
+            }
+        });
+        
+        // 添加定期更新机制
+        setInterval(() => {
+            if (!document.hidden) {
+                loadNews();
+            }
+        }, 60 * 60 * 1000); // 每小时更新一次
+    </script>
 </body>
 </html>
