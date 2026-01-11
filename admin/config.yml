@@ -1,10 +1,20 @@
+# Decap CMS 配置文件
+# 注意：此文件与index.html中的配置协同工作
+# 完整配置请参考index.html中的详细说明
+
 backend:
   name: github
-  repo: tmxk1688/tmxkcy.xyz
-  branch: main
+  auth_type: pkce  # 使用PKCE认证，更安全且无需客户端密钥
+  repo: tmxk1688/one-  # GitHub仓库，格式：用户名/仓库名
+  branch: main  # 分支名称
+  base_url: https://github.com  # OAuth2服务器基础URL
+  # 以下是PKCE认证必需的app_id，需要从GitHub OAuth App获取
+  # 请替换为您在GitHub创建的OAuth App的Client ID
+  app_id: Ov23liMVe0P8Zf9PeTb5  # 必需！缺少此参数会导致404错误
 
-media_folder: "static/uploads"
-public_folder: "/uploads"
+# 媒体文件配置
+media_folder: "static/uploads"  # 媒体文件存储目录（相对于仓库根目录）
+public_folder: "/uploads"  # 媒体文件访问路径（相对于网站根目录）
 
 collections:
   - name: "news"
