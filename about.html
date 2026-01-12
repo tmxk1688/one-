@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于我们 - 天马行空创意网</title>
+    <meta name="description" content="天马行空创意团队是一支活跃的创意团队，致力于多种创意项目，包括微电影、短片和社交媒体内容。">
+    <meta name="keywords" content="天马行空创意团队,微电影,短片,社交媒体内容,创意项目">
+    <meta name="author" content="天马行空创意团队">
+    <meta name="robots" content="index, follow">
+    <title>关于我们 - 天马行空创意网 - TianMa Creative Network</title>
     <link rel="icon" href="photo/logo.png" type="image/png">
-    <link rel="shortcut icon" href="photo/logo.png" type="image/png">天马行空创意网 - TianMa Creative Network</title>
+    <link rel="shortcut icon" href="photo/logo.png" type="image/png">
     <style>
         /* 复用首页的CSS样式 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,9 +36,39 @@
             color: #666; 
             font-weight: normal; 
         }
-        .search { display: flex; }
-        .search input { padding: 8px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; }
-        .search button { padding: 8px 15px; background-color: #0066cc; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        .search { display: flex; gap: 0; }
+        .search input { 
+            padding: 8px 12px; 
+            width: 300px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px 0 0 4px; 
+            border-right: none; 
+            outline: none; 
+            transition: border-color 0.3s;
+        }
+        .search button { 
+            padding: 8px 15px; 
+            background: linear-gradient(135deg, #0066cc, #00aaff); 
+            color: white; 
+            border: none; 
+            border-radius: 0 4px 4px 0; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            font-weight: bold;
+        }
+        .slogan {
+            font-size: 20px; 
+            font-weight: bold; 
+            background: linear-gradient(135deg, #0066cc, #00aaff); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            font-family: 'STXingkai', 'STKaiti', cursive; 
+            letter-spacing: 3px; 
+            font-stretch: expanded;
+        }
         nav { background-color: #0066cc; margin-top: 10px; }
         nav ul { display: flex; list-style: none; }
         nav ul li { position: relative; }
@@ -308,9 +342,86 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        
+      /* 弹窗广告 */
         .popup-ad .popup-action:hover {
             background-color: #0052a3;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* 头部响应式 */
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .slogan {
+                display: none;
+            }
+            
+            .search input {
+                width: 250px;
+            }
+            
+            /* 导航响应式 */
+            nav ul {
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                flex: 1 1 50%;
+            }
+            
+            nav ul li .dropdown {
+                width: 100%;
+            }
+            
+            /* 主内容响应式 */
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            /* 广告响应式 */
+            .wechat-ad {
+                display: none;
+            }
+            
+            /* banner响应式 */
+            .banner {
+                padding: 40px 0;
+            }
+            
+            .banner h1 {
+                font-size: 24px;
+            }
+            
+            .banner p {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            nav ul li {
+                flex: 1 1 100%;
+            }
+            
+            .search input {
+                width: 200px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -324,12 +435,12 @@
                     <div class="logo-sub">TianMa Creative Network</div>
                 </div>
             </div>
-            <div class="slogan" style="font-size: 20px; font-weight: bold; background: linear-gradient(135deg, #0066cc, #00aaff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 2px 4px rgba(0,0,0,0.1); font-family: 'STXingkai', 'STKaiti', cursive; letter-spacing: 3px; font-stretch: expanded;">
+            <div class="slogan">
                 拥抱创意 点亮人生
             </div>
-            <div class="search" style="display: flex; gap: 0;">
-                <input type="text" placeholder="搜索..." style="padding: 8px 12px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; border-right: none; outline: none; transition: border-color 0.3s;">
-                <button style="padding: 8px 15px; background: linear-gradient(135deg, #0066cc, #00aaff); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-weight: bold;">
+            <div class="search">
+                <input type="text" placeholder="搜索...">
+                <button type="button">
                     🔍
                 </button>
             </div>
@@ -379,7 +490,7 @@
                     <button type="submit">登录</button>
                     <div class="login-options">
                         <a href="#">手机快捷登录</a>
-                        <a href="#">注册></a>
+                        <a href="#">注册&gt;</a>
                     </div>
                     <div class="other-login">
                         
@@ -409,7 +520,7 @@
                 <div class="about-content">
                     <p>天马行空创意团队是一支活跃的创意团队，致力于多种创意项目，包括微电影、短片和社交媒体内容。我们始终保持着对创意的热爱和追求，不断探索新的创作领域和表现形式，为观众带来优质的创意内容。</p>
                     <p>团队成员充满活力和创意，他们来自不同的专业背景，拥有丰富的行业经验和专业技能。在天马行空，每个人都能充分发挥自己的创意才华，共同为客户创造价值。</p>
-                    <img src="photo/team-photo.jpg" alt="团队照片">
+                    <img src="photo/team-photo.jpg" alt="团队照片" loading="lazy">
                 </div>
             </div>
             
@@ -487,24 +598,74 @@
     </footer>
     
     <script>
-        // 广告相关JavaScript
+        // 增强交互体验
         document.addEventListener('DOMContentLoaded', function() {
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
             // 公众号广告关闭按钮
             const closeWechatAd = document.getElementById('closeWechatAd');
             const wechatAd = document.querySelector('.wechat-ad');
             
-            closeWechatAd.addEventListener('click', function() {
-                wechatAd.style.display = 'none';
+            if (closeWechatAd && wechatAd) {
+                closeWechatAd.addEventListener('click', function() {
+                    wechatAd.style.display = 'none';
+                });
+            }
+            
+            // 内容渐入动画
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // 为内容区块添加动画
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+            
+            // 图片加载动画
+            document.querySelectorAll('img').forEach(img => {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s ease';
+                
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+                
+                // 如果图片已经加载完成
+                if (img.complete) {
+                    img.style.opacity = '1';
+                }
             });
         });
     </script>
-    <!--Start of Gullchat.com Script-->
-    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
-    <!--End of Gullchat.com Script-->
     <!-- 新年主题样式 -->
     <link rel="stylesheet" href="css/newyear.css">
-    <!-- 新年主题脚本 -->
-    <script src="js/newyear.js"></script>
-    <script src="js/search-common.js"></script>
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default" defer></script>
+    <!--End of Gullchat.com Script-->
+    <!-- 外部脚本 -->
+    <script src="js/newyear.js" defer></script>
+    <script src="js/search-common.js" defer></script>
 </body>
 </html>

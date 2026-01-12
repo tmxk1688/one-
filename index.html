@@ -1,175 +1,2602 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Content Manager</title>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天马行空创意网 - TianMa Creative Network</title>
+    
+    <!-- Meta Description -->
+    <meta name="description" content="天马行空创意网 — 汇聚设计、技术与内容创作者，展示作品、发现合作与灵感">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0b63ff">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="天马行空创意网">
+    <meta property="og:description" content="天马行空创意网 — 汇聚设计、技术与内容创作者，展示作品、发现合作与灵感">
+    <meta property="og:image" content="https://tmxkcy.xyz/banners/banner1.jpg">
+    <meta property="og:url" content="https://tmxkcy.xyz">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="天马行空创意网">
+    <meta name="twitter:description" content="天马行空创意网 — 汇聚设计、技术与内容创作者，展示作品、发现合作与灵感">
+    <meta name="twitter:image" content="https://tmxkcy.xyz/banners/banner1.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="photo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="photo/logo.png" type="image/png">
+    
+    <!-- 预加载首屏关键图片 -->
+    <link rel="preload" as="image" href="photo/logo.png">
+    <link rel="preload" as="image" href="banners/banner1.jpg">
     <style>
-      /* 简单的加载样式 */
-      .loading {
-        text-align: center;
-        padding: 40px;
-        font-family: Arial, sans-serif;
-        color: #333;
-      }
-      
-      .error {
-        text-align: center;
-        padding: 40px;
-        font-family: Arial, sans-serif;
-        color: #ff4444;
-      }
-      
-      .instructions {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background: #f5f5f5;
-        border-radius: 8px;
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-      }
-      
-      .instructions h2 {
-        color: #0066cc;
-      }
-      
-      .instructions code {
-        background: #e0e0e0;
-        padding: 2px 6px;
-        border-radius: 3px;
-        font-family: monospace;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- 加载状态 -->
-    <div id="loading" class="loading">
-      <h1>正在加载内容管理系统...</h1>
-      <p>请稍候...</p>
-    </div>
-    
-    <!-- 错误信息 -->
-    <div id="error" class="error" style="display: none;">
-      <h1>加载失败</h1>
-      <p>无法加载内容管理系统，请检查以下问题：</p>
-      <ul style="text-align: left; max-width: 500px; margin: 20px auto;">
-        <li>确保通过HTTP/HTTPS访问，而不是直接打开本地文件</li>
-        <li>检查浏览器控制台获取详细错误信息</li>
-        <li>确保所有脚本正确加载</li>
-      </ul>
-      <button onclick="window.location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">
-        重试
-      </button>
-    </div>
-    
-    <!-- Decap CMS 脚本 -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    
-    <!-- 自定义CMS配置 -->
-    <script>
-      // 确保DOM加载完成后执行
-      document.addEventListener('DOMContentLoaded', function() {
-        try {
-          // 检查DecapCMS是否加载成功
-          if (typeof DecapCMS === 'undefined') {
-            throw new Error('DecapCMS 脚本未正确加载');
-          }
-          
-          console.log('DecapCMS 脚本已加载');
-          
-          // 初始化CMS，使用完整配置，不依赖外部config.yml
-              DecapCMS.init({
-                config: {
-                  backend: {
-                    name: 'github',
-                    repo: 'tmxk1688/one-',
-                    branch: 'main',
-                    auth_type: 'pkce', // 使用PKCE认证，无需配置base_url
-                    // 注意：不要设置base_url，Decap CMS会自动使用GitHub的默认OAuth端点
-                    // base_url: 'https://github.com', // 移除或注释掉这行
-                    app_id: 'Ov23liMVe0P8Zf9PeTb5'
-                  },
-              media_folder: 'static/uploads',
-              public_folder: '/uploads',
-              collections: [
-                {
-                  name: 'news',
-                  label: '新闻',
-                  folder: 'content/news',
-                  create: true,
-                  slug: '{{slug}}',
-                  fields: [
-                    { label: '标题', name: 'title', widget: 'string' },
-                    { label: '发布日期', name: 'date', widget: 'datetime' },
-                    { label: '作者', name: 'author', widget: 'string' },
-                    { label: '摘要', name: 'excerpt', widget: 'text' },
-                    { label: '内容', name: 'body', widget: 'markdown' },
-                    { label: '封面图', name: 'cover_image', widget: 'image', required: false }
-                  ]
-                }
-              ]
-            }
-          });
-          
-          // 隐藏加载状态
-          document.getElementById('loading').style.display = 'none';
-          
-          console.log('Decap CMS 配置已加载');
-          console.log('当前配置:', {
-            repo: 'tmxk1688/one-',
-            auth_type: 'pkce',
-            branch: 'main',
-            base_url: 'https://github.com',
-            app_id: 'Ov23liMVe0P8Zf9PeTb5'
-          });
-          
-        } catch (error) {
-          console.error('CMS 初始化失败:', error);
-          
-          // 显示错误信息
-          document.getElementById('loading').style.display = 'none';
-          document.getElementById('error').style.display = 'block';
+        :root {
+            --primary: #0b63ff;
+            --primary-hover: #f1ff2e;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --muted: #6b7280;
+            --glass: rgba(255,255,255,0.72);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+            --focus-color: var(--primary);
+            
+            /* 浅色模式背景和文本颜色 */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #343a40;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
         }
-      });
-    </script>
+        
+        /* 深色模式样式 */
+        [data-theme="dark"] {
+            --primary: #3a86ff;
+            --primary-hover: #2563eb;
+            --secondary: #9ca3af;
+            --success: #34d399;
+            --danger: #ef4444;
+            --warning: #fbbf24;
+            --info: #60a5fa;
+            --light: #1f2937;
+            --dark: #f9fafb;
+            --muted: #9ca3af;
+            --glass: rgba(31,41,55,0.72);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.5);
+            
+            /* 深色模式背景和文本颜色 */
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --border-color: #374151;
+        }
+        
+        /* 明显的focus可视样式，增强键盘可访问性 */
+        button:focus,
+        a:focus,
+        input:focus,
+        select:focus,
+        textarea:focus,
+        .banner-btn:focus,
+        .sidebar-links a:focus,
+        .login-options a:focus {
+            outline: 2px solid var(--focus-color);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(11, 99, 255, 0.25);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: background-color var(--transition), color var(--transition);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            box-sizing: border-box;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--bg-primary);
+            padding: 10px 0;
+            box-shadow: var(--shadow-sm);
+            transition: background-color var(--transition), box-shadow var(--transition);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        
+        .logo img {
+            margin-right: 10px;
+            height: 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-main {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+        
+        .logo-sub {
+            font-size: 12px;
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .search {
+            display: flex;
+        }
+        
+        .search input {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .search button {
+            padding: 8px 15px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #0066cc;
+            margin-top: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: #0052a3;
+        }
+        
+        /* Dropdown */
+        nav ul li .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0066cc;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+        
+        nav ul li .dropdown li {
+            display: block;
+        }
+        
+        /* Banner */
+        .banner {
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+            /* 固定高度，确保banner区域稳定 */
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            /* 默认背景渐变，当图片不存在时显示 */
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        /* 层叠图片样式 */
+        .banner .bg-layer {
+            position: absolute;
+            inset: 0;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        /* 显示当前图片 */
+        .banner .bg-layer.show {
+            opacity: 1;
+        }
+        
+        /* 渐变叠加层，确保文字清晰 */
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+            transition: all 0.5s ease;
+        }
+        
+        /* 简化鼠标悬停效果 */
+        .banner:hover::before {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.25));
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+            margin: 0 auto;
+        }
+        
+        .banner h1 {
+            font-size: clamp(36px, 6vw, 56px);
+            margin: 0 0 30px;
+            text-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 30px rgba(255,255,255,0.4);
+            font-weight: 900;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        .banner p {
+            font-size: clamp(18px, 3vw, 24px);
+            margin: 0 auto 45px;
+            max-width: 700px;
+            line-height: 1.8;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.35);
+            color: rgba(255,255,255,0.95);
+            font-weight: 400;
+            background: transparent;
+            padding: 18px 35px;
+            border-radius: 40px;
+            backdrop-filter: none;
+            box-shadow: none;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .banner-btn {
+            display: inline-block;
+            padding: 20px 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 0 2px rgba(255,255,255,0.15) inset;
+            font-size: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2;
+            transform: perspective(1000px) translateZ(0);
+        }
+        
+        /* 按钮悬停效果 */
+        .banner-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .banner-btn:hover::before {
+            left: 100%;
+        }
+        
+        .banner-btn:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,255,255,0.3) inset;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            border-color: rgba(255,255,255,0.6);
+        }
+        
+        .banner-btn:active {
+            transform: translateY(-2px) scale(0.97);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.2) inset;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .banner-btn {
+                padding: 14px 30px;
+                font-size: 16px;
+                letter-spacing: 0.5px;
+            }
+            
+            .banner-btn:hover {
+                transform: translateY(-4px) scale(1.03);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .banner-btn {
+                padding: 12px 24px;
+                font-size: 14px;
+                border-radius: 40px;
+            }
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        
+        /* 响应式布局：在小屏幕上将主内容区域改为垂直排列 */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+            transition: background-color var(--transition), box-shadow var(--transition);
+        }
+        
+        /* 响应式布局：在小屏幕上将侧边栏改为垂直排列 */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+        
+        .sidebar-section {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-section h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .login-options a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 2px 6px;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .login-options a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #0066cc, #00aaff);
+            transition: width 0.3s ease;
+        }
+        
+        .login-options a:hover {
+            color: #0052a3;
+            background: rgba(0, 102, 204, 0.1);
+        }
+        
+        .login-options a:hover::after {
+            width: 100%;
+        }
+        
+        .other-login {
+            margin-top: 15px;
+        }
+        
+        .sidebar-links {
+            list-style: none;
+        }
+        
+        .sidebar-links li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-links li a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar-links li a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 102, 204, 0.2));
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+        
+        .sidebar-links li a:hover {
+            color: #0066cc;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+        }
+        
+        .sidebar-links li a:hover::before {
+            width: 100%;
+        }
+        
+        /* Content */
+        .content {
+            flex: 1;
+            background-color: var(--bg-primary);
+            box-shadow: var(--shadow-md);
+            padding: 30px;
+            transition: background-color var(--transition), box-shadow var(--transition);
+        }
+        
+        .content-section {
+            margin-bottom: 45px;
+        }
+        
+        /* 统一标题样式，增强视觉层次 */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Arial', sans-serif;
+            color: var(--dark);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .content-section h2 {
+            color: var(--primary);
+            margin: 0 0 25px;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--info) 100%);
+            border-radius: 2px;
+        }
+        
+        .content-section h3 {
+            color: var(--dark);
+            margin: 0 0 20px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        /* 统一段落样式 */
+        p {
+            font-family: 'Arial', sans-serif;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0 0 20px;
+            text-align: justify;
+        }
+        
+        /* 统一链接样式 */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+        
+        a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+        
+        /* 团队介绍样式优化 */
+        .team-intro {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 45px;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .team-intro:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .team-intro img {
+            width: 100%;
+            height: 100%;
+            max-width: 300px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 4px solid white;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition);
+        }
+        
+        /* 为团队介绍图片容器添加宽高比，避免CLS */
+        .team-intro {
+            position: relative;
+        }
+        
+        .team-intro img {
+            aspect-ratio: 6/5;
+        }
+        
+        .team-intro:hover img {
+            transform: scale(1.05);
+        }
+        
+        .team-text {
+            flex: 1;
+        }
+        
+        .team-text h3 {
+            color: #0066cc;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .team-text h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #0066cc 0%, #00aaff 100%);
+            border-radius: 2px;
+        }
+        
+        .team-text p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 16px;
+            text-align: justify;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .team-intro {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .team-intro img {
+                width: 100%;
+                max-width: 300px;
+                height: auto;
+            }
+            
+            .team-text h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* 团队热点区域美化 - 紧凑排版 */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .team-item {
+            text-align: center;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .team-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* 卡片内容区域 */
+        .team-item > div:first-child {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 0;
+            background-size: 100% 100%;
+            background-position: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 10px;
+        }
+        
+        /* 渐变叠加效果 */
+        .team-item > div:first-child::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+            transition: all 0.3s ease;
+        }
+        
+        .team-item:hover > div:first-child {
+            background-size: 110% 110%;
+        }
+        
+        /* 标题文字 */
+        .team-item > div:first-child > span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 卡片文字内容 */
+        .team-item p {
+            margin: 10px 10px 5px;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .team-item p:nth-child(2) {
+            color: #0066cc;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        .team-item p:nth-child(3) {
+            color: #666;
+            font-size: 12px;
+            font-weight: normal;
+            margin: 5px 10px;
+            line-height: 1.4;
+        }
+        
+        .team-item p:nth-child(4) {
+            color: #999;
+            font-size: 11px;
+            font-weight: normal;
+            margin: 5px 10px 15px;
+        }
+        
+        /* 卡片图片样式 */
+        .team-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 0;
+            transition: all var(--transition);
+            aspect-ratio: 16/9;
+        }
+        
+        .team-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* 卡片链接样式 */
+        .team-grid a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-grid a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 170, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .team-grid a:hover::before {
+            opacity: 1;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 10px;
+            }
+            
+            .team-item {
+                margin: 0;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        /* 公众号关注广告 */
+        .wechat-ad {
+            position: fixed;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 130px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 10px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .wechat-ad:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            transform: translateY(calc(-50% - 3px));
+        }
+        
+        .wechat-ad h3 {
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .wechat-ad .qrcode {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 8px;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .wechat-ad p {
+            text-align: center;
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .wechat-ad .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 16px;
+            color: #999;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .wechat-ad .close-btn:hover {
+            color: #333;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+        }
+        
+        /* 社交平台关注广告 */
+        .social-ad {
+            position: fixed;
+            right: 15px;
+            width: 130px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 10px;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        /* 抖音广告位置：在微信广告下方 */
+        .wechat-ad + .social-ad {
+            top: calc(50% + 220px);
+            transform: translateY(-50%);
+        }
+        
+        /* 哔哩哔哩广告位置：在抖音广告下方 */
+        .social-ad + .social-ad {
+            top: calc(50% + 370px);
+            transform: translateY(-50%);
+        }
+        
+        .social-ad:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            transform: translateY(calc(-50% - 3px));
+        }
+        
+        .social-ad h3 {
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .social-ad .social-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 8px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-ad .social-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+        
+        .social-ad .douyin-icon {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            color: white;
+        }
+        
+        .social-ad .bilibili-icon {
+            background: linear-gradient(45deg, #00a1d6, #f59223);
+            color: white;
+        }
+        
+        .social-ad p {
+            text-align: center;
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        .social-ad .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 18px;
+            color: #999;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-ad .close-btn:hover {
+            color: #333;
+        }
+        
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top:hover {
+            background-color: #0052a3;
+            transform: translateY(-5px);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* 弹窗广告 */
+        .popup-ad {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .popup-ad.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-ad .popup-content {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 500px;
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .popup-ad .popup-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .popup-ad .popup-body {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 20px;
+        }
+        
+        .popup-ad .popup-body img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        
+        .popup-ad .popup-footer {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 0 20px 20px;
+            text-align: center;
+        }
+        
+        .popup-ad .popup-footer p {
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .popup-ad .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .popup-ad .popup-close:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+        
+        .popup-ad .popup-action {
+            padding: 10px 30px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .popup-ad .popup-action:hover {
+            background-color: #0052a3;
+        }
+        
+        /* 优先减少动画（无障碍） */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition: none !important;
+                transform: none !important;
+            }
+        }
+        
+        /* 在窄屏隐藏右侧广告 */
+        @media (max-width: 900px) {
+            .wechat-ad, .social-ad {
+                display: none;
+            }
+        }
+        
+        /* Skip link 样式 */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #0066cc;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 9999;
+            transition: top 0.3s;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
     
-    <!-- 配置说明 -->
-    <div class="instructions">
-      <h2>配置说明</h2>
-      <p><strong>重要提示：确保GitHub OAuth App配置正确</strong></p>
-      <ol>
-        <li>
-          <strong>在GitHub更新OAuth App设置</strong>
-          <ul>
-            <li>访问：GitHub Settings → Developer settings → OAuth Apps</li>
-            <li>找到已创建的OAuth App："天马行空创意网 CMS"</li>
-            <li>点击"Edit"</li>
-            <li>确保以下配置正确：
-              <ul>
-                <li>Homepage URL: <code>https://tmxkcy.xyz</code></li>
-                <li>Authorization callback URL: <code>https://tmxkcy.xyz/admin/</code> （必须与CMS访问URL完全一致）</li>
-              </ul>
-            </li>
-            <li>点击"Update application"保存</li>
-          </ul>
-        </li>
-        <li>
-          <strong>验证Client ID是否正确</strong>
-          <ul>
-            <li>当前使用的Client ID：<code>Ov23liMVe0P8Zf9PeTb5</code></li>
-            <li>确保与GitHub OAuth App中的Client ID完全一致</li>
-          </ul>
-        </li>
-        <li>
-          <strong>使用HTTP服务器访问</strong>
-          <ul>
-            <li>不要直接打开本地文件（file://协议）</li>
-            <li>使用本地HTTP服务器：<code>npx http-server -p 8080</code></li>
-            <li>然后访问：<code>http://localhost:8080/admin/</code></li>
-          </ul>
-        </li>
-      </ol>
+</head>
+<body>
+    <!-- 跳转到主要内容的链接 -->
+    <a href="#main" class="skip-link">跳至主要内容</a>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="photo/logo.png" alt="天马行空创意网 标志" width="50" height="50">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </div>
+            <div class="slogan" style="font-size: 20px; font-weight: bold; background: linear-gradient(135deg, #0066cc, #00aaff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 2px 4px rgba(0,0,0,0.1); font-family: 'STXingkai', 'STKaiti', cursive; letter-spacing: 3px; font-stretch: expanded;">
+                拥抱创意 点亮人生
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="search" style="display: flex; gap: 0;">
+                    <input type="text" placeholder="搜索..." style="padding: 8px 12px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; border-right: none; outline: none; transition: border-color 0.3s; background-color: var(--bg-secondary); color: var(--text-primary);">
+                    <button style="padding: 8px 15px; background: linear-gradient(135deg, #0066cc, #00aaff); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-weight: bold;" aria-label="搜索">
+                        🔍
+                    </button>
+                </div>
+                <!-- 主题切换按钮 -->
+                <button id="themeToggle" style="padding: 8px 15px; background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; transition: all 0.3s ease; font-size: 16px;" aria-label="切换主题">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <nav aria-label="主导航">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="#">服务系统</a>
+                    <ul class="dropdown" aria-label="服务系统子菜单">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="exam-center.html">在线考试中心</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank">工作系统</a></li>
+                <li>
+                    <a href="#">下载专区</a>
+                    <ul class="dropdown" aria-label="下载专区子菜单">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="banner">
+        <!-- 层叠图片轮播 -->
+        <img class="bg-layer show" src="banners/banner1.jpg" alt="天马行空创意网 横幅1" aria-hidden="true" loading="eager">
+        <img class="bg-layer" src="banners/banner2.jpg" alt="天马行空创意网 横幅2" aria-hidden="true" loading="lazy">
+        <img class="bg-layer" src="banners/banner3.jpg" alt="天马行空创意网 横幅3" aria-hidden="true" loading="lazy">
+        
+        <div class="container banner-content">
+            <h1>天马行空创意网</h1>
+            <p>天马行空创意网打造更实用的资源和内容</p>
+            <a href="about.html" class="banner-btn">了解我们</a>
+            <a href="https://www.squareshows.com/pages/tmxkcy/form/2MQATndM5Jc" class="banner-btn" style="margin-top: 15px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);" target="_blank">我要投稿</a>
+        </div>
     </div>
-  </body>
+    
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>服务登录</h3>
+                <form class="login-form" id="loginForm">
+                    <div style="margin-bottom: 12px;">
+                        <label for="loginUsername" style="display: block; margin-bottom: 5px; font-weight: 600; color: var(--dark);">账号/手机</label>
+                        <input type="text" id="loginUsername" name="username" placeholder="请输入账号/手机" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="loginPassword" style="display: block; margin-bottom: 5px; font-weight: 600; color: var(--dark);">密码</label>
+                        <input type="password" id="loginPassword" name="password" placeholder="密码" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+                    </div>
+                    <button type="submit" aria-label="登录账号" style="width: 100%; padding: 12px; font-size: 16px;">登录</button>
+                    <div class="login-options">
+                        <a href="#">手机快捷登录</a>
+                        <a href="register.html">注册&gt;</a>
+                    </div>
+                    <div class="other-login">
+                        
+                        <!-- 可以添加第三方登录图标 -->
+                    </div>
+                </form>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>服务范围</h3>
+                <ul class="sidebar-links">
+                    <li><a href="contribute.html">投稿</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>新闻动态</h3>
+                <ul class="sidebar-links">
+                    <li><a href="news.html">MORE+</a></li>
+                </ul>
+            </div>
+            
+            <!-- 赞赏码广告位 -->
+            <div class="sidebar-section" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 8px; margin: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: #fa709a; text-align: center; margin-bottom: 15px; font-size: 16px;">💖 支持我们</h3>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <p style="font-size: 14px; color: #666; margin-bottom: 10px;">如果你喜欢我们的内容，不妨支持一下我们！</p>
+                    <div style="width: 150px; height: 150px; margin: 0 auto 10px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 1/1;">
+                        <img src="photo/zsm.jpg" alt="天马行空创意网 赞赏码" style="width: 100%; height: 100%; object-fit: contain;" loading="lazy">
+                    </div>
+                    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">扫码支持我们的创作</p>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <p style="font-size: 13px; color: #666;">关注公众号获取更多精彩内容</p>
+                    <p style="font-size: 12px; color: #999; margin-top: 5px;">回复「权限码」获取下载权限</p>
+                </div>
+            </div>
+        </aside>
+        
+        <main id="main" class="content">
+            <div class="content-section">
+                <h2>团队简介</h2>
+                <div class="team-intro">
+                    <img src="photo/team-photo.jpg" alt="天马行空创意团队合影" loading="lazy">
+                    <div class="team-text">
+                        <h3>天马行空创意团队</h3>
+                        <p>天马行空创意团队成立于2019年，由最初的八逗笑乐团队改为天马行空创意团队，最先是由张生智、李锦华、陈兵组合的一支小众精英的团队，团队共生共荣，风格主要以创意、创新为主，自媒体团队现团队有16名成员。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>团队热点</h2>
+                <div class="team-grid">
+                    <a href="program-recruitment.html" style="text-decoration: none; color: #333;">
+                        <div class="team-item" style="cursor: pointer; transition: transform 0.2s; transform: scale(1.05);">
+                            <div style="height: 150px; background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; margin-bottom: 10px; text-align: center; padding: 10px;">
+                                2026年新春晚会节目火热征集中！
+                            </div>
+                            <p style="text-align: center; font-weight: bold; color: #ff6b6b;">点击查看详情</p>
+                            <p style="text-align: center; font-size: 14px; color: #666;">天马行空-马到成功</p>
+                        </div>
+                    </a>
+                    
+                    <a href="news-detail1.html" style="text-decoration: none; color: #333;">
+                        <div class="team-item" style="cursor: pointer; transition: transform 0.2s; transform: scale(1.05);">
+                            <div style="height: 150px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; font-weight: bold; margin-bottom: 10px; text-align: center; padding: 10px;">
+                                天马行空创意团队2025年举办普通专业技能联合测考试圆满结束！
+                            </div>
+                            <p style="text-align: center; font-weight: bold; color: #0066cc;">点击查看详情</p>
+                            <p style="text-align: center; font-size: 12px; color: #666;">今日头条 · 官方报道</p>
+                        </div>
+                    </a>
+                    
+                    <a href="script-writing.html" style="text-decoration: none; color: #333;">
+                        <div class="team-item" style="cursor: pointer; transition: transform 0.2s; transform: scale(1.05);">
+                            <div style="height: 150px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+                                剧本创作
+                            </div>
+                            <p style="text-align: center; font-weight: bold; color: #0066cc;">剧本创作</p>
+                            <p style="text-align: center; font-size: 14px;">点击进入剧本创作编辑器</p>
+                            <p style="text-align: center; font-size: 12px; color: #666; margin-top: 5px;">支持保存和分享</p>
+                        </div>
+                    </a>
+                    
+                    <a href="newyear-special.html" style="text-decoration: none; color: #333;">
+                        <div class="team-item" style="cursor: pointer; transition: transform 0.2s; transform: scale(1.05);">
+                            <div style="height: 150px; background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+                                新年专区
+                            </div>
+                            <p style="text-align: center; font-weight: bold; color: #ff6b6b;">2026年新春晚会</p>
+                            <p style="text-align: center; font-size: 14px; color: #333;">“天马行空-马到成功”</p>
+                            <p style="text-align: center; font-size: 12px; color: #666; margin-top: 5px;">直播 | 节目单 | 精彩回放</p>
+                        </div>
+                    </a>
+                    
+                    <a href="online-tools.html" style="text-decoration: none; color: #333;">
+                        <div class="team-item" style="cursor: pointer; transition: transform 0.2s; transform: scale(1.05);">
+                            <div style="height: 150px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+                                在线工具
+                            </div>
+                            <p style="text-align: center; font-weight: bold; color: #0066cc;">在线工具</p>
+                            <p style="text-align: center; font-size: 14px;">访问各种实用在线工具</p>
+                            <p style="text-align: center; font-size: 12px; color: #666; margin-top: 5px;">包含录制、设计、AI等工具</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 2026年新春晚会宣传窗口 -->
+            <div style="margin: 30px 0; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3); text-align: center;">
+                <a href="newyear-special.html" style="display: block; text-decoration: none;">
+                    <img src="photo/横幅.jpg" alt="2026年天马行空创意团队新春晚会" style="width: 100%; height: auto; border-radius: 15px; transition: transform 0.3s ease;" loading="lazy">
+                </a>
+            </div>
+            
+            <div class="content-section">
+                <h2>闲暇小游戏</h2>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <!-- 猜数字游戏 -->
+                    <div style="flex: 1; min-width: 300px; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h3 style="color: #0066cc; margin-bottom: 15px;">猜数字</h3>
+                        <div id="guess-game-container">
+                            <p>游戏规则：系统随机生成1-100之间的数字，你需要在最短的次数内猜中它！</p>
+                            <div style="margin: 20px 0;">
+                                <input type="number" id="guess-input" placeholder="请输入1-100之间的数字" min="1" max="100" style="padding: 10px; width: 200px; border: 1px solid #ddd; border-radius: 4px;">
+                                <button id="guess-btn" style="padding: 10px 20px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px;" aria-label="提交猜数字">猜一猜</button>
+                            </div>
+                            <div id="guess-game-info" style="margin: 20px 0; font-size: 16px;">
+                                <p>猜测次数：<span id="guess-count">0</span></p>
+                                <p>上次猜测：<span id="last-guess">-</span></p>
+                                <p>提示：<span id="hint">-</span></p>
+                            </div>
+                            <div id="guess-game-result" style="margin: 20px 0; font-weight: bold; color: #0066cc;"></div>
+                            <button id="guess-restart-btn" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;" aria-label="重新开始猜数字游戏">重新开始</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 五子棋游戏 -->
+                    <div style="flex: 1; min-width: 300px; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h3 style="color: #0066cc; margin-bottom: 15px;">五子棋</h3>
+                        <div id="gobang-game-container">
+                            <p>游戏规则：黑白双方轮流落子，先在横线、竖线或斜线上形成5个子连在一起者获胜。</p>
+                            <div style="text-align: center; margin: 15px 0;">
+                                <p><strong>当前玩家：</strong><span id="current-player" style="color: #dc3545;">● 黑方</span></p>
+                            </div>
+                            <div style="display: flex; justify-content: center; margin: 15px 0; max-width: 100%; overflow: auto;">
+                                <div id="gobang-board" style="display: grid; grid-template-columns: repeat(15, 25px); grid-template-rows: repeat(15, 25px); gap: 1px; background-color: #d8b27c; padding: 10px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"></div>
+                            </div>
+                            <div id="gobang-result" style="margin: 15px 0; text-align: center; font-weight: bold; font-size: 18px;"></div>
+                            <div style="text-align: center; margin: 15px 0;">
+                                <button id="ai-mode-toggle" style="padding: 8px 16px; background-color: #ffc107; color: #212529; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; transition: all 0.2s;" aria-label="切换五子棋游戏模式">切换到人机对战</button>
+                            </div>
+                            <div style="text-align: center; display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+                                <button id="gobang-start-btn" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;" aria-label="开始五子棋游戏">开始游戏</button>
+                                <button id="gobang-restart-btn" style="padding: 10px 20px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;" aria-label="重新开始五子棋游戏">重新开始</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 公众号关注广告 -->
+    <div class="wechat-ad">
+        <button class="close-btn" id="closeWechatAd" aria-label="关闭公众号广告">&times;</button>
+        <h3>关注我们的公众号</h3>
+        <div class="qrcode" style="aspect-ratio: 1/1;">
+            <!-- 公众号二维码图片 -->
+            <img src="photo/gzh.jpg" alt="天马行空创意网 公众号二维码" style="width:100%;height:100%;" loading="lazy">
+        </div>
+        <p>扫码关注获取更多创意内容</p>
+        <p style="font-size:12px;color:#666;">每周更新创意灵感</p>
+    </div>
+    
+    <!-- 抖音关注 -->
+    <div class="social-ad">
+        <button class="close-btn" id="closeDouyinAd" aria-label="关闭抖音广告">&times;</button>
+        <h3>关注抖音</h3>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAP6ezeyxVFiKKdbqG_w3CrjNnFLSycenlG86g3XwMybQ" target="_blank" style="text-decoration: none; display: block; text-align: center;">
+            <div class="social-icon douyin-icon">
+                <span style="font-size: 36px;">🎵</span>
+            </div>
+            <p style="color: #333; margin-top: 8px;">进入抖音</p>
+        </a>
+    </div>
+    
+    <!-- 哔哩哔哩关注 -->
+    <div class="social-ad">
+        <button class="close-btn" id="closeBilibiliAd" aria-label="关闭B站广告">&times;</button>
+        <h3>关注B站</h3>
+        <a href="https://space.bilibili.com/1889102228?spm_id_from=333.337.0.0" target="_blank" style="text-decoration: none; display: block; text-align: center;">
+            <div class="social-icon bilibili-icon">
+                <span style="font-size: 36px;">📺</span>
+            </div>
+            <p style="color: #333; margin-top: 8px;">进入B站</p>
+        </a>
+    </div>
+    
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="back-to-top" title="回到顶部" aria-label="回到顶部">↑</button>
+    
+    <!-- 手机版二维码弹窗 -->
+    <div class="popup-ad show" id="mobileQRPopup" style="background-color: rgba(0,0,0,0.8);">
+        <div class="popup-content" style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 15px; box-shadow: 0 10px 40px rgba(31, 38, 135, 0.37);">
+            <div class="popup-header" style="background-color: transparent; text-align: center; padding: 20px 15px 10px;">
+                <span style="font-size: 24px; font-weight: bold; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.3);">📱 手机版网站</span>
+                <button class="popup-close" id="closeMobileQRPopup" aria-label="关闭手机版二维码弹窗" style="background-color: rgba(255,255,255,0.2); color: white; top: 15px; right: 15px; width: 35px; height: 35px; font-size: 28px; border: none; cursor: pointer;">&times;</button>
+                <div style="position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 20px; font-size: 14px; font-weight: bold;">
+                    自动关闭 <span id="countdown">3</span>s
+                </div>
+            </div>
+            <div class="popup-body" style="text-align: center; padding: 20px;">
+                <!-- 手机版二维码 -->
+                <div style="width: 250px; height: 250px; margin: 0 auto 20px; background-color: white; display: flex; align-items: center; justify-content: center; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); padding: 10px;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=http://m.tmxkcy.xyz" alt="天马行空创意网 手机版二维码" style="width: 230px; height: 230px;" loading="lazy" />
+                </div>
+                <h3 style="color: white; margin-bottom: 15px; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">访问手机版网站</h3>
+                <p style="color: rgba(255,255,255,0.9); font-size: 16px; margin-bottom: 20px; line-height: 1.6;">使用手机浏览器扫描上方二维码，或直接访问 m.tmxkcy.xyz，体验专为移动设备优化的网站版本！</p>
+                <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 20px;">
+                    <a href="http://m.tmxkcy.xyz" target="_blank" style="display: inline-block; padding: 12px 25px; background-color: white; color: #667eea; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;">立即访问</a>
+                    <button id="laterBtn" style="padding: 12px 25px; background-color: transparent; color: white; border: 2px solid white; border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;">稍后再说</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 原弹窗广告 -->
+    <div class="popup-ad" id="popupAd">
+        <div class="popup-content">
+            <div class="popup-header">
+                <span style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">创意活动推荐</span>
+                <button class="popup-close" id="closePopupAd" style="color: white;" aria-label="关闭广告">&times;</button>
+            </div>
+            <div class="popup-body">
+                <!-- 这里可以放置广告图片 -->
+                <div style="height:250px;background-color:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#666;">
+                    广告图片区域
+                </div>
+                <h3 style="color:white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); margin-bottom:10px;">创意项目征集</h3>
+                <p style="color: rgba(255, 255, 255, 0.9);">我们正在寻找有创意的项目，欢迎提交你的想法！</p>
+            </div>
+            <div class="popup-footer">
+                <button class="popup-action">立即参与</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 可访问性工具栏 -->
+    <div id="accessibility-toolbar" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 10px; display: flex; flex-direction: column; gap: 8px;">
+        <button id="accessibility-toggle" style="background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); padding: 8px 12px; cursor: pointer; font-weight: bold;">♿ 可访问性</button>
+        
+        <div id="accessibility-panel" style="display: none; gap: 8px; flex-direction: column;">
+            <!-- 字体大小调整 -->
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <span style="font-size: 14px; color: var(--text-secondary);">字体大小:</span>
+                <button id="font-decrease" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 10px; cursor: pointer; font-size: 14px;">-</button>
+                <span id="font-size-value" style="font-size: 14px; color: var(--text-primary); min-width: 40px; text-align: center;">100%</span>
+                <button id="font-increase" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 10px; cursor: pointer; font-size: 14px;">+</button>
+                <button id="font-reset" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 10px; cursor: pointer; font-size: 12px;">重置</button>
+            </div>
+            
+            <!-- 颜色对比度调整 -->
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <span style="font-size: 14px; color: var(--text-secondary);">对比度:</span>
+                <button id="contrast-normal" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 10px; cursor: pointer; font-size: 12px;">正常</button>
+                <button id="contrast-high" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 10px; cursor: pointer; font-size: 12px;">高</button>
+            </div>
+            
+            <!-- 无动画模式 -->
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <span style="font-size: 14px; color: var(--text-secondary);">动画:</span>
+                <button id="animation-toggle" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 10px; cursor: pointer; font-size: 12px;">启用</button>
+            </div>
+            
+            <!-- 键盘导航提示 -->
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <span style="font-size: 14px; color: var(--text-secondary);">键盘提示:</span>
+                <button id="keyboard-hint" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 5px 10px; cursor: pointer; font-size: 12px;">显示</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 键盘导航提示模态框 -->
+    <div id="keyboard-hint-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center;">
+        <div style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 20px; max-width: 500px; max-height: 80vh; overflow-y: auto;">
+            <h3 style="color: var(--text-primary); margin-top: 0; margin-bottom: 15px;">键盘导航提示</h3>
+            <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">
+                <p><strong style="color: var(--text-primary);">Tab 键:</strong> 在页面元素之间导航</p>
+                <p><strong style="color: var(--text-primary);">Shift + Tab:</strong> 反向导航</p>
+                <p><strong style="color: var(--text-primary);">Enter 键:</strong> 激活按钮或链接</p>
+                <p><strong style="color: var(--text-primary);">Esc 键:</strong> 关闭弹窗</p>
+                <p><strong style="color: var(--text-primary);">箭头键:</strong> 导航菜单和轮播图</p>
+                <p><strong style="color: var(--text-primary);">空格键:</strong> 播放/暂停视频或轮播图</p>
+            </div>
+            <button id="close-keyboard-hint" style="margin-top: 15px; background: var(--primary); color: white; border: none; border-radius: var(--radius-sm); padding: 8px 16px; cursor: pointer;">关闭</button>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // 主题切换功能
+        (function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            
+            // 从localStorage获取主题偏好
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // 初始化主题
+            const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+            html.setAttribute('data-theme', initialTheme);
+            
+            // 更新按钮图标
+            function updateButtonIcon() {
+                const currentTheme = html.getAttribute('data-theme');
+                themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+                themeToggle.setAttribute('aria-label', currentTheme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
+            }
+            
+            // 初始化按钮图标
+            updateButtonIcon();
+            
+            // 主题切换事件
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateButtonIcon();
+            });
+        })();
+        
+        // 可访问性工具栏功能
+        (function() {
+            const toolbar = document.getElementById('accessibility-toolbar');
+            const toggleBtn = document.getElementById('accessibility-toggle');
+            const panel = document.getElementById('accessibility-panel');
+            
+            // 展开/收起工具栏
+            toggleBtn.addEventListener('click', () => {
+                const isHidden = panel.style.display === 'none' || panel.style.display === '';
+                panel.style.display = isHidden ? 'flex' : 'none';
+            });
+            
+            // 字体大小调整
+            const fontDecreaseBtn = document.getElementById('font-decrease');
+            const fontIncreaseBtn = document.getElementById('font-increase');
+            const fontResetBtn = document.getElementById('font-reset');
+            const fontSizeValue = document.getElementById('font-size-value');
+            const html = document.documentElement;
+            
+            // 获取当前字体大小
+            let currentFontSize = parseFloat(localStorage.getItem('fontSize')) || 100;
+            html.style.fontSize = `${currentFontSize}%`;
+            fontSizeValue.textContent = `${currentFontSize}%`;
+            
+            // 字体减小
+            fontDecreaseBtn.addEventListener('click', () => {
+                if (currentFontSize > 80) {
+                    currentFontSize -= 10;
+                    html.style.fontSize = `${currentFontSize}%`;
+                    fontSizeValue.textContent = `${currentFontSize}%`;
+                    localStorage.setItem('fontSize', currentFontSize);
+                }
+            });
+            
+            // 字体增大
+            fontIncreaseBtn.addEventListener('click', () => {
+                if (currentFontSize < 150) {
+                    currentFontSize += 10;
+                    html.style.fontSize = `${currentFontSize}%`;
+                    fontSizeValue.textContent = `${currentFontSize}%`;
+                    localStorage.setItem('fontSize', currentFontSize);
+                }
+            });
+            
+            // 字体重置
+            fontResetBtn.addEventListener('click', () => {
+                currentFontSize = 100;
+                html.style.fontSize = `${currentFontSize}%`;
+                fontSizeValue.textContent = `${currentFontSize}%`;
+                localStorage.setItem('fontSize', currentFontSize);
+            });
+            
+            // 对比度调整
+            const contrastNormalBtn = document.getElementById('contrast-normal');
+            const contrastHighBtn = document.getElementById('contrast-high');
+            
+            // 正常对比度
+            contrastNormalBtn.addEventListener('click', () => {
+                html.classList.remove('high-contrast');
+                localStorage.setItem('contrast', 'normal');
+            });
+            
+            // 高对比度
+            contrastHighBtn.addEventListener('click', () => {
+                html.classList.add('high-contrast');
+                localStorage.setItem('contrast', 'high');
+            });
+            
+            // 初始化对比度
+            const savedContrast = localStorage.getItem('contrast');
+            if (savedContrast === 'high') {
+                html.classList.add('high-contrast');
+            }
+            
+            // 动画开关
+            const animationToggleBtn = document.getElementById('animation-toggle');
+            
+            animationToggleBtn.addEventListener('click', () => {
+                const hasReducedMotion = html.classList.contains('reduce-motion');
+                if (hasReducedMotion) {
+                    html.classList.remove('reduce-motion');
+                    animationToggleBtn.textContent = '启用';
+                    animationToggleBtn.setAttribute('aria-label', '启用动画');
+                    localStorage.setItem('motion', 'enabled');
+                } else {
+                    html.classList.add('reduce-motion');
+                    animationToggleBtn.textContent = '禁用';
+                    animationToggleBtn.setAttribute('aria-label', '禁用动画');
+                    localStorage.setItem('motion', 'reduced');
+                }
+            });
+            
+            // 初始化动画设置
+            const savedMotion = localStorage.getItem('motion');
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            if (savedMotion === 'reduced' || prefersReduced) {
+                html.classList.add('reduce-motion');
+                animationToggleBtn.textContent = '禁用';
+                animationToggleBtn.setAttribute('aria-label', '禁用动画');
+            }
+            
+            // 键盘导航提示
+            const keyboardHintBtn = document.getElementById('keyboard-hint');
+            const keyboardHintModal = document.getElementById('keyboard-hint-modal');
+            const closeKeyboardHintBtn = document.getElementById('close-keyboard-hint');
+            
+            // 显示键盘提示
+            keyboardHintBtn.addEventListener('click', () => {
+                keyboardHintModal.style.display = 'flex';
+            });
+            
+            // 关闭键盘提示
+            closeKeyboardHintBtn.addEventListener('click', () => {
+                keyboardHintModal.style.display = 'none';
+            });
+            
+            // 点击模态框外部关闭
+            keyboardHintModal.addEventListener('click', (e) => {
+                if (e.target === keyboardHintModal) {
+                    keyboardHintModal.style.display = 'none';
+                }
+            });
+            
+            // ESC键关闭键盘提示
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && keyboardHintModal.style.display === 'flex') {
+                    keyboardHintModal.style.display = 'none';
+                }
+            });
+        })();
+        
+        // 添加高对比度和减少动画的CSS样式
+        const style = document.createElement('style');
+        style.textContent = `
+            /* 高对比度样式 */
+            html.high-contrast {
+                --primary: #0000ff;
+                --primary-hover: #0000aa;
+                --secondary: #000000;
+                --text-primary: #000000;
+                --text-secondary: #000000;
+                --bg-primary: #ffffff;
+                --bg-secondary: #f0f0f0;
+                --border-color: #000000;
+                filter: contrast(1.5);
+            }
+            
+            /* 减少动画样式 */
+            html.reduce-motion * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                transition: none !important;
+                transform: none !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Banner轮播控制 - 尊重prefers-reduced-motion，支持悬停暂停和键盘控制
+        (function(){
+            const banner = document.querySelector('.banner');
+            if (!banner) return;
+            
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const layers = Array.from(banner.querySelectorAll('.bg-layer'));
+            if (!layers.length) return;
+            
+            let idx = 0, id = null, delay = 6000;
+            
+            function show(i) {
+                layers.forEach((l, j) => l.classList.toggle('show', j === i));
+            }
+            
+            function start() {
+                if (prefersReduced) return;
+                stop();
+                id = setInterval(() => {
+                    idx = (idx + 1) % layers.length;
+                    show(idx);
+                }, delay);
+            }
+            
+            function stop() {
+                if (id) {
+                    clearInterval(id);
+                    id = null;
+                }
+            }
+            
+            // 悬停/聚焦暂停
+            banner.addEventListener('mouseenter', stop);
+            banner.addEventListener('mouseleave', start);
+            banner.addEventListener('focusin', stop);
+            banner.addEventListener('focusout', start);
+            
+            // 键盘控制
+            banner.addEventListener('keydown', e => {
+                if (e.key === 'ArrowRight') {
+                    idx = (idx + 1) % layers.length;
+                    show(idx);
+                }
+                if (e.key === 'ArrowLeft') {
+                    idx = (idx - 1 + layers.length) % layers.length;
+                    show(idx);
+                }
+                if (e.key === ' ' || e.key === 'Spacebar') {
+                    e.preventDefault();
+                    id ? stop() : start();
+                }
+            });
+            
+            // 初始化
+            show(idx);
+            start();
+        })();
+        
+        // 关闭广告
+        document.querySelectorAll('.wechat-ad .close-btn, .social-ad .close-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const ad = e.target.closest('.wechat-ad, .social-ad');
+                if (ad) ad.style.display = 'none';
+            });
+        });
+        
+        // 关闭手机版二维码弹窗
+        document.querySelector('#closeMobileQRPopup')?.addEventListener('click', () => {
+            const popup = document.getElementById('mobileQRPopup');
+            if (popup) popup.style.display = 'none';
+        });
+        
+        // 回到顶部功能
+        const backBtn = document.getElementById('backToTop');
+        if (backBtn) {
+            // 点击事件
+            backBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // 滚动显示/隐藏
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backBtn.classList.add('show');
+                } else {
+                    backBtn.classList.remove('show');
+                }
+            });
+        }
+    </script>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利. <a href="http://m.tmxkcy.xyz" target="_blank" style="color: #0066cc; text-decoration: none;">手机版</a></p>
+            <div class="disclaimer">
+                <h3>免责声明</h3>
+                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+                <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 登录表单验证和提交
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // 简单验证
+            if (!username || !password) {
+                alert('请输入账号和密码');
+                return;
+            }
+            
+            try {
+                // 发送AJAX请求到后端服务器
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('登录成功！');
+                    // 可以将token存储在localStorage中，用于后续请求
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('userId', result.userId);
+                    localStorage.setItem('username', result.username);
+                    
+                    // 可以根据需要跳转到其他页面
+                    // window.location.href = 'dashboard.html';
+                } else {
+                    // 显示后端返回的错误信息
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('登录请求失败:', error);
+                alert('登录失败，请稍后重试。');
+            }
+        });
+        
+        // 广告相关JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // 公众号广告关闭按钮
+            const closeWechatAd = document.getElementById('closeWechatAd');
+            const wechatAd = document.querySelector('.wechat-ad');
+            
+            closeWechatAd.addEventListener('click', function() {
+                wechatAd.style.display = 'none';
+            });
+            
+            // 抖音广告关闭按钮
+            const closeDouyinAd = document.getElementById('closeDouyinAd');
+            const douyinAd = document.querySelector('.social-ad:nth-of-type(1)');
+            
+            closeDouyinAd.addEventListener('click', function() {
+                douyinAd.style.display = 'none';
+            });
+            
+            // 哔哩哔哩广告关闭按钮
+            const closeBilibiliAd = document.getElementById('closeBilibiliAd');
+            const bilibiliAd = document.querySelector('.social-ad:nth-of-type(2)');
+            
+            closeBilibiliAd.addEventListener('click', function() {
+                bilibiliAd.style.display = 'none';
+            });
+            
+            // 回到顶部按钮
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            // 滚动事件监听
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            // 搜索功能
+            const searchDiv = document.querySelector('.search');
+            const searchInput = searchDiv.querySelector('input');
+            const searchButton = searchDiv.querySelector('button');
+            
+            // 添加按钮点击事件
+            searchButton.addEventListener('click', function() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                }
+            });
+            
+            // 添加回车键提交
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                    }
+                }
+            });
+            
+            // 手机版二维码弹窗关闭功能
+        const mobileQRPopup = document.getElementById('mobileQRPopup');
+        const closeMobileQRPopup = document.getElementById('closeMobileQRPopup');
+        const laterBtn = document.getElementById('laterBtn');
+        const countdownEl = document.getElementById('countdown');
+        let countdown = 3;
+        
+        // 倒计时自动关闭功能
+        const countdownInterval = setInterval(function() {
+            countdown--;
+            countdownEl.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                mobileQRPopup.classList.remove('show');
+            }
+        }, 1000);
+        
+        // 关闭按钮事件
+        closeMobileQRPopup.addEventListener('click', function() {
+            clearInterval(countdownInterval);
+            mobileQRPopup.classList.remove('show');
+        });
+        
+        // 稍后再说按钮事件
+        laterBtn.addEventListener('click', function() {
+            clearInterval(countdownInterval);
+            mobileQRPopup.classList.remove('show');
+        });
+        
+        // 点击弹窗外部关闭弹窗
+        mobileQRPopup.addEventListener('click', function(e) {
+            if (e.target === mobileQRPopup) {
+                clearInterval(countdownInterval);
+                mobileQRPopup.classList.remove('show');
+            }
+        });
+        
+        // 键盘Esc键关闭弹窗功能
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // 关闭手机版二维码弹窗
+                if (mobileQRPopup.classList.contains('show')) {
+                    clearInterval(countdownInterval);
+                    mobileQRPopup.classList.remove('show');
+                }
+                
+                // 关闭广告弹窗
+                const popupAd = document.getElementById('popupAd');
+                if (popupAd.classList.contains('show')) {
+                    popupAd.classList.remove('show');
+                }
+            }
+        });
+        
+        // 打开弹窗时focus管理
+        function managePopupFocus(popup) {
+            const focusableElements = popup.querySelectorAll('button, a, input, select, textarea');
+            const firstFocusableElement = focusableElements[0];
+            const lastFocusableElement = focusableElements[focusableElements.length - 1];
+            
+            // 初始焦点设置到第一个可聚焦元素
+            firstFocusableElement.focus();
+            
+            // 循环焦点
+            popup.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        // Shift+Tab: 焦点移动到上一个元素
+                        if (document.activeElement === firstFocusableElement) {
+                            e.preventDefault();
+                            lastFocusableElement.focus();
+                        }
+                    } else {
+                        // Tab: 焦点移动到下一个元素
+                        if (document.activeElement === lastFocusableElement) {
+                            e.preventDefault();
+                            firstFocusableElement.focus();
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 为已显示的弹窗初始化焦点管理
+        if (mobileQRPopup.classList.contains('show')) {
+            managePopupFocus(mobileQRPopup);
+        }
+            
+            // 点击回到顶部
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 猜数字游戏逻辑
+            let secretNumber = Math.floor(Math.random() * 100) + 1;
+            let guessCount = 0;
+            
+            const guessInput = document.getElementById('guess-input');
+            const guessBtn = document.getElementById('guess-btn');
+            const restartBtn = document.getElementById('guess-restart-btn');
+            const guessCountEl = document.getElementById('guess-count');
+            const lastGuessEl = document.getElementById('last-guess');
+            const hintEl = document.getElementById('hint');
+            const gameResultEl = document.getElementById('guess-game-result');
+            
+            function checkGuess() {
+                const userGuess = parseInt(guessInput.value);
+                
+                if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                    alert('请输入1-100之间的有效数字！');
+                    return;
+                }
+                
+                guessCount++;
+                guessCountEl.textContent = guessCount;
+                lastGuessEl.textContent = userGuess;
+                
+                if (userGuess === secretNumber) {
+                    gameResultEl.textContent = `恭喜你！猜对了！你用了${guessCount}次猜测。`;
+                    hintEl.textContent = '🎉 答对了！';
+                    gameResultEl.style.color = '#28a745';
+                    guessBtn.disabled = true;
+                    restartBtn.style.display = 'inline';
+                } else if (userGuess < secretNumber) {
+                    hintEl.textContent = '👆 太小了！再试一次。';
+                    gameResultEl.textContent = '';
+                } else {
+                    hintEl.textContent = '👇 太大了！再试一次。';
+                    gameResultEl.textContent = '';
+                }
+                
+                guessInput.value = '';
+            }
+            
+            function restartGuessGame() {
+                secretNumber = Math.floor(Math.random() * 100) + 1;
+                guessCount = 0;
+                guessCountEl.textContent = guessCount;
+                lastGuessEl.textContent = '-';
+                hintEl.textContent = '-';
+                gameResultEl.textContent = '';
+                guessBtn.disabled = false;
+                restartBtn.style.display = 'none';
+                guessInput.value = '';
+            }
+            
+            guessBtn.addEventListener('click', checkGuess);
+            restartBtn.addEventListener('click', restartGuessGame);
+            
+            // 回车键触发猜测
+            guessInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkGuess();
+                }
+            });
+            
+            // 五子棋游戏逻辑
+            let board = [];
+            let currentPlayer = 'black';
+            let gameOver = false;
+            let isAIMode = false;
+            
+            const boardEl = document.getElementById('gobang-board');
+            const currentPlayerEl = document.getElementById('current-player');
+            const resultEl = document.getElementById('gobang-result');
+            const startBtn = document.getElementById('gobang-start-btn');
+            const gobangRestartBtn = document.getElementById('gobang-restart-btn');
+            const aiModeToggleBtn = document.getElementById('ai-mode-toggle');
+            
+            // 初始化游戏
+            function initGobangGame() {
+                initBoard();
+                currentPlayer = 'black';
+                gameOver = false;
+                isAIMode = false;
+                currentPlayerEl.innerHTML = '<span style="color: #dc3545;">● 黑方</span>';
+                resultEl.textContent = '';
+                aiModeToggleBtn.textContent = '切换到人机对战';
+            }
+            
+            // 切换AI模式
+            aiModeToggleBtn.addEventListener('click', function() {
+                isAIMode = !isAIMode;
+                aiModeToggleBtn.textContent = isAIMode ? '切换到双人对战' : '切换到人机对战';
+            });
+            
+            // 初始化棋盘
+            function initBoard() {
+                board = [];
+                boardEl.innerHTML = '';
+                boardEl.style.background = '#d8b27c';
+                boardEl.style.position = 'relative';
+                
+                // 创建网格线
+                const gridLines = document.createElement('div');
+                gridLines.style.position = 'absolute';
+                gridLines.style.top = '10px';
+                gridLines.style.left = '10px';
+                gridLines.style.width = '374px';
+                gridLines.style.height = '374px';
+                gridLines.style.pointerEvents = 'none';
+                gridLines.style.zIndex = '5';
+                
+                // 绘制横线
+                for (let i = 0; i < 15; i++) {
+                    const line = document.createElement('div');
+                    line.style.position = 'absolute';
+                    line.style.width = '100%';
+                    line.style.height = '1px';
+                    line.style.backgroundColor = '#8b6d4a';
+                    line.style.top = `${i * 25 + 12.5}px`;
+                    gridLines.appendChild(line);
+                }
+                
+                // 绘制竖线
+                for (let i = 0; i < 15; i++) {
+                    const line = document.createElement('div');
+                    line.style.position = 'absolute';
+                    line.style.width = '1px';
+                    line.style.height = '100%';
+                    line.style.backgroundColor = '#8b6d4a';
+                    line.style.left = `${i * 25 + 12.5}px`;
+                    gridLines.appendChild(line);
+                }
+                
+                boardEl.appendChild(gridLines);
+                
+                // 创建星位点
+                const starPoints = [[3,3], [3,7], [3,11], [7,3], [7,7], [7,11], [11,3], [11,7], [11,11]];
+                starPoints.forEach(([row, col]) => {
+                    const star = document.createElement('div');
+                    star.style.position = 'absolute';
+                    star.style.width = '5px';
+                    star.style.height = '5px';
+                    star.style.backgroundColor = '#8b6d4a';
+                    star.style.borderRadius = '50%';
+                    star.style.left = `${col * 25 + 10}px`;
+                    star.style.top = `${row * 25 + 10}px`;
+                    star.style.zIndex = '6';
+                    boardEl.appendChild(star);
+                });
+                
+                // 创建落子点
+                for (let i = 0; i < 15; i++) {
+                    board[i] = [];
+                    for (let j = 0; j < 15; j++) {
+                        board[i][j] = '';
+                        const cell = document.createElement('div');
+                        cell.style.width = '25px';
+                        cell.style.height = '25px';
+                        cell.style.backgroundColor = 'transparent';
+                        cell.style.cursor = 'pointer';
+                        cell.style.position = 'relative';
+                        cell.dataset.row = i;
+                        cell.dataset.col = j;
+                        cell.addEventListener('click', handleCellClick);
+                        cell.addEventListener('mouseenter', handleMouseEnter);
+                        cell.addEventListener('mouseleave', handleMouseLeave);
+                        boardEl.appendChild(cell);
+                    }
+                }
+            }
+            
+            // 处理鼠标悬停
+            function handleMouseEnter(e) {
+                if (gameOver) return;
+                
+                // 获取落子点元素（考虑事件冒泡）
+                const cell = e.currentTarget;
+                const row = parseInt(cell.dataset.row);
+                const col = parseInt(cell.dataset.col);
+                
+                if (board[row][col] !== '') return;
+                
+                // 创建预览棋子
+                const preview = document.createElement('div');
+                preview.className = 'preview-stone';
+                preview.style.position = 'absolute';
+                preview.style.width = '21px';
+                preview.style.height = '21px';
+                preview.style.borderRadius = '50%';
+                preview.style.backgroundColor = currentPlayer === 'black' ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.6)';
+                preview.style.boxShadow = '0 2px 6px rgba(0,0,0,0.15)';
+                preview.style.left = '2px';
+                preview.style.top = '2px';
+                preview.style.zIndex = '7';
+                
+                cell.appendChild(preview);
+            }
+            
+            function handleMouseLeave(e) {
+                const cell = e.currentTarget;
+                const preview = cell.querySelector('.preview-stone');
+                if (preview) {
+                    preview.remove();
+                }
+            }
+            
+            // 处理落子
+            function handleCellClick(e) {
+                if (gameOver) return;
+                
+                // 获取落子点元素（考虑事件冒泡）
+                const cell = e.currentTarget;
+                const row = parseInt(cell.dataset.row);
+                const col = parseInt(cell.dataset.col);
+                
+                if (board[row][col] !== '') return;
+                
+                // 移除预览棋子
+                const preview = cell.querySelector('.preview-stone');
+                if (preview) {
+                    preview.remove();
+                }
+                
+                // 落子
+                board[row][col] = currentPlayer;
+                
+                // 绘制棋子
+                const stone = document.createElement('div');
+                stone.style.position = 'absolute';
+                stone.style.width = '21px';
+                stone.style.height = '21px';
+                stone.style.borderRadius = '50%';
+                stone.style.backgroundColor = currentPlayer === 'black' ? '#000' : '#fff';
+                stone.style.boxShadow = '0 2px 6px rgba(0,0,0,0.25)';
+                stone.style.border = currentPlayer === 'black' ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)';
+                stone.style.left = '2px';
+                stone.style.top = '2px';
+                stone.style.zIndex = '10';
+                
+                cell.appendChild(stone);
+                
+                // 检查胜负
+                if (checkWin(row, col)) {
+                    gameOver = true;
+                    resultEl.textContent = `${currentPlayer === 'black' ? '● 黑方' : '○ 白方'} 获胜！`;
+                    resultEl.style.color = '#28a745';
+                    return;
+                }
+                
+                // 检查平局
+                if (checkDraw()) {
+                    gameOver = true;
+                    resultEl.textContent = '平局！';
+                    resultEl.style.color = '#0066cc';
+                    return;
+                }
+                
+                // 切换玩家
+                currentPlayer = currentPlayer === 'black' ? 'white' : 'black';
+                currentPlayerEl.innerHTML = currentPlayer === 'black' ? '<span style="color: #dc3545;">● 黑方</span>' : '<span style="color: #000;">○ 白方</span>';
+                
+                // AI落子
+                if (isAIMode && currentPlayer === 'white') {
+                    setTimeout(aiMakeMove, 500); // 添加500ms延迟，提升用户体验
+                }
+            }
+            
+            // 检查胜负
+            function checkWin(row, col) {
+                const player = board[row][col];
+                const directions = [
+                    [0, 1], // 水平
+                    [1, 0], // 垂直
+                    [1, 1], // 对角线
+                    [1, -1] // 反对角线
+                ];
+                
+                for (const [dx, dy] of directions) {
+                    let count = 1;
+                    
+                    // 向一个方向检查
+                    for (let i = 1; i < 5; i++) {
+                        const newRow = row + dx * i;
+                        const newCol = col + dy * i;
+                        if (newRow >= 0 && newRow < 15 && newCol >= 0 && newCol < 15 && board[newRow][newCol] === player) {
+                            count++;
+                        } else {
+                            break;
+                        }
+                    }
+                    
+                    // 向相反方向检查
+                    for (let i = 1; i < 5; i++) {
+                        const newRow = row - dx * i;
+                        const newCol = col - dy * i;
+                        if (newRow >= 0 && newRow < 15 && newCol >= 0 && newCol < 15 && board[newRow][newCol] === player) {
+                            count++;
+                        } else {
+                            break;
+                        }
+                    }
+                    
+                    if (count >= 5) {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+            
+            // 检查平局
+            function checkDraw() {
+                for (let i = 0; i < 15; i++) {
+                    for (let j = 0; j < 15; j++) {
+                        if (board[i][j] === '') {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            
+            // 评估位置得分
+            function evaluatePosition(row, col, player) {
+                if (board[row][col] !== '') return 0;
+                
+                const opponent = player === 'black' ? 'white' : 'black';
+                let score = 0;
+                
+                // 模拟落子
+                board[row][col] = player;
+                
+                // 检查是否获胜
+                if (checkWin(row, col)) {
+                    score += 10000;
+                }
+                
+                // 检查不同连子情况
+                const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
+                for (const [dx, dy] of directions) {
+                    // 检查当前玩家的连子
+                    let count = 1;
+                    let blocked = 0;
+                    
+                    // 向一个方向
+                    for (let i = 1; i < 5; i++) {
+                        const newRow = row + dx * i;
+                        const newCol = col + dy * i;
+                        if (newRow >= 0 && newRow < 15 && newCol >= 0 && newCol < 15) {
+                            if (board[newRow][newCol] === player) {
+                                count++;
+                            } else if (board[newRow][newCol] === opponent) {
+                                blocked++;
+                                break;
+                            } else {
+                                break;
+                            }
+                        } else {
+                            blocked++;
+                            break;
+                        }
+                    }
+                    
+                    // 向相反方向
+                    for (let i = 1; i < 5; i++) {
+                        const newRow = row - dx * i;
+                        const newCol = col - dy * i;
+                        if (newRow >= 0 && newRow < 15 && newCol >= 0 && newCol < 15) {
+                            if (board[newRow][newCol] === player) {
+                                count++;
+                            } else if (board[newRow][newCol] === opponent) {
+                                blocked++;
+                                break;
+                            } else {
+                                break;
+                            }
+                        } else {
+                            blocked++;
+                            break;
+                        }
+                    }
+                    
+                    // 根据连子数量和封锁情况加分
+                    if (count >= 5) {
+                        score += 10000;
+                    } else if (count === 4 && blocked === 0) {
+                        score += 1000;
+                    } else if (count === 4 && blocked === 1) {
+                        score += 100;
+                    } else if (count === 3 && blocked === 0) {
+                        score += 100;
+                    } else if (count === 3 && blocked === 1) {
+                        score += 10;
+                    } else if (count === 2 && blocked === 0) {
+                        score += 10;
+                    } else if (count === 2 && blocked === 1) {
+                        score += 1;
+                    }
+                }
+                
+                // 撤销模拟落子
+                board[row][col] = '';
+                
+                // 中心位置加成
+                const centerRow = 7;
+                const centerCol = 7;
+                const distance = Math.abs(row - centerRow) + Math.abs(col - centerCol);
+                score += (20 - distance) * 2;
+                
+                return score;
+            }
+            
+            // AI落子
+            function aiMakeMove() {
+                if (gameOver) return;
+                
+                let bestScore = -Infinity;
+                let bestMove = null;
+                
+                // 遍历所有空位置
+                for (let i = 0; i < 15; i++) {
+                    for (let j = 0; j < 15; j++) {
+                        if (board[i][j] === '') {
+                            // 评估当前位置的得分
+                            const score = evaluatePosition(i, j, 'white');
+                            
+                            // 同时评估对手的威胁
+                            const opponentScore = evaluatePosition(i, j, 'black');
+                            
+                            // 综合得分（防守优先）
+                            const totalScore = score + opponentScore * 1.5;
+                            
+                            if (totalScore > bestScore) {
+                                bestScore = totalScore;
+                                bestMove = { row: i, col: j };
+                            }
+                        }
+                    }
+                }
+                
+                if (bestMove) {
+                    const { row, col } = bestMove;
+                    // 找到对应的DOM元素
+                    const cells = boardEl.querySelectorAll('[data-row][data-col]');
+                    let targetCell = null;
+                    for (const cell of cells) {
+                        if (parseInt(cell.dataset.row) === row && parseInt(cell.dataset.col) === col) {
+                            targetCell = cell;
+                            break;
+                        }
+                    }
+                    
+                    if (targetCell) {
+                        // 模拟点击事件
+                        const clickEvent = new MouseEvent('click', { bubbles: true });
+                        targetCell.dispatchEvent(clickEvent);
+                    }
+                }
+            }
+            
+            // 更新开始游戏函数
+            function startGame() {
+                initGobangGame();
+            }
+            
+            // 绑定按钮事件
+            startBtn.addEventListener('click', startGame);
+            gobangRestartBtn.addEventListener('click', startGame);
+            
+            // 初始化游戏
+            initGobangGame();
+        });
+    </script>
+    <!-- 新年主题样式 -->
+    <link rel="stylesheet" href="css/newyear.css">
+    <!-- 新年主题脚本 -->
+    <script src="js/newyear.js"></script>
+    <script src="js/search-common.js"></script>
+    
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+    
+    <!-- Wenjuan Layer Begin -->
+    <div id="idy_floatdiv" style="position:fixed;left:0;bottom:0%;width:24px;height:76px;background:#E6B30B;line-height: 24px;writing-mode:vertical-rl;text-align:center;font-family:PingFangSC-Regular;font-size:12px;">
+        <a href="https://www.wenjuan.com/s/UZBZJvkySyB/" target="blank" style="color:#ffffff;text-decoration:none;">加入我们</a>
+    </div>
+    <!-- Wenjuan Layer End -->
+</body>
 </html>

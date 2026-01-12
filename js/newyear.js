@@ -1,21 +1,31 @@
-// 新年主题功能
+// 新年主题功能 - 重构版
 class NewYearTheme {
-    constructor() {
-        this.popup = null;
-        this.countdownPopup = null;
+    /**
+     * @param {Object} options - 配置选项
+     * @param {Date|string} options.targetDate - 目标日期（默认 2026-02-10T20:00:00）
+     * @param {string} options.countdownSeenKey - localStorage 键名（默认包含年份）
+     */
+    constructor(options = {}) {
         this.decorations = [];
         this.countdownWindow = null;
-        this.isPopupShown = false;
-        this.isCountdownPopupShown = false;
         this.countdownInterval = null;
-        this.countdownPopupInterval = null;
+        this.targetDate = options.targetDate ? new Date(options.targetDate) : new Date('2026-02-10T20:00:00');
+        
+        // localStorage 键名包含年份，确保每年都能显示
+        const currentYear = new Date().getFullYear();
+        this.countdownSeenKey = options.countdownSeenKey || `newyearCountdownSeen_${currentYear}`;
+        
+        // 添加事件监听
+        this.bindEvents();
+        // 添加淡出动画样式
+        this.addFadeOutAnimation();
     }
     
     // 初始化新年主题
     init() {
         this.createDecorations();
+        this.createCountdownWindow();
         this.startCountdown();
-        this.bindEvents();
     }
     
     // 创建装饰元素 - 挂在banner上
@@ -41,8 +51,10 @@ class NewYearTheme {
                 const element = document.createElement('div');
                 element.className = `banner-decoration ${deco.className}`;
                 element.textContent = deco.emoji;
+                element.style.position = 'absolute';
                 element.style.left = deco.left;
                 element.style.top = deco.top;
+                element.style.fontSize = '24px';
                 banner.appendChild(element);
                 this.decorations.push(element);
             });
@@ -51,31 +63,35 @@ class NewYearTheme {
     
     // 创建左下角跨年倒计时窗口
     createCountdownWindow() {
-        // 检查是否已经显示过倒计时窗口
-        const hasSeenCountdown = localStorage.getItem('newyearCountdownSeen');
+        // 检查是否已经显示过倒计时窗口（当年内）
+        const hasSeenCountdown = localStorage.getItem(this.countdownSeenKey);
         if (hasSeenCountdown) return;
         
         // 创建倒计时窗口元素
         const countdownWindow = document.createElement('div');
         countdownWindow.className = 'countdown-window';
+        countdownWindow.role = 'dialog';
+        countdownWindow.ariaModal = 'true';
+        countdownWindow.ariaLabel = '新年倒计时';
+        
         countdownWindow.innerHTML = `
-            <div class="countdown-window-close">&times;</div>
+            <div class="countdown-window-close" aria-label="关闭倒计时窗口">&times;</div>
             <h3>距离2026年春节还有</h3>
             <div class="countdown-time">
                 <div class="countdown-unit">
-                    <span class="countdown-number" id="window-days">00</span>
+                    <span class="countdown-number" data-countdown="days">00</span>
                     <div class="countdown-label">天</div>
                 </div>
                 <div class="countdown-unit">
-                    <span class="countdown-number" id="window-hours">00</span>
+                    <span class="countdown-number" data-countdown="hours">00</span>
                     <div class="countdown-label">时</div>
                 </div>
                 <div class="countdown-unit">
-                    <span class="countdown-number" id="window-minutes">00</span>
+                    <span class="countdown-number" data-countdown="minutes">00</span>
                     <div class="countdown-label">分</div>
                 </div>
                 <div class="countdown-unit">
-                    <span class="countdown-number" id="window-seconds">00</span>
+                    <span class="countdown-number" data-countdown="seconds">00</span>
                     <div class="countdown-label">秒</div>
                 </div>
             </div>
@@ -88,27 +104,28 @@ class NewYearTheme {
         document.body.appendChild(countdownWindow);
         this.countdownWindow = countdownWindow;
         
-        // 记录倒计时窗口已显示
-        localStorage.setItem('newyearCountdownSeen', 'true');
+        // 记录倒计时窗口已显示（当年内）
+        localStorage.setItem(this.countdownSeenKey, 'true');
     }
     
     // 开始倒计时
     startCountdown() {
-        const targetDate = new Date('2026-02-10T20:00:00'); // 2026年春节晚会
-        
-        this.updateCountdown(targetDate);
+        this.updateCountdown();
         this.countdownInterval = setInterval(() => {
-            this.updateCountdown(targetDate);
+            this.updateCountdown();
         }, 1000);
+        
+        // 添加清理定时器的事件监听
+        this.addCleanupListeners();
     }
     
     // 更新倒计时 - 同时更新主弹窗和左下角窗口
-    updateCountdown(targetDate) {
+    updateCountdown() {
         const now = new Date();
-        const diff = targetDate - now;
+        const diff = this.targetDate - now;
         
         if (diff <= 0) {
-            clearInterval(this.countdownInterval);
+            this.clearCountdown();
             return;
         }
         
@@ -117,60 +134,81 @@ class NewYearTheme {
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         
-        // 更新主弹窗倒计时
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minutesEl = document.getElementById('minutes');
-        const secondsEl = document.getElementById('seconds');
+        // 更新所有带有data-countdown属性的元素
+        const countdownElements = document.querySelectorAll('[data-countdown]');
+        countdownElements.forEach(element => {
+            const type = element.getAttribute('data-countdown');
+            let value = '00';
+            
+            switch(type) {
+                case 'days':
+                    value = String(days).padStart(2, '0');
+                    break;
+                case 'hours':
+                    value = String(hours).padStart(2, '0');
+                    break;
+                case 'minutes':
+                    value = String(minutes).padStart(2, '0');
+                    break;
+                case 'seconds':
+                    value = String(seconds).padStart(2, '0');
+                    break;
+            }
+            
+            element.textContent = value;
+        });
         
-        if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
-        
-        // 更新左下角倒计时窗口
-        const windowDaysEl = document.getElementById('window-days');
-        const windowHoursEl = document.getElementById('window-hours');
-        const windowMinutesEl = document.getElementById('window-minutes');
-        const windowSecondsEl = document.getElementById('window-seconds');
-        
-        if (windowDaysEl) windowDaysEl.textContent = String(days).padStart(2, '0');
-        if (windowHoursEl) windowHoursEl.textContent = String(hours).padStart(2, '0');
-        if (windowMinutesEl) windowMinutesEl.textContent = String(minutes).padStart(2, '0');
-        if (windowSecondsEl) windowSecondsEl.textContent = String(seconds).padStart(2, '0');
+        // 同时支持旧的id选择器（向后兼容）
+        const idElements = ['days', 'hours', 'minutes', 'seconds'];
+        idElements.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                let value = '00';
+                switch(id) {
+                    case 'days': value = String(days).padStart(2, '0'); break;
+                    case 'hours': value = String(hours).padStart(2, '0'); break;
+                    case 'minutes': value = String(minutes).padStart(2, '0'); break;
+                    case 'seconds': value = String(seconds).padStart(2, '0'); break;
+                }
+                element.textContent = value;
+            }
+        });
     }
     
-    // 绑定事件
+    // 绑定事件 - 统一处理所有点击事件
     bindEvents() {
-        // 关闭弹窗
         document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('newyear-popup-close') || e.target.id === 'newyearEnter') {
+            // 关闭倒计时窗口
+            if (e.target.classList.contains('countdown-window-close') || 
+                e.target.closest('.countdown-window-close')) {
+                this.closeCountdownWindow();
+            }
+            
+            // 关闭主弹窗（如果存在）
+            if (e.target.classList.contains('newyear-popup-close') || 
+                e.target.id === 'newyearEnter' ||
+                e.target.classList.contains('newyear-popup')) {
                 this.closePopup();
             }
         });
         
-        // 点击弹窗外部关闭
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('newyear-popup')) {
+        // 添加键盘事件支持
+        document.addEventListener('keydown', (e) => {
+            // ESC键关闭所有弹窗
+            if (e.key === 'Escape') {
                 this.closePopup();
-            }
-        });
-        
-        // 关闭倒计时窗口
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('countdown-window-close')) {
                 this.closeCountdownWindow();
             }
         });
     }
     
-    // 关闭弹窗
+    // 关闭主弹窗（如果存在）
     closePopup() {
-        if (this.popup) {
-            this.popup.style.animation = 'fadeOut 0.5s ease';
+        const popup = document.querySelector('.newyear-popup');
+        if (popup) {
+            popup.classList.add('fade-out');
             setTimeout(() => {
-                this.popup.remove();
-                this.popup = null;
+                popup.remove();
             }, 500);
         }
     }
@@ -178,7 +216,7 @@ class NewYearTheme {
     // 关闭倒计时窗口
     closeCountdownWindow() {
         if (this.countdownWindow) {
-            this.countdownWindow.style.animation = 'fadeOut 0.5s ease';
+            this.countdownWindow.classList.add('fade-out');
             setTimeout(() => {
                 this.countdownWindow.remove();
                 this.countdownWindow = null;
@@ -186,34 +224,108 @@ class NewYearTheme {
         }
     }
     
-    // 绑定事件
-    bindEvents() {
-        // 关闭倒计时窗口
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('countdown-window-close')) {
-                this.closeCountdownWindow();
+    // 清除倒计时
+    clearCountdown() {
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+            this.countdownInterval = null;
+        }
+    }
+    
+    // 添加清理事件监听
+    addCleanupListeners() {
+        // 页面卸载或隐藏时清理
+        window.addEventListener('beforeunload', () => {
+            this.clearCountdown();
+        });
+        
+        // 页面可见性变化时暂停/恢复
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.clearCountdown();
+            } else {
+                this.startCountdown();
             }
         });
     }
     
-    // 关闭倒计时窗口
-    closeCountdownWindow() {
-        if (this.countdownWindow) {
-            this.countdownWindow.style.animation = 'fadeOut 0.5s ease';
-            setTimeout(() => {
-                this.countdownWindow.remove();
-                this.countdownWindow = null;
-            }, 500);
-        }
-    }
-    
-    // 添加淡出动画
+    // 添加动画样式
     addFadeOutAnimation() {
+        // 检查是否已添加过动画样式
+        if (document.getElementById('newyear-animation-styles')) return;
+        
         const style = document.createElement('style');
+        style.id = 'newyear-animation-styles';
         style.textContent = `
             @keyframes fadeOut {
                 from { opacity: 1; }
                 to { opacity: 0; }
+            }
+            
+            .fade-out {
+                animation: fadeOut 0.5s ease forwards;
+            }
+            
+            /* 倒计时窗口默认样式 */
+            .countdown-window {
+                position: fixed;
+                left: 20px;
+                bottom: 20px;
+                background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                min-width: 250px;
+                font-family: Arial, sans-serif;
+            }
+            
+            .countdown-window-close {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+                font-size: 20px;
+                line-height: 1;
+                font-weight: bold;
+            }
+            
+            .countdown-window h3 {
+                margin: 0 0 15px 0;
+                text-align: center;
+                font-size: 18px;
+            }
+            
+            .countdown-time {
+                display: flex;
+                justify-content: space-around;
+                margin: 15px 0;
+            }
+            
+            .countdown-unit {
+                text-align: center;
+            }
+            
+            .countdown-number {
+                display: block;
+                font-size: 24px;
+                font-weight: bold;
+                background: rgba(255, 255, 255, 0.2);
+                padding: 5px 10px;
+                border-radius: 5px;
+                margin-bottom: 5px;
+            }
+            
+            .countdown-label {
+                font-size: 12px;
+            }
+            
+            .countdown-message {
+                text-align: center;
+                margin-top: 15px;
+                font-size: 14px;
+                line-height: 1.4;
             }
         `;
         document.head.appendChild(style);
