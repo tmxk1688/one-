@@ -24,6 +24,9 @@
     <meta name="twitter:description" content="天马行空创意网 — 汇聚设计、技术与内容创作者，展示作品、发现合作与灵感">
     <meta name="twitter:image" content="https://tmxkcy.xyz/banners/banner1.jpg">
     
+    <!-- 睿言站点验证 -->
+    <meta name="rs-site-verification" content="bcafcgfrvldmvvrs" />
+    
     <!-- Favicon -->
     <link rel="icon" href="photo/logo.png" type="image/png">
     <link rel="shortcut icon" href="photo/logo.png" type="image/png">
@@ -1469,8 +1472,54 @@
                     </div>
                 </div>
             </div>
+        <!-- 睿言评论模块 -->
+            <div class="content-section">
+                <h2>留言评论</h2>
+                <div id="RUI-SPEAK" data-app-id="MTc2ODM4NjM2NzExMDg2Ng==" data-app-key="Cc1r4evyAzbk/zJbU+lghMZEvG9wO3Un8xhX5hKc1ro=" data-article-no=""></div>
+            </div>
         </main>
     </div>
+    
+    <!-- 睿言评论模块脚本 -->
+    <script src="https://h5.ruispeak.cn/rs.js" type="text/javascript"></script>
+    
+    <!-- 动态修改评论模块文本 -->
+    <script>
+        // 等待页面加载完成
+        window.addEventListener('load', function() {
+            // 定期检查评论模块是否加载完成
+            const checkCommentModule = setInterval(function() {
+                let allElementsUpdated = false;
+                
+                // 1. 查找并修改自律公约链接文本
+                const pactLink = document.querySelector('.RS-cg-a[href="https://h5.ruispeak.cn/html/pact.html"]');
+                if (pactLink && pactLink.textContent === '睿言云评《自律公约》') {
+                    pactLink.textContent = '天马行空创意网《自律公约》';
+                }
+                
+                // 2. 查找并修改自律公约标题文本
+                const titleText = document.querySelector('.title-text');
+                if (titleText && titleText.textContent === '睿言云评用户跟帖自律公约') {
+                    titleText.textContent = '天马行空创意创意网用户跟帖自律公告';
+                }
+                
+                // 检查是否所有元素都已更新完成
+                if (pactLink && titleText) {
+                    allElementsUpdated = true;
+                }
+                
+                // 如果所有元素都已更新，清除定时器
+                if (allElementsUpdated) {
+                    clearInterval(checkCommentModule);
+                }
+            }, 500);
+            
+            // 10秒后停止检查，防止无限循环
+            setTimeout(function() {
+                clearInterval(checkCommentModule);
+            }, 10000);
+        });
+    </script>
     
     <!-- 公众号关注广告 -->
     <div class="wechat-ad">
