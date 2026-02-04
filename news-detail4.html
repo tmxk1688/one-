@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" href="photo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="photo/logo.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 睿言站点验证 -->
+    <meta name="rs-site-verification" content="bcafcgfrvldmvvrs" />
+    <title>重磅官宣：代做上线！视频剪辑/海报/名片/包装，全程代做不费心！！！ - 天马行空创意网</title>
+    <style>
+        /* 复用首页的CSS样式 */
+        /* 全局样式重置和基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #0066cc;
+            --primary-hover: #0052a3;
+            --secondary-color: #666;
+            --text-color: #333;
+            --light-text: #999;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+            --border-color: #eee;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.15);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica', 'Microsoft YaHei', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        /* 标题样式 */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Arial', 'Helvetica', 'Microsoft YaHei', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--text-color);
+        }
+        
+        h1 {
+            font-size: clamp(28px, 5vw, 36px);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            font-size: clamp(22px, 4vw, 28px);
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        h3 {
+            font-size: clamp(18px, 3vw, 22px);
+            margin-bottom: 15px;
+        }
+        
+        /* 段落样式 */
+        p {
+            margin-bottom: 18px;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+        
+        /* 链接样式 */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+        
+        /* 列表样式 */
+        ul, ol {
+            margin-bottom: 18px;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        /* 强调文本 */
+        strong, b {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        /* 引用样式 */
+        blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+        
+        /* 代码样式 */
+        code {
+            background-color: rgba(0, 102, 204, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        /* 响应式字体调整 */
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            h3 {
+                font-size: 18px;
+            }
+            
+            p {
+                line-height: 1.6;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            h2 {
+                font-size: 18px;
+            }
+            
+            h3 {
+                font-size: 16px;
+            }
+        }
+        
+        /* 容器样式 */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--card-background);
+            padding: 15px 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo img {
+            margin-right: 12px;
+            height: 50px;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-main {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+        
+        .logo-sub {
+            font-size: 12px;
+            color: var(--secondary-color);
+            font-weight: normal;
+        }
+        
+        .search {
+            display: flex;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search input {
+            padding: 10px 15px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 4px 0 0 4px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+        }
+        
+        .search button {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .search button:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        /* 导航栏样式 */
+        nav {
+            background-color: var(--primary-color);
+            margin-top: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        nav ul li .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--primary-color);
+            min-width: 200px;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            border-radius: 0 0 4px 4px;
+        }
+        
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+        
+        nav ul li .dropdown li {
+            display: block;
+        }
+        
+        nav ul li .dropdown li a {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        nav ul li .dropdown li:last-child a {
+            border-bottom: none;
+        }
+        
+        /* 横幅样式 */
+        .banner {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.2"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.2"/><circle cx="60" cy="80" r="2" fill="white" opacity="0.2"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.2"/><circle cx="90" cy="20" r="1.5" fill="white" opacity="0.2"/></svg>');
+            background-size: 200px 200px;
+            animation: float 15s infinite linear;
+            transition: all 0.5s ease;
+        }
+        
+        @keyframes float {
+            from { transform: translateX(0) translateY(0); }
+            to { transform: translateX(-200px) translateY(-200px); }
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner h1 {
+            font-size: clamp(28px, 5vw, 36px);
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-weight: 800;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .banner p {
+            font-size: clamp(16px, 3vw, 20px);
+            margin-bottom: 35px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            color: rgba(255,255,255,0.98);
+            font-weight: 400;
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            display: flex;
+            margin-top: 20px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 260px;
+            background-color: var(--card-background);
+            box-shadow: var(--shadow-sm);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .sidebar-section:last-child {
+            border-bottom: none;
+        }
+        
+        .sidebar-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+        }
+        
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .login-form button:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        
+        .login-options a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .login-options a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+        
+        .sidebar-links {
+            list-style: none;
+        }
+        
+        .sidebar-links li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-links li a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+            transition: var(--transition);
+            border-radius: 4px;
+            padding-left: 12px;
+        }
+        
+        .sidebar-links li a:hover {
+            color: var(--primary-color);
+            background-color: rgba(0, 102, 204, 0.05);
+            padding-left: 16px;
+        }
+        
+        /* 主内容区域 */
+        .content {
+            flex: 1;
+            min-width: 280px;
+            background-color: var(--card-background);
+            box-shadow: var(--shadow-sm);
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+        /* 内容区块样式 */
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 102, 204, 0.1);
+        }
+        
+        .content-section h3 {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        /* 免责声明样式 */
+        .disclaimer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: var(--border-radius);
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        /* 新闻详情样式 */
+        .news-detail {
+            background: var(--card-background);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 30px;
+        }
+        
+        .news-detail h1 {
+            color: var(--text-color);
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+        
+        .news-detail .news-meta {
+            color: var(--light-text);
+            font-size: 14px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .news-detail .news-content {
+            line-height: 1.8;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+        
+        .news-detail .news-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .news-detail .news-content h2 {
+            color: var(--text-color);
+            font-size: 24px;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 102, 204, 0.1);
+        }
+        
+        .news-detail .news-content h3 {
+            color: var(--text-color);
+            font-size: 20px;
+            margin: 25px 0 15px;
+        }
+        
+        .news-detail .news-content ul,
+        .news-detail .news-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .news-detail .news-content li {
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        
+        /* 按钮样式 */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0099ff 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--primary-hover) 0%, #0088cc 100%);
+        }
+        
+        /* 赞赏码广告位 */
+        .appreciation-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .appreciation-section h3 {
+            color: #fa709a;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .appreciation-section p {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .appreciation-qrcode {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            background-color: var(--card-background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .appreciation-qrcode img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        /* 代做业务样式 */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+        
+        .service-card {
+            background: var(--card-background);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .service-card h3::before {
+            content: attr(data-icon);
+            font-size: 20px;
+        }
+        
+        .service-card p {
+            color: var(--secondary-color);
+            line-height: 1.5;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .service-card ul {
+            margin-top: 10px;
+            padding-left: 16px;
+        }
+        
+        .service-card li {
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: var(--secondary-color);
+            position: relative;
+        }
+        
+        .service-card li::before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: -12px;
+        }
+        
+        /* 价格表样式 */
+        .price-table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+        }
+        
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+        
+        .price-table th,
+        .price-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .price-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .price-table tr {
+            transition: background-color 0.3s ease;
+        }
+        
+        .price-table tr:hover {
+            background-color: rgba(0, 102, 204, 0.05);
+        }
+        
+        .price-table tr:nth-child(even) {
+            background-color: rgba(0, 102, 204, 0.01);
+        }
+        
+        .price-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .price-table td:first-child {
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        .price-table td:nth-child(2) {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+        
+        .price-table td:nth-child(3) {
+            color: var(--secondary-color);
+            font-size: 13px;
+        }
+        
+        /* 价格标签样式 */
+        .price-tag {
+            display: inline-block;
+            background-color: rgba(0, 102, 204, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        /* 响应式服务网格 */
+        @media (max-width: 768px) {
+            .service-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            
+            .service-card {
+                padding: 16px;
+            }
+            
+            .service-card h3 {
+                font-size: 16px;
+            }
+        }
+        
+        /* 联系方式样式 */
+        .contact-info {
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+        
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .contact-info h3::before {
+            content: '📞';
+            font-size: 20px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .contact-info .highlight {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* 二维码容器样式 */
+        .qrcode-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .qrcode-item {
+            text-align: center;
+            transition: var(--transition);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: var(--card-background);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .qrcode-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .qrcode-item img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+        
+        .qrcode-item:hover img {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 102, 204, 0.2);
+        }
+        
+        .qrcode-item p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        /* 联系信息网格 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .contact-item-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+        
+        .contact-item-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        .contact-item-value {
+            color: var(--secondary-color);
+            font-size: 13px;
+            text-align: center;
+        }
+        
+        /* 响应式联系方式 */
+        @media (max-width: 768px) {
+            .contact-info {
+                padding: 20px;
+            }
+            
+            .qrcode-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .qrcode-item {
+                padding: 12px;
+            }
+            
+            .qrcode-item img {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .contact-item {
+                padding: 12px;
+            }
+        }
+        
+        /* 响应式主内容布局 */
+        @media (max-width: 768px) {
+            .main-content {
+                gap: 15px;
+                margin-top: 15px;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .content {
+                width: 100%;
+                order: 1;
+                padding: 20px;
+            }
+        }
+        
+        /* 打印样式 */
+        @media print {
+            /* 隐藏不需要打印的元素 */
+            header, nav, .banner, .sidebar, .back-link, button, .content-section:last-child, footer, .wechat-ad, .social-ad, .back-to-top, .popup-ad {
+                display: none !important;
+            }
+            
+            /* 调整页面布局 */
+            .container {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+            
+            .main-content {
+                display: block !important;
+                margin: 0 !important;
+            }
+            
+            .content {
+                width: 100% !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                background: white !important;
+            }
+            
+            /* 调整新闻详情样式 */
+            .news-detail {
+                padding: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            
+            .news-detail h1 {
+                font-size: 24px !important;
+                margin-bottom: 15px !important;
+                color: #000 !important;
+                text-align: center !important;
+            }
+            
+            .news-meta {
+                font-size: 12px !important;
+                color: #666 !important;
+                border-bottom: 1px solid #ddd !important;
+                padding-bottom: 10px !important;
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
+            
+            /* 调整服务卡片样式 */
+            .service-grid {
+                display: grid !important;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+                gap: 10px !important;
+                margin: 20px 0 !important;
+            }
+            
+            .service-card {
+                border: 1px solid #ddd !important;
+                padding: 10px !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+                background: white !important;
+            }
+            
+            .service-card h3 {
+                font-size: 14px !important;
+                margin-bottom: 8px !important;
+                color: #0066cc !important;
+            }
+            
+            .service-card p {
+                font-size: 11px !important;
+                line-height: 1.3 !important;
+                margin-bottom: 8px !important;
+            }
+            
+            /* 调整价格表样式 */
+            .price-table-container {
+                margin: 15px 0 !important;
+                box-shadow: none !important;
+            }
+            
+            .price-table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+                font-size: 11px !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+            
+            .price-table th,
+            .price-table td {
+                border: 1px solid #ddd !important;
+                padding: 6px !important;
+                text-align: left !important;
+                font-size: 11px !important;
+            }
+            
+            .price-table th {
+                background-color: #f5f5f5 !important;
+                font-weight: bold !important;
+                position: sticky !important;
+                top: 0 !important;
+            }
+            
+            /* 调整联系方式样式 */
+            .contact-info {
+                background: #f9f9f9 !important;
+                padding: 15px !important;
+                border: 1px solid #ddd !important;
+                margin: 20px 0 !important;
+                break-inside: avoid !important;
+            }
+            
+            .qrcode-container {
+                display: flex !important;
+                justify-content: center !important;
+                gap: 20px !important;
+                margin: 15px 0 !important;
+                flex-wrap: wrap !important;
+            }
+            
+            .qrcode-item {
+                padding: 10px !important;
+                background: white !important;
+                border: 1px solid #ddd !important;
+                border-radius: 4px !important;
+                break-inside: avoid !important;
+            }
+            
+            .qrcode-item img {
+                width: 100px !important;
+                height: 100px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            .qrcode-item p {
+                font-size: 11px !important;
+                margin: 0 !important;
+            }
+            
+            .contact-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+                gap: 10px !important;
+                margin-top: 15px !important;
+            }
+            
+            .contact-item {
+                padding: 10px !important;
+                background: white !important;
+                border: 1px solid #ddd !important;
+                break-inside: avoid !important;
+            }
+            
+            .contact-item-icon {
+                font-size: 16px !important;
+                margin-bottom: 5px !important;
+            }
+            
+            .contact-item-title {
+                font-size: 12px !important;
+                margin-bottom: 3px !important;
+            }
+            
+            .contact-item-value {
+                font-size: 11px !important;
+            }
+            
+            /* 确保图片打印清晰 */
+            img {
+                max-width: 120px !important;
+                height: auto !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+            
+            /* 调整字体和颜色 */
+            body {
+                font-family: Arial, sans-serif !important;
+                font-size: 12px !important;
+                line-height: 1.4 !important;
+                color: #000 !important;
+                background: white !important;
+            }
+            
+            h2 {
+                font-size: 16px !important;
+                color: #0066cc !important;
+                margin: 15px 0 8px !important;
+                padding-bottom: 5px !important;
+                border-bottom: 1px solid #ddd !important;
+            }
+            
+            h3 {
+                font-size: 13px !important;
+                color: #333 !important;
+                margin: 10px 0 5px !important;
+            }
+            
+            p {
+                margin-bottom: 8px !important;
+                text-align: left !important;
+                line-height: 1.4 !important;
+            }
+            
+            ul, ol {
+                margin-bottom: 10px !important;
+                padding-left: 20px !important;
+            }
+            
+            li {
+                margin-bottom: 5px !important;
+                font-size: 11px !important;
+                line-height: 1.3 !important;
+            }
+            
+            /* 确保表格不被分割 */
+            table {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+            
+            /* 确保区块不被分割 */
+            div {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+            
+            /* 调整页面边距 */
+            @page {
+                margin: 15mm !important;
+            }
+            
+            /* 打印时的链接样式 */
+            a {
+                color: #0066cc !important;
+                text-decoration: underline !important;
+            }
+        }
+    </style>
+    <!-- 新年主题样式 -->
+    <link rel="stylesheet" href="css/newyear.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="photo/logo.png" alt="Logo">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="搜索...">
+                <button>🔍</button>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="#">服务系统</a>
+                    <ul class="dropdown">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank">工作系统</a></li>
+                <li>
+                    <a href="#">下载专区</a>
+                    <ul class="dropdown">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="banner">
+        <div class="container banner-content">
+            <h1>新闻详情</h1>
+            <p>了解天马行空创意团队的最新动态和活动</p>
+        </div>
+    </div>
+    
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>服务登录</h3>
+                <form class="login-form">
+                    <input type="text" placeholder="请输入账号/手机">
+                    <input type="password" placeholder="密码">
+                    <button type="submit">登录</button>
+                    <div class="login-options">
+                        <a href="#">手机快捷登录</a>
+                        <a href="register.html">注册></a>
+                    </div>
+                    <div class="other-login">
+                        
+                        <!-- 可以添加第三方登录图标 -->
+                    </div>
+                </form>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>服务范围</h3>
+                <ul class="sidebar-links">
+                    <li><a href="contribute.html">投稿</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>新闻动态</h3>
+                <ul class="sidebar-links">
+                    <li><a href="news.html">MORE+</a></li>
+                </ul>
+            </div>
+            
+            <!-- 赞赏码广告位 -->
+            <div class="sidebar-section" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 8px; margin: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: #fa709a; text-align: center; margin-bottom: 15px; font-size: 16px;">💖 支持我们</h3>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <p style="font-size: 14px; color: #666; margin-bottom: 10px;">如果你喜欢我们的内容，不妨支持一下我们！</p>
+                    <div style="width: 150px; height: 150px; margin: 0 auto 10px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+                        <img src="photo/zsm.jpg" alt="赞赏码" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">扫码支持我们的创作</p>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <p style="font-size: 13px; color: #666;">关注公众号获取更多精彩内容</p>
+                    <p style="font-size: 12px; color: #999; margin-top: 5px;">回复「权限码」获取下载权限</p>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <div class="news-detail">
+                <h1>重磅官宣：代做上线！视频剪辑/海报/名片/包装，全程代做不费心！！！</h1>
+                <div class="news-meta">
+                    <span>📅 2026-02-03</span>
+                    <span>👁️ 阅读：0</span>
+                    <span>📝 来源：天马行空创意团队</span>
+                </div>
+                <div class="news-content">
+                    <p>家人们！久等啦🥳天马行空创意团队，又双叒叕搞事情啦！好多粉丝在我们后台私信刷屏：“能不能帮我剪个短视频？”“海报设计求搭子！”“素材堆了一堆，不会做特效真的急哭。”听懂啦听懂啦！不负大家的信任与偏爱，今天正式官宣——天马行空创意代做业务，全面上线啦！</p>
+                    
+                    <h2>我们能做什么业务？</h2>
+                    
+                    <div class="service-grid">
+                        <div class="service-card">
+                            <h3 data-icon="🎬">短视频剪辑</h3>
+                            <p>节奏把控、字幕添加、BGM搭配一站式搞定。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="🎥">影视微制作</h3>
+                            <p>短片、微电影、剧情片段、宣传片、纪录片专业加工，优化镜头衔接、梳理叙事逻辑，塑造故事感和氛围感。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="✨">特效制作</h3>
+                            <p>片头片尾特效、转场特效、画面合成、专业调色修图，告别平淡画质，让你的作品更具高级感和视觉冲击力。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="📺">节目包装</h3>
+                            <p>综艺、访谈、短视频栏目等节目包装，含片头片尾、字幕模板、转场包装、LOGO演绎，提升节目质感和专业度。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="🎨">PS/AI海报设计</h3>
+                            <p>精细修图、个性版式设计、质感文字排版，为你打造专属视觉标识，质感直接拉满。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="🖼️">修图/P图/抠图</h3>
+                            <p>人物修图、景物修图、背景抠图、瑕疵修复、证件照制作、光影调整，还原画面质感，精准满足各类修图需求，告别废片烦恼。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="🏢">名片制作</h3>
+                            <p>个人名片、企业名片、商务名片定制，风格简约大气或个性吸睛。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="📊">PPT制作</h3>
+                            <p>专业PPT设计、模板定制、内容排版、动画效果、数据可视化，打造高质量演示文稿。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="📝">Word文档处理</h3>
+                            <p>文档排版、格式调整、内容编辑、简历制作、报告撰写，确保文档专业规范。</p>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-icon="📈">Excel表格处理</h3>
+                            <p>数据录入、公式设置、图表制作、表格美化、数据分析，提升数据处理效率。</p>
+                        </div>
+                    </div>
+                    
+                    <h2>价格怎么收费？</h2>
+                    <p>不用比价、不用议价，价格全程公开透明，学生党、个体户、中小企业都能适应，拒绝套路。</p>
+                    
+                    <div class="price-table-container">
+                        <table class="price-table">
+                        <tr>
+                            <th>服务类型</th>
+                            <th>价格</th>
+                            <th>说明</th>
+                        </tr>
+                        <tr>
+                            <td>视频剪辑（核心业务）</td>
+                            <td>1分钟内：20-30元/条<br>3分钟以上：100-300元/条</td>
+                            <td>简洁高效，适配各类短视频平台，快速交付；精细剪辑+特效适配，按需调整，质感拉满</td>
+                        </tr>
+                        <tr>
+                            <td>影视微制作</td>
+                            <td>1-3分钟：50-150元/条<br>3-8分钟：150-300元/条<br>8分钟以上：300-600元/条</td>
+                            <td>按脚本复杂度、镜头精细度微调</td>
+                        </tr>
+                        <tr>
+                            <td>节目包装</td>
+                            <td>短视频栏目：50-180元/套<br>综艺/访谈栏目：200-900元/套</td>
+                            <td>含片头+片尾+基础字幕模板；含LOGO演绎、转场定制、字幕模板全套</td>
+                        </tr>
+                        <tr>
+                            <td>特效制作</td>
+                            <td>基础特效：50-80元/条<br>中级特效：200-1000元/条<br>高级特效：1000-2000元/条</td>
+                            <td>按难度分层</td>
+                        </tr>
+                        <tr>
+                            <td>平面设计相关</td>
+                            <td>单张/单次25元起</td>
+                            <td>批量定制享专属优惠，越订越划算</td>
+                        </tr>
+                        <tr>
+                            <td>PPT制作</td>
+                            <td>简单型：30-80元/份<br>标准型：80-200元/份<br>高级型：200-500元/份</td>
+                            <td>按页数、复杂度、动画效果等因素调整</td>
+                        </tr>
+                        <tr>
+                            <td>Word文档处理</td>
+                            <td>简单排版：10-30元/份<br>内容编辑：30-100元/份<br>深度撰写：100-300元/份</td>
+                            <td>按字数、复杂度、专业度要求调整</td>
+                        </tr>
+                        <tr>
+                            <td>Excel表格处理</td>
+                            <td>数据录入：10-50元/份<br>公式设置：30-100元/份<br>数据分析：100-300元/份</td>
+                            <td>按数据量、复杂度、图表需求调整</td>
+                        </tr>
+                        </table>
+                    </div>
+                    
+                    <p><strong>重要提醒：</strong>以上为基础定价，具体价格会根据你的需求细节、素材情况、交付时效灵活调整，最终价格以一对一咨询为准哦～</p>
+                    
+                    <h2>为什么要选择我们？</h2>
+                    <ul>
+                        <li><strong>高效交付：</strong>严格按照约定时效交付，不拖延、不敷衍，急单可优先处理，让你快速拿到满意成品，不耽误使用</li>
+                        <li><strong>一对一对接：</strong>全程跟进，需求可随时沟通、随时调整，无沟通障碍，直到做出你心仪的作品</li>
+                        <li><strong>高性价比：</strong>价格接地气，无任何隐形消费，让你用实惠的价格享受专业的服务</li>
+                    </ul>
+                    
+                    <div class="contact-info">
+                        <h3>联系方式</h3>
+                        <p>扫描下方二维码/添加客服微信，发送你的素材+具体需求</p>
+                        <p class="highlight">添加客服企业微信：张导微信号丨hezsz0</p>
+                        
+                        <!-- 二维码容器 -->
+                        <div class="qrcode-container">
+                            <div class="qrcode-item">
+                                <img src="photo/qywechat.jpg" alt="企业微信二维码">
+                                <p>企业微信二维码</p>
+                            </div>
+                            <div class="qrcode-item">
+                                <img src="photo/gzh.jpg" alt="公众号二维码">
+                                <p>公众号二维码</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 联系信息网格 -->
+                        <div class="contact-grid">
+                            <div class="contact-item">
+                                <div class="contact-item-icon">🌐</div>
+                                <div class="contact-item-title">官方网站</div>
+                                <div class="contact-item-value">m.tmxkcy.xyz</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-item-icon">📧</div>
+                                <div class="contact-item-title">邮箱地址</div>
+                                <div class="contact-item-value">tmxkcy@tmxkcy.xyz</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-item-icon">💬</div>
+                                <div class="contact-item-title">客服微信</div>
+                                <div class="contact-item-value">hezsz0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                    <a href="news.html" class="back-link">← 返回新闻列表</a>
+                    <button onclick="window.print()" style="padding: 12px 24px; background: linear-gradient(135deg, var(--primary-color) 0%, #0099ff 100%); color: white; border: none; border-radius: var(--border-radius); font-size: 14px; font-weight: 500; transition: var(--transition); box-shadow: var(--shadow-sm); cursor: pointer;">🖨️ 打印文章</button>
+                </div>
+            </div>
+            
+            <!-- 睿言评论模块 -->
+            <div class="content-section">
+                <h2>留言评论</h2>
+                <div id="RUI-SPEAK" data-app-id="MTc2ODM4NjM2NzExMDg2Ng==" data-app-key="Cc1r4evyAzbk/zJbU+lghMZEvG9wO3Un8xhX5hKc1ro=" data-article-no="news-detail4"></div>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利. <a href="http://m.tmxkcy.xyz" target="_blank" style="color: #0066cc; text-decoration: none;">手机版</a></p>
+            <div class="disclaimer">
+                <h3>免责声明</h3>
+                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+                <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+            </div>
+        </div>
+    </footer>
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+    
+    <!-- 睿言评论模块脚本 -->
+    <script src="https://h5.ruispeak.cn/rs.js" type="text/javascript"></script>
+    
+    <!-- 动态修改评论模块文本 -->
+    <script>
+        // 等待页面加载完成
+        window.addEventListener('load', function() {
+            // 定期检查评论模块是否加载完成
+            const checkCommentModule = setInterval(function() {
+                let allElementsUpdated = false;
+                
+                // 1. 查找并修改自律公约链接文本
+                const pactLink = document.querySelector('.RS-cg-a[href="https://h5.ruispeak.cn/html/pact.html"]');
+                if (pactLink && pactLink.textContent === '睿言云评《自律公约》') {
+                    pactLink.textContent = '天马行空创意网《自律公约》';
+                }
+                
+                // 2. 查找并修改自律公约标题文本
+                const titleText = document.querySelector('.title-text');
+                if (titleText && titleText.textContent === '睿言云评用户跟帖自律公约') {
+                    titleText.textContent = '天马行空创意创意网用户跟帖自律公告';
+                }
+                
+                // 检查是否所有元素都已更新完成
+                if (pactLink && titleText) {
+                    allElementsUpdated = true;
+                }
+                
+                // 如果所有元素都已更新，清除定时器
+                if (allElementsUpdated) {
+                    clearInterval(checkCommentModule);
+                }
+            }, 500);
+            
+            // 10秒后停止检查，防止无限循环
+            setTimeout(function() {
+                clearInterval(checkCommentModule);
+            }, 10000);
+        });
+    </script>
+    
+    <!-- 页面动画和交互效果 -->
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                header.style.padding = '10px 0';
+            } else {
+                header.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                header.style.padding = '15px 0';
+            }
+        });
+        
+        // 元素进入视口动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // 观察需要动画的元素
+        document.querySelectorAll('.service-card, .price-table, .contact-info, .news-detail').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+        
+        // 服务卡片悬停效果增强
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // 价格表行悬停效果
+        document.querySelectorAll('.price-table tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.01)';
+                this.style.boxShadow = '0 2px 8px rgba(0, 102, 204, 0.1)';
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        // 打印按钮点击效果
+        document.querySelector('button[onclick="window.print()"]').addEventListener('click', function() {
+            this.textContent = '📄 正在准备打印...';
+            setTimeout(() => {
+                this.textContent = '🖨️ 打印文章';
+            }, 1500);
+        });
+        
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.body.style.opacity = 0;
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = 1;
+            }, 100);
+        });
+    </script>
+</body>
+</html>
