@@ -3,13 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="天马行空创意团队是一支活跃的创意团队，致力于多种创意项目，包括微电影、短片和社交媒体内容。">
-    <meta name="keywords" content="天马行空创意团队,微电影,短片,社交媒体内容,创意项目">
-    <meta name="author" content="天马行空创意团队">
-    <meta name="robots" content="index, follow">
-    <title>关于我们 - 天马行空创意网 - TianMa Creative Network</title>
+    <title>业务中心 - 天马行空创意网</title>
+    
+    <!-- Meta Description -->
+    <meta name="description" content="天马行空创意团队业务中心，提供AI音乐代做、AI视频代做、视频剪辑、海报设计等专业服务">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0b63ff">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="业务中心 - 天马行空创意网">
+    <meta property="og:description" content="天马行空创意团队业务中心，提供AI音乐代做、AI视频代做、视频剪辑、海报设计等专业服务">
+    <meta property="og:image" content="https://tmxkcy.xyz/banners/banner1.jpg">
+    <meta property="og:url" content="https://tmxkcy.xyz/business-center.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="业务中心 - 天马行空创意网">
+    <meta name="twitter:description" content="天马行空创意团队业务中心，提供AI音乐代做、AI视频代做、视频剪辑、海报设计等专业服务">
+    <meta name="twitter:image" content="https://tmxkcy.xyz/banners/banner1.jpg">
+    
+    <!-- Favicon -->
     <link rel="icon" href="photo/logo.png" type="image/png">
     <link rel="shortcut icon" href="photo/logo.png" type="image/png">
+    
+    <!-- 预加载首屏关键图片 -->
+    <link rel="preload" as="image" href="photo/logo.png">
+    <link rel="preload" as="image" href="banners/banner1.jpg">
     <style>
         :root {
             --primary: #0b63ff;
@@ -173,19 +194,6 @@
             letter-spacing: 0.5px;
         }
         
-        .slogan {
-            font-size: 20px;
-            font-weight: bold;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            font-family: 'STXingkai', 'STKaiti', cursive;
-            letter-spacing: 3px;
-            font-stretch: expanded;
-        }
-        
         .search {
             display: flex;
         }
@@ -254,8 +262,9 @@
         }
         
         nav ul li a:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
+            color: white;
         }
         
         /* Dropdown */
@@ -301,8 +310,9 @@
         }
         
         nav ul li .dropdown li a:hover {
-            background: var(--bg-secondary);
-            color: var(--primary);
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(0);
         }
         
         nav ul li .dropdown li:last-child a {
@@ -313,33 +323,22 @@
         /* Banner */
         .banner {
             color: white;
-            padding: 100px 0;
+            padding: 150px 0;
             text-align: center;
             margin-top: 20px;
             box-shadow: var(--shadow-xl);
             position: relative;
             overflow: hidden;
-            min-height: 300px;
+            /* 固定高度，确保banner区域稳定 */
+            min-height: 450px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: var(--radius-lg);
-            background-image: url('photo/logo.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            /* 默认背景渐变，当图片不存在时显示 */
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             /* 添加过渡效果 */
             transition: border-radius 0.3s ease;
-        }
-        
-        /* 粒子动画容器 */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
         }
         
         /* 下拉时的长方形样式 */
@@ -380,6 +379,36 @@
             background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.25));
         }
         
+        /* 轮播指示器 */
+        .banner-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+        
+        .banner-indicators .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .banner-indicators .indicator:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .banner-indicators .indicator.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+        
         .banner-content {
             position: relative;
             z-index: 2;
@@ -392,11 +421,11 @@
         .banner h1 {
             font-size: clamp(40px, 7vw, 64px);
             margin: 0 0 30px;
-            text-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 30px rgba(0,100,255,0.4), 0 0 60px rgba(0,50,200,0.2);
+            text-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 30px rgba(255,255,0,0.4), 0 0 60px rgba(255,100,0,0.2);
             font-weight: 900;
             letter-spacing: 2px;
             line-height: 1.1;
-            background: linear-gradient(90deg, #0066cc 0%, #00aaff 30%, #0066cc 50%, #00aaff 70%, #0066cc 100%);
+            background: linear-gradient(90deg, #ffff00 0%, #ffaa00 30%, #ff0000 50%, #ffaa00 70%, #ffff00 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -480,26 +509,16 @@
             min-width: 200px;
         }
         
-        .banner-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .banner-btn:hover::before {
-            left: 100%;
-        }
-        
         .banner-btn:hover {
             transform: translateY(-6px) scale(1.05) perspective(1000px) translateZ(20px);
             box-shadow: 0 18px 45px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,255,255,0.3) inset, 0 1px 0 rgba(255,255,255,0.2) inset;
             background: linear-gradient(135deg, #ee5a6f 0%, #ff6b6b 50%, #f39c12 100%);
             border-color: rgba(255,255,255,0.4);
+        }
+        
+        .banner-btn:active {
+            transform: translateY(-2px) scale(0.98) perspective(1000px) translateZ(0);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.2) inset;
         }
         
 
@@ -685,7 +704,7 @@
             top: 0;
             width: 0;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 170, 255, 0.1));
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 102, 204, 0.2));
             transition: width 0.3s ease;
             z-index: -1;
         }
@@ -705,41 +724,12 @@
             flex: 1;
             background-color: var(--bg-primary);
             box-shadow: var(--shadow-md);
-            padding: 40px;
+            padding: 30px;
             transition: background-color var(--transition), box-shadow var(--transition);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: var(--gradient-primary);
         }
         
         .content-section {
-            margin-bottom: 60px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-        
-        .content-section:nth-child(1) { animation-delay: 0.1s; }
-        .content-section:nth-child(2) { animation-delay: 0.2s; }
-        .content-section:nth-child(3) { animation-delay: 0.3s; }
-        .content-section:nth-child(4) { animation-delay: 0.4s; }
-        .content-section:nth-child(5) { animation-delay: 0.5s; }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            margin-bottom: 45px;
         }
         
         /* 统一标题样式，增强视觉层次 */
@@ -752,13 +742,12 @@
         
         .content-section h2 {
             color: var(--primary);
-            margin: 0 0 30px;
-            font-size: 32px;
+            margin: 0 0 25px;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.5px;
             position: relative;
-            padding-bottom: 15px;
-            display: inline-block;
+            padding-bottom: 12px;
         }
         
         .content-section h2::after {
@@ -766,30 +755,17 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 80px;
-            height: 4px;
+            width: 60px;
+            height: 3px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--info) 100%);
             border-radius: 2px;
         }
         
         .content-section h3 {
             color: var(--dark);
-            margin: 0 0 25px;
+            margin: 0 0 20px;
             font-size: 24px;
             font-weight: 700;
-            position: relative;
-            padding-left: 20px;
-        }
-        
-        .content-section h3::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 12px;
-            width: 10px;
-            height: 10px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
         }
         
         /* 统一段落样式 */
@@ -798,273 +774,8 @@
             color: var(--muted);
             font-size: 16px;
             line-height: 1.8;
-            margin: 0 0 25px;
+            margin: 0 0 20px;
             text-align: justify;
-            position: relative;
-            padding: 0 0 0 20px;
-        }
-        
-        p::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 10px;
-            width: 4px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 50%;
-        }
-        
-        /* 内容区域样式 */
-        .about-content {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            padding: 35px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            transition: transform var(--transition), box-shadow var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .about-content:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .about-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-primary);
-        }
-        
-        /* 图片样式 */
-        .about-content img {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            margin: 25px auto;
-            display: block;
-            transition: transform var(--transition), box-shadow var(--transition);
-            border: 4px solid white;
-        }
-        
-        .about-content img:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-xl);
-        }
-        
-        /* 团队成员卡片 */
-        .team-members {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .member-card {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            padding: 30px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            transition: transform var(--transition), box-shadow var(--transition);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .member-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-        
-        .member-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .member-avatar {
-            width: 120px;
-            height: 120px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: white;
-        }
-        
-        .member-title {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* 团队优势 */
-        .team-advantages {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .advantage-item {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            padding: 30px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            transition: transform var(--transition), box-shadow var(--transition);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .advantage-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-        
-        .advantage-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .advantage-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        
-        /* 客户评价 */
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .testimonial-item {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            padding: 35px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            transition: transform var(--transition), box-shadow var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .testimonial-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-        
-        .testimonial-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .testimonial-quote {
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-style: italic;
-            color: var(--muted);
-        }
-        
-        .testimonial-author {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-        
-        .author-name {
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-        
-        .author-company {
-            font-size: 14px;
-            color: var(--muted);
-        }
-        
-        /* 联系我们 */
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            padding: 30px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            transition: transform var(--transition), box-shadow var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-        
-        .contact-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .contact-icon {
-            font-size: 32px;
-            flex-shrink: 0;
-        }
-        
-        .contact-details h3 {
-            margin-bottom: 10px;
-            color: var(--dark);
-        }
-        
-        .contact-details p {
-            margin: 0;
-            padding: 0;
-        }
-        
-        .contact-details p::before {
-            display: none;
         }
         
         /* 统一链接样式 */
@@ -1079,23 +790,32 @@
             text-decoration: underline;
         }
         
-        /* 团队介绍样式优化 */
-        .team-intro {
-            display: flex;
-            gap: 50px;
-            margin-bottom: 60px;
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            padding: 50px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
-            align-items: center;
+        /* 业务分类网格 */
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .business-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 30px;
+            transition: all var(--transition);
+            border: 1px solid var(--border-color);
             position: relative;
-            z-index: 1;
             overflow: hidden;
         }
         
-        .team-intro::before {
+        .business-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .business-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -1105,85 +825,225 @@
             background: var(--gradient-primary);
         }
         
-        .team-intro:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
+        .business-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 700;
         }
         
-        .team-intro img {
+        .business-card p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .business-card ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .business-card ul li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* 价格表样式 */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        
+        .price-table th {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+        }
+        
+        .price-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .price-table tr:nth-child(even) {
+            background-color: var(--bg-secondary);
+        }
+        
+        .price-table tr:hover {
+            background-color: rgba(11, 99, 255, 0.05);
+        }
+        
+        /* 优势卡片 */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .advantage-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 25px;
+            text-align: center;
+            transition: all var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .advantage-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .advantage-card h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        /* 下单指引 */
+        .order-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .order-steps {
+                flex-direction: column;
+            }
+        }
+        
+        .step-card {
+            flex: 1;
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 25px;
+            text-align: center;
+            transition: all var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step-card h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        /* 联系方式 */
+        .contact-section {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            margin-top: 40px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            flex: 1;
+            min-width: 250px;
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: all var(--transition);
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .contact-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .contact-item h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        /* 公众号关注区域 */
+        .wechat-section {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .wechat-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .wechat-qrcode {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: var(--radius);
+            padding: 10px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .wechat-qrcode img {
             width: 100%;
             height: 100%;
-            max-width: 320px;
             object-fit: cover;
-            border-radius: var(--radius);
-            border: 4px solid white;
-            box-shadow: var(--shadow-lg);
-            transition: transform var(--transition);
-        }
-        
-        /* 为团队介绍图片容器添加宽高比，避免CLS */
-        .team-intro {
-            position: relative;
-        }
-        
-        .team-intro img {
-            aspect-ratio: 6/5;
-        }
-        
-        .team-intro:hover img {
-            transform: scale(1.08);
-        }
-        
-        .team-text {
-            flex: 1;
-        }
-        
-        .team-text h3 {
-            color: var(--primary);
-            font-size: 28px;
-            margin-bottom: 20px;
-            font-weight: 800;
-            position: relative;
-            padding-bottom: 12px;
-        }
-        
-        .team-text h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
-        }
-        
-        .team-text p {
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: var(--text-secondary);
-            font-size: 18px;
-            text-align: justify;
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .team-intro {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            
-            .team-intro img {
-                width: 100%;
-                max-width: 300px;
-                height: auto;
-            }
-            
-            .team-text h3::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
         }
         
         /* Footer */
@@ -1454,139 +1314,7 @@
             }
         }
         
-        /* 弹窗广告 */
-        .popup-ad {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity var(--transition), visibility var(--transition);
-        }
-        
-        .popup-ad.show {
-            opacity: 1;
-            visibility: visible;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        .popup-ad .popup-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: var(--radius);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-xl);
-            width: 550px;
-            max-width: 95%;
-            position: relative;
-            overflow: hidden;
-            animation: slideInUp 0.5s ease;
-        }
-        
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .popup-ad .popup-header {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 20px;
-            font-size: 20px;
-            font-weight: 700;
-            text-align: center;
-        }
-        
-        .popup-ad .popup-body {
-            background: var(--bg-primary);
-            padding: 30px;
-        }
-        
-        .popup-ad .popup-body img {
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .popup-ad .popup-footer {
-            background: var(--bg-secondary);
-            padding: 0 30px 30px;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .popup-ad .popup-footer p {
-            margin-bottom: 20px;
-            color: var(--text-primary);
-            font-size: 16px;
-        }
-        
-        .popup-ad .popup-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: all var(--transition);
-        }
-        
-        .popup-ad .popup-close:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(90deg);
-        }
-        
-        .popup-ad .popup-action {
-            padding: 12px 36px;
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .popup-ad .popup-action:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
+
         
         /* 优先减少动画（无障碍） */
         @media (prefers-reduced-motion: reduce) {
@@ -1622,86 +1350,8 @@
         .skip-link:focus {
             top: 0;
         }
-        
-        /* 响应式设计 */
-        @media (max-width: 1200px) {
-            .container {
-                width: 95%;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            /* 头部响应式 */
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .slogan {
-                display: none;
-            }
-            
-            .search input {
-                width: 250px;
-            }
-            
-            /* 导航响应式 */
-            nav ul {
-                flex-wrap: wrap;
-            }
-            
-            nav ul li {
-                flex: 1 1 50%;
-            }
-            
-            nav ul li .dropdown {
-                width: 100%;
-            }
-            
-            /* 主内容响应式 */
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-            }
-            
-            /* 广告响应式 */
-            .wechat-ad {
-                display: none;
-            }
-            
-            /* banner响应式 */
-            .banner {
-                padding: 40px 0;
-            }
-            
-            .banner h1 {
-                font-size: 24px;
-            }
-            
-            .banner p {
-                font-size: 16px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            nav ul li {
-                flex: 1 1 100%;
-            }
-            
-            .search input {
-                width: 200px;
-            }
-            
-            .content {
-                padding: 15px;
-            }
-        }
     </style>
-    <!-- 粒子动画库 -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
 </head>
 <body>
     <!-- 跳转到主要内容的链接 -->
@@ -1766,384 +1416,541 @@
     </nav>
     
     <div class="banner">
-        <div class="particles" id="particles-js"></div>
+        <!-- 层叠图片轮播 -->
+        <img class="bg-layer show" src="banners/banner1.jpg" alt="天马行空创意网 横幅1" aria-hidden="true" loading="eager">
+        <img class="bg-layer" src="banners/banner2.jpg" alt="天马行空创意网 横幅2" aria-hidden="true" loading="lazy">
+        <img class="bg-layer" src="banners/banner3.jpg" alt="天马行空创意网 横幅3" aria-hidden="true" loading="lazy">
+        
         <div class="container banner-content">
-            <h1>关于我们</h1>
-            <p>了解天马行空创意团队的发展历程、文化理念和核心优势</p>
+            <h1>业务中心</h1>
+            <p>专业AI音乐+AI视频生成代做服务，一站式创意解决方案</p>
+            <a href="#services" class="banner-btn">了解服务</a>
+        </div>
+        
+        <!-- 轮播指示器 -->
+        <div class="banner-indicators">
+            <button class="indicator active" data-index="0" aria-label="显示第1张幻灯片"></button>
+            <button class="indicator" data-index="1" aria-label="显示第2张幻灯片"></button>
+            <button class="indicator" data-index="2" aria-label="显示第3张幻灯片"></button>
         </div>
     </div>
     
     <div class="container main-content">
         <aside class="sidebar">
             <div class="sidebar-section">
-                <h3>服务登录</h3>
-                <form class="login-form">
-                    <input type="text" placeholder="请输入账号/手机">
-                    <input type="password" placeholder="密码">
-                    <button type="submit">登录</button>
-                    <div class="login-options">
-                        <a href="#">手机快捷登录</a>
-                        <a href="#">注册&gt;</a>
-                    </div>
-                    <div class="other-login">
-                        
-                        <!-- 可以添加第三方登录图标 -->
-                    </div>
-                </form>
-            </div>
-            
-            <div class="sidebar-section">
-                <h3>服务范围</h3>
+                <h3>服务导航</h3>
                 <ul class="sidebar-links">
-                    <li><a href="contribute.html">投稿</a></li>
+                    <li><a href="#ai-music">AI音乐代做</a></li>
+                    <li><a href="#ai-video">AI视频代做</a></li>
+                    <li><a href="#video-editing">视频剪辑</a></li>
+                    <li><a href="#special-effects">特效制作</a></li>
+                    <li><a href="#poster-design">海报设计</a></li>
+                    <li><a href="#price-list">价格表</a></li>
+                    <li><a href="#advantages">服务优势</a></li>
+                    <li><a href="#order-guide">下单指引</a></li>
+                    <li><a href="#contact">联系方式</a></li>
                 </ul>
             </div>
             
             <div class="sidebar-section">
-                <h3>新闻动态</h3>
-                <ul class="sidebar-links">
-                    <li><a href="news.html">MORE+</a></li>
-                </ul>
+                <h3>联系我们</h3>
+                <p style="text-align: center; margin-bottom: 15px;">如有需求，请联系客服</p>
+                <div style="text-align: center;">
+                    <img src="photo/qywechat.jpg" alt="企业微信" style="width: 120px; height: 120px; border-radius: 8px; margin-bottom: 10px;">
+                    <p style="font-size: 14px; color: var(--text-secondary);">张导微信号：hezsz0</p>
+                </div>
+            </div>
+            
+            <!-- 赞赏码广告位 -->
+            <div class="sidebar-section" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 8px; margin: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: #fa709a; text-align: center; margin-bottom: 15px; font-size: 16px;">💖 支持我们</h3>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <p style="font-size: 14px; color: #666; margin-bottom: 10px;">如果你喜欢我们的内容，不妨支持一下我们！</p>
+                    <div style="width: 150px; height: 150px; margin: 0 auto 10px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 1/1;">
+                        <img src="photo/zsm.jpg" alt="天马行空创意网 赞赏码" style="width: 100%; height: 100%; object-fit: contain;" loading="lazy">
+                    </div>
+                    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">扫码支持我们的创作</p>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <p style="font-size: 13px; color: #666;">关注公众号获取更多精彩内容</p>
+                    <p style="font-size: 12px; color: #999; margin-top: 5px;">回复「权限码」获取下载权限</p>
+                </div>
             </div>
         </aside>
         
         <main id="main" class="content">
-            <div class="content-section">
-                <h2>团队简介</h2>
-                <div class="about-content">
-                    <p>天马行空创意团队是一支活跃的创意团队，致力于多种创意项目，包括微电影、短片和社交媒体内容。我们始终保持着对创意的热爱和追求，不断探索新的创作领域和表现形式，为观众带来优质的创意内容。</p>
-                    <p>团队成员充满活力和创意，他们来自不同的专业背景，拥有丰富的行业经验和专业技能。在天马行空，每个人都能充分发挥自己的创意才华，共同为客户创造价值。</p>
-                    <img src="photo/team-photo.jpg" alt="团队照片" loading="lazy">
+            <div class="content-section" id="services">
+                <h2>我们的服务</h2>
+                <p>天马行空创意团队专注一站式AI创意代做，不管是个人自媒体、短视频博主、商家宣传，还是小众创作、活动配乐，我们都能精准拿捏需求，帮你快速产出高质量成品，省心省力还省钱！</p>
+                
+                <div class="business-grid">
+                    <div class="business-card" id="ai-music">
+                        <h3>🎵 AI音乐代做</h3>
+                        <p>海量风格，秒出高质BGM/原创歌曲</p>
+                        <ul>
+                            <li>短视频配乐、直播背景音、广告宣传片BGM</li>
+                            <li>原创歌曲、翻唱定制、纯音乐伴奏</li>
+                            <li>支持流行、古风、电子、说唱、舒缓、卡点、影视原声等百种风格</li>
+                            <li>可定制时长、歌词、音色、情绪</li>
+                            <li>提供专业混音、母带处理服务</li>
+                            <li>音质清晰无杂音，适配全平台发布</li>
+                            <li>版权清晰无纠纷</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="business-card" id="ai-video">
+                        <h3>🎬 AI视频代做</h3>
+                        <p>全场景定制，爆款AI视频轻松拿捏</p>
+                        <ul>
+                            <li>短视频带货、剧情短片、图文转AI视频</li>
+                            <li>动漫混剪、特效短片、宣传可视化视频</li>
+                            <li>支持文本生视频、图片生视频、视频风格迁移</li>
+                            <li>高清修复、卡点剪辑等服务</li>
+                            <li>画面流畅、质感拉满</li>
+                            <li>紧跟抖音、快手爆款流量逻辑</li>
+                            <li>支持1080P导出，无水印</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="business-card" id="video-editing">
+                        <h3>🎯 视频剪辑</h3>
+                        <p>节奏把控、字幕添加、BGM搭配一站式搞定</p>
+                        <ul>
+                            <li>短视频剪辑：1分钟内简洁高效</li>
+                            <li>长视频剪辑：3分钟以上精细处理</li>
+                            <li>节奏把控、字幕添加、BGM搭配</li>
+                            <li>适配各类短视频平台</li>
+                            <li>快速交付，不拖延</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="business-card" id="special-effects">
+                        <h3>✨ 特效制作</h3>
+                        <p>让你的作品更具高级感和视觉冲击力</p>
+                        <ul>
+                            <li>片头片尾特效、转场特效</li>
+                            <li>画面合成、专业调色修图</li>
+                            <li>基础特效、中级特效、高级特效</li>
+                            <li>3D特效、复杂合成</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="business-card" id="poster-design">
+                        <h3>🎨 平面设计</h3>
+                        <p>精细修图、个性版式设计、质感文字排版</p>
+                        <ul>
+                            <li>PS/AI海报设计</li>
+                            <li>修图/P图/抠图</li>
+                            <li>人物修图、景物修图、背景抠图</li>
+                            <li>瑕疵修复、证件照制作、光影调整</li>
+                            <li>名片制作：个人名片、企业名片、商务名片</li>
+                            <li>产品包装设计</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="business-card">
+                        <h3>📺 节目包装</h3>
+                        <p>提升节目质感和专业度</p>
+                        <ul>
+                            <li>综艺、访谈、短视频栏目等节目包装</li>
+                            <li>片头片尾、字幕模板、转场包装</li>
+                            <li>LOGO演绎</li>
+                            <li>短视频栏目简单包装</li>
+                            <li>综艺/访谈栏目精细包装</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
-            <div class="content-section">
-                <h2>发展历程</h2>
-                <div class="about-content">
-                    <h3>2019年 - 团队成立</h3>
-                    <p>团队最初由张生智、李锦华、陈兵三人组建，成立时名为"八逗笑乐团队"，开始涉足创意内容创作领域。</p>
-                    
-                    <h3>2023年 - 品牌升级</h3>
-                    <p>正式更名为"天马行空创意团队"，确立了以创意为核心的发展方向，业务范围逐渐扩展到微电影、短片和社交媒体内容等多个领域。</p>
-                    
-                    <h3>至今 - 持续发展</h3>
-                    <p>团队规模不断扩大，成员数量稳步增长，创作能力持续提升，推出了多部具有影响力的创意作品，赢得了广泛的行业认可和观众好评。</p>
+            <div class="content-section" id="price-list">
+                <h2>透明代做价目表</h2>
+                <p>我们坚持定价公开透明，根据制作难度、时长、定制需求分为不同档次，满足不同预算客户需求，拒绝乱报价、中途加价！</p>
+                
+                <h3>🎵 AI音乐代做价格</h3>
+                <table class="price-table">
+                    <tr>
+                        <th>档次</th>
+                        <th>价格</th>
+                        <th>内容</th>
+                    </tr>
+                    <tr>
+                        <td>基础档</td>
+                        <td>9.9元起</td>
+                        <td>30秒-1分钟纯音乐/BGM，固定风格，无歌词，适合短视频配乐、背景音，可加价升级基础混音，可做3首</td>
+                    </tr>
+                    <tr>
+                        <td>进阶档</td>
+                        <td>19.9元起</td>
+                        <td>1-3分钟定制音乐，可加歌词、微调音色，支持风格混搭，附赠基础混音处理，适合原创短片、宣传音频，可做5首</td>
+                    </tr>
+                    <tr>
+                        <td>高端档</td>
+                        <td>119.9元起</td>
+                        <td>3分钟以上精品音乐，full版词曲定制、人声优化，含专业混音+母带精修，商用专属版权，可做3首</td>
+                    </tr>
+                </table>
+                
+                <h3>🎬 AI视频代做价格</h3>
+                <table class="price-table">
+                    <tr>
+                        <th>档次</th>
+                        <th>价格</th>
+                        <th>内容</th>
+                    </tr>
+                    <tr>
+                        <td>基础档</td>
+                        <td>9.9元起</td>
+                        <td>15-30秒AI短视频，图文转视频/简单文本生视频，无复杂特效，适合日常种草、日常分享</td>
+                    </tr>
+                    <tr>
+                        <td>进阶档</td>
+                        <td>41.9元起</td>
+                        <td>30秒-2分钟爆款AI视频，含特效、卡点、画风定制，适配抖音/快手流量款，适合带货、剧情短片</td>
+                    </tr>
+                    <tr>
+                        <td>高端档</td>
+                        <td>69.9元起</td>
+                        <td>2分钟以上精品AI视频，4K高清、复杂特效、脚本定制，适合商家宣传、品牌短片、影视级创作</td>
+                    </tr>
+                </table>
+                
+                <h3>📹 视频剪辑价格</h3>
+                <table class="price-table">
+                    <tr>
+                        <th>类型</th>
+                        <th>价格</th>
+                        <th>内容</th>
+                    </tr>
+                    <tr>
+                        <td>短视频剪辑</td>
+                        <td>20-30元/条</td>
+                        <td>1分钟内，简洁高效，适配各类短视频平台，快速交付</td>
+                    </tr>
+                    <tr>
+                        <td>长视频剪辑</td>
+                        <td>100-300元/条</td>
+                        <td>3分钟以上，精细剪辑+特效适配，按需调整，质感拉满</td>
+                    </tr>
+                    <tr>
+                        <td>影视微制作</td>
+                        <td>50-600元/条</td>
+                        <td>分层定价：1-3分钟50-150元；3-8分钟150-300元；8分钟以上300-600元</td>
+                    </tr>
+                </table>
+                
+                <h3>✨ 特效制作价格</h3>
+                <table class="price-table">
+                    <tr>
+                        <th>难度</th>
+                        <th>价格</th>
+                        <th>内容</th>
+                    </tr>
+                    <tr>
+                        <td>基础特效</td>
+                        <td>50-80元/条</td>
+                        <td>简单转场、文字特效</td>
+                    </tr>
+                    <tr>
+                        <td>中级特效</td>
+                        <td>200-1000元/条</td>
+                        <td>画面合成、光影特效</td>
+                    </tr>
+                    <tr>
+                        <td>高级特效</td>
+                        <td>1000-2000元/条</td>
+                        <td>3D特效、复杂合成</td>
+                    </tr>
+                </table>
+                
+                <h3>🎨 平面设计价格</h3>
+                <table class="price-table">
+                    <tr>
+                        <th>类型</th>
+                        <th>价格</th>
+                        <th>内容</th>
+                    </tr>
+                    <tr>
+                        <td>海报设计</td>
+                        <td>25元起/张</td>
+                        <td>PS/AI海报设计，精细修图、个性版式设计、质感文字排版</td>
+                    </tr>
+                    <tr>
+                        <td>修图/P图/抠图</td>
+                        <td>25元起/次</td>
+                        <td>人物修图、景物修图、背景抠图、瑕疵修复、证件照制作、光影调整</td>
+                    </tr>
+                    <tr>
+                        <td>名片制作</td>
+                        <td>25元起/张</td>
+                        <td>个人名片、企业名片、商务名片定制</td>
+                    </tr>
+                    <tr>
+                        <td>产品包装设计</td>
+                        <td>25元起/次</td>
+                        <td>产品包装设计，批量定制享专属优惠</td>
+                    </tr>
+                </table>
+                
+                <p><strong>重要提醒：</strong>以上为基础定价，具体价格会根据你的需求细节、素材情况、交付时效灵活调整，最终价格以一对一咨询为准。加急单（12小时内交付）加收30%服务费，定制需求可联系客服单独报价，量大更享优惠！</p>
+            </div>
+            
+            <div class="content-section" id="advantages">
+                <h2>服务优势</h2>
+                
+                <h3>🎵 AI音乐代做核心优势</h3>
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">⚡</div>
+                        <h3>极速出稿</h3>
+                        <p>普通需求24小时内交付，加急单优先处理，告别漫长等待</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🎯</div>
+                        <h3>音质达标</h3>
+                        <p>支持高清导出，无水印、无底噪，可升级专业混音+母带处理</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🎨</div>
+                        <h3>定制性强</h3>
+                        <p>词曲、音色、风格全适配，混音母带精修贴合场景听觉需求</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">💰</div>
+                        <h3>性价比高</h3>
+                        <p>摒弃传统音乐制作高价壁垒，用AI技术实现低成本高质产出</p>
+                    </div>
+                </div>
+                
+                <h3>🎬 AI视频代做核心优势</h3>
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🌐</div>
+                        <h3>全场景适配</h3>
+                        <p>自媒体短视频、商家宣传、个人创作、活动展示均可接单</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🚀</div>
+                        <h3>爆款逻辑</h3>
+                        <p>融入热门提示词、流量画风，提升视频曝光几率</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">📹</div>
+                        <h3>高清输出</h3>
+                        <p>支持1080P导出，无水印，适配全平台发布要求</p>
+                    </div>
+                </div>
+                
+                <h3>🎯 其他服务核心优势</h3>
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">⏱️</div>
+                        <h3>高效交付</h3>
+                        <p>严格按照约定时效交付，不拖延、不敷衍，急单可优先处理</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🤝</div>
+                        <h3>一对一对接</h3>
+                        <p>全程跟进，需求可随时沟通、随时调整，无沟通障碍</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">💎</div>
+                        <h3>高性价比</h3>
+                        <p>价格接地气，无任何隐形消费，让你用实惠的价格获得高质量作品</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="content-section">
-                <h2>团队活动</h2>
-                <div class="about-content">
-                    <h3>2025年普通专业技能联合测考试</h3>
-                    <p>最近，天马行空创意团队举办了2025年普通专业技能联合测考试，所有成员参与了线上线下结合的考试形式。考试内容涵盖团队合作、自媒体运营、拍摄与后期等多项技能，旨在提升团队整体专业水平和协作能力。</p>
-                    
-                    <h3>微电影《绝意人生》</h3>
-                    <p>团队制作了微电影《绝意人生》，这部作品充分展示了团队的创意和专业素养。通过精心的剧本创作、拍摄和后期制作，影片呈现出高质量的视觉效果和深刻的主题内涵，受到了业内人士和观众的高度评价。</p>
+            <div class="content-section" id="order-guide">
+                <h2>下单指引</h2>
+                <p>三步搞定，轻松交付</p>
+                
+                <div class="order-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>关注公众号</h3>
+                        <p>搜索关注【天马行空创意团队】，点击菜单栏“代做服务”</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>沟通需求</h3>
+                        <p>联系客服，告知代做类型、风格、时长、交付时间等细节</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>支付下单+领取福利</h3>
+                        <p>完成支付，等待成品交付，消费后即可领取双重福利</p>
+                    </div>
                 </div>
             </div>
             
-
+            <div class="content-section" id="contact">
+                <h2>联系方式</h2>
+                
+                <div class="contact-section">
+                    <h3>联系我们</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">💬</div>
+                            <h4>企业微信</h4>
+                            <p>张导微信号：hezsz0</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🌐</div>
+                            <h4>官方网站</h4>
+                            <p>m.tmxkcy.xyz</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <h4>邮箱</h4>
+                            <p>tmxkcy@tmxkcy.xyz</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wechat-section">
+                    <h3>关注公众号，领取福利</h3>
+                    <p>凡是关注公众号，即可免费领取两大专属福利，助力你玩转AI创作！</p>
+                    <div class="wechat-qrcode">
+                        <img src="photo/gzh.jpg" alt="天马行空创意团队公众号">
+                    </div>
+                    <p><strong>福利一：</strong>价值299元的AI生成实战课，零基础也能学！涵盖AI音乐、AI视频生成全流程</p>
+                    <p><strong>福利二：</strong>抖音爆款AI提示词1000+免费领，直接复制粘贴就能用</p>
+                    <p>领取方式：关注公众号后，发送订单截图至客服，客服会在24小时内发放福利包，无套路、免费领！</p>
+                </div>
+            </div>
         </main>
     </div>
     
-    <!-- 公众号关注广告 -->
-    <div class="wechat-ad">
-        <div class="close-btn" id="closeWechatAd">&times;</div>
-        <h3>关注我们的公众号</h3>
-        <div class="qrcode">
-            <!-- 公众号二维码图片 -->
-            <img src="photo/gzh.jpg" alt="公众号二维码" style="width:100%;height:100%;">
-        </div>
-        <p>扫码关注获取更多创意内容</p>
-        <p style="font-size:12px;color:#666;">每周更新创意灵感</p>
-    </div>
-    
-    <!-- 弹窗广告 -->
-
-    
     <footer>
         <div class="container">
-            <p>© 2024 天马行空创意网. 保留所有权利. <a href="http://m.tmxkcy.xyz" target="_blank" style="color: #0066cc; text-decoration: none;">手机版</a></p>
+            <h2 style="color: white; margin-bottom: 30px;">天马行空创意网</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">创意不设限，AI更高效！不管是急需AI音视频成品，还是想学习AI创作技巧，天马行空创意团队都能满足你。</p>
+            <p style="color: var(--text-muted);">© 2026 天马行空创意团队 版权所有</p>
+            
             <div class="disclaimer">
                 <h3>免责声明</h3>
-                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
-                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
-                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
-                <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+                <p>本网站提供的所有内容仅供参考，不构成任何商业建议。使用本网站提供的服务时，请遵守相关法律法规。</p>
+                <p>本网站保留对内容的最终解释权，如有任何疑问，请联系客服。</p>
             </div>
         </div>
     </footer>
     
-    <script>
-        // 增强交互体验
-        document.addEventListener('DOMContentLoaded', function() {
-            // 平滑滚动
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-            
-            // 公众号广告关闭按钮
-            const closeWechatAd = document.getElementById('closeWechatAd');
-            const wechatAd = document.querySelector('.wechat-ad');
-            
-            if (closeWechatAd && wechatAd) {
-                closeWechatAd.addEventListener('click', function() {
-                    wechatAd.style.display = 'none';
-                });
-            }
-            
-            // 内容渐入动画
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // 为内容区块添加动画
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(20px)';
-                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(section);
-            });
-            
-            // 图片加载动画
-            document.querySelectorAll('img').forEach(img => {
-                img.style.opacity = '0';
-                img.style.transition = 'opacity 0.5s ease';
-                
-                img.addEventListener('load', function() {
-                    this.style.opacity = '1';
-                });
-                
-                // 如果图片已经加载完成
-                if (img.complete) {
-                    img.style.opacity = '1';
-                }
-            });
-        });
-        
-        // Banner滚动动画效果
-        const banner = document.querySelector('.banner');
-        let lastScrollTop = 0;
-        
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop) {
-                // 下拉滚动
-                banner.classList.add('square');
-            } else {
-                // 上拉滚动
-                banner.classList.remove('square');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
-        
-
-    </script>
-    
     <!-- 回到顶部按钮 -->
-    <button id="backToTop" class="back-to-top" title="回到顶部" aria-label="回到顶部">↑</button>
+    <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
     
     <!-- 公众号关注广告 -->
     <div class="wechat-ad">
-        <button class="close-btn" id="closeWechatAd" aria-label="关闭公众号广告">&times;</button>
-        <h3>关注我们的公众号</h3>
-        <div class="qrcode" style="aspect-ratio: 1/1;">
-            <!-- 公众号二维码图片 -->
-            <img src="photo/gzh.jpg" alt="天马行空创意网 公众号二维码" style="width:100%;height:100%;" loading="lazy">
+        <div class="close-btn" onclick="this.parentElement.style.display='none'">×</div>
+        <h3>关注公众号</h3>
+        <div class="qrcode">
+            <img src="photo/gzh.jpg" alt="天马行空创意团队公众号">
         </div>
-        <p>扫码关注获取更多创意内容</p>
-        <p style="font-size:12px;color:#666;">每周更新创意灵感</p>
+        <p>获取更多创意内容</p>
     </div>
     
-    <!-- 抖音关注 -->
+    <!-- 抖音关注广告 -->
     <div class="social-ad">
-        <button class="close-btn" id="closeDouyinAd" aria-label="关闭抖音广告">&times;</button>
+        <div class="close-btn" onclick="this.parentElement.style.display='none'">×</div>
         <h3>关注抖音</h3>
-        <a href="https://www.douyin.com/user/MS4wLjABAAAAP6ezeyxVFiKKdbqG_w3CrjNnFLSycenlG86g3XwMybQ" target="_blank" style="text-decoration: none; display: block; text-align: center;">
-            <div class="social-icon douyin-icon">
-                <span style="font-size: 36px;">🎵</span>
-            </div>
-            <p style="color: #333; margin-top: 8px;">进入抖音</p>
-        </a>
+        <div class="social-icon douyin-icon">🎵</div>
+        <p>查看更多创意视频</p>
     </div>
     
-    <!-- 哔哩哔哩关注 -->
+    <!-- 哔哩哔哩关注广告 -->
     <div class="social-ad">
-        <button class="close-btn" id="closeBilibiliAd" aria-label="关闭B站广告">&times;</button>
+        <div class="close-btn" onclick="this.parentElement.style.display='none'">×</div>
         <h3>关注B站</h3>
-        <a href="https://space.bilibili.com/1889102228?spm_id_from=333.337.0.0" target="_blank" style="text-decoration: none; display: block; text-align: center;">
-            <div class="social-icon bilibili-icon">
-                <span style="font-size: 36px;">📺</span>
-            </div>
-            <p style="color: #333; margin-top: 8px;">进入B站</p>
-        </a>
+        <div class="social-icon bilibili-icon">📺</div>
+        <p>获取更多创作灵感</p>
     </div>
     
-    <!--Start of Gullchat.com Script-->
-    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default" defer></script>
-    <!--End of Gullchat.com Script-->
-    <!-- 外部脚本 -->
-    <script src="js/search-common.js" defer></script>
-    
-    <!-- JavaScript -->
     <script>
-        // 主题切换功能
-        (function() {
-            const themeToggle = document.getElementById('themeToggle');
-            const html = document.documentElement;
-            
-            // 从localStorage获取主题偏好
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            // 初始化主题
-            const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-            html.setAttribute('data-theme', initialTheme);
-            
-            // 更新按钮图标
-            function updateButtonIcon() {
-                const currentTheme = html.getAttribute('data-theme');
-                themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-                themeToggle.setAttribute('aria-label', currentTheme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
-            }
-            
-            // 初始化按钮图标
-            updateButtonIcon();
-            
-            // 主题切换事件
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = html.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                html.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                updateButtonIcon();
-            });
-        })();
+        // 回到顶部按钮
+        const backToTopButton = document.getElementById('backToTop');
         
-        // 关闭广告
-        document.querySelectorAll('.wechat-ad .close-btn, .social-ad .close-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const ad = e.target.closest('.wechat-ad, .social-ad');
-                if (ad) ad.style.display = 'none';
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
         
-        // 回到顶部功能
-        const backBtn = document.getElementById('backToTop');
-        if (backBtn) {
-            // 点击事件
-            backBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            
-            // 滚动显示/隐藏
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backBtn.classList.add('show');
-                } else {
-                    backBtn.classList.remove('show');
-                }
-            });
+        // 主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // 检查本地存储中的主题偏好
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            themeToggle.textContent = '🌙';
         }
         
-        // 粒子动画初始化
-        if (typeof particlesJS !== 'undefined') {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": {
-                        "value": 80,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#00aaff"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#0066cc"
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.5,
-                        "random": false,
-                        "anim": {
-                            "enable": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#0066cc",
-                        "opacity": 0.4,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 6,
-                        "direction": "none",
-                        "random": false,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "grab"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 140,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        }
-                    }
-                },
-                "retina_detect": true
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // 轮播图
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.bg-layer');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+        
+        function showSlide(index) {
+            // 更新幻灯片
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.add('show');
+                } else {
+                    slide.classList.remove('show');
+                }
             });
+            
+            // 更新指示器
+            indicators.forEach((indicator, i) => {
+                if (i === index) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            currentSlide = index;
         }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+        
+        // 点击指示器切换幻灯片
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                const index = parseInt(indicator.dataset.index);
+                showSlide(index);
+            });
+        });
+        
+        // 自动轮播
+        setInterval(nextSlide, 5000);
     </script>
 </body>
 </html>

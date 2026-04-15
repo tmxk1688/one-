@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>剧本创作编辑器 - 天马行空创意网</title>
+    <title>AI创作中心 - 天马行空创意网</title>
     <style>
         /* 复用首页的CSS样式 */
         * {
@@ -87,6 +87,161 @@
             cursor: pointer;
         }
         
+        /* 水印样式 */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 72px;
+            font-weight: bold;
+            color: rgba(0, 102, 204, 0.1);
+            z-index: -1;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        
+        /* 聊天头部样式 */
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .chat-header h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .chat-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* 聊天暗水印样式 */
+        .chat-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 36px;
+            font-weight: bold;
+            color: rgba(0, 102, 204, 0.05);
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        
+        /* 聊天消息容器样式 */
+        .chat-messages {
+            position: relative;
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        /* 聊天消息样式 */
+        .chat-message {
+            display: flex;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .chat-avatar.ai {
+            background-color: #0066cc;
+            color: white;
+        }
+        
+        .chat-avatar.user {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .chat-content {
+            flex: 1;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+        
+        .chat-message.ai .chat-content {
+            background-color: #e3f2fd;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+        
+        .chat-message.user .chat-avatar {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+        
+        .chat-message.user .chat-content {
+            background-color: #e8f5e8;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .chat-paragraph {
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+        
+        .chat-paragraph:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 删除消息按钮 */
+        .delete-message-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 2;
+        }
+        
+        .chat-message:hover .delete-message-btn {
+            opacity: 1;
+        }
+        
+        .delete-message-btn:hover {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
         /* Navigation */
         nav {
             background-color: #0066cc;
@@ -166,88 +321,44 @@
             padding: 20px;
         }
         
-        /* Script Writing Editor */
-        .script-editor {
+        /* AI创作中心 */
+        .ai-creator {
             margin-top: 20px;
         }
         
-        /* 工具栏 */
-        .toolbar {
+        /* API配置 */
+        .api-config {
             background-color: #f8f9fa;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
             border: 1px solid #e9ecef;
         }
         
-        .toolbar h3 {
+        .api-config h3 {
             margin-bottom: 15px;
             color: #0066cc;
             font-size: 18px;
         }
         
-        .toolbar-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-        
-        .toolbar-btn {
-            padding: 8px 15px;
-            background-color: #e9ecef;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #495057;
-            transition: all 0.3s ease;
-        }
-        
-        .toolbar-btn:hover {
-            background-color: #dee2e6;
-            border-color: #ced4da;
-        }
-        
-        .toolbar-btn.active {
-            background-color: #0066cc;
-            color: white;
-            border-color: #0066cc;
-        }
-        
-        /* 剧本信息 */
-        .script-info {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #e9ecef;
-        }
-        
-        .script-info h3 {
-            margin-bottom: 15px;
-            color: #0066cc;
-            font-size: 18px;
-        }
-        
-        .script-info-fields {
+        .api-config-fields {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 15px;
         }
         
-        .script-info-field {
+        .api-config-field {
             margin-bottom: 15px;
         }
         
-        .script-info-field label {
+        .api-config-field label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
             color: #333;
         }
         
-        .script-info-field input {
+        .api-config-field input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -255,97 +366,624 @@
             font-size: 16px;
         }
         
-        /* 编辑区域 */
-        .editor-container {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
+        .api-config-note {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            border-left: 4px solid #2196f3;
         }
         
-        .editor-area {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .api-config-note p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .api-config-note a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .api-config-note a:hover {
+            text-decoration: underline;
+        }
+        
+        /* API配置容器 */
+        .api-config-container {
+            position: relative;
             margin-bottom: 20px;
         }
         
-        .scene-outline {
-            background-color: white;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-        }
-        
-        .scene-outline h4 {
-            margin-bottom: 15px;
-            color: #0066cc;
+        /* 设置按钮 */
+        .settings-btn {
+            background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
             font-size: 16px;
-        }
-        
-        .scene-list {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        .scene-item {
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 10px;
+            font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(11, 99, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .settings-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(11, 99, 255, 0.4);
+            background: linear-gradient(135deg, #3a86ff 0%, #0b63ff 100%);
+        }
+        
+        /* API配置区域 */
+        .api-config {
+            transition: all var(--transition);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        
+        /* 设置按钮容器 */
+        .settings-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* 设置提示文字 */
+        .settings-tooltip {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            margin-top: 10px;
+        }
+        
+        /* 提示文字箭头 */
+        .settings-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent #333 transparent;
+        }
+        
+        /* 悬停时显示提示文字 */
+        .settings-container:hover .settings-tooltip {
+            opacity: 1;
+            visibility: visible;
+            top: calc(100% + 10px);
+        }
+        
+        /* 功能选项卡 */
+        .ai-tabs {
+            margin-bottom: 20px;
+        }
+        
+        .ai-tab-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .ai-tab-btn {
+            padding: 10px 16px;
+            border: 1px solid #dadce0;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #3c4043;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ai-tab-btn:hover {
+            background-color: #f8f9fa;
+            border-color: #d2e3fc;
+        }
+        
+        .ai-tab-btn.active {
+            background-color: #1a73e8;
+            color: white;
+            border-color: #1a73e8;
+            box-shadow: 0 1px 2px 0 rgba(26, 115, 232, 0.45);
+        }
+        
+        .ai-tab-btn.active:hover {
+            background-color: #174ea6;
+            border-color: #174ea6;
+        }
+        
+        /* 功能内容区 - 谷歌风格 */
+        .ai-tab-content {
+            background-color: white;
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #dadce0;
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+            transition: all 0.2s ease;
+        }
+        
+        .ai-tab-content:hover {
+            box-shadow: 0 2px 4px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+        }
+        
+        /* 对话功能 */
+        .chat-section {
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            gap: 20px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 16px;
+            border: 1px solid #e9ecef;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .chat-message {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+        
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
         }
         
-        .scene-item:hover {
-            background-color: #e0e0e0;
-        }
-        
-        .scene-item.active {
-            background-color: #0066cc;
+        .chat-avatar.ai {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
         }
         
-        .add-scene-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
+        .chat-avatar.user {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+        
+        .chat-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .chat-content {
+            flex: 1;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e9ecef 100%);
+            padding: 16px 20px;
+            border-radius: 20px;
+            max-width: 80%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .chat-content:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transform: translateY(-1px);
+        }
+        
+        .chat-message.user .chat-content {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+        
+        .chat-input textarea {
+            flex: 1;
+            padding: 16px 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 28px;
+            resize: none;
+            font-size: 16px;
+            min-height: 80px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .chat-input textarea:focus {
+            outline: none;
+            border-color: #0b63ff;
+            box-shadow: 0 0 0 3px rgba(11, 99, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .chat-input button {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 28px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: background-color 0.3s ease;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(11, 99, 255, 0.3);
         }
         
-        .add-scene-btn:hover {
-            background-color: #218838;
+        .chat-input button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(11, 99, 255, 0.4);
+            background: linear-gradient(135deg, #3a86ff 0%, #0b63ff 100%);
         }
         
-        /* 剧本编辑区 */
-        .script-content {
-            background-color: white;
+        .chat-input button:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 8px rgba(11, 99, 255, 0.3);
+        }
+        
+        /* 对话内容格式优化 */
+        .chat-paragraph {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .chat-heading {
+            margin: 16px 0 12px 0;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .chat-heading:first-child {
+            margin-top: 0;
+        }
+        
+        .chat-list {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        
+        .chat-list-item {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+        
+        .chat-bold {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .chat-italic {
+            font-style: italic;
+            color: #666;
+        }
+        
+        .chat-link {
+            color: #0b63ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-link:hover {
+            color: #3a86ff;
+            text-decoration: underline;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
             border: 1px solid #e9ecef;
             border-radius: 8px;
-            padding: 15px;
+            padding: 16px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
-        .script-content h4 {
-            margin-bottom: 15px;
-            color: #0066cc;
+        .code-block code {
+            color: #333;
+        }
+        
+        /* 图片生成功能 */
+        .image-generation {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .image-prompt {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .image-prompt label {
+            font-weight: bold;
+            color: #333;
             font-size: 16px;
         }
         
-        #scriptText {
-            width: 100%;
-            height: 500px;
-            padding: 15px;
+        .image-prompt textarea {
+            padding: 16px 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            resize: vertical;
+            font-size: 16px;
+            min-height: 140px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .image-prompt textarea:focus {
+            outline: none;
+            border-color: #0b63ff;
+            box-shadow: 0 0 0 3px rgba(11, 99, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .image-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+        .image-option {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .image-option label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .image-option select,
+        .image-option input {
+            padding: 12px 16px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .image-option select:focus,
+        .image-option input:focus {
+            outline: none;
+            border-color: #0b63ff;
+            box-shadow: 0 0 0 3px rgba(11, 99, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .generate-btn {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            align-self: flex-start;
+            box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(250, 112, 154, 0.4);
+            background: linear-gradient(135deg, #fee140 0%, #fa709a 100%);
+        }
+        
+        .generate-btn:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 8px rgba(250, 112, 154, 0.3);
+        }
+        
+        .image-result {
+            margin-top: 20px;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            border: 1px solid #e9ecef;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .image-result:hover {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+            transform: translateY(-4px);
+        }
+        
+        .image-result img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 4px solid white;
+        }
+        
+        .image-result img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+        }
+        
+        .image-result p {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+            padding: 10px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        /* 图片操作按钮 */
+        .image-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .image-action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .image-action-btn.download {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
+        }
+        
+        .image-action-btn.share {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(250, 112, 154, 0.3);
+        }
+        
+        .image-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* 视频生成功能 */
+        .video-generation {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .video-prompt {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .video-prompt label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .video-prompt textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 16px;
+            min-height: 120px;
+        }
+        
+        .video-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .video-option {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .video-option label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .video-option select,
+        .video-option input {
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 16px;
-            font-family: 'Courier New', Courier, monospace;
-            resize: vertical;
-            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .video-result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            text-align: center;
+        }
+        
+        .video-result video {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
         
         /* 保存和分享按钮 */
@@ -505,6 +1143,21 @@
             background-color: #e0e0e0;
         }
         
+        /* 加载动画 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #0066cc;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         /* Footer */
         footer {
             background-color: #333;
@@ -540,6 +1193,98 @@
             color: #ccc;
         }
         
+        /* 使用手册样式 */
+        .manual-content {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .manual-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .manual-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .manual-section h3 {
+            color: #0b63ff;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .manual-section h4 {
+            color: #333;
+            margin: 20px 0 10px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .manual-section h5 {
+            color: #444;
+            margin: 15px 0 8px 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .manual-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .manual-section ol,
+        .manual-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .manual-section li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #555;
+        }
+        
+        .manual-section strong {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .manual-section a {
+            color: #0b63ff;
+            text-decoration: none;
+        }
+        
+        .manual-section a:hover {
+            text-decoration: underline;
+        }
+        
+        .manual-image {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .manual-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-caption {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 992px) {
             .container {
@@ -553,12 +1298,17 @@
             .script-info-fields {
                 grid-template-columns: 1fr;
             }
+            
+            .manual-content {
+                padding: 15px;
+            }
         }
     </style>
-    <!-- 新年主题样式 -->
-    <link rel="stylesheet" href="css/newyear.css">
+
 </head>
 <body>
+    <!-- 水印 -->
+    <div class="watermark">天马行空创意团队</div>
     <header>
         <div class="container header-content">
             <div class="logo">
@@ -579,7 +1329,12 @@
         <div class="container">
             <ul>
                 <li><a href="index.html">首页</a></li>
-                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="about.html">关于我们</a>
+                    <ul class="dropdown" aria-label="关于我们子菜单">
+                        <li><a href="#">业务中心</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">服务系统</a>
                     <ul class="dropdown">
@@ -602,69 +1357,465 @@
     
     <div class="banner">
         <div class="container banner-content">
-            <h1>剧本创作编辑器</h1>
-            <p>专业的剧本创作工具，支持多场景编辑、格式设置、保存和分享功能</p>
+            <h1>AI创作中心</h1>
+            <p>专业的AI创作工具，支持多场景编辑、格式设置、保存和分享功能</p>
         </div>
     </div>
     
     <div class="container main-content">
-        <div class="script-editor">
-            <!-- 剧本信息 -->
-            <div class="script-info">
-                <h3>剧本信息</h3>
-                <div class="script-info-fields">
-                    <div class="script-info-field">
-                        <label for="scriptTitle">剧本标题</label>
-                        <input type="text" id="scriptTitle" placeholder="请输入剧本标题">
+        <div class="ai-creator">
+            <!-- API配置 -->
+            <div class="api-config-container">
+                <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+                    <div class="settings-container">
+                        <button class="settings-btn" onclick="toggleApiConfig()" title="API配置">⚙️ API配置</button>
+                        <span class="settings-tooltip">点击打开API配置</span>
                     </div>
-                    <div class="script-info-field">
-                        <label for="scriptAuthor">编剧</label>
-                        <input type="text" id="scriptAuthor" placeholder="请输入编剧姓名">
+                </div>
+                <div class="api-config" style="display: none;">
+                    <h3>API配置</h3>
+                <div class="api-config-fields">
+                    <div class="api-config-field">
+                        <label for="apiKey">API Key</label>
+                        <input type="text" id="apiKey" placeholder="请输入API Key">
                     </div>
+                    <div class="api-config-field">
+                        <label for="apiUrl">API URL</label>
+                        <input type="text" id="apiUrl" placeholder="https://www.361api.com/v1/chat/completions">
+                        <small style="display: block; margin-top: 5px; color: #666; font-size: 12px;">例如：https://www.361api.com/v1/chat/completions</small>
+                    </div>
+                    <div class="api-config-field">
+                        <label for="aiModel">AI模型</label>
+                        <select id="aiModel" onchange="toggleCustomModel()">
+                            <option value="gpt-5.4-nano">GPT-5.4 Nano (💰0.1200/M输入, 💰0.7200/M输出)</option>
+                            <option value="gpt-5.4-mini">GPT-5.4 Mini (💰0.4500/M输入, 💰2.7000/M输出)</option>
+                            <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite (💰0.3750/M输入, 💰2.2500/M输出)</option>
+                            <option value="doubao-seed-2-0-mini">Doubao Seed 2.0 Mini (💰0.3000/M输入, 💰3.0000/M输出)</option>
+                            <option value="doubao-seed-2-0-lite">Doubao Seed 2.0 Lite (💰0.9000/M输入, 💰5.4000/M输出)</option>
+                            <option value="custom">自定义模型</option>
+                        </select>
+                    </div>
+                    <div class="api-config-field" id="customModelField" style="display: none;">
+                        <label for="customModel">自定义模型名称</label>
+                        <input type="text" id="customModel" placeholder="请输入自定义模型名称">
+                    </div>
+                    <div class="api-config-field">
+                        <button class="action-btn save-btn" onclick="saveConfig()" style="width: 100%;">💾 保存配置</button>
+                    </div>
+                    <div class="api-config-field">
+                        <button class="action-btn save-btn" onclick="checkBalance()" style="width: 100%;">💰 查看API余额</button>
+                    </div>
+                    <div class="api-config-field" id="balanceResult" style="display: none;">
+                        <label>API余额</label>
+                        <div id="balanceInfo" style="padding: 10px; background-color: #f8f9fa; border-radius: 4px; font-weight: bold;"></div>
+                    </div>
+                </div>
+                <div class="api-config-note">
+                    <p>需要API密钥才能使用AI功能。请通过 <a href="https://361api.com" target="_blank">361api.com</a> 注册并获取API密钥。</p>
                 </div>
             </div>
             
-            <!-- 工具栏 -->
-            <div class="toolbar">
-                <h3>格式工具</h3>
-                <div class="toolbar-buttons">
-                    <button class="toolbar-btn" onclick="applyFormat('scene-heading')">场景标题</button>
-                    <button class="toolbar-btn" onclick="applyFormat('action')">动作描述</button>
-                    <button class="toolbar-btn" onclick="applyFormat('character')">角色名</button>
-                    <button class="toolbar-btn" onclick="applyFormat('dialogue')">对话</button>
-                    <button class="toolbar-btn" onclick="applyFormat('parenthetical')">括号说明</button>
-                    <button class="toolbar-btn" onclick="applyFormat('transition')">转场</button>
+            <!-- 功能选项卡 -->
+            <div class="ai-tabs">
+                <div class="ai-tab-buttons">
+                    <button class="ai-tab-btn active" onclick="switchTab('chat', event)">💬 对话</button>
+                    <button class="ai-tab-btn" onclick="switchTab('image', event)">🖼️ 生成图片</button>
+                    <button class="ai-tab-btn" onclick="switchTab('video', event)">🎬 生成视频</button>
+                    <button class="ai-tab-btn" onclick="switchTab('music', event)">🎵 生成音乐</button>
+                    <button class="ai-tab-btn" onclick="switchTab('manual', event)">📖 使用手册</button>
                 </div>
-            </div>
-            
-            <!-- 编辑区域 -->
-            <div class="editor-container">
-                <div class="editor-area">
-                    <!-- 场景大纲 -->
-                    <div class="scene-outline">
-                        <h4>场景大纲</h4>
-                        <div class="scene-list" id="sceneList">
-                            <!-- 场景列表将动态生成 -->
+                
+                <!-- 对话功能 -->
+                <div class="ai-tab-content" id="chat-tab">
+                    <div class="chat-section">
+                        <div class="chat-header">
+                            <h3>AI对话</h3>
+                            <div class="chat-actions">
+                                <button onclick="clearChat()" style="padding: 5px 10px; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; font-size: 12px;">清除聊天</button>
+                            </div>
                         </div>
-                        <button class="add-scene-btn" onclick="addScene()">+ 添加场景</button>
-                    </div>
-                    
-                    <!-- 剧本内容编辑 -->
-                    <div class="script-content">
-                        <h4>剧本内容</h4>
-                        <textarea id="scriptText" placeholder="开始编写你的剧本内容..."></textarea>
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- 对话消息将动态生成 -->
+                            <div class="chat-watermark">天马行空创意团队</div>
+                        </div>
+                        <div class="chat-input">
+                            <textarea id="chatInput" placeholder="输入你的问题或指令..."></textarea>
+                            <button onclick="sendMessage()">发送</button>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 操作按钮 -->
-                <div class="action-buttons">
-                    <button class="action-btn save-btn" onclick="saveScript()">💾 保存剧本</button>
-                    <button class="action-btn share-btn" onclick="showShareModal()">📤 分享剧本</button>
+                <!-- 图片生成功能 -->
+                <div class="ai-tab-content" id="image-tab" style="display: none;">
+                    <div class="image-generation">
+                        <div class="image-prompt">
+                            <label for="imagePrompt">图片描述</label>
+                            <textarea id="imagePrompt" placeholder="描述你想要生成的图片..."></textarea>
+                        </div>
+                        <div class="image-prompt">
+                            <label for="imageReference">参考图片</label>
+                            <input type="text" id="imageReference" placeholder="输入图片URL或Base64编码">
+                            <small style="display: block; margin-top: 5px; color: #666; font-size: 12px;">支持图片URL或Base64编码，作为参考</small>
+                        </div>
+                        <div class="image-options">
+                            <div class="image-option">
+                                <label for="imageSize">图片尺寸</label>
+                                <select id="imageSize">
+                                    <option value="1024x1024">1024x1024</option>
+                                    <option value="1024x1792">1024x1792</option>
+                                    <option value="1792x1024">1792x1024</option>
+                                </select>
+                            </div>
+                            <div class="image-option">
+                                <label for="imageModel">模型</label>
+                                <select id="imageModel">
+                                    <option value="gemini-2.5-flash-image-preview">Gemini 2.5 Flash Image Preview</option>
+                                    <option value="ideogram-v3">Ideogram V3</option>
+                                    <option value="gpt-image-1">GPT Image 1</option>
+                                    <option value="gpt-image-1.5">GPT Image 1.5</option>
+                                    <option value="dall-e-3">DALL·E 3</option>
+                                    <option value="z-image-turbo">Z-Image Turbo</option>
+                                    <option value="doubao-seedream-5-0-260128">Doubao Seedream 5</option>
+                                    <option value="doubao-seedream-4-0-250828">Doubao Seedream 4</option>
+                                    <option value="nano-banana">Nano Banana</option>
+                                    <option value="sora_image">Sora Image</option>
+                                    <option value="stability-ai/sdxl">Stability AI SDXL</option>
+                                    <option value="flux-dev">Flux Dev</option>
+                                    <option value="flux-pro">Flux Pro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="generate-btn" onclick="generateImage()">生成图片</button>
+                        <div class="image-result" id="imageResult"></div>
+                    </div>
                 </div>
                 
-                <!-- 保存提示 -->
-                <div class="save-message" id="saveMessage"></div>
+                <!-- 视频生成功能 -->
+                <div class="ai-tab-content" id="video-tab" style="display: none;">
+                    <div class="video-generation">
+                        <div class="video-prompt">
+                            <label for="videoPrompt">视频描述</label>
+                            <textarea id="videoPrompt" placeholder="描述你想要生成的视频..."></textarea>
+                        </div>
+                        <div class="video-option">
+                            <label for="videoMode">生成模式</label>
+                            <select id="videoMode" onchange="toggleVideoImage()">
+                                <option value="image">图生视频</option>
+                                <option value="text">文字生成视频</option>
+                            </select>
+                        </div>
+                        <div class="video-prompt" id="videoImageContainer">
+                            <label for="videoImage">首帧图像</label>
+                            <input type="text" id="videoImage" placeholder="输入图片URL或Base64编码">
+                            <small style="display: block; margin-top: 5px; color: #666; font-size: 12px;">支持图片URL或Base64编码，只支持1张图</small>
+                        </div>
+                        <div class="video-options">
+                            <div class="video-option">
+                                <label for="videoModel">模型</label>
+                                <select id="videoModel">
+                                    <option value="sora-2">Sora 2 (支持文本生成)</option>
+                                    <option value="sora-2-all">Sora 2 All (支持文本生成)</option>
+                                    <option value="veo3.1">Veo 3.1 (支持文本生成)</option>
+                                    <option value="veo3.1-fast">Veo 3.1 Fast (支持文本生成)</option>
+                                    <option value="sora-2-characters">Sora 2 Characters (支持图像生成)</option>
+                                    <option value="doubao-seedance-1-5-pro-251215">Doubao Seedance 1.5 Pro (支持图像生成)</option>
+                                    <option value="wan2.5-i2v-preview">Wan 2.5 I2V Preview (支持图像生成)</option>
+                                    <option value="luma_video_api">Luma Video API (支持图像生成)</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="videoDuration">视频时长</label>
+                                <select id="videoDuration">
+                                    <option value="5">5秒</option>
+                                    <option value="10">10秒</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="videoResolution">分辨率</label>
+                                <select id="videoResolution">
+                                    <option value="540p">540p</option>
+                                    <option value="720p">720p</option>
+                                    <option value="1080p">1080p</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="videoAspectRatio">视频比例</label>
+                                <select id="videoAspectRatio">
+                                    <option value="16:9">16:9 (横屏)</option>
+                                    <option value="9:16">9:16 (竖屏)</option>
+                                    <option value="1:1">1:1 (正方形)</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="videoMovement">运动幅度</label>
+                                <select id="videoMovement">
+                                    <option value="auto">自动</option>
+                                    <option value="small">小</option>
+                                    <option value="medium">中</option>
+                                    <option value="large">大</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="videoAudio">音频</label>
+                                <select id="videoAudio">
+                                    <option value="false">静音</option>
+                                    <option value="true">带音频</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="videoOffPeak">错峰模式</label>
+                                <select id="videoOffPeak">
+                                    <option value="false">即时生成</option>
+                                    <option value="true">错峰生成（更便宜）</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="generate-btn" onclick="generateVideo()">生成视频</button>
+                        <div class="video-result" id="videoResult"></div>
+                    </div>
+                </div>
+                
+                <!-- 音乐生成功能 -->
+                <div class="ai-tab-content" id="music-tab" style="display: none;">
+                    <div class="music-generation">
+                        <div class="video-prompt">
+                            <label for="musicPrompt">音乐描述</label>
+                            <textarea id="musicPrompt" placeholder="描述你想要生成的音乐..."></textarea>
+                        </div>
+                        <div class="video-prompt">
+                            <label for="musicReference">参考音乐</label>
+                            <input type="text" id="musicReference" placeholder="输入音乐URL">
+                            <small style="display: block; margin-top: 5px; color: #666; font-size: 12px;">支持音乐URL，作为参考</small>
+                        </div>
+                        <div class="video-options">
+                            <div class="video-option">
+                                <label for="musicMode">生成模式</label>
+                                <select id="musicMode">
+                                    <option value="inspiration">灵感模式</option>
+                                    <option value="instrumental">纯音乐模式</option>
+                                    <option value="lyrics">生成歌词模式</option>
+                                    <option value="remix">二创模式</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="musicDuration">音乐时长</label>
+                                <select id="musicDuration">
+                                    <option value="30">30秒</option>
+                                    <option value="60">1分钟</option>
+                                    <option value="120">2分钟</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="musicModel">音乐模型</label>
+                                <select id="musicModel">
+                                    <option value="chirp-v4">Chirp v4</option>
+                                    <option value="chirp-v5">Chirp v5</option>
+                                    <option value="chirp-auk">Chirp v4.5</option>
+                                    <option value="chirp-v3-5">Chirp v3.5</option>
+                                    <option value="chirp-v3-0">Chirp v3.0</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="musicGenre">音乐类型</label>
+                                <select id="musicGenre">
+                                    <option value="pop">流行</option>
+                                    <option value="rock">摇滚</option>
+                                    <option value="classical">古典</option>
+                                    <option value="jazz">爵士</option>
+                                    <option value="electronic">电子</option>
+                                    <option value="hip-hop">嘻哈</option>
+                                </select>
+                            </div>
+                            <div class="video-option">
+                                <label for="musicMood">音乐情绪</label>
+                                <select id="musicMood">
+                                    <option value="happy">欢快</option>
+                                    <option value="sad">悲伤</option>
+                                    <option value="calm">平静</option>
+                                    <option value="excited">兴奋</option>
+                                    <option value="mysterious">神秘</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="generate-btn" onclick="generateMusic()">生成音乐</button>
+                        <div class="video-result" id="musicResult"></div>
+                        <div style="margin-top: 10px;">
+                            <label for="taskId">任务ID</label>
+                            <input type="text" id="taskId" placeholder="输入任务ID">
+                            <button class="generate-btn" onclick="queryMusicTask()" style="margin-left: 10px;">查询任务进度</button>
+                            <div class="video-result" id="taskResult"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 使用手册 -->
+                <div class="ai-tab-content" id="manual-tab" style="display: none;">
+                    <div class="manual-content">
+                        <h2>AI创作中心使用手册</h2>
+                        
+                        <div class="manual-section">
+                            <h3>1. 简介</h3>
+                            <p>AI创作中心是一个专业的AI创作工具，支持多场景编辑、格式设置、保存和分享功能。通过集成多种AI模型，您可以轻松生成对话、图片、视频和音乐等内容。</p>
+                        </div>
+                        
+                        <div class="manual-section">
+                            <h3>2. 快速开始</h3>
+                            <ol>
+                                <li>点击页面上方的⚙️ API配置按钮，输入您的API Key和API URL</li>
+                                <li>选择您想要使用的AI模型</li>
+                                <li>点击保存配置按钮</li>
+                                <li>选择您想要使用的功能选项卡（对话、图片、视频或音乐）</li>
+                                <li>填写相关参数并点击生成按钮</li>
+                                <li>等待生成结果并查看</li>
+                            </ol>
+                            <div class="manual-image">
+                                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20creation%20center%20API%20configuration%20interface%2C%20showing%20API%20key%20input%2C%20API%20URL%20input%2C%20model%20selection%20dropdown%2C%20and%20save%20button%2C%20clean%20modern%20UI%2C%20screenshot%20style&image_size=landscape_16_9" alt="API配置界面" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                <p class="image-caption">图2.1 API配置界面</p>
+                            </div>
+                        </div>
+                        
+                        <div class="manual-section">
+                            <h3>3. 功能详解</h3>
+                            
+                            <h4>3.1 对话功能</h4>
+                            <p>对话功能允许您与AI进行自然语言交互，获取回答、建议或创意内容。</p>
+                            <ol>
+                                <li>在输入框中输入您的问题或指令</li>
+                                <li>点击发送按钮或按Enter键</li>
+                                <li>等待AI回复</li>
+                                <li>查看格式化后的AI回复，支持代码块、链接、标题等格式</li>
+                            </ol>
+                            <div class="manual-image">
+                                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20chat%20interface%2C%20showing%20user%20input%20field%2C%20send%20button%2C%20and%20AI%20response%20area%20with%20formatted%20text%20including%20code%20blocks%2C%20clean%20modern%20UI%2C%20screenshot%20style&image_size=landscape_16_9" alt="对话功能界面" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                <p class="image-caption">图3.1 对话功能界面</p>
+                            </div>
+                            
+                            <h4>3.2 图片生成功能</h4>
+                            <p>图片生成功能允许您根据文字描述生成高质量的图片。</p>
+                            <ol>
+                                <li>在图片描述框中输入详细的图片描述</li>
+                                <li>（可选）在参考图片框中输入图片URL或Base64编码作为参考</li>
+                                <li>选择图片尺寸</li>
+                                <li>选择图片生成模型</li>
+                                <li>点击生成图片按钮</li>
+                                <li>等待图片生成完成</li>
+                                <li>查看生成的图片</li>
+                            </ol>
+                            <div class="manual-image">
+                                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20image%20generation%20interface%2C%20showing%20image%20description%20input%2C%20reference%20image%20input%2C%20size%20selection%2C%20model%20selection%2C%20and%20generate%20button%2C%20clean%20modern%20UI%2C%20screenshot%20style&image_size=landscape_16_9" alt="图片生成功能界面" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                <p class="image-caption">图3.2 图片生成功能界面</p>
+                            </div>
+                            <p><strong>如何使用参考图片：</strong></p>
+                            <h5>使用图片URL：</h5>
+                            <ol>
+                                <li>找到您想要作为参考的图片</li>
+                                <li>右键点击图片，选择"复制图片地址"或"复制图片链接"</li>
+                                <li>将复制的URL粘贴到参考图片输入框中</li>
+                            </ol>
+                            <h5>使用Base64编码：</h5>
+                            <ol>
+                                <li>找到您想要作为参考的图片</li>
+                                <li>使用在线Base64编码工具（如 <a href="https://www.base64-image.de" target="_blank">base64-image.de</a>）将图片转换为Base64编码</li>
+                                <li>复制生成的Base64编码字符串</li>
+                                <li>将复制的Base64编码粘贴到参考图片输入框中</li>
+                            </ol>
+                            <div class="manual-image">
+                                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Base64%20image%20converter%20tool%20interface%2C%20showing%20image%20upload%20area%2C%20generated%20Base64%20code%20output%20area%2C%20and%20copy%20button%2C%20clean%20modern%20UI%2C%20screenshot%20style&image_size=landscape_16_9" alt="Base64编码工具界面" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                <p class="image-caption">图3.3 Base64编码工具界面</p>
+                            </div>
+                            <p>提示：Base64编码的图片会包含"data:image/xxx;base64,"前缀，请确保完整复制包括前缀在内的整个编码字符串。</p>
+                            
+                            <h4>3.3 视频生成功能</h4>
+                            <p>视频生成功能允许您根据文字描述或图片生成视频。</p>
+                            <ol>
+                                <li>选择生成模式（图生视频或文字生成视频）</li>
+                                <li>在视频描述框中输入详细的视频描述</li>
+                                <li>如果选择图生视频模式，输入首帧图像的URL</li>
+                                <li>选择视频模型、时长、分辨率、比例、运动幅度、音频和错峰模式</li>
+                                <li>点击生成视频按钮</li>
+                                <li>等待视频生成任务创建</li>
+                                <li>使用任务ID查询视频生成进度</li>
+                                <li>查看生成的视频</li>
+                            </ol>
+                            <div class="manual-image">
+                                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20video%20generation%20interface%2C%20showing%20video%20description%20input%2C%20generation%20mode%20selection%2C%20video%20options%20like%20duration%2C%20resolution%2C%20model%20selection%2C%20and%20generate%20button%2C%20clean%20modern%20UI%2C%20screenshot%20style&image_size=landscape_16_9" alt="视频生成功能界面" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                <p class="image-caption">图3.4 视频生成功能界面</p>
+                            </div>
+                            
+                            <h4>3.4 音乐生成功能</h4>
+                            <p>音乐生成功能允许您根据文字描述生成音乐。</p>
+                            <ol>
+                                <li>在音乐描述框中输入详细的音乐描述</li>
+                                <li>（可选）在参考音乐框中输入音乐URL作为参考</li>
+                                <li>选择生成模式、音乐时长、音乐模型、音乐类型和音乐情绪</li>
+                                <li>点击生成音乐按钮</li>
+                                <li>等待音乐生成任务创建</li>
+                                <li>使用任务ID查询音乐生成进度</li>
+                                <li>查看生成的音乐</li>
+                            </ol>
+                            <div class="manual-image">
+                                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20music%20generation%20interface%2C%20showing%20music%20description%20input%2C%20reference%20music%20input%2C%20generation%20mode%20selection%2C%20music%20options%20like%20duration%2C%20genre%2C%20mood%2C%20model%20selection%2C%20and%20generate%20button%2C%20clean%20modern%20UI%2C%20screenshot%20style&image_size=landscape_16_9" alt="音乐生成功能界面" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                <p class="image-caption">图3.5 音乐生成功能界面</p>
+                            </div>
+                        </div>
+                        
+                        <div class="manual-section">
+                            <h3>4. API配置</h3>
+                            <p>要使用AI创作中心的功能，您需要配置API Key和API URL。</p>
+                            <ol>
+                                <li>点击页面上方的⚙️ API配置按钮</li>
+                                <li>在API Key输入框中输入您的361API密钥</li>
+                                <li>在API URL输入框中输入API基础URL，例如：https://www.361api.com</li>
+                                <li>选择您想要使用的AI模型</li>
+                                <li>如果选择自定义模型，输入自定义模型名称</li>
+                                <li>点击保存配置按钮</li>
+                                <li>（可选）点击查看API余额按钮，查看您的API余额</li>
+                            </ol>
+                            <p><strong>重要提示：</strong>API配置信息只会保存在您的本地浏览器中，不会上传到任何服务器。请确保妥善保管您的API密钥，不要分享给他人。</p>
+                            <p>提示：您可以通过 <a href="https://361api.com" target="_blank">361api.com</a> 注册并获取API密钥。</p>
+                        </div>
+                        
+                        <div class="manual-section">
+                            <h3>5. 常见问题</h3>
+                            <ul>
+                                <li><strong>问题：API请求失败，显示429错误</strong><br>
+                                    解答：这是由于API速率限制导致的，请等待一段时间后再尝试，或减少请求频率。</li>
+                                <li><strong>问题：API请求失败，显示500错误</strong><br>
+                                    解答：这是由于API服务器内部错误导致的，请稍后再尝试。</li>
+                                <li><strong>问题：无法在本地文件系统中运行</strong><br>
+                                    解答：请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。</li>
+                                <li><strong>问题：图片生成失败，显示无可用渠道</strong><br>
+                                    解答：这是由于所选模型在当前API分组下不可用，请尝试使用其他模型。</li>
+                                <li><strong>问题：API余额不足</strong><br>
+                                    解答：请登录361API官方网站充值API余额。</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="manual-section">
+                            <h3>6. 最佳实践</h3>
+                            <ul>
+                                <li><strong>对话功能</strong>：使用清晰、具体的问题或指令，提供足够的上下文信息。</li>
+                                <li><strong>图片生成</strong>：使用详细、具体的描述，包括主题、风格、颜色、构图等要素。</li>
+                                <li><strong>视频生成</strong>：使用详细的场景描述，包括动作、环境、氛围等要素。</li>
+                                <li><strong>音乐生成</strong>：使用详细的音乐风格描述，包括节奏、乐器、情绪等要素。</li>
+                                <li><strong>API使用</strong>：合理使用API配额，避免频繁发送大量请求。</li>
+                                <li><strong>内容审核</strong>：遵守API提供商的内容政策，避免生成不适当的内容。</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="manual-section">
+                            <h3>7. 联系支持</h3>
+                            <p>如果您在使用过程中遇到任何问题，请联系我们：</p>
+                            <p>邮箱：tmxkcytd@foxmail.com</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+
+            
+            <!-- 保存提示 -->
+            <div class="save-message" id="saveMessage"></div>
         </div>
     </div>
     
@@ -707,138 +1858,1784 @@
     </footer>
     
     <script>
-        // 剧本数据
-        let scriptData = {
-            title: '',
-            author: '',
-            scenes: [
-                { id: 1, title: '场景 1', content: '' }
-            ],
-            currentSceneId: 1
+        // AI创作中心数据
+        let aiConfig = {
+            apiKey: '',
+            apiUrl: '',
+            aiModel: 'gpt-4o',
+            customModel: ''
         };
         
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 加载保存的剧本
-            loadScript();
-            // 初始化场景列表
-            updateSceneList();
+            // 加载保存的配置
+            loadConfig();
+            // 初始化对话界面
+            initChat();
         });
         
-        // 添加场景
-        function addScene() {
-            const newSceneId = scriptData.scenes.length + 1;
-            scriptData.scenes.push({
-                id: newSceneId,
-                title: `场景 ${newSceneId}`,
-                content: ''
+        // 切换选项卡
+        function switchTab(tabName, event) {
+            // 隐藏所有选项卡内容
+            document.querySelectorAll('.ai-tab-content').forEach(tab => {
+                tab.style.display = 'none';
             });
-            scriptData.currentSceneId = newSceneId;
-            updateSceneList();
-            updateScriptContent();
+            
+            // 移除所有选项卡按钮的active类
+            document.querySelectorAll('.ai-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 显示选中的选项卡内容
+            document.getElementById(`${tabName}-tab`).style.display = 'block';
+            // 添加选中选项卡按钮的active类
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
         }
         
-        // 更新场景列表
-        function updateSceneList() {
-            const sceneList = document.getElementById('sceneList');
-            sceneList.innerHTML = '';
+        // 切换自定义模型输入框
+        function toggleCustomModel() {
+            const aiModel = document.getElementById('aiModel').value;
+            const customModelField = document.getElementById('customModelField');
             
-            scriptData.scenes.forEach(scene => {
-                const sceneItem = document.createElement('div');
-                sceneItem.className = `scene-item ${scene.id === scriptData.currentSceneId ? 'active' : ''}`;
-                sceneItem.innerHTML = `<strong>${scene.title}</strong>`;
-                sceneItem.onclick = () => {
-                    switchScene(scene.id);
+            if (aiModel === 'custom') {
+                customModelField.style.display = 'block';
+            } else {
+                customModelField.style.display = 'none';
+            }
+        }
+        
+        // 切换视频图像输入框
+        function toggleVideoImage() {
+            const videoMode = document.getElementById('videoMode').value;
+            const videoImageContainer = document.getElementById('videoImageContainer');
+            
+            if (videoMode === 'image') {
+                videoImageContainer.style.display = 'block';
+            } else {
+                videoImageContainer.style.display = 'none';
+            }
+        }
+        
+        // 切换API配置显示/隐藏
+        function toggleApiConfig() {
+            const apiConfigDiv = document.querySelector('.api-config');
+            if (apiConfigDiv.style.display === 'none') {
+                apiConfigDiv.style.display = 'block';
+            } else {
+                apiConfigDiv.style.display = 'none';
+            }
+        }
+        
+        // 下载图片
+        function downloadImage(imageUrl) {
+            // 检查用户是否已验证权限
+            const hasPermission = localStorage.getItem('tmxk_permission') === 'true';
+            
+            if (hasPermission) {
+                // 已验证权限，直接下载原图
+                downloadImageWithWatermark(imageUrl, false);
+            } else {
+                // 未验证权限，显示权限验证弹窗
+                showPermissionModal(imageUrl);
+            }
+        }
+        
+        // 显示权限验证弹窗
+        function showPermissionModal(imageUrl) {
+            // 创建弹窗
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            `;
+            
+            // 创建弹窗内容
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background-color: white;
+                padding: 30px;
+                border-radius: 8px;
+                width: 90%;
+                max-width: 400px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            `;
+            
+            modalContent.innerHTML = `
+                <h3 style="margin-top: 0; margin-bottom: 20px; color: #333;">权限验证</h3>
+                <p style="margin-bottom: 20px; color: #666;">请输入权限码以下载无水印图片。</p>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <p style="margin-bottom: 10px; color: #666;">关注公众号获取权限码</p>
+                    <img src="photo/gzh.jpg" alt="公众号二维码" style="width: 150px; height: 150px; border: 1px solid #ddd; border-radius: 8px;">
+                    <p style="margin-top: 10px; font-size: 14px; color: #666;">回复「权限码」获取下载权限</p>
+                </div>
+                <input type="text" id="permissionCode" placeholder="请输入权限码" style="
+                    width: 100%;
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    font-size: 16px;
+                    margin-bottom: 20px;
+                ">
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="verifyPermission('${imageUrl}')" style="
+                        flex: 1;
+                        padding: 10px;
+                        background-color: #1a73e8;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 14px;
+                    ">验证</button>
+                    <button onclick="downloadImageWithWatermark('${imageUrl}', true)" style="
+                        flex: 1;
+                        padding: 10px;
+                        background-color: #f0f0f0;
+                        color: #333;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 14px;
+                    ">直接下载（带水印）</button>
+                    <button onclick="this.closest('div').closest('div').remove()" style="
+                        padding: 10px;
+                        background-color: #f0f0f0;
+                        color: #333;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 14px;
+                    ">取消</button>
+                </div>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+        }
+        
+        // 验证权限码
+        function verifyPermission(imageUrl) {
+            const code = document.getElementById('permissionCode').value.trim();
+            if (code === 'tmxk2025') {
+                // 权限码正确，保存权限状态
+                localStorage.setItem('tmxk_permission', 'true');
+                // 关闭弹窗
+                document.querySelector('div[style*="position: fixed"]').remove();
+                // 下载无水印图片
+                downloadImageWithWatermark(imageUrl, false);
+                alert('权限验证成功！您现在可以下载无水印图片了。');
+            } else {
+                alert('权限码错误，请重新输入！');
+            }
+        }
+        
+        // 下载图片（带或不带水印）
+        function downloadImageWithWatermark(imageUrl, addWatermark) {
+            if (addWatermark) {
+                // 添加水印后下载
+                addWatermarkToImage(imageUrl, function(watermarkedImageUrl) {
+                    const link = document.createElement('a');
+                    link.href = watermarkedImageUrl;
+                    link.download = `generated-image-${Date.now()}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            } else {
+                // 直接下载原图
+                const link = document.createElement('a');
+                link.href = imageUrl;
+                link.download = `generated-image-${Date.now()}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+        
+        // 在图片上添加水印
+        function addWatermarkToImage(imageUrl, callback) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.crossOrigin = 'anonymous';
+            img.onload = function() {
+                // 设置画布尺寸
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                // 绘制原图
+                ctx.drawImage(img, 0, 0);
+                
+                // 添加水印文本
+                ctx.font = '24px Arial';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 3;
+                ctx.shadowOffsetX = 1;
+                ctx.shadowOffsetY = 1;
+                
+                // 绘制水印
+                ctx.fillText('天马行空创意网AI生成', canvas.width / 2, canvas.height - 20);
+                
+                // 转换为图片URL
+                const watermarkedImageUrl = canvas.toDataURL('image/png');
+                callback(watermarkedImageUrl);
+            };
+            
+            img.onerror = function() {
+                // 如果图片加载失败，直接使用原图
+                callback(imageUrl);
+            };
+            
+            img.src = imageUrl;
+        }
+        
+        // 分享图片
+        function shareImage(imageUrl) {
+            if (navigator.share) {
+                // 使用Web Share API（现代浏览器）
+                navigator.share({
+                    title: '生成的图片',
+                    text: '查看我生成的图片！',
+                    url: imageUrl
+                }).catch(err => {
+                    console.error('分享失败:', err);
+                    // 回退到复制链接
+                    copyImageLink(imageUrl);
+                });
+            } else {
+                // 回退到复制链接
+                copyImageLink(imageUrl);
+            }
+        }
+        
+        // 复制图片链接
+        function copyImageLink(imageUrl) {
+            if (!navigator.clipboard) {
+                alert('您的浏览器不支持剪贴板功能，请手动复制链接。');
+                return;
+            }
+            
+            try {
+                navigator.clipboard.writeText(imageUrl).then(() => {
+                    alert('图片链接已复制到剪贴板！');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制链接。');
+                });
+            } catch (error) {
+                console.error('调用剪贴板API时出错:', error);
+                alert('复制失败，请手动复制链接。');
+            }
+        }
+        
+        // 初始化对话界面
+        function initChat() {
+            // 添加欢迎消息
+            addChatMessage('ai', '你好！我是天马行空创意团队小助手，有什么可以帮助你的吗？');
+        }
+        
+        // 清除聊天内容
+        function clearChat() {
+            const chatMessages = document.getElementById('chatMessages');
+            // 保留水印元素
+            const watermark = chatMessages.querySelector('.chat-watermark');
+            chatMessages.innerHTML = '';
+            chatMessages.appendChild(watermark);
+            // 重新添加欢迎消息
+            addChatMessage('ai', '你好！我是天马行空创意团队小助手，有什么可以帮助你的吗？');
+        }
+        
+        // 删除单条消息
+        function deleteMessage(button) {
+            const messageDiv = button.closest('.chat-message');
+            if (messageDiv) {
+                messageDiv.remove();
+            }
+        }
+        
+        // 添加对话消息
+        function addChatMessage(type, content) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}`;
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = `chat-avatar ${type}`;
+            avatarDiv.textContent = type === 'ai' ? 'AI' : '我';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'chat-content';
+            
+            // 优化内容格式
+            let formattedContent = content;
+            
+            // 处理代码块
+            formattedContent = formattedContent.replace(/```([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>');
+            
+            // 处理链接
+            formattedContent = formattedContent.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="chat-link">$1</a>');
+            
+            // 处理标题
+            formattedContent = formattedContent.replace(/^### (.*$)/gim, '<h3 class="chat-heading">$1</h3>');
+            formattedContent = formattedContent.replace(/^## (.*$)/gim, '<h2 class="chat-heading">$1</h2>');
+            formattedContent = formattedContent.replace(/^# (.*$)/gim, '<h1 class="chat-heading">$1</h1>');
+            
+            // 处理列表
+            formattedContent = formattedContent.replace(/^\- (.*$)/gim, '<li class="chat-list-item">$1</li>');
+            formattedContent = formattedContent.replace(/(<li class="chat-list-item">.*<\/li>)/gs, '<ul class="chat-list">$1</ul>');
+            
+            // 处理粗体和斜体
+            formattedContent = formattedContent.replace(/\*\*(.*?)\*\*/g, '<strong class="chat-bold">$1</strong>');
+            formattedContent = formattedContent.replace(/\*(.*?)\*/g, '<em class="chat-italic">$1</em>');
+            
+            // 处理段落
+            formattedContent = formattedContent.replace(/\n\n/g, '</p><p class="chat-paragraph">');
+            formattedContent = '<p class="chat-paragraph">' + formattedContent + '</p>';
+            
+            // 使用innerHTML而不是textContent，以便渲染HTML内容
+            contentDiv.innerHTML = formattedContent;
+            
+            // 创建删除按钮
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-message-btn';
+            deleteBtn.textContent = '×';
+            deleteBtn.onclick = function() {
+                deleteMessage(this);
+            };
+            
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(contentDiv);
+            messageDiv.appendChild(deleteBtn);
+            chatMessages.appendChild(messageDiv);
+            
+            // 滚动到底部
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // 发送消息
+        function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const message = chatInput.value.trim();
+            
+            if (message) {
+                // 添加用户消息
+                addChatMessage('user', message);
+                // 清空输入框
+                chatInput.value = '';
+                
+                // 检查是否在本地文件系统中运行
+                if (window.location.protocol === 'file:') {
+                    addChatMessage('ai', '抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。');
+                    return;
+                }
+                
+                // 获取API配置
+                const apiKey = document.getElementById('apiKey').value;
+                const apiUrl = document.getElementById('apiUrl').value;
+                const aiModel = document.getElementById('aiModel').value;
+                const customModel = document.getElementById('customModel').value;
+                
+                // 检查API配置是否完整
+                if (!apiKey || !apiUrl) {
+                    addChatMessage('ai', '请先配置API Key和API URL，然后再发送消息。');
+                    return;
+                }
+                
+                // 构建请求数据
+                const model = aiModel === 'custom' ? customModel : aiModel;
+                const requestData = {
+                    model: model,
+                    messages: [
+                        {
+                            role: 'system',
+                            content: '你是天马行空创意团队小助手，帮助用户处理一些信息。'
+                        },
+                        {
+                            role: 'user',
+                            content: message
+                        }
+                    ],
+                    temperature: 0.7
                 };
-                sceneList.appendChild(sceneItem);
+                
+                // 生成随机排队名额
+                const queueNumber = Math.floor(Math.random() * 10) + 1;
+                // 显示加载状态
+                addChatMessage('ai', `<div class="loading"></div><p>正在排队中，您是第 ${queueNumber} 位...</p>`);
+                
+                // 发送API请求（带重试机制）
+                async function makeRequestWithRetry(endpoint, options, maxRetries = 3) {
+                    let retryCount = 0;
+                    
+                    while (retryCount < maxRetries) {
+                        try {
+                            const response = await fetch(endpoint, options);
+                            
+                            if (response.status === 429) {
+                                // 遇到429错误，等待一段时间后重试
+                                retryCount++;
+                                const waitTime = Math.pow(2, retryCount) * 1000; // 指数退避
+                                console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
+                                // 更新加载状态
+                                const chatMessages = document.getElementById('chatMessages');
+                                chatMessages.removeChild(chatMessages.lastChild);
+                                addChatMessage('ai', `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p>`);
+                                await new Promise(resolve => setTimeout(resolve, waitTime));
+                                continue;
+                            }
+                            
+                            return response;
+                        } catch (error) {
+                            // 其他错误处理
+                            console.error('请求失败:', error);
+                            throw error;
+                        }
+                    }
+                    
+                    throw new Error(`请求失败，已达到最大重试次数(${maxRetries})`);
+                }
+                
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify(requestData)
+                };
+                
+                makeRequestWithRetry(apiUrl, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    // 移除加载状态
+                    const chatMessages = document.getElementById('chatMessages');
+                    chatMessages.removeChild(chatMessages.lastChild);
+                    
+                    // 显示AI回复
+                    console.log('API响应:', data);
+                    if (data.choices && data.choices[0] && data.choices[0].message) {
+                        addChatMessage('ai', data.choices[0].message.content);
+                    } else if (data.response) {
+                        // 处理其他格式的API响应
+                        addChatMessage('ai', data.response);
+                    } else if (data.result) {
+                        // 处理另一种格式的API响应
+                        addChatMessage('ai', data.result);
+                    } else {
+                        // 显示详细的错误信息
+                        let errorMessage = '抱歉，我无法处理你的请求。';
+                        if (data.error) {
+                            errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                        } else {
+                            errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                        }
+                        addChatMessage('ai', errorMessage);
+                    }
+                })
+                .catch(error => {
+                    // 移除加载状态
+                    const chatMessages = document.getElementById('chatMessages');
+                    chatMessages.removeChild(chatMessages.lastChild);
+                    
+                    // 显示错误信息
+                    addChatMessage('ai', `抱歉，请求失败。请检查API配置是否正确，或者稍后再试。错误信息: ${error.message}`);
+                    console.error('API请求失败:', error);
+                });
+            }
+        }
+        
+        // 生成图片
+        function generateImage() {
+            const imagePrompt = document.getElementById('imagePrompt').value.trim();
+            const imageReference = document.getElementById('imageReference').value.trim();
+            const imageSize = document.getElementById('imageSize').value;
+            const imageModel = document.getElementById('imageModel').value;
+            const imageResult = document.getElementById('imageResult');
+            
+            if (!imagePrompt) {
+                alert('请输入图片描述');
+                return;
+            }
+            
+            // 检查是否在本地文件系统中运行
+            if (window.location.protocol === 'file:') {
+                imageResult.innerHTML = '<p>抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。</p>';
+                return;
+            }
+            
+            // 获取API配置
+            const apiKey = document.getElementById('apiKey').value;
+            const apiUrl = document.getElementById('apiUrl').value;
+            
+            // 检查API配置是否完整
+            if (!apiKey || !apiUrl) {
+                imageResult.innerHTML = '<p>请先配置API Key和API URL，然后再生成图片。</p>';
+                return;
+            }
+            
+            // 生成随机排队名额
+            const queueNumber = Math.floor(Math.random() * 10) + 1;
+            // 显示加载状态
+            imageResult.innerHTML = `<div class="loading"></div><p>正在排队中，您是第 ${queueNumber} 位...</p>`;
+            
+            // 构建请求数据
+            let requestData = {};
+            
+            // 根据选择的模型构建不同的请求数据
+            if (imageModel === 'gemini-2.5-flash-image-preview') {
+                requestData = {
+                    contents: [
+                        {
+                            role: "user",
+                            parts: [
+                                {
+                                    text: imagePrompt
+                                }
+                            ]
+                        }
+                    ],
+                    generationConfig: {
+                        responseModalities: ["TEXT", "IMAGE"]
+                    }
+                };
+            } else if (imageModel === 'ideogram-v3') {
+                requestData = {
+                    prompt: imagePrompt,
+                    aspect_ratio: imageSize === '1024x1024' ? '1:1' : imageSize === '1024x1792' ? '9:16' : '16:9'
+                };
+            } else if (imageModel === 'nano-banana') {
+                requestData = {
+                    prompt: imagePrompt,
+                    num_images: 1
+                };
+            } else if (imageModel === 'z-image-turbo') {
+                requestData = {
+                    model: imageModel,
+                    prompt: imagePrompt,
+                    size: imageSize,
+                    n: 1,
+                    watermark: false,
+                    prompt_extend: true
+                };
+            } else if (imageModel === 'dall-e-3') {
+                requestData = {
+                    model: imageModel,
+                    prompt: imagePrompt,
+                    size: imageSize,
+                    n: 1,
+                    quality: 'standard',
+                    style: 'vivid',
+                    response_format: 'url'
+                };
+            } else if (imageModel === 'sora_image') {
+                requestData = {
+                    model: imageModel,
+                    messages: [
+                        {
+                            role: "user",
+                            content: imagePrompt
+                        }
+                    ],
+                    max_tokens: 1000,
+                    response_format: {
+                        type: "json_object"
+                    }
+                };
+            } else if (imageModel === 'stability-ai/sdxl') {
+                requestData = {
+                    version: "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
+                    input: {
+                        prompt: imagePrompt,
+                        width: parseInt(imageSize.split('x')[0]),
+                        height: parseInt(imageSize.split('x')[1]),
+                        num_outputs: 1,
+                        guidance_scale: 7.5,
+                        seed: Math.floor(Math.random() * 1000000)
+                    }
+                };
+            } else if (imageModel === 'flux-dev' || imageModel === 'flux-pro') {
+                requestData = {
+                    model: imageModel,
+                    prompt: imagePrompt,
+                    size: imageSize,
+                    n: 1,
+                    response_format: 'url'
+                };
+            } else if (imageModel === 'doubao-seedream-4-0-250828' || imageModel === 'doubao-seedream-5-0-260128') {
+                requestData = {
+                    model: imageModel,
+                    prompt: imagePrompt,
+                    size: imageSize,
+                    sequential_image_generation: 'disabled',
+                    stream: false,
+                    response_format: 'url',
+                    watermark: true
+                };
+            } else {
+                requestData = {
+                    model: imageModel,
+                    prompt: imagePrompt,
+                    size: imageSize,
+                    n: 1
+                };
+            }
+            
+            // 如果有参考图片，添加images参数（仅适用于支持参考图片的模型）
+            if (imageReference && !['ideogram-v3', 'nano-banana'].includes(imageModel)) {
+                requestData.images = [imageReference];
+            }
+            
+            // 构建API端点
+            let apiEndpoint = apiUrl;
+            // 确保API URL是基础URL，不包含具体路径
+            apiEndpoint = apiEndpoint.split('/').slice(0, 3).join('/');
+            
+            // 根据选择的模型添加正确的API端点
+            if (imageModel === 'gemini-2.5-flash-image-preview') {
+                apiEndpoint += '/v1/models/gemini-2.5-flash-image-preview:generateContent';
+            } else if (imageModel === 'ideogram-v3') {
+                apiEndpoint += '/ideogram/v1/ideogram-v3/generate';
+            } else if (imageModel === 'nano-banana') {
+                apiEndpoint += '/fal-ai/nano-banana';
+            } else if (imageModel === 'sora_image') {
+                apiEndpoint += '/v1/chat/completions';
+            } else if (imageModel === 'stability-ai/sdxl') {
+                apiEndpoint += '/replicate/v1/predictions';
+            } else {
+                apiEndpoint += '/v1/images/generations';
+            }
+            
+            // 发送API请求（带重试机制）
+            async function makeRequestWithRetry(endpoint, options, maxRetries = 3) {
+                let retryCount = 0;
+                
+                while (retryCount < maxRetries) {
+                    try {
+                        const response = await fetch(endpoint, options);
+                        
+                        // 检查响应状态
+                        if (response.ok) {
+                            // 响应成功，直接返回
+                            return response;
+                        } else if (response.status === 429) {
+                            // 遇到429错误，等待一段时间后重试
+                            retryCount++;
+                            const waitTime = Math.pow(2, retryCount) * 1000; // 指数退避
+                            console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
+                            imageResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        } else if (response.status === 500) {
+                            // 遇到500错误，等待后重试
+                            retryCount++;
+                            const waitTime = Math.pow(2, retryCount) * 1000;
+                            console.log(`500错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
+                            imageResult.innerHTML = `<div class="loading"></div><p>服务器内部错误，正在重试... (第${retryCount}次尝试)</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        } else if (response.status === 404) {
+                            // 遇到404错误，尝试使用备用API端点
+                            retryCount++;
+                            console.log(`404错误，尝试使用备用API端点 (第${retryCount}次)`);
+                            imageResult.innerHTML = `<div class="loading"></div><p>API端点不存在，尝试使用备用端点... (第${retryCount}次尝试)</p>`;
+                            // 切换到备用API端点
+                            if (endpoint.includes('/v1/image/generate')) {
+                                endpoint = endpoint.replace('/v1/image/generate', '/v1/images/generations');
+                            } else if (endpoint.includes('/v1/images/generations')) {
+                                endpoint = endpoint.replace('/v1/images/generations', '/v1/image/generate');
+                            }
+                            // 等待后重试
+                            await new Promise(resolve => setTimeout(resolve, 1000));
+                            continue;
+                        } else {
+                            // 其他HTTP错误，直接返回响应，让上层处理错误
+                            return response;
+                        }
+                    } catch (error) {
+                        // 网络错误，等待后重试
+                        retryCount++;
+                        if (retryCount < maxRetries) {
+                            const waitTime = Math.pow(2, retryCount) * 2000;
+                            console.log(`网络错误，等待${waitTime/1000}秒后重试 (第${retryCount}次):`, error);
+                            imageResult.innerHTML = `<div class="loading"></div><p>网络连接问题，正在重试... (第${retryCount}次尝试)</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        } else {
+                            throw error;
+                        }
+                    }
+                }
+                
+                throw new Error(`请求失败，已达到最大重试次数(${maxRetries})`);
+            }
+            
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(requestData)
+            };
+            
+            makeRequestWithRetry(apiEndpoint, requestOptions)
+            .then(async response => {
+                try {
+                    const data = await response.json();
+                    console.log('图片生成API响应:', data);
+                    
+                    // 根据不同模型的响应格式处理
+                    if (imageModel === 'gemini-2.5-flash-image-preview') {
+                        // Gemini模型的响应格式处理
+                        if (data.candidates && data.candidates.length > 0) {
+                            const candidate = data.candidates[0];
+                            if (candidate.content && candidate.content.parts) {
+                                for (const part of candidate.content.parts) {
+                                    if (part.image) {
+                                        const imageUrl = `data:image/png;base64,${part.image}`;
+                                        // 显示生成的图片
+                                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        // 显示错误信息
+                        let errorMessage = '抱歉，图片生成失败。';
+                        if (data.error) {
+                            errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                        } else {
+                            errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                        }
+                        imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                    } else if (imageModel === 'sora_image') {
+                        // Sora Image模型的响应格式处理
+                        if (data.choices && data.choices.length > 0) {
+                            const choice = data.choices[0];
+                            if (choice.message && choice.message.content) {
+                                try {
+                                    // 解析JSON响应
+                                    const responseData = JSON.parse(choice.message.content);
+                                    if (responseData.image) {
+                                        const imageUrl = responseData.image;
+                                        // 显示生成的图片
+                                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                    } else if (responseData.url) {
+                                        const imageUrl = responseData.url;
+                                        // 显示生成的图片
+                                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                    } else {
+                                        // 直接显示内容
+                                        imageResult.innerHTML = `<p>${choice.message.content}</p>`;
+                                    }
+                                } catch (parseError) {
+                                    // 解析JSON失败，检查是否为Markdown格式的图片链接
+                                    const content = choice.message.content;
+                                    const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
+                                    const match = content.match(markdownImageRegex);
+                                    if (match && match[1]) {
+                                        // 提取Markdown中的图片URL并显示
+                                        const imageUrl = match[1];
+                                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                    } else {
+                                        // 直接显示内容
+                                        imageResult.innerHTML = `<p>${content}</p>`;
+                                    }
+                                }
+                            } else {
+                                // 显示错误信息
+                                let errorMessage = '抱歉，图片生成失败。';
+                                if (data.error) {
+                                    errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                                } else {
+                                    errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                                }
+                                imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                            }
+                        } else {
+                            // 显示错误信息
+                            let errorMessage = '抱歉，图片生成失败。';
+                            if (data.error) {
+                                errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                            } else {
+                                errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                            }
+                            imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                        }
+                    } else if (imageModel === 'stability-ai/sdxl') {
+                        // Stability AI SDXL模型的响应格式处理（异步）
+                        if (data.status) {
+                            if (data.status === 'succeeded' && data.output) {
+                                // 显示生成的图片
+                                if (Array.isArray(data.output) && data.output.length > 0) {
+                                    const imageUrl = data.output[0];
+                                    imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                } else if (data.output) {
+                                    const imageUrl = data.output;
+                                    imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                } else {
+                                    // 显示错误信息
+                                    let errorMessage = '抱歉，图片生成失败。';
+                                    errorMessage += ' 生成成功但未返回图片URL。';
+                                    imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                                }
+                            } else if (data.status === 'failed') {
+                                // 显示错误信息
+                                let errorMessage = '抱歉，图片生成失败。';
+                                if (data.error) {
+                                    errorMessage += ` 错误信息: ${data.error}`;
+                                } else {
+                                    errorMessage += ' 任务执行失败。';
+                                }
+                                imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                            } else {
+                                // 任务正在进行中，需要轮询
+                                imageResult.innerHTML = `<p>图片生成中，请稍候...</p>`;
+                                
+                                // 轮询任务状态
+                                const pollStatus = async () => {
+                                    try {
+                                        const statusResponse = await fetch(data.status, {
+                                            method: 'GET',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'Authorization': `Bearer ${apiKey}`
+                                            }
+                                        });
+                                        
+                                        if (!statusResponse.ok) {
+                                            throw new Error(`HTTP error! status: ${statusResponse.status}`);
+                                        }
+                                        
+                                        const statusData = await statusResponse.json();
+                                        
+                                        if (statusData.status === 'succeeded' && statusData.output) {
+                                            // 显示生成的图片
+                                            if (Array.isArray(statusData.output) && statusData.output.length > 0) {
+                                                const imageUrl = statusData.output[0];
+                                                imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                            } else if (statusData.output) {
+                                                const imageUrl = statusData.output;
+                                                imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                            } else {
+                                                // 显示错误信息
+                                                let errorMessage = '抱歉，图片生成失败。';
+                                                errorMessage += ' 生成成功但未返回图片URL。';
+                                                imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                                            }
+                                        } else if (statusData.status === 'failed') {
+                                            // 显示错误信息
+                                            let errorMessage = '抱歉，图片生成失败。';
+                                            if (statusData.error) {
+                                                errorMessage += ` 错误信息: ${statusData.error}`;
+                                            } else {
+                                                errorMessage += ' 任务执行失败。';
+                                            }
+                                            imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                                        } else {
+                                            // 继续轮询
+                                            setTimeout(pollStatus, 2000);
+                                        }
+                                    } catch (error) {
+                                        // 显示错误信息
+                                        let errorMessage = '抱歉，图片生成失败。';
+                                        errorMessage += ` 错误信息: ${error.message}`;
+                                        imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                                    }
+                                };
+                                
+                                // 开始轮询
+                                setTimeout(pollStatus, 2000);
+                            }
+                        } else {
+                            // 显示错误信息
+                            let errorMessage = '抱歉，图片生成失败。';
+                            if (data.error) {
+                                errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                            } else {
+                                errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                            }
+                            imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                        }
+                    } else if (imageModel === 'ideogram-v3') {
+                        if (data.data && data.data[0] && data.data[0].url) {
+                            // 显示生成的图片
+                            imageResult.innerHTML = `<img src="${data.data[0].url}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${data.data[0].url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${data.data[0].url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                        } else {
+                            // 显示错误信息
+                            let errorMessage = '抱歉，图片生成失败。';
+                            if (data.message) {
+                                errorMessage += ` 错误信息: ${data.message}`;
+                            } else {
+                                errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                            }
+                            imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                        }
+                    } else if (imageModel === 'nano-banana') {
+                        if (data.status_url) {
+                            // 显示任务状态查询URL
+                            imageResult.innerHTML = `<p>图片生成任务已创建，请查询任务状态。</p><div style="margin-top: 20px;"><input type="text" value="${data.status_url}" style="padding: 10px; width: 400px; border-radius: 8px; border: 1px solid #ddd;"><button onclick="window.open('${data.status_url}', '_blank')" style="padding: 10px 20px; background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%); color: white; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;">打开状态页面</button></div>`;
+                        } else {
+                            // 显示错误信息
+                            let errorMessage = '抱歉，图片生成失败。';
+                            if (data.message) {
+                                errorMessage += ` 错误信息: ${data.message}`;
+                            } else {
+                                errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                            }
+                            imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                        }
+                    } else if (data.task_id) {
+                        // 图片生成任务已创建，显示任务ID和查询按钮
+                        imageResult.innerHTML = `<p>图片生成任务已创建，任务ID: ${data.task_id}</p><div style="margin-top: 20px;"><input type="text" id="imageTaskId" value="${data.task_id}" style="padding: 10px; width: 300px; border-radius: 8px; border: 1px solid #ddd;"><button onclick="queryImageTask('${data.task_id}')" style="padding: 10px 20px; background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%); color: white; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;">查询任务状态</button></div>`;
+                    } else if (data.data && data.data.length > 0) {
+                        // 直接返回图片URL
+                        let imageUrl = data.data[0].url || data.data[0].b64_json;
+                        
+                        // 检查是否为Markdown格式的图片链接
+                        if (typeof imageUrl === 'string') {
+                            const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
+                            const match = imageUrl.match(markdownImageRegex);
+                            if (match && match[1]) {
+                                imageUrl = match[1];
+                            }
+                        }
+                        
+                        if (imageUrl) {
+                            // 显示生成的图片
+                            imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                        } else {
+                            // 显示错误信息
+                            let errorMessage = '抱歉，图片生成失败。';
+                            if (data.error) {
+                                errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                            } else {
+                                errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                            }
+                            imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                        }
+                    } else if (data.url) {
+                        // 直接返回图片URL（某些API可能直接返回url字段）
+                        let imageUrl = data.url;
+                        
+                        // 检查是否为Markdown格式的图片链接
+                        if (typeof imageUrl === 'string') {
+                            const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
+                            const match = imageUrl.match(markdownImageRegex);
+                            if (match && match[1]) {
+                                imageUrl = match[1];
+                            }
+                        }
+                        
+                        // 显示生成的图片
+                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                    } else if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                        // 检查是否为Markdown格式的图片链接
+                        const content = data.choices[0].message.content;
+                        const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
+                        const match = content.match(markdownImageRegex);
+                        if (match && match[1]) {
+                            // 提取Markdown中的图片URL并显示
+                            const imageUrl = match[1];
+                            imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                        } else {
+                            // 显示错误信息
+                            let errorMessage = '抱歉，图片生成失败。';
+                            if (data.error) {
+                                errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                            } else {
+                                errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                            }
+                            imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                        }
+                    } else {
+                        // 显示错误信息
+                        let errorMessage = '抱歉，图片生成失败。';
+                        if (data.error) {
+                            errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                        } else {
+                            errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                        }
+                        imageResult.innerHTML = `<p>${errorMessage}</p>`;
+                    }
+                } catch (error) {
+                    // 解析JSON失败
+                    console.error('解析API响应失败:', error);
+                    imageResult.innerHTML = `<p>抱歉，API响应格式错误。请稍后再试。</p><p>错误信息: ${error.message}</p>`;
+                }
+            })
+            .catch(error => {
+                // 显示错误信息
+                imageResult.innerHTML = `<p>抱歉，请求失败。请检查API配置是否正确，或者稍后再试。</p><p>错误信息: ${error.message}</p>`;
+                console.error('图片生成API请求失败:', error);
             });
         }
         
-        // 切换场景
-        function switchScene(sceneId) {
-            // 保存当前场景内容
-            const currentScene = scriptData.scenes.find(scene => scene.id === scriptData.currentSceneId);
-            if (currentScene) {
-                currentScene.content = document.getElementById('scriptText').value;
+        // 生成视频
+        function generateVideo() {
+            const videoMode = document.getElementById('videoMode').value;
+            const videoPrompt = document.getElementById('videoPrompt').value.trim();
+            const videoImage = document.getElementById('videoImage').value.trim();
+            const videoModel = document.getElementById('videoModel').value;
+            const videoAspectRatio = document.getElementById('videoAspectRatio').value;
+            const videoResult = document.getElementById('videoResult');
+            
+            if (!videoPrompt) {
+                alert('请输入视频描述');
+                return;
             }
             
-            // 切换到新场景
-            scriptData.currentSceneId = sceneId;
-            updateSceneList();
-            updateScriptContent();
+            if (videoMode === 'image' && !videoImage) {
+                alert('请输入首帧图像');
+                return;
+            }
+            
+            // 检查是否在本地文件系统中运行
+            if (window.location.protocol === 'file:') {
+                videoResult.innerHTML = '<p>抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。</p>';
+                return;
+            }
+            
+            // 获取API配置
+            const apiKey = document.getElementById('apiKey').value;
+            const apiUrl = document.getElementById('apiUrl').value;
+            
+            // 检查API配置是否完整
+            if (!apiKey || !apiUrl) {
+                videoResult.innerHTML = '<p>请先配置API Key和API URL，然后再生成视频。</p>';
+                return;
+            }
+            
+            // 生成随机排队名额
+            const queueNumber = Math.floor(Math.random() * 10) + 1;
+            // 显示加载状态
+            videoResult.innerHTML = `<div class="loading"></div><p>正在排队中，您是第 ${queueNumber} 位...</p>`;
+            
+            // 构建请求数据
+            const requestData = {
+                model: videoModel,
+                prompt: videoPrompt,
+                enhance_prompt: true,
+                enable_upsample: true
+            };
+            
+            // 添加视频比例（仅veo3支持）
+            if (videoModel.includes('veo3')) {
+                requestData.aspect_ratio = videoAspectRatio;
+            }
+            
+            // 如果是图生视频模式，添加首帧图像
+            if (videoMode === 'image') {
+                requestData.images = [videoImage];
+            }
+            
+            // 发送API请求（带重试机制）
+            async function makeRequestWithRetry(endpoint, options, maxRetries = 5) {
+                let retryCount = 0;
+                
+                while (retryCount < maxRetries) {
+                    try {
+                        const response = await fetch(endpoint, options);
+                        
+                        // 检查响应状态
+                        if (response.ok) {
+                            // 响应成功，直接返回
+                            return response;
+                        } else if (response.status === 429) {
+                            // 遇到429错误，等待一段时间后重试
+                            retryCount++;
+                            const waitTime = Math.pow(2, retryCount) * 3000; // 指数退避，增加基础等待时间
+                            console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
+                            videoResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p><p style="font-size: 14px; color: #666;">系统已自动增加等待时间，以避免再次触发限制。</p><p style="font-size: 12px; color: #999; margin-top: 10px;">建议：如果多次尝试后仍失败，请稍后再试或联系API提供商。</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        } else {
+                            // 其他HTTP错误，尝试解析响应体
+                            try {
+                                const errorData = await response.json();
+                                console.log('API错误响应:', errorData);
+                                // 如果响应中包含id字段，说明任务已创建成功
+                                if (errorData.id) {
+                                    // 模拟成功响应
+                                    const mockResponse = {
+                                        ok: true,
+                                        json: () => Promise.resolve(errorData)
+                                    };
+                                    return mockResponse;
+                                }
+                            } catch (e) {
+                                console.error('解析错误响应失败:', e);
+                            }
+                            // 其他错误，抛出异常
+                            throw new Error(`HTTP错误: ${response.status} ${response.statusText}`);
+                        }
+                    } catch (error) {
+                        // 网络错误，等待后重试
+                        retryCount++;
+                        if (retryCount < maxRetries) {
+                            const waitTime = Math.pow(2, retryCount) * 2000;
+                            console.log(`网络错误，等待${waitTime/1000}秒后重试 (第${retryCount}次):`, error);
+                            videoResult.innerHTML = `<div class="loading"></div><p>网络连接问题，正在重试... (第${retryCount}次尝试)</p><p style="font-size: 14px; color: #666;">请检查网络连接是否正常。</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        } else {
+                            throw error;
+                        }
+                    }
+                }
+                
+                throw new Error(`请求失败，已达到最大重试次数(${maxRetries})。服务器负载较高，请稍后再试。`);
+            }
+            
+            let apiEndpoint = apiUrl;
+            // 确保API URL是基础URL，不包含具体路径
+            // 移除可能存在的路径部分
+            apiEndpoint = apiEndpoint.split('/').slice(0, 3).join('/');
+            // 添加视频生成API路径（根据用户提供的视频统一格式）
+            apiEndpoint += '/v1/video/create';
+            
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(requestData)
+            };
+            
+            makeRequestWithRetry(apiEndpoint, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log('视频生成API响应:', data);
+                if (data.id) {
+                    // 视频生成任务已创建，显示任务ID和查询按钮
+                    videoResult.innerHTML = `<p>视频生成任务已创建，任务ID: ${data.id}</p><div style="margin-top: 20px;"><input type="text" id="videoTaskId" value="${data.id}" style="padding: 10px; width: 300px; border-radius: 8px; border: 1px solid #ddd;"><button onclick="queryVideoTask('${data.id}')" style="padding: 10px 20px; background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%); color: white; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;">查询任务状态</button></div>`;
+                } else {
+                    // 显示详细的错误信息
+                    let errorMessage = '抱歉，视频生成失败。';
+                    if (data.error) {
+                        errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                    } else if (data.message) {
+                        errorMessage += ` 错误信息: ${data.message}`;
+                    } else {
+                        errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                    }
+                    videoResult.innerHTML = `<p>${errorMessage}</p><p>API响应: ${JSON.stringify(data)}</p>`;
+                }
+            })
+            .catch(error => {
+                // 显示详细的错误信息
+                videoResult.innerHTML = `<p>抱歉，请求失败。请检查API配置是否正确，或者稍后再试。</p><p>错误信息: ${error.message}</p>`;
+                console.error('视频生成API请求失败:', error);
+            });
         }
         
-        // 更新剧本内容
-        function updateScriptContent() {
-            const currentScene = scriptData.scenes.find(scene => scene.id === scriptData.currentSceneId);
-            if (currentScene) {
-                document.getElementById('scriptText').value = currentScene.content;
+        // 查询视频任务状态
+        function queryVideoTask(taskId) {
+            const videoResult = document.getElementById('videoResult');
+            
+            // 检查是否在本地文件系统中运行
+            if (window.location.protocol === 'file:') {
+                videoResult.innerHTML = '<p>抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。</p>';
+                return;
+            }
+            
+            // 获取API配置
+            const apiKey = document.getElementById('apiKey').value;
+            const apiUrl = document.getElementById('apiUrl').value;
+            
+            // 检查API配置是否完整
+            if (!apiKey || !apiUrl) {
+                videoResult.innerHTML = '<p>请先配置API Key和API URL，然后再查询任务状态。</p>';
+                return;
+            }
+            
+            // 显示加载状态
+            videoResult.innerHTML = `<div class="loading"></div><p>正在查询任务状态...</p>`;
+            
+            let apiEndpoint = apiUrl;
+            // 确保API URL是基础URL，不包含具体路径
+            apiEndpoint = apiEndpoint.split('/').slice(0, 3).join('/');
+            // 添加视频查询API路径
+            apiEndpoint += '/v1/video/query';
+            
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({ id: taskId })
+            };
+            
+            // 使用带重试机制的请求函数
+            makeRequestWithRetry(apiEndpoint, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log('视频查询API响应:', data);
+                if (data.status === 'completed' && data.video_url) {
+                    // 视频生成成功，显示视频播放器
+                    videoResult.innerHTML = `<video controls style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);"><source src="${data.video_url}" type="video/mp4">您的浏览器不支持视频播放。</video><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">视频生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadVideo('${data.video_url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareVideo('${data.video_url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                } else if (data.status === 'failed' || data.status === 'error') {
+                    // 视频生成失败
+                    let errorMessage = '视频生成失败。';
+                    if (data.error_message) {
+                        errorMessage += ` 错误信息: ${data.error_message}`;
+                    } else if (data.error) {
+                        errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                    }
+                    videoResult.innerHTML = `<p>${errorMessage}</p><p>任务ID: ${taskId}</p><p>状态: ${data.status}</p>`;
+                } else {
+                    // 视频生成中
+                    videoResult.innerHTML = `<p>任务正在处理中，请稍后再查询。</p><p>任务ID: ${taskId}</p><p>状态: ${data.status}</p><button onclick="queryVideoTask('${taskId}')" style="margin-top: 20px; padding: 10px 20px; background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%); color: white; border: none; border-radius: 8px; cursor: pointer;">再次查询</button>`;
+                }
+            })
+            .catch(error => {
+                // 显示详细的错误信息
+                videoResult.innerHTML = `<p>抱歉，查询失败。请稍后再试。</p><p>错误信息: ${error.message}</p>`;
+                console.error('视频查询API请求失败:', error);
+            });
+        }
+        
+        // 下载视频
+        function downloadVideo(videoUrl) {
+            const link = document.createElement('a');
+            link.href = videoUrl;
+            link.download = `generated-video-${Date.now()}.mp4`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // 分享视频
+        function shareVideo(videoUrl) {
+            if (navigator.share) {
+                // 使用Web Share API（现代浏览器）
+                navigator.share({
+                    title: '生成的视频',
+                    text: '查看我生成的视频！',
+                    url: videoUrl
+                }).catch(err => {
+                    console.error('分享失败:', err);
+                    // 回退到复制链接
+                    copyVideoLink(videoUrl);
+                });
+            } else {
+                // 回退到复制链接
+                copyVideoLink(videoUrl);
             }
         }
         
-        // 应用格式
-        function applyFormat(formatType) {
-            const textarea = document.getElementById('scriptText');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const selectedText = textarea.value.substring(start, end);
-            
-            let formattedText = '';
-            
-            switch (formatType) {
-                case 'scene-heading':
-                    formattedText = `INT. ${selectedText || '地点'} - ${selectedText ? '时间' : '白天'}\n`;
-                    break;
-                case 'action':
-                    formattedText = `${selectedText}\n`;
-                    break;
-                case 'character':
-                    formattedText = `${selectedText.toUpperCase()}\n`;
-                    break;
-                case 'dialogue':
-                    formattedText = `${selectedText}\n`;
-                    break;
-                case 'parenthetical':
-                    formattedText = `(${selectedText})\n`;
-                    break;
-                case 'transition':
-                    formattedText = `${selectedText.toUpperCase()} TO: ${selectedText ? '下一个场景' : '地点'}\n`;
-                    break;
+        // 复制视频链接
+        function copyVideoLink(videoUrl) {
+            if (!navigator.clipboard) {
+                alert('您的浏览器不支持剪贴板功能，请手动复制链接。');
+                return;
             }
             
-            // 插入格式化文本
-            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
-            textarea.focus();
-            textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
+            try {
+                navigator.clipboard.writeText(videoUrl).then(() => {
+                    alert('视频链接已复制到剪贴板！');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制链接。');
+                });
+            } catch (error) {
+                console.error('调用剪贴板API时出错:', error);
+                alert('复制失败，请手动复制链接。');
+            }
         }
         
-        // 保存剧本
-        function saveScript() {
-            // 保存当前场景内容
-            const currentScene = scriptData.scenes.find(scene => scene.id === scriptData.currentSceneId);
-            if (currentScene) {
-                currentScene.content = document.getElementById('scriptText').value;
+        // 查询图片任务状态
+        function queryImageTask(taskId) {
+            const imageResult = document.getElementById('imageResult');
+            
+            // 检查是否在本地文件系统中运行
+            if (window.location.protocol === 'file:') {
+                imageResult.innerHTML = '<p>抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。</p>';
+                return;
             }
             
-            // 更新剧本信息
-            scriptData.title = document.getElementById('scriptTitle').value;
-            scriptData.author = document.getElementById('scriptAuthor').value;
+            // 获取API配置
+            const apiKey = document.getElementById('apiKey').value;
+            const apiUrl = document.getElementById('apiUrl').value;
+            
+            // 检查API配置是否完整
+            if (!apiKey || !apiUrl) {
+                imageResult.innerHTML = '<p>请先配置API Key和API URL，然后再查询任务状态。</p>';
+                return;
+            }
+            
+            // 显示加载状态
+            imageResult.innerHTML = `<div class="loading"></div><p>正在查询任务状态...</p>`;
+            
+            let apiEndpoint = apiUrl;
+            // 确保API URL是基础URL，不包含具体路径
+            apiEndpoint = apiEndpoint.split('/').slice(0, 3).join('/');
+            // 添加图片查询API路径
+            apiEndpoint += '/ent/v2/task';
+            
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({ task_id: taskId })
+            };
+            
+            // 发送API请求（带重试机制）
+            async function makeRequestWithRetry(endpoint, options, maxRetries = 3) {
+                let retryCount = 0;
+                
+                while (retryCount < maxRetries) {
+                    try {
+                        const response = await fetch(endpoint, options);
+                        
+                        // 检查响应状态
+                        if (response.ok) {
+                            // 响应成功，直接返回
+                            return response;
+                        } else if (response.status === 429) {
+                            // 遇到429错误，等待一段时间后重试
+                            retryCount++;
+                            const waitTime = Math.pow(2, retryCount) * 1000; // 指数退避
+                            console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
+                            imageResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        } else if (response.status === 500) {
+                            // 遇到500错误，等待后重试
+                            retryCount++;
+                            const waitTime = Math.pow(2, retryCount) * 1000;
+                            console.log(`500错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
+                            imageResult.innerHTML = `<div class="loading"></div><p>服务器内部错误，正在重试... (第${retryCount}次尝试)</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        } else {
+                            // 其他HTTP错误，直接返回响应，让上层处理错误
+                            return response;
+                        }
+                    } catch (error) {
+                        // 网络错误，等待后重试
+                        retryCount++;
+                        if (retryCount < maxRetries) {
+                            const waitTime = Math.pow(2, retryCount) * 2000;
+                            console.log(`网络错误，等待${waitTime/1000}秒后重试 (第${retryCount}次):`, error);
+                            imageResult.innerHTML = `<div class="loading"></div><p>网络连接问题，正在重试... (第${retryCount}次尝试)</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        } else {
+                            throw error;
+                        }
+                    }
+                }
+                
+                throw new Error(`请求失败，已达到最大重试次数(${maxRetries})`);
+            }
+            
+            makeRequestWithRetry(apiEndpoint, requestOptions)
+            .then(async response => {
+                try {
+                    const data = await response.json();
+                    console.log('图片查询API响应:', data);
+                    if (data.state === 'success' && data.image_url) {
+                        // 图片生成成功，显示图片
+                        imageResult.innerHTML = `<img src="${data.image_url}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${data.image_url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${data.image_url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                    } else if (data.state === 'failed' || data.state === 'error') {
+                        // 图片生成失败
+                        let errorMessage = '图片生成失败。';
+                        if (data.error_message) {
+                            errorMessage += ` 错误信息: ${data.error_message}`;
+                        } else if (data.error) {
+                            errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                        }
+                        imageResult.innerHTML = `<p>${errorMessage}</p><p>任务ID: ${taskId}</p><p>状态: ${data.state}</p>`;
+                    } else {
+                        // 图片生成中
+                        imageResult.innerHTML = `<p>任务正在处理中，请稍后再查询。</p><p>任务ID: ${taskId}</p><p>状态: ${data.state}</p><button onclick="queryImageTask('${taskId}')" style="margin-top: 20px; padding: 10px 20px; background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%); color: white; border: none; border-radius: 8px; cursor: pointer;">再次查询</button>`;
+                    }
+                } catch (error) {
+                    // 解析JSON失败
+                    console.error('解析API响应失败:', error);
+                    imageResult.innerHTML = `<p>抱歉，API响应格式错误。请稍后再试。</p><p>错误信息: ${error.message}</p>`;
+                }
+            })
+            .catch(error => {
+                // 显示错误信息
+                imageResult.innerHTML = `<p>抱歉，查询失败。请稍后再试。</p><p>错误信息: ${error.message}</p>`;
+                console.error('图片查询API请求失败:', error);
+            });
+        }
+        
+        // 生成音乐
+        function generateMusic() {
+            const musicPrompt = document.getElementById('musicPrompt').value.trim();
+            const musicReference = document.getElementById('musicReference').value.trim();
+            const musicMode = document.getElementById('musicMode').value;
+            const musicDuration = document.getElementById('musicDuration').value;
+            const musicModel = document.getElementById('musicModel').value;
+            const musicGenre = document.getElementById('musicGenre').value;
+            const musicMood = document.getElementById('musicMood').value;
+            const musicResult = document.getElementById('musicResult');
+            
+            if (!musicPrompt) {
+                alert('请输入音乐描述');
+                return;
+            }
+            
+            // 检查是否在本地文件系统中运行
+            if (window.location.protocol === 'file:') {
+                musicResult.innerHTML = '<p>抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。</p>';
+                return;
+            }
+            
+            // 获取API配置
+            const apiKey = document.getElementById('apiKey').value;
+            const apiUrl = document.getElementById('apiUrl').value;
+            
+            // 检查API配置是否完整
+            if (!apiKey || !apiUrl) {
+                musicResult.innerHTML = '<p>请先配置API Key和API URL，然后再生成音乐。</p>';
+                return;
+            }
+            
+            // 生成随机排队名额
+            const queueNumber = Math.floor(Math.random() * 10) + 1;
+            // 显示加载状态
+            musicResult.innerHTML = `<div class="loading"></div><p>正在排队中，您是第 ${queueNumber} 位...</p>`;
+            
+            // 构建请求数据（根据361API文档）
+            const requestData = {
+                gpt_description_prompt: musicPrompt, // 创作描述提示词
+                prompt: musicPrompt, // 歌词内容
+                mv: musicModel, // 模型选择
+                title: "生成的音乐", // 歌曲标题
+                tags: musicGenre, // 风格标签
+                make_instrumental: musicMode === 'instrumental' // 是否生成纯音乐版本
+            };
+            
+            // 根据生成模式调整参数
+            switch (musicMode) {
+                case 'lyrics':
+                    // 生成歌词模式
+                    // 重点在歌词内容，使用默认参数
+                    break;
+                case 'remix':
+                    // 二创模式
+                    if (!musicReference) {
+                        alert('二创模式需要输入参考音乐');
+                        return;
+                    }
+                    requestData.continue_clip_id = musicReference;
+                    requestData.continue_at = 0; // 从歌曲开始处续写
+                    requestData.task = "upload_extend"; // 任务类型：延展
+                    break;
+                case 'inspiration':
+                default:
+                    // 灵感模式，使用默认参数
+                    break;
+            }
+            
+            // 发送API请求（带重试机制）
+            async function makeRequestWithRetry(endpoint, options, maxRetries = 5) {
+                let retryCount = 0;
+                
+                while (retryCount < maxRetries) {
+                    try {
+                        const response = await fetch(endpoint, options);
+                        
+                        if (response.status === 429) {
+                            // 遇到429错误，等待一段时间后重试
+                            retryCount++;
+                            const waitTime = Math.pow(2, retryCount) * 3000; // 指数退避，增加基础等待时间
+                            console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
+                            musicResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p><p style="font-size: 14px; color: #666;">系统已自动增加等待时间，以避免再次触发限制。</p>`;
+                            await new Promise(resolve => setTimeout(resolve, waitTime));
+                            continue;
+                        }
+                        
+                        return response;
+                    } catch (error) {
+                        // 其他错误处理
+                        console.error('请求失败:', error);
+                        throw error;
+                    }
+                }
+                
+                throw new Error(`请求失败，已达到最大重试次数(${maxRetries})。服务器负载较高，请稍后再试。`);
+            }
+            
+            let apiEndpoint = apiUrl;
+            // 确保API URL是基础URL，不包含具体路径
+            // 移除可能存在的路径部分
+            apiEndpoint = apiEndpoint.split('/').slice(0, 3).join('/');
+            // 添加音乐生成的路径（根据实际API响应调整）
+            apiEndpoint += '/suno/submit/music';
+            
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(requestData)
+            };
+            
+            makeRequestWithRetry(apiEndpoint, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log('音乐生成API响应:', data);
+                if (data.code === 'success') {
+                    // 音乐生成任务已创建，显示任务ID和查询按钮
+                    const taskId = data.data;
+                    musicResult.innerHTML = `<p>音乐生成任务已创建，任务ID: ${taskId}</p><div style="margin-top: 20px;"><input type="text" id="taskId" value="${taskId}" style="padding: 10px; width: 300px; border-radius: 8px; border: 1px solid #ddd;"><button onclick="queryMusicTask()" style="padding: 10px 20px; background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%); color: white; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;">查询任务状态</button></div>`;
+                } else {
+                    // 显示错误信息
+                    let errorMessage = '抱歉，音乐生成失败。';
+                    if (data.message) {
+                        errorMessage += ` 错误信息: ${data.message}`;
+                    } else if (data.error) {
+                        errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                    } else {
+                        errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                    }
+                    musicResult.innerHTML = `<p>${errorMessage}</p><p>API响应: ${JSON.stringify(data)}</p>`;
+                }
+            })
+            .catch(error => {
+                // 显示错误信息
+                musicResult.innerHTML = `<p>抱歉，请求失败。请检查API配置是否正确，或者稍后再试。</p><p>错误信息: ${error.message}</p>`;
+                console.error('音乐生成API请求失败:', error);
+            });
+        }
+        
+        // 查询音乐任务进度
+        function queryMusicTask() {
+            const taskId = document.getElementById('taskId').value.trim();
+            const taskResult = document.getElementById('taskResult');
+            
+            if (!taskId) {
+                alert('请输入任务ID');
+                return;
+            }
+            
+            // 检查是否在本地文件系统中运行
+            if (window.location.protocol === 'file:') {
+                taskResult.innerHTML = '<p>抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。</p>';
+                return;
+            }
+            
+            // 获取API配置
+            const apiKey = document.getElementById('apiKey').value;
+            const apiUrl = document.getElementById('apiUrl').value;
+            
+            // 检查API配置是否完整
+            if (!apiKey || !apiUrl) {
+                taskResult.innerHTML = '<p>请先配置API Key和API URL，然后再查询任务进度。</p>';
+                return;
+            }
+            
+            // 显示加载状态
+            taskResult.innerHTML = '<div class="loading"></div><p>正在查询任务进度...</p>';
+            
+            // 构建请求数据
+            const requestData = {
+                task_id: taskId
+            };
+            
+            // 发送API请求
+            let apiEndpoint = apiUrl;
+            // 确保API URL是基础URL，不包含具体路径
+            // 移除可能存在的路径部分
+            apiEndpoint = apiEndpoint.split('/').slice(0, 3).join('/');
+            // 添加任务查询的路径（根据361API文档）
+            apiEndpoint += '/suno/fetch';
+            
+            fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('任务查询API响应:', data);
+                if (data.code === 'success') {
+                    // 任务查询成功，显示任务信息
+                    const task = data.data;
+                    let statusText = '';
+                    switch (task.status) {
+                        case 'NOT_START':
+                            statusText = '未启动';
+                            break;
+                        case 'SUBMITTED':
+                            statusText = '已提交处理';
+                            break;
+                        case 'QUEUED':
+                            statusText = '排队中';
+                            break;
+                        case 'IN_PROGRESS':
+                            statusText = '执行中';
+                            break;
+                        case 'FAILURE':
+                            statusText = '失败';
+                            break;
+                        case 'SUCCESS':
+                            statusText = '成功';
+                            break;
+                        default:
+                            statusText = task.status;
+                    }
+                    
+                    let taskInfo = `<p style="font-size: 16px; font-weight: 600; color: #333;">任务ID: ${task.task_id}</p>`;
+                    taskInfo += `<p>任务状态: ${statusText}</p>`;
+                    taskInfo += `<p>提交时间: ${new Date(task.submitTime).toLocaleString()}</p>`;
+                    
+                    if (task.startTime) {
+                        taskInfo += `<p>开始时间: ${new Date(task.startTime).toLocaleString()}</p>`;
+                    }
+                    
+                    if (task.finishTime) {
+                        taskInfo += `<p>结束时间: ${new Date(task.finishTime).toLocaleString()}</p>`;
+                    }
+                    
+                    if (task.failReason) {
+                        taskInfo += `<p style="color: #dc3545;">失败原因: ${task.failReason}</p>`;
+                    }
+                    
+                    if (task.data) {
+                        if (Array.isArray(task.data)) {
+                            // 音乐数据
+                            taskInfo += '<p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">生成的音乐:</p>';
+                            task.data.forEach((music, index) => {
+                                if (music.url) {
+                                    taskInfo += `<div style="margin-top: 15px; padding: 15px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"><p>音乐 ${index + 1}:</p><audio controls style="width: 100%; margin-top: 10px; border-radius: 8px;"><source src="${music.url}" type="audio/mpeg">您的浏览器不支持音频播放。</audio><div style="margin-top: 15px; display: flex; gap: 10px;"><button onclick="downloadMusic('${music.url}')" style="padding: 8px 16px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareMusic('${music.url}')" style="padding: 8px 16px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 5px;">📤 分享</button></div></div>`;
+                                }
+                            });
+                        } else if (task.data.lyrics) {
+                            // 歌词数据
+                            taskInfo += `<p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">生成的歌词:</p>`;
+                            taskInfo += `<div style="padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); white-space: pre-wrap; font-family: 'Courier New', monospace;">${task.data.lyrics}</div>`;
+                        }
+                    }
+                    
+                    taskResult.innerHTML = taskInfo;
+                } else {
+                    // 显示错误信息
+                    let errorMessage = '抱歉，任务查询失败。';
+                    if (data.message) {
+                        errorMessage += ` 错误信息: ${data.message}`;
+                    } else if (data.error) {
+                        errorMessage += ` 错误信息: ${data.error.message || JSON.stringify(data.error)}`;
+                    } else {
+                        errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
+                    }
+                    taskResult.innerHTML = `<p>${errorMessage}</p><p>API响应: ${JSON.stringify(data)}</p>`;
+                }
+            })
+            .catch(error => {
+                // 显示错误信息
+                taskResult.innerHTML = `<p>抱歉，请求失败。请检查API配置是否正确，或者稍后再试。</p><p>错误信息: ${error.message}</p>`;
+                console.error('任务查询API请求失败:', error);
+            });
+        }
+        
+        // 下载音乐
+        function downloadMusic(musicUrl) {
+            const link = document.createElement('a');
+            link.href = musicUrl;
+            link.download = `generated-music-${Date.now()}.mp3`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // 分享音乐
+        function shareMusic(musicUrl) {
+            if (navigator.share) {
+                // 使用Web Share API（现代浏览器）
+                navigator.share({
+                    title: '生成的音乐',
+                    text: '查看我生成的音乐！',
+                    url: musicUrl
+                }).catch(err => {
+                    console.error('分享失败:', err);
+                    // 回退到复制链接
+                    copyMusicLink(musicUrl);
+                });
+            } else {
+                // 回退到复制链接
+                copyMusicLink(musicUrl);
+            }
+        }
+        
+        // 复制音乐链接
+        function copyMusicLink(musicUrl) {
+            if (!navigator.clipboard) {
+                alert('您的浏览器不支持剪贴板功能，请手动复制链接。');
+                return;
+            }
+            
+            try {
+                navigator.clipboard.writeText(musicUrl).then(() => {
+                    alert('音乐链接已复制到剪贴板！');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制链接。');
+                });
+            } catch (error) {
+                console.error('调用剪贴板API时出错:', error);
+                alert('复制失败，请手动复制链接。');
+            }
+        }
+        
+        // 保存配置
+        function saveConfig() {
+            // 更新配置
+            aiConfig.apiKey = document.getElementById('apiKey').value;
+            aiConfig.apiUrl = document.getElementById('apiUrl').value;
+            aiConfig.aiModel = document.getElementById('aiModel').value;
+            aiConfig.customModel = document.getElementById('customModel').value;
             
             // 保存到本地存储
-            localStorage.setItem('scriptData', JSON.stringify(scriptData));
+            localStorage.setItem('aiConfig', JSON.stringify(aiConfig));
             
             // 显示保存成功提示
-            showSaveMessage('剧本保存成功！', 'success');
+            showSaveMessage('配置保存成功！', 'success');
+            
+            // 添加alert提示，确保用户知道配置已经保存成功
+            alert('配置保存成功！');
         }
         
-        // 加载剧本
-        function loadScript() {
-            const savedScript = localStorage.getItem('scriptData');
-            if (savedScript) {
-                scriptData = JSON.parse(savedScript);
+        // 加载配置
+        function loadConfig() {
+            const savedConfig = localStorage.getItem('aiConfig');
+            if (savedConfig) {
+                aiConfig = JSON.parse(savedConfig);
                 // 更新表单
-                document.getElementById('scriptTitle').value = scriptData.title;
-                document.getElementById('scriptAuthor').value = scriptData.author;
+                document.getElementById('apiKey').value = aiConfig.apiKey;
+                document.getElementById('apiUrl').value = aiConfig.apiUrl;
+                document.getElementById('aiModel').value = aiConfig.aiModel;
+                document.getElementById('customModel').value = aiConfig.customModel || '';
+                // 切换自定义模型输入框
+                toggleCustomModel();
             }
         }
         
@@ -879,13 +3676,24 @@
         function copyShareLink() {
             // 生成分享链接
             const shareUrl = window.location.href;
-            // 复制到剪贴板
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                alert('分享链接已复制到剪贴板！');
-            }).catch(err => {
-                console.error('复制失败:', err);
+            
+            if (!navigator.clipboard) {
+                alert('您的浏览器不支持剪贴板功能，请手动复制链接。');
+                return;
+            }
+            
+            try {
+                // 复制到剪贴板
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    alert('分享链接已复制到剪贴板！');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制链接。');
+                });
+            } catch (error) {
+                console.error('调用剪贴板API时出错:', error);
                 alert('复制失败，请手动复制链接。');
-            });
+            }
         }
         
         // 点击弹窗外部关闭弹窗
@@ -895,10 +3703,80 @@
                 closeShareModal();
             }
         });
+        
+        // 查看API余额
+        function checkBalance() {
+            // 检查是否在本地文件系统中运行
+            if (window.location.protocol === 'file:') {
+                alert('抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。');
+                return;
+            }
+            
+            // 获取API配置
+            const apiKey = document.getElementById('apiKey').value;
+            const apiUrl = document.getElementById('apiUrl').value;
+            
+            // 检查API配置是否完整
+            if (!apiKey || !apiUrl) {
+                alert('请先配置API Key和API URL，然后再查看余额。');
+                return;
+            }
+            
+            // 显示加载状态
+            const balanceInfo = document.getElementById('balanceInfo');
+            const balanceResult = document.getElementById('balanceResult');
+            balanceInfo.innerHTML = '<div class="loading"></div><p>正在查询余额...</p>';
+            balanceResult.style.display = 'block';
+            
+            // 发送API请求
+            fetch('https://www.361api.com/api/v1/balance', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('余额查询API响应:', data);
+                if (data.balance) {
+                    // 显示余额信息
+                    balanceInfo.innerHTML = `当前余额: ${data.balance} 元`;
+                } else {
+                    // 显示错误信息，并建议用户通过官方网站查看余额
+                    balanceInfo.innerHTML = '抱歉，无法通过API查询余额。请登录 <a href="https://www.361api.com" target="_blank">361API官方网站</a> 查看余额。';
+                }
+            })
+            .catch(error => {
+                // 显示错误信息，并建议用户通过官方网站查看余额
+                balanceInfo.innerHTML = '抱歉，请求失败。请登录 <a href="https://www.361api.com" target="_blank">361API官方网站</a> 查看余额。';
+                console.error('余额查询API请求失败:', error);
+            });
+        }
+        
+        // 回车发送消息
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        // 捕获未处理的Promise拒绝，帮助调试MessageChannel错误
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('未处理的Promise拒绝:', event.reason);
+            console.error('Promise:', event.promise);
+            console.error('错误堆栈:', event.reason ? event.reason.stack : '无堆栈信息');
+        });
+        
+        // 捕获未捕获的错误，帮助调试
+        window.addEventListener('error', function(event) {
+            console.error('未捕获的错误:', event.error);
+            console.error('错误消息:', event.message);
+            console.error('错误文件:', event.filename);
+            console.error('错误行号:', event.lineno);
+            console.error('错误列号:', event.colno);
+        });
     </script>
     
-    <!--Start of Gullchat.com Script-->
-    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
-    <!--End of Gullchat.com Script-->
 </body>
 </html>

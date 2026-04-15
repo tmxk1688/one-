@@ -262,7 +262,12 @@
         <div class="container">
             <ul>
                 <li><a href="index.html">首页</a></li>
-                <li><a href="about.html">关于我们</a></li>
+                <li>
+                    <a href="about.html">关于我们</a>
+                    <ul class="dropdown" aria-label="关于我们子菜单">
+                        <li><a href="#">业务中心</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">服务系统</a>
                     <ul class="dropdown">
@@ -345,15 +350,10 @@
             {
                 "title": "新闻动态",
                 "url": "news.html",
-                "content": "了解天马行空创意团队的最新动态和活动。2026年天马行空创意团队新春晚会节目火热征集中！天马行空创意团队2025年举办普通专业技能联合测考试圆满结束！极简设备，极致表达 —— 天马行空创意团队《人生道路之反转》圆满杀青！微电影《绝意人生》1 月 23 日定档。",
+                "content": "了解天马行空创意团队的最新动态和活动。天马行空创意团队2025年举办普通专业技能联合测考试圆满结束！极简设备，极致表达 —— 天马行空创意团队《人生道路之反转》圆满杀青！微电影《绝意人生》1 月 23 日定档。",
                 "type": "新闻"
             },
-            {
-                "title": "2026年天马行空创意团队新春晚会节目火热征集中！",
-                "url": "program-recruitment.html",
-                "content": "2026年天马行空创意团队新春晚会以\"天马行空-马到成功\"为主题，升级为「线上录导播 + 多平台直播」模式，没有舞台限制，没有距离阻隔。现面向全网公开征集节目，无论您是专业演员还是业余爱好者，只要您有创意、有才华，都可以报名参加！",
-                "type": "活动"
-            },
+
             {
                 "title": "天马行空创意团队2025年举办普通专业技能联合测考试圆满结束！",
                 "url": "news-detail1.html",
@@ -375,7 +375,7 @@
             {
                 "title": "资料下载",
                 "url": "download-materials.html",
-                "content": "提供各种资料下载，包括2026年天马行空创意团队\"天马行空-马到成功\"新春晚会节目征集表、天马行空创意团队升职考核试卷（剪辑师、策划员、配音员）、天马行空创意团队微短片《人生道路之反转》剧本、天马行空创意团队离职退团业务办理表、微电影作品发行协议书、演职人员信息表、版权登记说明等。",
+                "content": "提供各种资料下载，包括天马行空创意团队升职考核试卷（剪辑师、策划员、配音员）、天马行空创意团队微短片《人生道路之反转》剧本、天马行空创意团队离职退团业务办理表、微电影作品发行协议书、演职人员信息表、版权登记说明等。",
                 "type": "下载"
             },
             {
@@ -390,12 +390,7 @@
                 "content": "在线电子书阅读功能。",
                 "type": "工具"
             },
-            {
-                "title": "新年专区",
-                "url": "newyear-special.html",
-                "content": "2026年新春晚会专题。",
-                "type": "专题"
-            },
+
             {
                 "title": "在线工具",
                 "url": "online-tools.html",
@@ -415,9 +410,9 @@
                 "type": "视频"
             },
             {
-                "title": "剧本创作",
+                "title": "AI创作",
                 "url": "script-writing.html",
-                "content": "在线剧本创作编辑器，支持保存和分享。",
+                "content": "在线AI创作中心，支持保存和分享。",
                 "type": "工具"
             },
             {
@@ -531,6 +526,19 @@
                     <div class="empty-results">
                         <h3>没有找到相关结果</h3>
                         <p>请尝试使用其他关键词搜索</p>
+                        <p style="margin-top: 20px;">
+                            <a href="https://www.baidu.com/s?wd=${encodeURIComponent(currentQuery)}" target="_blank" style="
+                                display: inline-block;
+                                padding: 10px 20px;
+                                background: linear-gradient(135deg, #0066cc, #00aaff);
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 4px;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                font-weight: bold;
+                            ">🔍 在百度搜索 "${currentQuery}"</a>
+                        </p>
                     </div>
                 `;
                 pagination.innerHTML = '';
