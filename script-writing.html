@@ -101,145 +101,608 @@
             white-space: nowrap;
         }
         
-        /* 聊天头部样式 */
+        /* Gemini风格 - 聊天头部样式 */
         .chat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+            padding: 16px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            /* 即梦风格 - 浅色动态渐变背景 */
+            background: linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #f0f4ff 30%,
+                #e8f0fe 50%,
+                #f5f7fa 70%,
+                #ffffff 100%
+            );
+            background-size: 100% 100%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(138, 180, 248, 0.2);
         }
-        
+
+        /* 静态头部光晕 */
+        .chat-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse 80% 50% at 50% 50%,
+                rgba(138, 180, 248, 0.1) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+        }
+
         .chat-header h3 {
             margin: 0;
-            font-size: 16px;
-            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
+            letter-spacing: -0.3px;
         }
-        
+
         .chat-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
-        
-        /* 聊天暗水印样式 */
+
+        /* 头部按钮美化 - 即梦风格 */
+        .chat-actions button {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08) 0%, rgba(138, 180, 248, 0.05) 100%);
+            color: #374151;
+            border: 1px solid rgba(66, 133, 244, 0.2);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 按钮光晕效果 */
+        .chat-actions button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(66, 133, 244, 0.15) 0%,
+                transparent 50%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .chat-actions button:hover {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.15) 0%, rgba(138, 180, 248, 0.1) 100%);
+            border-color: rgba(66, 133, 244, 0.35);
+            color: #4285f4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
+        }
+
+        .chat-actions button:hover::before {
+            opacity: 1;
+        }
+
+        .chat-actions button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(66, 133, 244, 0.15);
+        }
+
+        /* 清除聊天按钮特殊样式 */
+        .chat-actions button:first-child:hover {
+            background: linear-gradient(135deg, rgba(234, 67, 53, 0.1) 0%, rgba(234, 67, 53, 0.05) 100%);
+            border-color: rgba(234, 67, 53, 0.3);
+            color: #ea4335;
+        }
+
+        /* 全屏按钮特殊样式 */
+        .chat-actions button:last-child:hover {
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.1) 0%, rgba(52, 168, 83, 0.05) 100%);
+            border-color: rgba(52, 168, 83, 0.3);
+            color: #34a853;
+        }
+
+        /* Gemini风格 - 聊天暗水印样式 */
         .chat-watermark {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 36px;
+            font-size: 48px;
             font-weight: bold;
-            color: rgba(0, 102, 204, 0.05);
+            color: rgba(66, 133, 244, 0.03);
             z-index: 0;
             pointer-events: none;
             white-space: nowrap;
+            letter-spacing: 2px;
         }
-        
-        /* 聊天消息容器样式 */
+
+        /* Gemini风格 - 聊天消息容器样式 */
         .chat-messages {
             position: relative;
-            height: 400px;
+            height: 500px;
             overflow-y: auto;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05), 0 4px 16px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(138, 180, 248, 0.15);
+            /* 静态渐变背景 - 不再使用动画避免抖动 */
+            background: linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #f8f9ff 30%,
+                #f0f4ff 50%,
+                #f8f9ff 70%,
+                #ffffff 100%
+            );
+            background-size: 100% 100%;
         }
-        
-        /* 聊天消息样式 */
+
+        /* 即梦风格 - 金色光晕 */
+        .chat-messages::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse at 30% 30%,
+                rgba(138, 180, 248, 0.08) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 静态第二光晕 */
+        .chat-messages::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -30%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(
+                ellipse at 70% 70%,
+                rgba(129, 201, 149, 0.06) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+
+
+        /* Gemini风格 - 聊天消息样式 */
         .chat-message {
             display: flex;
-            margin-bottom: 15px;
+            margin-bottom: 24px;
             position: relative;
             z-index: 1;
+            animation: fadeInUp 0.4s ease-out;
         }
-        
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .chat-avatar {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
-            margin-right: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 16px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2);
         }
-        
+
         .chat-avatar.ai {
-            background-color: #0066cc;
+            background: linear-gradient(135deg, #4285f4 0%, #8ab4f8 50%, #4285f4 100%);
             color: white;
+            border: 2px solid rgba(66, 133, 244, 0.3);
         }
-        
+
         .chat-avatar.user {
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #34a853 0%, #81c995 50%, #34a853 100%);
             color: white;
+            border: 2px solid rgba(52, 168, 83, 0.3);
         }
-        
+
+        /* Gemini风格 - 消息内容样式 */
         .chat-content {
             flex: 1;
-            max-width: 80%;
-            padding: 10px 15px;
+            max-width: 85%;
+            padding: 16px 20px;
             border-radius: 18px;
             word-wrap: break-word;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
-        
+
         .chat-message.ai .chat-content {
-            background-color: #e3f2fd;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08) 0%, rgba(138, 180, 248, 0.05) 100%);
             border-bottom-left-radius: 4px;
+            border: 1px solid rgba(66, 133, 244, 0.15);
+            color: #374151;
         }
-        
+
         .chat-message.user {
             flex-direction: row-reverse;
         }
-        
+
         .chat-message.user .chat-avatar {
             margin-right: 0;
-            margin-left: 10px;
+            margin-left: 16px;
         }
-        
+
         .chat-message.user .chat-content {
-            background-color: #e8f5e8;
+            background: linear-gradient(135deg, rgba(52, 168, 83, 0.08) 0%, rgba(129, 201, 149, 0.05) 100%);
             border-bottom-right-radius: 4px;
+            border: 1px solid rgba(52, 168, 83, 0.15);
+            color: #374151;
         }
-        
+
         .chat-paragraph {
-            margin: 0 0 8px 0;
-            line-height: 1.4;
+            margin: 0 0 12px 0;
+            line-height: 1.7;
+            font-size: 15px;
         }
-        
+
         .chat-paragraph:last-child {
             margin-bottom: 0;
         }
-        
-        /* 删除消息按钮 */
+
+        .chat-message.ai .chat-paragraph {
+            color: #374151;
+        }
+
+        .chat-message.user .chat-paragraph {
+            color: #1a1a2e;
+        }
+
+        /* Gemini风格 - 标题样式 */
+        .chat-heading {
+            margin: 16px 0 10px 0;
+            font-weight: 600;
+            color: #4285f4;
+            font-size: 17px;
+        }
+
+        /* Gemini风格 - 列表样式 */
+        .chat-list {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+
+        .chat-list-item {
+            margin-bottom: 8px;
+            line-height: 1.7;
+            color: #374151;
+        }
+
+        .chat-list-item::marker {
+            color: #4285f4;
+        }
+
+        /* Gemini风格 - 代码块样式 */
+        .code-block {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(138, 180, 248, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #8ab4f8;
+        }
+
+        /* Gemini风格 - 链接样式 */
+        .chat-link {
+            color: #8ab4f8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .chat-link:hover {
+            color: #aecbfa;
+            border-bottom-color: #aecbfa;
+        }
+
+        /* Gemini风格 - 粗体和斜体 */
+        .chat-bold {
+            font-weight: 700;
+            color: #e8eaed;
+        }
+
+        .chat-italic {
+            font-style: italic;
+            color: #9aa0a6;
+        }
+
+        /* Gemini风格 - 删除按钮 */
         .delete-message-btn {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.2s ease;
+            color: #9aa0a6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-message:hover .delete-message-btn {
+            opacity: 1;
+        }
+
+        .delete-message-btn:hover {
+            background: rgba(234, 67, 53, 0.2);
+            color: #ea4335;
+        }
+
+        /* 图片上传区域 - 与深度思考开关一致的样式 */
+        .image-upload-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.06) 0%, rgba(138, 180, 248, 0.04) 100%);
+            border: 1px solid rgba(66, 133, 244, 0.15);
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .image-upload-area::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(66, 133, 244, 0.1) 0%,
+                transparent 50%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .image-upload-area:hover {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(138, 180, 248, 0.06) 100%);
+            border-color: rgba(66, 133, 244, 0.25);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.15);
+        }
+
+        .image-upload-area:hover::before {
+            opacity: 1;
+        }
+
+        .image-upload-area.dragover {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.12) 0%, rgba(138, 180, 248, 0.08) 100%);
+            border-color: rgba(66, 133, 244, 0.3);
+            box-shadow: 0 4px 16px rgba(66, 133, 244, 0.2);
+        }
+
+        .image-upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #374151;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+
+        .image-upload-area:hover .image-upload-btn {
+            color: #4285f4;
+        }
+
+        /* 已上传图片预览 */
+        .uploaded-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .uploaded-image-item {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid rgba(66, 133, 244, 0.3);
+        }
+
+        .uploaded-image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .uploaded-image-item .remove-image {
+            position: absolute;
+            top: -2px;
+            right: -2px;
             width: 20px;
             height: 20px;
-            border: none;
-            background-color: rgba(255, 255, 255, 0.8);
+            background: rgba(234, 67, 53, 0.9);
             border-radius: 50%;
-            cursor: pointer;
+            color: white;
             font-size: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            z-index: 2;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        
-        .chat-message:hover .delete-message-btn {
-            opacity: 1;
+
+        .uploaded-image-item .remove-image:hover {
+            background: #ea4335;
+            transform: scale(1.1);
         }
-        
-        .delete-message-btn:hover {
-            background-color: #ff6b6b;
+
+        .image-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 4px 6px;
+            background: rgba(0, 0, 0, 0.7);
             color: white;
+            font-size: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-radius: 0 0 6px 6px;
+        }
+
+        /* 上传进度条 */
+        .upload-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .upload-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4285f4, #34a853);
+            border-radius: 0 2px 2px 0;
+            transition: width 0.3s ease;
+        }
+
+        /* Gemini风格 - 复制按钮 */
+        .copy-message-btn {
+            position: absolute;
+            top: 8px;
+            right: 44px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(66, 133, 244, 0.2);
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            font-size: 15px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .chat-message:hover .copy-message-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .copy-message-btn:hover {
+            background: rgba(66, 133, 244, 0.12);
+            color: #4285f4;
+            border-color: rgba(66, 133, 244, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.15);
+        }
+
+        .copy-message-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(66, 133, 244, 0.1);
+        }
+
+        .copy-message-btn.copied {
+            background: rgba(52, 168, 83, 0.15);
+            color: #34a853;
+            border-color: rgba(52, 168, 83, 0.4);
+            animation: copySuccess 0.4s ease-out;
+        }
+
+        @keyframes copySuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* 复制成功提示 */
+        .copy-toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
         
         /* Navigation */
@@ -536,7 +999,7 @@
         .chat-section {
             display: flex;
             flex-direction: column;
-            height: 500px;
+            height: 700px;
             gap: 20px;
         }
         
@@ -610,80 +1073,135 @@
             background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
         }
         
+        /* Gemini风格 - 输入区域 */
         .chat-input {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             align-items: flex-end;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            /* 即梦风格 - 浅色动态渐变背景 */
+            background: linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #f0f4ff 30%,
+                #e8f0fe 50%,
+                #f5f7fa 70%,
+                #ffffff 100%
+            );
+            background-size: 200% 200%;
+            animation: inputDreaminaLight 16s ease infinite;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(138, 180, 248, 0.2);
         }
-        
+
+        /* 即梦风格 - 输入区域渐变动画（浅色 - 优化版） */
+        @keyframes inputDreaminaLight {
+            0%, 100% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* 静态输入区域光晕 */
+        .chat-input::before {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse 60% 40% at 50% 100%,
+                rgba(138, 180, 248, 0.08) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+        }
+
         .chat-input textarea {
             flex: 1;
             padding: 16px 20px;
-            border: 1px solid #e9ecef;
-            border-radius: 28px;
+            border: 2px solid rgba(138, 180, 248, 0.25);
+            border-radius: 20px;
             resize: none;
-            font-size: 16px;
+            font-size: 15px;
+            line-height: 1.6;
             min-height: 80px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            background: rgba(255, 255, 255, 0.95);
+            color: #1a1a2e;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
-        
+
+        .chat-input textarea::placeholder {
+            color: #6b7280;
+        }
+
         .chat-input textarea:focus {
             outline: none;
-            border-color: #0b63ff;
-            box-shadow: 0 0 0 3px rgba(11, 99, 255, 0.1);
+            border-color: #4285f4;
+            box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.12);
             transform: translateY(-2px);
+            background: rgba(255, 255, 255, 1);
         }
-        
+
         .chat-input button {
             padding: 16px 32px;
-            background: linear-gradient(135deg, #0b63ff 0%, #3a86ff 100%);
+            background: linear-gradient(135deg, #4285f4 0%, #8ab4f8 100%);
             color: white;
             border: none;
-            border-radius: 28px;
+            border-radius: 20px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 600;
+            font-size: 15px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 12px rgba(11, 99, 255, 0.3);
+            box-shadow: 0 4px 16px rgba(66, 133, 244, 0.35);
         }
-        
+
         .chat-input button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 20px rgba(11, 99, 255, 0.4);
-            background: linear-gradient(135deg, #3a86ff 0%, #0b63ff 100%);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 24px rgba(66, 133, 244, 0.45);
+            background: linear-gradient(135deg, #357ae8 0%, #7aa9f8 100%);
         }
-        
+
         .chat-input button:active {
             transform: translateY(0) scale(0.98);
-            box-shadow: 0 2px 8px rgba(11, 99, 255, 0.3);
+            box-shadow: 0 3px 10px rgba(66, 133, 244, 0.35);
         }
-        
-        /* 对话内容格式优化 */
+
+        /* Gemini风格 - 对话内容格式优化 */
         .chat-paragraph {
-            margin-bottom: 12px;
-            line-height: 1.6;
+            margin-bottom: 14px;
+            line-height: 1.8;
+            font-size: 15px;
+            color: #374151;
         }
-        
+
         .chat-heading {
-            margin: 16px 0 12px 0;
-            font-weight: bold;
-            color: #333;
+            margin: 20px 0 12px 0;
+            font-weight: 600;
+            color: #4285f4;
+            font-size: 17px;
         }
-        
+
         .chat-heading:first-child {
             margin-top: 0;
         }
-        
+
         .chat-list {
-            margin: 12px 0;
+            margin: 14px 0;
             padding-left: 24px;
         }
-        
+
         .chat-list-item {
-            margin-bottom: 6px;
-            line-height: 1.5;
+            margin-bottom: 8px;
+            line-height: 1.7;
+            color: #374151;
         }
         
         .chat-bold {
@@ -701,6 +1219,598 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
+        }
+
+        /* 全屏模式样式 - ChatGPT风格 */
+        .chat-section.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 全屏模式的整体容器 */
+        .chat-section.fullscreen {
+            background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+        }
+
+        /* 全屏模式 - 顶部导航 */
+        .chat-section.fullscreen .chat-header {
+            padding: 16px 24px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .chat-section.fullscreen .chat-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .chat-section.fullscreen .chat-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .chat-section.fullscreen .chat-actions button {
+            padding: 8px 16px;
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .chat-section.fullscreen .chat-actions button:hover {
+            background: #e5e7eb;
+            border-color: #d1d5db;
+        }
+
+        /* 全屏模式 - 消息区域 */
+        .chat-section.fullscreen .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 20px;
+            background: transparent;
+            scroll-behavior: smooth;
+        }
+
+        /* 自定义滚动条 */
+        .chat-section.fullscreen .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-section.fullscreen .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-section.fullscreen .chat-messages::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+
+        .chat-section.fullscreen .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* 全屏模式 - 消息容器 */
+        .chat-section.fullscreen .chat-messages .chat-message {
+            max-width: 800px;
+            margin: 0 auto 32px auto;
+            width: 100%;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        /* 全屏模式 - 头像 */
+        .chat-section.fullscreen .chat-message .chat-avatar {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .chat-section.fullscreen .chat-message.ai .chat-avatar {
+            background: linear-gradient(135deg, #10a37f 0%, #0f8b6b 100%);
+            color: white;
+        }
+
+        .chat-section.fullscreen .chat-message.user .chat-avatar {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+        }
+
+        /* 全屏模式 - 消息内容 */
+        .chat-section.fullscreen .chat-message .chat-content {
+            flex: 1;
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            max-width: 100%;
+        }
+
+        .chat-section.fullscreen .chat-message.ai .chat-content {
+            background: transparent;
+        }
+
+        .chat-section.fullscreen .chat-message.user .chat-content {
+            background: transparent;
+            border-radius: 0;
+        }
+
+        .chat-section.fullscreen .chat-content p.chat-paragraph {
+            margin: 0 0 16px 0;
+            line-height: 1.75;
+            color: #374151;
+            font-size: 16px;
+        }
+
+        .chat-section.fullscreen .chat-content p.chat-paragraph:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 全屏模式 - 删除按钮 */
+        .chat-section.fullscreen .chat-message .delete-message-btn {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            background: rgba(0,0,0,0.05);
+            border: none;
+            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+        }
+
+        .chat-section.fullscreen .chat-message:hover .delete-message-btn {
+            opacity: 1;
+        }
+
+        .chat-section.fullscreen .chat-message .delete-message-btn:hover {
+            background: rgba(0,0,0,0.1);
+            color: #ef4444;
+        }
+
+        /* 全屏模式 - 输入区域 */
+        .chat-section.fullscreen .chat-input {
+            padding: 24px;
+            background: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+        }
+
+        .chat-section.fullscreen .chat-input .deep-thinking-toggle {
+            margin-bottom: 12px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+        }
+
+        .chat-section.fullscreen .chat-input .deep-thinking-toggle:hover {
+            background: #f3f4f6;
+        }
+
+        .chat-section.fullscreen .chat-input textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            line-height: 1.5;
+            resize: none;
+            transition: all 0.2s ease;
+            outline: none;
+            box-shadow: none;
+            max-height: 200px;
+        }
+
+        .chat-section.fullscreen .chat-input textarea:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background: #ffffff;
+        }
+
+        .chat-section.fullscreen .chat-input button {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #10a37f 0%, #0f8b6b 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(16, 163, 127, 0.2);
+        }
+
+        .chat-section.fullscreen .chat-input button:hover {
+            background: linear-gradient(135deg, #0f8b6b 0%, #0d7a5e 100%);
+            box-shadow: 0 4px 12px rgba(16, 163, 127, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .chat-section.fullscreen .chat-input button:active {
+            transform: translateY(0);
+        }
+
+        /* 全屏模式 - 水印 */
+        .chat-section.fullscreen .chat-watermark {
+            color: rgba(0,0,0,0.03);
+        }
+
+        /* 全屏按钮样式 */
+        .fullscreen-btn {
+            background: linear-gradient(135deg, #10a37f 0%, #0f8b6b 100%) !important;
+            color: white !important;
+            border-color: #0f8b6b !important;
+        }
+
+        /* 全屏模式 - 代码块优化 */
+        .chat-section.fullscreen .code-block {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 全屏模式 - 列表优化 */
+        .chat-section.fullscreen .chat-list {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .chat-section.fullscreen .chat-list .chat-list-item {
+            margin-bottom: 8px;
+            line-height: 1.75;
+            color: #374151;
+        }
+
+        /* 全屏模式 - 标题优化 */
+        .chat-section.fullscreen .chat-heading {
+            margin: 24px 0 12px 0;
+            font-weight: 700;
+            color: #111827;
+            font-size: 18px;
+        }
+
+        /* 全屏模式 - 链接优化 */
+        .chat-section.fullscreen .chat-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .chat-section.fullscreen .chat-link:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* 全屏模式 - 粗体优化 */
+        .chat-section.fullscreen .chat-bold {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        /* 全屏模式 - 斜体优化 */
+        .chat-section.fullscreen .chat-italic {
+            font-style: italic;
+            color: #4b5563;
+        }
+
+        /* 全屏模式 - 思考指示器优化 */
+        .chat-section.fullscreen .thinking-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chat-section.fullscreen .thinking-dot {
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #10a37f, #0f8b6b);
+            border-radius: 50%;
+            animation: thinking 1.4s ease-in-out infinite;
+        }
+
+        /* 深度思考动画 */
+        .thinking-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .thinking-dot {
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #0b63ff, #3a86ff);
+            border-radius: 50%;
+            animation: thinking 1.4s ease-in-out infinite;
+        }
+
+        .thinking-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .thinking-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .thinking-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes thinking {
+            0%, 80%, 100% {
+                transform: scale(0.6);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* AI思考过程动画 - 流式打字效果 */
+        .thinking-animation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thinking-dots {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .thinking-dots span {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #4285f4, #8ab4f8);
+            border-radius: 50%;
+            animation: thinkingPulse 1.5s ease-in-out infinite;
+        }
+
+        .thinking-dots span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .thinking-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .thinking-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes thinkingPulse {
+            0%, 100% {
+                transform: scale(0.8);
+                opacity: 0.4;
+                box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.4);
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+                box-shadow: 0 0 8px 2px rgba(66, 133, 244, 0.3);
+            }
+        }
+
+        .thinking-text {
+            color: #4285f4;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0;
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* 深度思考开关样式 - 即梦风格 */
+        .deep-thinking-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.06) 0%, rgba(138, 180, 248, 0.04) 100%);
+            border: 1px solid rgba(66, 133, 244, 0.15);
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 开关光晕效果 */
+        .deep-thinking-toggle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(66, 133, 244, 0.1) 0%,
+                transparent 50%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .deep-thinking-toggle:hover {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(138, 180, 248, 0.06) 100%);
+            border-color: rgba(66, 133, 244, 0.25);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.15);
+        }
+
+        .deep-thinking-toggle:hover::before {
+            opacity: 1;
+        }
+
+        .deep-thinking-toggle.active {
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.12) 0%, rgba(138, 180, 248, 0.08) 100%);
+            border-color: rgba(66, 133, 244, 0.3);
+            box-shadow: 0 4px 16px rgba(66, 133, 244, 0.2);
+        }
+
+        .deep-thinking-switch {
+            width: 48px;
+            height: 26px;
+            background: linear-gradient(135deg, #d1d5db 0%, #e5e7eb 100%);
+            border-radius: 13px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .deep-thinking-switch::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .deep-thinking-toggle.active .deep-thinking-switch {
+            background: linear-gradient(135deg, #4285f4 0%, #8ab4f8 100%);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 12px rgba(66, 133, 244, 0.4);
+        }
+
+        .deep-thinking-toggle.active .deep-thinking-switch::after {
+            left: 24px;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3), 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .deep-thinking-label {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+
+        .deep-thinking-toggle.active .deep-thinking-label {
+            color: #4285f4;
+        }
+        
+        /* 提示词助手按钮样式 */
+        .prompt-assistant-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(253, 224, 71, 0.06) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .prompt-assistant-toggle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(251, 191, 36, 0.12) 0%,
+                transparent 50%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .prompt-assistant-toggle:hover {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(253, 224, 71, 0.08) 100%);
+            border-color: rgba(251, 191, 36, 0.35);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+        }
+        
+        .prompt-assistant-toggle:hover::before {
+            opacity: 1;
+        }
+        
+        .prompt-assistant-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b7280;
+            transition: color 0.2s ease;
+        }
+        
+        .prompt-assistant-toggle:hover .prompt-assistant-label {
+            color: #d97706;
         }
         
         .chat-link:hover {
@@ -1047,6 +2157,336 @@
             border: 1px solid #f5c6cb;
         }
         
+        /* 提示词助手弹窗 */
+        .prompt-assistant-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        
+        .prompt-assistant-modal.show {
+            display: flex;
+            animation: modalFadeIn 0.2s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .prompt-assistant-content {
+            background-color: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes modalSlideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .prompt-assistant-header {
+            padding: 20px 24px;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.08) 0%, rgba(138, 180, 248, 0.05) 100%);
+            border-bottom: 1px solid rgba(66, 133, 244, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .prompt-assistant-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .prompt-assistant-header h3::before {
+            content: '✨';
+            font-size: 20px;
+        }
+        
+        .prompt-assistant-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: rgba(0,0,0,0.05);
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #6b7280;
+        }
+        
+        .prompt-assistant-close:hover {
+            background: rgba(0,0,0,0.1);
+            color: #374151;
+        }
+        
+        /* 功能选项卡 */
+        .prompt-assistant-tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0 24px;
+        }
+        
+        .prompt-tab {
+            padding: 14px 20px;
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .prompt-tab:hover {
+            color: #374151;
+            background: rgba(0,0,0,0.02);
+        }
+        
+        .prompt-tab.active {
+            color: #1a73e8;
+        }
+        
+        .prompt-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background: #1a73e8;
+            border-radius: 1px;
+        }
+        
+        /* 内容区域 */
+        .prompt-assistant-body {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        .prompt-input-area {
+            margin-bottom: 20px;
+        }
+        
+        .prompt-input-area label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .prompt-input-area textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(138, 180, 248, 0.25);
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 100px;
+            max-height: 200px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .prompt-input-area textarea:focus {
+            outline: none;
+            border-color: #4285f4;
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+        }
+        
+        /* 语言选择 */
+        .language-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .language-selector label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: rgba(0,0,0,0.02);
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            color: #374151;
+        }
+        
+        .language-selector input[type="radio"] {
+            display: none;
+        }
+        
+        .language-selector input[type="radio"]:checked + label {
+            background: rgba(66, 133, 244, 0.1);
+            border-color: #4285f4;
+            color: #1a73e8;
+        }
+        
+        /* 优化选项 */
+        .optimization-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .opt-option {
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.02);
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .opt-option:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .opt-option.active {
+            background: rgba(66, 133, 244, 0.1);
+            border-color: #4285f4;
+            color: #1a73e8;
+        }
+        
+        /* 按钮区域 */
+        .prompt-assistant-actions {
+            display: flex;
+            gap: 12px;
+            padding: 20px 24px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .prompt-action-btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .prompt-action-btn.primary {
+            background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+        }
+        
+        .prompt-action-btn.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+        }
+        
+        .prompt-action-btn.primary:active {
+            transform: translateY(0);
+        }
+        
+        .prompt-action-btn.secondary {
+            background: rgba(0,0,0,0.05);
+            color: #374151;
+        }
+        
+        .prompt-action-btn.secondary:hover {
+            background: rgba(0,0,0,0.1);
+        }
+        
+        /* 结果显示 */
+        .prompt-result-area {
+            margin-top: 16px;
+        }
+        
+        .prompt-result-area label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .prompt-result-area textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(52, 168, 83, 0.25);
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 120px;
+            max-height: 300px;
+            background: rgba(52, 168, 83, 0.02);
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .prompt-result-area textarea:focus {
+            outline: none;
+            border-color: #34a853;
+            box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.1);
+        }
+        
+        .result-loading {
+            text-align: center;
+            padding: 24px;
+            color: #6b7280;
+        }
+        
+        .result-loading span {
+            display: inline-block;
+            animation: loadingDots 1.5s infinite;
+        }
+        
+        @keyframes loadingDots {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+        
         /* 分享弹窗 */
         .share-modal {
             position: fixed;
@@ -1156,6 +2596,224 @@
         
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        
+        /* 图片生成加载动画 - 即梦风格 */
+        .image-generating-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 16px;
+        }
+        
+        /* 背景粒子效果 */
+        .image-generating-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(66, 133, 244, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(138, 180, 248, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.05) 0%, transparent 70%);
+            animation: backgroundShift 8s ease-in-out infinite;
+        }
+        
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        /* 主动画容器 */
+        .generation-animation {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        /* 外圈光环 */
+        .generation-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: conic-gradient(
+                from 0deg,
+                rgba(66, 133, 244, 0.8),
+                rgba(138, 180, 248, 0.6),
+                rgba(251, 191, 36, 0.4),
+                rgba(66, 133, 244, 0.8)
+            );
+            animation: ringRotate 3s linear infinite;
+            filter: blur(2px);
+        }
+        
+        @keyframes ringRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 内圈光点 */
+        .generation-core {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle at center,
+                rgba(66, 133, 244, 0.9) 0%,
+                rgba(138, 180, 248, 0.6) 40%,
+                transparent 70%
+            );
+            animation: corePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes corePulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.8;
+                box-shadow: 0 0 20px rgba(66, 133, 244, 0.5);
+            }
+            50% { 
+                transform: scale(1.2); 
+                opacity: 1;
+                box-shadow: 0 0 40px rgba(66, 133, 244, 0.8), 0 0 60px rgba(138, 180, 248, 0.4);
+            }
+        }
+        
+        /* 流动粒子 */
+        .generation-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(66, 133, 244, 0.8);
+            border-radius: 50%;
+            animation: particleFlow 2.5s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { top: 50%; left: 0; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 50%; right: 0; animation-delay: 0.3s; }
+        .particle:nth-child(3) { top: 0; left: 50%; animation-delay: 0.6s; }
+        .particle:nth-child(4) { bottom: 0; left: 50%; animation-delay: 0.9s; }
+        .particle:nth-child(5) { top: 20%; left: 20%; animation-delay: 0.2s; }
+        .particle:nth-child(6) { top: 20%; right: 20%; animation-delay: 0.5s; }
+        .particle:nth-child(7) { bottom: 20%; left: 20%; animation-delay: 0.8s; }
+        .particle:nth-child(8) { bottom: 20%; right: 20%; animation-delay: 1.1s; }
+        
+        @keyframes particleFlow {
+            0% { 
+                transform: translate(0, 0) scale(1); 
+                opacity: 0;
+            }
+            20% { 
+                opacity: 1;
+            }
+            80% { 
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(var(--tx, 0), var(--ty, 0)) scale(0); 
+                opacity: 0;
+            }
+        }
+        
+        .particle:nth-child(1) { --tx: 50px; --ty: 0; }
+        .particle:nth-child(2) { --tx: -50px; --ty: 0; }
+        .particle:nth-child(3) { --tx: 0; --ty: 50px; }
+        .particle:nth-child(4) { --tx: 0; --ty: -50px; }
+        .particle:nth-child(5) { --tx: 40px; --ty: 40px; }
+        .particle:nth-child(6) { --tx: -40px; --ty: 40px; }
+        .particle:nth-child(7) { --tx: 40px; --ty: -40px; }
+        .particle:nth-child(8) { --tx: -40px; --ty: -40px; }
+        
+        /* 加载文字 */
+        .generation-text {
+            margin-top: 30px;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .generation-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .generation-dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+        
+        .generation-dot {
+            width: 6px;
+            height: 6px;
+            background: #4285f4;
+            border-radius: 50%;
+            animation: dotBounce 1.4s ease-in-out infinite;
+        }
+        
+        .generation-dot:nth-child(1) { animation-delay: 0s; }
+        .generation-dot:nth-child(2) { animation-delay: 0.2s; }
+        .generation-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes dotBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        .generation-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 12px;
+        }
+        
+        /* 进度条 */
+        .generation-progress {
+            width: 100%;
+            max-width: 200px;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
+            z-index: 1;
+        }
+        
+        .generation-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4285f4, #8b5cf6, #f59e0b);
+            border-radius: 2px;
+            animation: progressFlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressFlow {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
         }
         
         /* Footer */
@@ -1432,6 +3090,7 @@
                             <h3>AI对话</h3>
                             <div class="chat-actions">
                                 <button onclick="clearChat()" style="padding: 5px 10px; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; font-size: 12px;">清除聊天</button>
+                                <button onclick="toggleFullscreen()" id="fullscreenBtn" style="padding: 5px 10px; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; font-size: 12px;" title="全屏模式">⛶ 全屏</button>
                             </div>
                         </div>
                         <div class="chat-messages" id="chatMessages">
@@ -1439,6 +3098,30 @@
                             <div class="chat-watermark">天马行空创意团队</div>
                         </div>
                         <div class="chat-input">
+                            <!-- 图片上传区域 -->
+                            <div class="image-upload-area" id="imageUploadArea">
+                                <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;" onchange="handleImageUpload(this)">
+                                <div class="image-upload-btn" onclick="document.getElementById('imageUpload').click()">
+                                    <span style="font-size: 18px;">🖼️</span>
+                                    <span class="upload-text">上传图片进行AI识别</span>
+                                </div>
+                                <span style="font-size: 12px; color: #6b7280; margin-left: auto;">支持拖拽上传</span>
+                            </div>
+                            
+                            <div class="deep-thinking-toggle" id="deepThinkingToggle" onclick="toggleDeepThinking()">
+                                <div class="deep-thinking-switch"></div>
+                                <span class="deep-thinking-label">深度思考</span>
+                            </div>
+                            
+                            <!-- 提示词助手按钮 -->
+                            <div class="prompt-assistant-toggle" id="promptAssistantToggle" onclick="openPromptAssistant()">
+                                <span style="font-size: 16px;">✨</span>
+                                <span class="prompt-assistant-label">提示词助手</span>
+                            </div>
+                            
+                            <!-- 上传的图片预览 -->
+                            <div class="uploaded-images" id="uploadedImages"></div>
+                            
                             <textarea id="chatInput" placeholder="输入你的问题或指令..."></textarea>
                             <button onclick="sendMessage()">发送</button>
                         </div>
@@ -1461,9 +3144,12 @@
                             <div class="image-option">
                                 <label for="imageSize">图片尺寸</label>
                                 <select id="imageSize">
-                                    <option value="1024x1024">1024x1024</option>
-                                    <option value="1024x1792">1024x1792</option>
-                                    <option value="1792x1024">1792x1024</option>
+                                    <option value="1:1">1:1 正方形</option>
+                                    <option value="2:3">2:3 竖版</option>
+                                    <option value="3:4">3:4 竖版</option>
+                                    <option value="4:3">4:3 横版</option>
+                                    <option value="9:16">9:16 竖版</option>
+                                    <option value="16:9">16:9 横版</option>
                                 </select>
                             </div>
                             <div class="image-option">
@@ -1475,8 +3161,6 @@
                                     <option value="gpt-image-1.5">GPT Image 1.5</option>
                                     <option value="dall-e-3">DALL·E 3</option>
                                     <option value="z-image-turbo">Z-Image Turbo</option>
-                                    <option value="doubao-seedream-5-0-260128">Doubao Seedream 5</option>
-                                    <option value="doubao-seedream-4-0-250828">Doubao Seedream 4</option>
                                     <option value="nano-banana">Nano Banana</option>
                                     <option value="sora_image">Sora Image</option>
                                     <option value="stability-ai/sdxl">Stability AI SDXL</option>
@@ -1819,6 +3503,94 @@
         </div>
     </div>
     
+    <!-- 提示词助手弹窗 -->
+    <div class="prompt-assistant-modal" id="promptAssistantModal">
+        <div class="prompt-assistant-content">
+            <div class="prompt-assistant-header">
+                <h3>提示词助手</h3>
+                <button class="prompt-assistant-close" onclick="closePromptAssistant()">×</button>
+            </div>
+            
+            <div class="prompt-assistant-tabs">
+                <button class="prompt-tab active" onclick="switchPromptTab('translate')">翻译</button>
+                <button class="prompt-tab" onclick="switchPromptTab('polish')">润色扩写</button>
+                <button class="prompt-tab" onclick="switchPromptTab('optimize')">专业优化</button>
+            </div>
+            
+            <div class="prompt-assistant-body">
+                <!-- 翻译功能 -->
+                <div id="translate-tab" class="prompt-tab-content">
+                    <div class="prompt-input-area">
+                        <label for="translateInput">输入提示词</label>
+                        <textarea id="translateInput" placeholder="请输入需要翻译的提示词..."></textarea>
+                    </div>
+                    
+                    <div class="language-selector">
+                        <input type="radio" id="lang-en-zh" name="translateLang" value="en-zh" checked>
+                        <label for="lang-en-zh">🇬🇧 英语 → 🇨🇳 中文</label>
+                        <input type="radio" id="lang-zh-en" name="translateLang" value="zh-en">
+                        <label for="lang-zh-en">🇨🇳 中文 → 🇬🇧 英语</label>
+                        <input type="radio" id="lang-zh-ja" name="translateLang" value="zh-ja">
+                        <label for="lang-zh-ja">🇨🇳 中文 → 🇯🇵 日语</label>
+                        <input type="radio" id="lang-zh-ko" name="translateLang" value="zh-ko">
+                        <label for="lang-zh-ko">🇨🇳 中文 → 🇰🇷 韩语</label>
+                    </div>
+                    
+                    <div class="prompt-result-area" id="translateResult">
+                        <label>翻译结果</label>
+                        <textarea id="translateOutput" placeholder="翻译结果将显示在这里..." readonly></textarea>
+                    </div>
+                </div>
+                
+                <!-- 润色扩写功能 -->
+                <div id="polish-tab" class="prompt-tab-content" style="display: none;">
+                    <div class="prompt-input-area">
+                        <label for="polishInput">输入提示词</label>
+                        <textarea id="polishInput" placeholder="请输入需要润色扩写的提示词..."></textarea>
+                    </div>
+                    
+                    <div class="optimization-options">
+                        <button class="opt-option active" onclick="togglePolishOption('rich')">词汇丰富</button>
+                        <button class="opt-option" onclick="togglePolishOption('detail')">增加细节</button>
+                        <button class="opt-option" onclick="togglePolishOption('emotion')">情感增强</button>
+                        <button class="opt-option" onclick="togglePolishOption('structure')">结构优化</button>
+                    </div>
+                    
+                    <div class="prompt-result-area" id="polishResult">
+                        <label>润色扩写结果</label>
+                        <textarea id="polishOutput" placeholder="润色扩写结果将显示在这里..." readonly></textarea>
+                    </div>
+                </div>
+                
+                <!-- 专业优化功能 -->
+                <div id="optimize-tab" class="prompt-tab-content" style="display: none;">
+                    <div class="prompt-input-area">
+                        <label for="optimizeInput">输入基础提示词</label>
+                        <textarea id="optimizeInput" placeholder="请输入需要优化的基础提示词..."></textarea>
+                    </div>
+                    
+                    <div class="optimization-options">
+                        <button class="opt-option active" onclick="toggleOptimizeOption('professional')">专业级别</button>
+                        <button class="opt-option" onclick="toggleOptimizeOption('advanced')">高级效果</button>
+                        <button class="opt-option" onclick="toggleOptimizeOption('cinematic')">影视级效果</button>
+                        <button class="opt-option" onclick="toggleOptimizeOption('ultra')">超高质量</button>
+                    </div>
+                    
+                    <div class="prompt-result-area" id="optimizeResult">
+                        <label>专业优化结果</label>
+                        <textarea id="optimizeOutput" placeholder="专业优化结果将显示在这里..." readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="prompt-assistant-actions">
+                <button class="prompt-action-btn secondary" onclick="clearPromptInput()">清空</button>
+                <button class="prompt-action-btn primary" onclick="processPrompt()">执行</button>
+                <button class="prompt-action-btn secondary" onclick="copyPromptResult()">复制结果</button>
+            </div>
+        </div>
+    </div>
+    
     <!-- 分享弹窗 -->
     <div class="share-modal" id="shareModal">
         <div class="share-modal-content">
@@ -1866,12 +3638,257 @@
             customModel: ''
         };
         
+        // 提示词助手状态
+        let currentPromptTab = 'translate';
+        let polishOptions = ['rich'];
+        let optimizeOptions = ['professional'];
+        
+        // 打开提示词助手
+        function openPromptAssistant() {
+            document.getElementById('promptAssistantModal').classList.add('show');
+        }
+        
+        // 关闭提示词助手
+        function closePromptAssistant() {
+            document.getElementById('promptAssistantModal').classList.remove('show');
+        }
+        
+        // 切换提示词助手选项卡
+        function switchPromptTab(tabName) {
+            currentPromptTab = tabName;
+            
+            document.querySelectorAll('.prompt-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.prompt-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(`${tabName}-tab`).style.display = 'block';
+        }
+        
+        // 切换润色选项
+        function togglePolishOption(option) {
+            const btn = event.target;
+            if (btn.classList.contains('active')) {
+                btn.classList.remove('active');
+                polishOptions = polishOptions.filter(o => o !== option);
+            } else {
+                btn.classList.add('active');
+                polishOptions.push(option);
+            }
+        }
+        
+        // 切换优化选项
+        function toggleOptimizeOption(option) {
+            const btn = event.target;
+            if (btn.classList.contains('active')) {
+                btn.classList.remove('active');
+                optimizeOptions = optimizeOptions.filter(o => o !== option);
+            } else {
+                btn.classList.add('active');
+                optimizeOptions.push(option);
+            }
+        }
+        
+        // 清空输入
+        function clearPromptInput() {
+            const inputIds = ['translateInput', 'polishInput', 'optimizeInput'];
+            const outputIds = ['translateOutput', 'polishOutput', 'optimizeOutput'];
+            
+            inputIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            
+            outputIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+        }
+        
+        // 处理提示词
+        async function processPrompt() {
+            // 从localStorage读取配置
+            const savedConfig = localStorage.getItem('aiConfig');
+            let apiKey = '';
+            let apiUrl = 'https://www.361api.com/v1/chat/completions';
+            
+            if (savedConfig) {
+                const config = JSON.parse(savedConfig);
+                apiKey = config.apiKey || '';
+                apiUrl = config.apiUrl || 'https://www.361api.com/v1/chat/completions';
+            }
+            
+            if (!apiKey) {
+                alert('请先配置API Key！');
+                return;
+            }
+            
+            let inputText = '';
+            let systemPrompt = '';
+            
+            switch(currentPromptTab) {
+                case 'translate':
+                    inputText = document.getElementById('translateInput').value.trim();
+                    const lang = document.querySelector('input[name="translateLang"]:checked').value;
+                    const langMap = {
+                        'en-zh': '将以下英文提示词翻译成中文：',
+                        'zh-en': '将以下中文提示词翻译成英文：',
+                        'zh-ja': '将以下中文提示词翻译成日语：',
+                        'zh-ko': '将以下中文提示词翻译成韩语：'
+                    };
+                    systemPrompt = `你是一个专业的提示词翻译助手。请准确翻译提示词，保持原有的专业性和技术性。${langMap[lang]}`;
+                    break;
+                    
+                case 'polish':
+                    inputText = document.getElementById('polishInput').value.trim();
+                    const polishDesc = {
+                        'rich': '词汇丰富化',
+                        'detail': '增加细节描述',
+                        'emotion': '增强情感表达',
+                        'structure': '优化句子结构'
+                    };
+                    const selectedPolish = polishOptions.map(o => polishDesc[o]).join('、');
+                    systemPrompt = `你是一个专业的提示词润色师。请对以下提示词进行${selectedPolish}处理，使其更加生动、详细和专业。输出润色后的完整提示词。`;
+                    break;
+                    
+                case 'optimize':
+                    inputText = document.getElementById('optimizeInput').value.trim();
+                    const optimizeDesc = {
+                        'professional': '专业级别优化',
+                        'advanced': '高级效果增强',
+                        'cinematic': '影视级效果',
+                        'ultra': '超高质量渲染'
+                    };
+                    const selectedOptimize = optimizeOptions.map(o => optimizeDesc[o]).join('、');
+                    systemPrompt = `你是一个专业的AI艺术提示词优化专家。请将以下基础提示词转换为符合${selectedOptimize}标准的专业提示词。输出应该包含：详细的主题描述、艺术风格、色彩方案、构图要素、光照效果、渲染引擎等专业术语。`;
+                    break;
+            }
+            
+            if (!inputText) {
+                alert('请输入提示词！');
+                return;
+            }
+            
+            // 显示加载状态
+            const resultArea = document.getElementById(`${currentPromptTab}Result`);
+            resultArea.innerHTML = '<div class="result-loading">正在处理<span>...</span></div>';
+            
+            try {
+                const requestData = {
+                    model: 'gpt-4o',
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: inputText }
+                    ],
+                    stream: false,
+                    temperature: 0.7
+                };
+                
+                let requestUrl = apiUrl;
+                const useProxy = window.location.hostname === 'localhost';
+                if (useProxy) {
+                    requestUrl = 'https://corsproxy.io/?' + encodeURIComponent(apiUrl);
+                }
+                
+                console.log('提示词助手请求信息:', {
+                    apiUrl: apiUrl,
+                    requestUrl: requestUrl,
+                    useProxy: useProxy,
+                    apiKeySet: !!apiKey,
+                    requestDataSize: JSON.stringify(requestData).length
+                });
+                
+                const response = await fetch(requestUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify(requestData),
+                    mode: useProxy ? 'cors' : 'cors'
+                });
+                
+                console.log('响应状态:', response.status, response.statusText);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP错误 ${response.status}: ${errorText || response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                console.log('API返回数据:', data);
+                
+                if (data.choices && data.choices[0] && data.choices[0].message) {
+                    const result = data.choices[0].message.content;
+                    resultArea.innerHTML = `
+                        <label>${currentPromptTab === 'translate' ? '翻译结果' : currentPromptTab === 'polish' ? '润色扩写结果' : '专业优化结果'}</label>
+                        <textarea id="${currentPromptTab}Output" readonly>${result}</textarea>
+                    `;
+                } else if (data.error) {
+                    throw new Error(`API错误: ${data.error.message || JSON.stringify(data.error)}`);
+                } else {
+                    throw new Error('API返回格式错误，请检查API配置');
+                }
+            } catch (error) {
+                console.error('提示词处理失败:', error);
+                
+                let errorDetails = `处理失败：${error.message}`;
+                if (error.message === 'Failed to fetch') {
+                    errorDetails += `
+                        <br><br><strong>可能的原因：</strong>
+                        <ul style="text-align: left; margin-left: 20px; margin-top: 10px;">
+                            <li>1. <strong>CORS跨域限制</strong>：浏览器阻止了跨域请求</li>
+                            <li>2. <strong>API服务器不可用</strong>：目标服务器无法访问</li>
+                            <li>3. <strong>API URL配置错误</strong>：请检查API配置</li>
+                        </ul>
+                        <br><strong>建议：</strong>
+                        <p>按F12打开开发者工具，查看Console标签获取详细错误信息</p>
+                    `;
+                }
+                
+                resultArea.innerHTML = `
+                    <div style="color: #dc3545; padding: 12px; background: rgba(220, 53, 69, 0.1); border-radius: 8px;">
+                        ${errorDetails}
+                    </div>
+                `;
+            }
+        }
+        
+        // 复制结果
+        function copyPromptResult() {
+            const outputId = `${currentPromptTab}Output`;
+            const output = document.getElementById(outputId);
+            
+            if (output && output.value) {
+                navigator.clipboard.writeText(output.value).then(() => {
+                    alert('已复制到剪贴板！');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制');
+                });
+            } else {
+                alert('没有可复制的内容！');
+            }
+        }
+        
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
             // 加载保存的配置
             loadConfig();
             // 初始化对话界面
             initChat();
+            
+            // 初始化图片上传拖拽事件
+            const uploadArea = document.getElementById('imageUploadArea');
+            if (uploadArea) {
+                uploadArea.addEventListener('dragover', handleDragOver);
+                uploadArea.addEventListener('dragleave', handleDragLeave);
+                uploadArea.addEventListener('drop', handleDrop);
+            }
         });
         
         // 切换选项卡
@@ -2064,43 +4081,126 @@
         
         // 在图片上添加水印
         function addWatermarkToImage(imageUrl, callback) {
+            console.log('开始添加水印:', imageUrl);
+            
+            // 检查是否是base64数据URL
+            if (imageUrl && imageUrl.startsWith('data:image/')) {
+                console.log('图片是base64格式，直接处理');
+                processImage(imageUrl);
+                return;
+            }
+            
+            // 如果是外部URL，检查是否可能有跨域问题
+            if (imageUrl && !imageUrl.startsWith('http://localhost') && !imageUrl.startsWith('https://localhost')) {
+                console.log('外部图片URL，可能存在跨域限制');
+            }
+            
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             const img = new Image();
             
             img.crossOrigin = 'anonymous';
+            
             img.onload = function() {
-                // 设置画布尺寸
-                canvas.width = img.width;
-                canvas.height = img.height;
-                
-                // 绘制原图
-                ctx.drawImage(img, 0, 0);
-                
-                // 添加水印文本
-                ctx.font = '24px Arial';
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-                ctx.shadowBlur = 3;
-                ctx.shadowOffsetX = 1;
-                ctx.shadowOffsetY = 1;
-                
-                // 绘制水印
-                ctx.fillText('天马行空创意网AI生成', canvas.width / 2, canvas.height - 20);
-                
-                // 转换为图片URL
-                const watermarkedImageUrl = canvas.toDataURL('image/png');
-                callback(watermarkedImageUrl);
+                console.log('图片加载成功，尺寸:', img.width, 'x', img.height);
+                processImage(imageUrl);
             };
             
-            img.onerror = function() {
-                // 如果图片加载失败，直接使用原图
+            img.onerror = function(error) {
+                console.error('图片加载失败:', error);
+                // 跨域或其他错误，直接返回原图URL
                 callback(imageUrl);
             };
             
+            function processImage(src) {
+                try {
+                    const tempImg = new Image();
+                    tempImg.onload = function() {
+                        // 设置画布尺寸
+                        canvas.width = tempImg.width;
+                        canvas.height = tempImg.height;
+                        
+                        // 绘制原图
+                        ctx.drawImage(tempImg, 0, 0);
+                        
+                        const watermarkText = '天马行空创意团队AI生成';
+                        const fontSize = Math.max(28, Math.min(tempImg.width / 12, 48));
+                        
+                        // 故障效果 - 绘制红色偏移层
+                        ctx.font = `bold ${fontSize}px Arial`;
+                        ctx.fillStyle = 'rgba(255, 0, 0, 0.4)';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        ctx.fillText(watermarkText, canvas.width / 2 + 2, canvas.height - 30);
+                        
+                        // 故障效果 - 绘制青色偏移层
+                        ctx.fillStyle = 'rgba(0, 255, 255, 0.4)';
+                        ctx.fillText(watermarkText, canvas.width / 2 - 2, canvas.height - 30);
+                        
+                        // 主水印文字 - 带发光效果
+                        ctx.font = `bold ${fontSize}px Arial`;
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                        ctx.shadowColor = 'rgba(66, 133, 244, 0.8)';
+                        ctx.shadowBlur = 15;
+                        ctx.shadowOffsetX = 0;
+                        ctx.shadowOffsetY = 0;
+                        ctx.fillText(watermarkText, canvas.width / 2, canvas.height - 30);
+                        
+                        // 添加小的噪点故障效果
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                        for (let i = 0; i < 15; i++) {
+                            const x = (canvas.width / 2 - 150) + Math.random() * 300;
+                            const y = canvas.height - 40 + Math.random() * 10;
+                            ctx.fillRect(x, y, 2, 1);
+                        }
+                        
+                        // 添加扫描线效果
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                        ctx.fillRect(canvas.width / 2 - 180, canvas.height - 35, 360, 2);
+                        
+                        // 转换为图片URL
+                        const watermarkedImageUrl = canvas.toDataURL('image/png');
+                        console.log('水印处理完成');
+                        callback(watermarkedImageUrl);
+                    };
+                    
+                    tempImg.onerror = function(err) {
+                        console.error('处理图片时出错:', err);
+                        callback(src);
+                    };
+                    
+                    // 如果是base64，直接设置
+                    if (src.startsWith('data:image/')) {
+                        tempImg.src = src;
+                    } else {
+                        // 外部URL，尝试加载
+                        tempImg.crossOrigin = 'anonymous';
+                        tempImg.src = src;
+                    }
+                } catch (e) {
+                    console.error('水印处理异常:', e);
+                    callback(src);
+                }
+            }
+            
             img.src = imageUrl;
+        }
+        
+        // 显示带水印的图片结果
+        function displayImageWithWatermark(imageUrl, resultElement) {
+            console.log('显示带水印图片:', imageUrl);
+            
+            addWatermarkToImage(imageUrl, function(watermarkedUrl) {
+                console.log('水印处理完成:', watermarkedUrl ? '成功' : '失败');
+                
+                if (watermarkedUrl) {
+                    resultElement.innerHTML = `<img src="${watermarkedUrl}" alt="生成的图片" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${watermarkedUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${watermarkedUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                } else {
+                    // 水印处理失败，直接显示原图
+                    console.warn('水印处理失败，显示原图');
+                    resultElement.innerHTML = `<img src="${imageUrl}" alt="生成的图片" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                }
+            });
         }
         
         // 分享图片
@@ -2155,10 +4255,197 @@
             const watermark = chatMessages.querySelector('.chat-watermark');
             chatMessages.innerHTML = '';
             chatMessages.appendChild(watermark);
+            // 清空对话历史
+            conversationHistory = [];
             // 重新添加欢迎消息
             addChatMessage('ai', '你好！我是天马行空创意团队小助手，有什么可以帮助你的吗？');
         }
-        
+
+        // 全屏切换功能
+        function toggleFullscreen() {
+            const chatSection = document.querySelector('.chat-section');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+            if (!chatSection.classList.contains('fullscreen')) {
+                // 进入全屏
+                chatSection.classList.add('fullscreen');
+                fullscreenBtn.innerHTML = '✕ 退出全屏';
+                fullscreenBtn.classList.add('fullscreen-btn');
+                // 锁定背景滚动
+                document.body.style.overflow = 'hidden';
+                // 添加ESC键监听
+                document.addEventListener('keydown', handleEscapeKey);
+            } else {
+                // 退出全屏
+                chatSection.classList.remove('fullscreen');
+                fullscreenBtn.innerHTML = '⛶ 全屏';
+                fullscreenBtn.classList.remove('fullscreen-btn');
+                // 恢复背景滚动
+                document.body.style.overflow = '';
+                // 移除ESC键监听
+                document.removeEventListener('keydown', handleEscapeKey);
+            }
+        }
+
+        // ESC键退出全屏
+        function handleEscapeKey(event) {
+            if (event.key === 'Escape') {
+                const chatSection = document.querySelector('.chat-section');
+                if (chatSection.classList.contains('fullscreen')) {
+                    toggleFullscreen();
+                }
+            }
+        }
+
+        // 深度思考开关状态
+        let deepThinkingEnabled = false;
+
+        // 深度思考切换功能
+        function toggleDeepThinking() {
+            const toggle = document.getElementById('deepThinkingToggle');
+            deepThinkingEnabled = !deepThinkingEnabled;
+
+            if (deepThinkingEnabled) {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+            }
+        }
+
+        // 上传的图片数据
+        let uploadedImagesData = [];
+
+        // 处理图片上传
+        function handleImageUpload(input) {
+            const files = input.files;
+            if (files.length > 0) {
+                processImages(files);
+            }
+            // 重置input，允许重新选择相同文件
+            input.value = '';
+        }
+
+        // 处理拖拽上传
+        function handleDragOver(event) {
+            event.preventDefault();
+            const uploadArea = document.getElementById('imageUploadArea');
+            uploadArea.classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            const uploadArea = document.getElementById('imageUploadArea');
+            uploadArea.classList.remove('dragover');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const uploadArea = document.getElementById('imageUploadArea');
+            uploadArea.classList.remove('dragover');
+            
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                processImages(files);
+            }
+        }
+
+        // 处理图片文件
+        function processImages(files) {
+            const uploadedImages = document.getElementById('uploadedImages');
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // 检查是否是图片
+                if (!file.type.startsWith('image/')) {
+                    alert('请上传图片文件！');
+                    continue;
+                }
+                
+                // 检查文件大小（最大5MB）
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('图片大小不能超过5MB！');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+                const fileIndex = i;
+                
+                reader.onload = function(e) {
+                    const imageData = {
+                        id: Date.now() + fileIndex,
+                        file: file,
+                        url: e.target.result,
+                        name: file.name,
+                        size: formatFileSize(file.size)
+                    };
+                    
+                    uploadedImagesData.push(imageData);
+                    
+                    // 创建预览元素
+                    const imageItem = document.createElement('div');
+                    imageItem.className = 'uploaded-image-item';
+                    imageItem.dataset.id = imageData.id;
+                    imageItem.innerHTML = `
+                        <img src="${imageData.url}" alt="上传的图片" title="${imageData.name}">
+                        <span class="remove-image" onclick="removeUploadedImage(${imageData.id})" title="移除图片">×</span>
+                        <div class="upload-progress"><div class="upload-progress-bar" style="width: 100%"></div></div>
+                        <div class="image-info">${imageData.name}</div>
+                    `;
+                    
+                    uploadedImages.appendChild(imageItem);
+                    
+                    // 更新上传状态提示
+                    updateUploadStatus();
+                };
+                
+                reader.onerror = function() {
+                    alert(`无法读取文件: ${file.name}`);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        // 更新上传状态提示
+        function updateUploadStatus() {
+            const uploadArea = document.getElementById('imageUploadArea');
+            const statusSpan = uploadArea.querySelector('.upload-status');
+            if (statusSpan) {
+                statusSpan.remove();
+            }
+            if (uploadedImagesData.length > 0) {
+                const status = document.createElement('span');
+                status.className = 'upload-status';
+                status.style.cssText = `
+                    font-size: 12px;
+                    color: #34a853;
+                    font-weight: 600;
+                    margin-left: 8px;
+                `;
+                status.textContent = `已上传 ${uploadedImagesData.length} 张图片`;
+                uploadArea.appendChild(status);
+            }
+        }
+
+        // 移除已上传的图片
+        function removeUploadedImage(id) {
+            uploadedImagesData = uploadedImagesData.filter(img => img.id !== id);
+            const imageItem = document.querySelector(`.uploaded-image-item[data-id="${id}"]`);
+            if (imageItem) {
+                imageItem.remove();
+            }
+            // 更新上传状态提示
+            updateUploadStatus();
+        }
+
         // 删除单条消息
         function deleteMessage(button) {
             const messageDiv = button.closest('.chat-message');
@@ -2166,7 +4453,93 @@
                 messageDiv.remove();
             }
         }
-        
+
+        // 复制消息内容
+        function copyMessageContent(button, content) {
+            // 复制到剪贴板
+            navigator.clipboard.writeText(content).then(() => {
+                // 复制成功，显示已复制状态
+                button.innerHTML = '✓';
+                button.classList.add('copied');
+                button.title = '已复制！';
+
+                // 显示复制成功toast
+                showCopyToast('✓ 已复制到剪贴板');
+
+                // 2秒后恢复原状态
+                setTimeout(() => {
+                    button.innerHTML = '📋';
+                    button.classList.remove('copied');
+                    button.title = '复制内容';
+                }, 2000);
+            }).catch(err => {
+                // 复制失败
+                console.error('复制失败:', err);
+                button.innerHTML = '✕';
+                button.title = '复制失败';
+
+                // 显示复制失败toast
+                showCopyToast('✕ 复制失败，请重试');
+
+                setTimeout(() => {
+                    button.innerHTML = '📋';
+                    button.title = '复制内容';
+                }, 2000);
+            });
+        }
+
+        // 显示复制提示toast
+        function showCopyToast(message) {
+            // 检查是否已有toast存在
+            let toast = document.querySelector('.copy-toast');
+            if (!toast) {
+                // 创建新toast
+                toast = document.createElement('div');
+                toast.className = 'copy-toast';
+                document.body.appendChild(toast);
+            }
+
+            // 更新消息并显示
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            // 3秒后隐藏
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 对话历史记录（用于上下文记忆）
+        let conversationHistory = [];
+
+        // 内容格式化函数
+        function formatContent(content) {
+            // 处理代码块
+            content = content.replace(/```([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>');
+
+            // 处理链接
+            content = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="chat-link">$1</a>');
+
+            // 处理标题
+            content = content.replace(/^### (.*$)/gim, '<h3 class="chat-heading">$1</h3>');
+            content = content.replace(/^## (.*$)/gim, '<h2 class="chat-heading">$1</h2>');
+            content = content.replace(/^# (.*$)/gim, '<h1 class="chat-heading">$1</h1>');
+
+            // 处理列表
+            content = content.replace(/^\- (.*$)/gim, '<li class="chat-list-item">$1</li>');
+            content = content.replace(/(<li class="chat-list-item">.*<\/li>)/gs, '<ul class="chat-list">$1</ul>');
+
+            // 处理粗体和斜体
+            content = content.replace(/\*\*(.*?)\*\*/g, '<strong class="chat-bold">$1</strong>');
+            content = content.replace(/\*(.*?)\*/g, '<em class="chat-italic">$1</em>');
+
+            // 处理段落
+            content = content.replace(/\n\n/g, '</p><p class="chat-paragraph">');
+            content = '<p class="chat-paragraph">' + content + '</p>';
+
+            return content;
+        }
+
         // 添加对话消息
         function addChatMessage(type, content) {
             const chatMessages = document.getElementById('chatMessages');
@@ -2208,7 +4581,16 @@
             
             // 使用innerHTML而不是textContent，以便渲染HTML内容
             contentDiv.innerHTML = formattedContent;
-            
+
+            // 创建复制按钮
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-message-btn';
+            copyBtn.innerHTML = '📋';
+            copyBtn.title = '复制内容';
+            copyBtn.onclick = function() {
+                copyMessageContent(this, content);
+            };
+
             // 创建删除按钮
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'delete-message-btn';
@@ -2219,27 +4601,135 @@
             
             messageDiv.appendChild(avatarDiv);
             messageDiv.appendChild(contentDiv);
+            messageDiv.appendChild(copyBtn);
             messageDiv.appendChild(deleteBtn);
             chatMessages.appendChild(messageDiv);
-            
-            // 滚动到底部
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // 智能滚动：只在用户已经在底部时才自动滚动
+            const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 100;
+            if (isAtBottom) {
+                // 平滑滚动到底部
+                chatMessages.scrollTo({
+                    top: chatMessages.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+
+            // 记录到对话历史（用于上下文记忆）
+            if (type === 'user') {
+                conversationHistory.push({
+                    role: 'user',
+                    content: content
+                });
+            } else if (type === 'ai') {
+                conversationHistory.push({
+                    role: 'assistant',
+                    content: content
+                });
+            }
         }
-        
+
+        // 添加带图片的用户消息（直接渲染HTML）
+        function addChatMessageWithImages(type, content) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}`;
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = `chat-avatar ${type}`;
+            avatarDiv.textContent = type === 'ai' ? 'AI' : '我';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'chat-content';
+            
+            // 直接使用innerHTML渲染（包含图片标签）
+            contentDiv.innerHTML = content;
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-message-btn';
+            copyBtn.innerHTML = '📋';
+            copyBtn.title = '复制内容';
+            copyBtn.onclick = function() {
+                copyMessageContent(this, content);
+            };
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-message-btn';
+            deleteBtn.textContent = '×';
+            deleteBtn.onclick = function() {
+                deleteMessage(this);
+            };
+            
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(contentDiv);
+            messageDiv.appendChild(copyBtn);
+            messageDiv.appendChild(deleteBtn);
+            chatMessages.appendChild(messageDiv);
+
+            const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 100;
+            if (isAtBottom) {
+                chatMessages.scrollTo({
+                    top: chatMessages.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+
+            // 记录到对话历史（只记录文本内容）
+            if (type === 'user') {
+                conversationHistory.push({
+                    role: 'user',
+                    content: content.replace(/<[^>]*>/g, '').substring(0, 200) + '...'
+                });
+            }
+        }
+
         // 发送消息
         function sendMessage() {
             const chatInput = document.getElementById('chatInput');
             const message = chatInput.value.trim();
             
-            if (message) {
-                // 添加用户消息
-                addChatMessage('user', message);
-                // 清空输入框
-                chatInput.value = '';
+            // 检查是否有图片或消息
+            if (!message && uploadedImagesData.length === 0) {
+                return;
+            }
+            
+            // 检查是否有图片
+            let hasImages = uploadedImagesData.length > 0;
+            
+            // 构建用户消息显示内容（显示图片预览）
+            let displayContent = message;
+            if (hasImages) {
+                if (displayContent) {
+                    // 显示文本+图片预览
+                    displayContent = `${message}<br><br><div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">`;
+                    uploadedImagesData.forEach(imgData => {
+                        displayContent += `<img src="${imgData.url}" style="max-width: 120px; max-height: 120px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd;" alt="上传的图片">`;
+                    });
+                    displayContent += '</div>';
+                } else {
+                    // 只显示图片预览
+                    displayContent = `<div style="display: flex; flex-wrap: wrap; gap: 8px;">`;
+                    uploadedImagesData.forEach(imgData => {
+                        displayContent += `<img src="${imgData.url}" style="max-width: 150px; max-height: 150px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd;" alt="上传的图片">`;
+                    });
+                    displayContent += '</div><br><span style="color: #666; font-size: 14px;">请分析这张图片</span>';
+                }
+            }
+            
+            // 添加用户消息（显示格式化内容）
+            addChatMessageWithImages('user', displayContent);
+            
+            // 清空输入框和已上传的图片
+            chatInput.value = '';
+            const uploadedImagesContainer = document.getElementById('uploadedImages');
+            if (uploadedImagesContainer) {
+                uploadedImagesContainer.innerHTML = '';
+            }
                 
                 // 检查是否在本地文件系统中运行
                 if (window.location.protocol === 'file:') {
                     addChatMessage('ai', '抱歉，在本地文件系统中无法发送API请求。请使用本地服务器运行网站，例如使用Python的http.server或Node.js的http-server。');
+                    uploadedImagesData = [];
                     return;
                 }
                 
@@ -2252,30 +4742,76 @@
                 // 检查API配置是否完整
                 if (!apiKey || !apiUrl) {
                     addChatMessage('ai', '请先配置API Key和API URL，然后再发送消息。');
+                    uploadedImagesData = [];
                     return;
                 }
                 
                 // 构建请求数据
                 const model = aiModel === 'custom' ? customModel : aiModel;
+
+                // 根据深度思考开关调整系统提示词和参数
+                let systemPrompt = '你是天马行空创意团队小助手，帮助用户处理图片和文本信息。';
+                let temperature = 0.7;
+
+                if (deepThinkingEnabled) {
+                    systemPrompt = '你是天马行空创意团队小助手，帮助用户处理图片和文本信息。当用户提出问题时，请进行深度分析，提供全面、详细、有洞察力的回答。考虑多个角度，分析潜在原因，提供具体的解决方案或建议。';
+                    temperature = 0.8;
+                }
+
+                // 构建包含上下文的消息列表
+                const messagesWithContext = [
+                    {
+                        role: 'system',
+                        content: systemPrompt
+                    },
+                    ...conversationHistory.slice(-10)
+                ];
+
+                // 构建用户消息（支持图片分析）
+                let userMessageContent;
+                if (hasImages && uploadedImagesData.length > 0) {
+                    // 使用OpenAI Vision API格式：支持多模态输入
+                    userMessageContent = [];
+                    
+                    // 添加文本内容
+                    if (message) {
+                        userMessageContent.push({
+                            type: 'text',
+                            text: message
+                        });
+                    }
+                    
+                    // 添加图片内容（base64格式）
+                    uploadedImagesData.forEach(imgData => {
+                        userMessageContent.push({
+                            type: 'image_url',
+                            image_url: {
+                                url: imgData.url
+                            }
+                        });
+                    });
+                } else {
+                    userMessageContent = message;
+                }
+
+                messagesWithContext.push({
+                    role: 'user',
+                    content: userMessageContent
+                });
+
                 const requestData = {
                     model: model,
-                    messages: [
-                        {
-                            role: 'system',
-                            content: '你是天马行空创意团队小助手，帮助用户处理一些信息。'
-                        },
-                        {
-                            role: 'user',
-                            content: message
-                        }
-                    ],
-                    temperature: 0.7
+                    messages: messagesWithContext,
+                    temperature: temperature,
+                    stream: false
                 };
                 
-                // 生成随机排队名额
-                const queueNumber = Math.floor(Math.random() * 10) + 1;
-                // 显示加载状态
-                addChatMessage('ai', `<div class="loading"></div><p>正在排队中，您是第 ${queueNumber} 位...</p>`);
+                // 清空图片数据
+                uploadedImagesData = [];
+
+                // 根据是否有图片显示不同的加载状态
+                const loadingText = hasImages ? 'AI正在分析图片，请稍候...' : '深度思考生成中，请稍候...';
+                addChatMessage('ai', `<div class="loading"></div><p>${loadingText}</p><div class="thinking-indicator"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div>`);
                 
                 // 发送API请求（带重试机制）
                 async function makeRequestWithRetry(endpoint, options, maxRetries = 3) {
@@ -2283,6 +4819,9 @@
                     
                     while (retryCount < maxRetries) {
                         try {
+                            console.log(`正在发送请求到: ${endpoint}`);
+                            console.log(`请求数据大小: ${options.body ? options.body.length : 0} 字符`);
+                            
                             const response = await fetch(endpoint, options);
                             
                             if (response.status === 429) {
@@ -2293,7 +4832,7 @@
                                 // 更新加载状态
                                 const chatMessages = document.getElementById('chatMessages');
                                 chatMessages.removeChild(chatMessages.lastChild);
-                                addChatMessage('ai', `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p>`);
+                                addChatMessage('ai', `<div class="loading"></div><p>服务器负载较高，深度思考生成中... (第${retryCount}次尝试)</p><div class="thinking-indicator"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div>`);
                                 await new Promise(resolve => setTimeout(resolve, waitTime));
                                 continue;
                             }
@@ -2309,32 +4848,44 @@
                     throw new Error(`请求失败，已达到最大重试次数(${maxRetries})`);
                 }
                 
+                // 配置CORS代理（解决跨域问题）
+                const useCorsProxy = true;
+                const corsProxyUrl = 'https://corsproxy.io/?';
+                
+                let requestUrl = apiUrl;
+                if (useCorsProxy && window.location.hostname === 'localhost') {
+                    requestUrl = corsProxyUrl + encodeURIComponent(apiUrl);
+                    console.log('使用CORS代理:', requestUrl);
+                }
+                
                 const requestOptions = {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
                         'Authorization': `Bearer ${apiKey}`
                     },
                     body: JSON.stringify(requestData)
                 };
                 
-                makeRequestWithRetry(apiUrl, requestOptions)
+                makeRequestWithRetry(requestUrl, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                     // 移除加载状态
                     const chatMessages = document.getElementById('chatMessages');
                     chatMessages.removeChild(chatMessages.lastChild);
-                    
-                    // 显示AI回复
+
+                    // 显示AI回复 - 使用流式动画效果
                     console.log('API响应:', data);
+                    let content = '';
                     if (data.choices && data.choices[0] && data.choices[0].message) {
-                        addChatMessage('ai', data.choices[0].message.content);
+                        content = data.choices[0].message.content;
                     } else if (data.response) {
                         // 处理其他格式的API响应
-                        addChatMessage('ai', data.response);
+                        content = data.response;
                     } else if (data.result) {
                         // 处理另一种格式的API响应
-                        addChatMessage('ai', data.result);
+                        content = data.result;
                     } else {
                         // 显示详细的错误信息
                         let errorMessage = '抱歉，我无法处理你的请求。';
@@ -2344,6 +4895,119 @@
                             errorMessage += ' 请检查API配置是否正确，或者API返回格式是否符合预期。';
                         }
                         addChatMessage('ai', errorMessage);
+                        return;
+                    }
+
+                    // 创建消息容器用于流式显示
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'chat-message ai';
+
+                    const avatarDiv = document.createElement('div');
+                    avatarDiv.className = 'chat-avatar ai';
+                    avatarDiv.textContent = 'AI';
+
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'chat-content';
+
+                    // 创建复制按钮
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'copy-message-btn';
+                    copyBtn.innerHTML = '📋';
+                    copyBtn.title = '复制内容';
+                    copyBtn.onclick = function() {
+                        copyMessageContent(this, content);
+                    };
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-message-btn';
+                    deleteBtn.textContent = '×';
+                    deleteBtn.onclick = function() {
+                        const msgDiv = this.parentElement;
+                        if (msgDiv) {
+                            msgDiv.remove();
+                        }
+                    };
+
+                    messageDiv.appendChild(avatarDiv);
+                    messageDiv.appendChild(contentDiv);
+                    messageDiv.appendChild(copyBtn);
+                    messageDiv.appendChild(deleteBtn);
+                    chatMessages.appendChild(messageDiv);
+
+                    // 流式动画显示内容
+                    if (deepThinkingEnabled) {
+                        // 深度思考模式：显示思考过程 + 逐字显示结果
+                        let index = 0;
+                        const typingSpeed = 40; // 打字速度：40ms每字符
+
+                        // 记录用户当前滚动位置
+                        const wasAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop - chatMessages.clientHeight < 50;
+
+                        // 思考过程阶段 - 根据是否有图片显示不同的思考步骤
+                        const thinkingSteps = hasImages ? [
+                            '正在分析图片内容...',
+                            '识别图片中的元素...',
+                            '提取关键信息...',
+                            '组织分析结果...',
+                            '生成回答中...'
+                        ] : [
+                            '正在理解您的问题...',
+                            '分析问题关键点...',
+                            '搜索相关知识...',
+                            '整理思考思路...',
+                            '生成答案中...'
+                        ];
+                        let currentStep = 0;
+
+                        // 显示思考步骤
+                        const showThinkingStep = () => {
+                            if (currentStep < thinkingSteps.length) {
+                                contentDiv.innerHTML = `<div class="thinking-animation">
+                                    <div class="thinking-dots"><span></span><span></span><span></span></div>
+                                    <p class="thinking-text">${thinkingSteps[currentStep]}</p>
+                                </div>`;
+                                if (wasAtBottom) {
+                                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                                }
+                                currentStep++;
+                                setTimeout(showThinkingStep, 600);
+                            } else {
+                                // 思考完成，开始显示答案
+                                setTimeout(startTyping, 400);
+                            }
+                        };
+
+                        // 开始逐字显示答案
+                        const startTyping = () => {
+                            contentDiv.innerHTML = formatContent(content.substring(0, 1));
+                            index = 1;
+                            typeWriter();
+                        };
+
+                        const typeWriter = () => {
+                            if (index < content.length) {
+                                // 显示下一个字符
+                                contentDiv.innerHTML = formatContent(content.substring(0, index + 1));
+                                index++;
+                                // 智能滚动：只在用户原本就在底部时才自动滚动
+                                if (wasAtBottom) {
+                                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                                }
+                                setTimeout(typeWriter, typingSpeed);
+                            } else {
+                                // 打字完成，记录到对话历史
+                                conversationHistory.push({
+                                    role: 'assistant',
+                                    content: content
+                                });
+                            }
+                        };
+
+                        // 开始显示思考过程
+                        showThinkingStep();
+                    } else {
+                        // 普通模式：直接显示（保留原有的直接添加方式）
+                        addChatMessage('ai', content);
                     }
                 })
                 .catch(error => {
@@ -2351,14 +5015,60 @@
                     const chatMessages = document.getElementById('chatMessages');
                     chatMessages.removeChild(chatMessages.lastChild);
                     
-                    // 显示错误信息
-                    addChatMessage('ai', `抱歉，请求失败。请检查API配置是否正确，或者稍后再试。错误信息: ${error.message}`);
+                    // 详细错误诊断
+                    let errorMessage = '抱歉，请求失败。';
+                    let debugInfo = '';
+                    
+                    if (error.message === 'Failed to fetch') {
+                        errorMessage += '<br><br><strong>可能的原因：</strong>';
+                        errorMessage += '<ul style="text-align: left; margin-left: 20px; margin-top: 10px;">';
+                        errorMessage += '<li>1. <strong>API URL配置错误</strong>：请检查⚙️ API配置中的API URL是否正确</li>';
+                        errorMessage += '<li>2. <strong>网络连接问题</strong>：请检查网络连接是否正常</li>';
+                        errorMessage += '<li>3. <strong>CORS跨域限制</strong>：浏览器可能阻止了跨域请求</li>';
+                        errorMessage += '<li>4. <strong>API服务器不可用</strong>：目标服务器可能暂时无法访问</li>';
+                        errorMessage += '</ul>';
+                        errorMessage += '<br><strong>建议：</strong>';
+                        errorMessage += '<p>请打开浏览器开发者工具（按F12），查看Console和Network标签页获取更详细的错误信息。</p>';
+                    } else {
+                        errorMessage += `错误信息: ${error.message}`;
+                    }
+                    
+                    addChatMessage('ai', errorMessage);
                     console.error('API请求失败:', error);
+                    console.log('请检查以下配置:');
+                    console.log('API URL:', apiUrl);
+                    console.log('API Key是否已设置:', apiKey ? '是' : '否');
+                    console.log('请求数据大小:', requestData.messages ? JSON.stringify(requestData.messages).length : 0, '字符');
                 });
             }
-        }
         
         // 生成图片
+        // 将宽高比转换为尺寸字符串（如 1024x1024）
+        function convertAspectRatioToSize(aspectRatio) {
+            const sizeMap = {
+                '1:1': '1024x1024',
+                '2:3': '896x1344',
+                '3:4': '768x1024',
+                '4:3': '1024x768',
+                '9:16': '1024x1792',
+                '16:9': '1792x1024'
+            };
+            return sizeMap[aspectRatio] || '1024x1024';
+        }
+        
+        // 将宽高比转换为像素值
+        function convertAspectRatioToPixels(aspectRatio) {
+            const pixelsMap = {
+                '1:1': { width: 1024, height: 1024 },
+                '2:3': { width: 896, height: 1344 },
+                '3:4': { width: 768, height: 1024 },
+                '4:3': { width: 1024, height: 768 },
+                '9:16': { width: 1024, height: 1792 },
+                '16:9': { width: 1792, height: 1024 }
+            };
+            return pixelsMap[aspectRatio] || { width: 1024, height: 1024 };
+        }
+        
         function generateImage() {
             const imagePrompt = document.getElementById('imagePrompt').value.trim();
             const imageReference = document.getElementById('imageReference').value.trim();
@@ -2387,10 +5097,39 @@
                 return;
             }
             
-            // 生成随机排队名额
-            const queueNumber = Math.floor(Math.random() * 10) + 1;
-            // 显示加载状态
-            imageResult.innerHTML = `<div class="loading"></div><p>正在排队中，您是第 ${queueNumber} 位...</p>`;
+            // 显示加载状态（即梦风格动画）
+            imageResult.innerHTML = `
+                <div class="image-generating-container">
+                    <div class="generation-animation">
+                        <div class="generation-ring"></div>
+                        <div class="generation-core"></div>
+                        <div class="generation-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </div>
+                    <div class="generation-text">
+                        <div class="generation-title">
+                            正在生成图片
+                            <span class="generation-dots">
+                                <span class="generation-dot"></span>
+                                <span class="generation-dot"></span>
+                                <span class="generation-dot"></span>
+                            </span>
+                        </div>
+                        <div class="generation-subtitle">AI正在创作出独特的艺术作品...</div>
+                    </div>
+                    <div class="generation-progress">
+                        <div class="generation-progress-bar"></div>
+                    </div>
+                </div>
+            `;
             
             // 构建请求数据
             let requestData = {};
@@ -2415,7 +5154,7 @@
             } else if (imageModel === 'ideogram-v3') {
                 requestData = {
                     prompt: imagePrompt,
-                    aspect_ratio: imageSize === '1024x1024' ? '1:1' : imageSize === '1024x1792' ? '9:16' : '16:9'
+                    aspect_ratio: imageSize
                 };
             } else if (imageModel === 'nano-banana') {
                 requestData = {
@@ -2423,19 +5162,21 @@
                     num_images: 1
                 };
             } else if (imageModel === 'z-image-turbo') {
+                const zSize = convertAspectRatioToSize(imageSize);
                 requestData = {
                     model: imageModel,
                     prompt: imagePrompt,
-                    size: imageSize,
+                    size: zSize,
                     n: 1,
                     watermark: false,
                     prompt_extend: true
                 };
             } else if (imageModel === 'dall-e-3') {
+                const dalleSize = convertAspectRatioToSize(imageSize);
                 requestData = {
                     model: imageModel,
                     prompt: imagePrompt,
-                    size: imageSize,
+                    size: dalleSize,
                     n: 1,
                     quality: 'standard',
                     style: 'vivid',
@@ -2456,40 +5197,33 @@
                     }
                 };
             } else if (imageModel === 'stability-ai/sdxl') {
+                const { width, height } = convertAspectRatioToPixels(imageSize);
                 requestData = {
                     version: "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
                     input: {
                         prompt: imagePrompt,
-                        width: parseInt(imageSize.split('x')[0]),
-                        height: parseInt(imageSize.split('x')[1]),
+                        width: width,
+                        height: height,
                         num_outputs: 1,
                         guidance_scale: 7.5,
                         seed: Math.floor(Math.random() * 1000000)
                     }
                 };
             } else if (imageModel === 'flux-dev' || imageModel === 'flux-pro') {
+                const fluxSize = convertAspectRatioToSize(imageSize);
                 requestData = {
                     model: imageModel,
                     prompt: imagePrompt,
-                    size: imageSize,
+                    size: fluxSize,
                     n: 1,
                     response_format: 'url'
                 };
-            } else if (imageModel === 'doubao-seedream-4-0-250828' || imageModel === 'doubao-seedream-5-0-260128') {
-                requestData = {
-                    model: imageModel,
-                    prompt: imagePrompt,
-                    size: imageSize,
-                    sequential_image_generation: 'disabled',
-                    stream: false,
-                    response_format: 'url',
-                    watermark: true
-                };
             } else {
+                const defaultSize = convertAspectRatioToSize(imageSize);
                 requestData = {
                     model: imageModel,
                     prompt: imagePrompt,
-                    size: imageSize,
+                    size: defaultSize,
                     n: 1
                 };
             }
@@ -2536,7 +5270,7 @@
                             retryCount++;
                             const waitTime = Math.pow(2, retryCount) * 1000; // 指数退避
                             console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
-                            imageResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p>`;
+                            imageResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，深度思考生成中... (第${retryCount}次尝试)</p><div class="thinking-indicator"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div>`;
                             await new Promise(resolve => setTimeout(resolve, waitTime));
                             continue;
                         } else if (response.status === 500) {
@@ -2607,8 +5341,8 @@
                                 for (const part of candidate.content.parts) {
                                     if (part.image) {
                                         const imageUrl = `data:image/png;base64,${part.image}`;
-                                        // 显示生成的图片
-                                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                        // 显示带水印的图片
+                                        displayImageWithWatermark(imageUrl, imageResult);
                                         return;
                                     }
                                 }
@@ -2632,12 +5366,12 @@
                                     const responseData = JSON.parse(choice.message.content);
                                     if (responseData.image) {
                                         const imageUrl = responseData.image;
-                                        // 显示生成的图片
-                                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                        // 显示带水印的图片
+                                        displayImageWithWatermark(imageUrl, imageResult);
                                     } else if (responseData.url) {
                                         const imageUrl = responseData.url;
-                                        // 显示生成的图片
-                                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                        // 显示带水印的图片
+                                        displayImageWithWatermark(imageUrl, imageResult);
                                     } else {
                                         // 直接显示内容
                                         imageResult.innerHTML = `<p>${choice.message.content}</p>`;
@@ -2648,9 +5382,9 @@
                                     const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
                                     const match = content.match(markdownImageRegex);
                                     if (match && match[1]) {
-                                        // 提取Markdown中的图片URL并显示
+                                        // 提取Markdown中的图片URL并显示带水印的图片
                                         const imageUrl = match[1];
-                                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                        displayImageWithWatermark(imageUrl, imageResult);
                                     } else {
                                         // 直接显示内容
                                         imageResult.innerHTML = `<p>${content}</p>`;
@@ -2680,13 +5414,13 @@
                         // Stability AI SDXL模型的响应格式处理（异步）
                         if (data.status) {
                             if (data.status === 'succeeded' && data.output) {
-                                // 显示生成的图片
+                                // 显示生成的图片（带水印）
                                 if (Array.isArray(data.output) && data.output.length > 0) {
                                     const imageUrl = data.output[0];
-                                    imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                    displayImageWithWatermark(imageUrl, imageResult);
                                 } else if (data.output) {
                                     const imageUrl = data.output;
-                                    imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                    displayImageWithWatermark(imageUrl, imageResult);
                                 } else {
                                     // 显示错误信息
                                     let errorMessage = '抱歉，图片生成失败。';
@@ -2724,13 +5458,13 @@
                                         const statusData = await statusResponse.json();
                                         
                                         if (statusData.status === 'succeeded' && statusData.output) {
-                                            // 显示生成的图片
+                                            // 显示生成的图片（带水印）
                                             if (Array.isArray(statusData.output) && statusData.output.length > 0) {
                                                 const imageUrl = statusData.output[0];
-                                                imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                                displayImageWithWatermark(imageUrl, imageResult);
                                             } else if (statusData.output) {
                                                 const imageUrl = statusData.output;
-                                                imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                                                displayImageWithWatermark(imageUrl, imageResult);
                                             } else {
                                                 // 显示错误信息
                                                 let errorMessage = '抱歉，图片生成失败。';
@@ -2773,8 +5507,8 @@
                         }
                     } else if (imageModel === 'ideogram-v3') {
                         if (data.data && data.data[0] && data.data[0].url) {
-                            // 显示生成的图片
-                            imageResult.innerHTML = `<img src="${data.data[0].url}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${data.data[0].url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${data.data[0].url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                            // 显示带水印的图片
+                            displayImageWithWatermark(data.data[0].url, imageResult);
                         } else {
                             // 显示错误信息
                             let errorMessage = '抱歉，图片生成失败。';
@@ -2816,8 +5550,8 @@
                         }
                         
                         if (imageUrl) {
-                            // 显示生成的图片
-                            imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                            // 显示带水印的图片
+                            displayImageWithWatermark(imageUrl, imageResult);
                         } else {
                             // 显示错误信息
                             let errorMessage = '抱歉，图片生成失败。';
@@ -2841,17 +5575,17 @@
                             }
                         }
                         
-                        // 显示生成的图片
-                        imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                        // 显示带水印的图片
+                        displayImageWithWatermark(imageUrl, imageResult);
                     } else if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
                         // 检查是否为Markdown格式的图片链接
                         const content = data.choices[0].message.content;
                         const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
                         const match = content.match(markdownImageRegex);
                         if (match && match[1]) {
-                            // 提取Markdown中的图片URL并显示
+                            // 提取Markdown中的图片URL并显示带水印的图片
                             const imageUrl = match[1];
-                            imageResult.innerHTML = `<img src="${imageUrl}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${imageUrl}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                            displayImageWithWatermark(imageUrl, imageResult);
                         } else {
                             // 显示错误信息
                             let errorMessage = '抱歉，图片生成失败。';
@@ -2923,7 +5657,7 @@
             // 生成随机排队名额
             const queueNumber = Math.floor(Math.random() * 10) + 1;
             // 显示加载状态
-            videoResult.innerHTML = `<div class="loading"></div><p>正在排队中，您是第 ${queueNumber} 位...</p>`;
+            videoResult.innerHTML = `<div class="loading"></div><p>深度思考生成中，请稍候...</p><div class="thinking-indicator"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div>`;
             
             // 构建请求数据
             const requestData = {
@@ -2960,7 +5694,7 @@
                             retryCount++;
                             const waitTime = Math.pow(2, retryCount) * 3000; // 指数退避，增加基础等待时间
                             console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
-                            videoResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p><p style="font-size: 14px; color: #666;">系统已自动增加等待时间，以避免再次触发限制。</p><p style="font-size: 12px; color: #999; margin-top: 10px;">建议：如果多次尝试后仍失败，请稍后再试或联系API提供商。</p>`;
+                            videoResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，深度思考生成中... (第${retryCount}次尝试)</p><div class="thinking-indicator"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div><p style="font-size: 14px; color: #666;">系统已自动增加等待时间，以避免再次触发限制。</p>`;
                             await new Promise(resolve => setTimeout(resolve, waitTime));
                             continue;
                         } else {
@@ -3215,7 +5949,7 @@
                             retryCount++;
                             const waitTime = Math.pow(2, retryCount) * 1000; // 指数退避
                             console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
-                            imageResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p>`;
+                            imageResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，深度思考生成中... (第${retryCount}次尝试)</p><div class="thinking-indicator"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div>`;
                             await new Promise(resolve => setTimeout(resolve, waitTime));
                             continue;
                         } else if (response.status === 500) {
@@ -3254,8 +5988,8 @@
                     const data = await response.json();
                     console.log('图片查询API响应:', data);
                     if (data.state === 'success' && data.image_url) {
-                        // 图片生成成功，显示图片
-                        imageResult.innerHTML = `<img src="${data.image_url}" alt="生成的图片"><p style="margin-top: 20px; font-size: 16px; font-weight: 600; color: #333;">图片生成成功！</p><div style="margin-top: 20px; display: flex; gap: 10px;"><button onclick="downloadImage('${data.image_url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📥 下载</button><button onclick="shareImage('${data.image_url}')" style="padding: 10px 20px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 5px;">📤 分享</button></div>`;
+                        // 图片生成成功，显示带水印的图片
+                        displayImageWithWatermark(data.image_url, imageResult);
                     } else if (data.state === 'failed' || data.state === 'error') {
                         // 图片生成失败
                         let errorMessage = '图片生成失败。';
@@ -3317,7 +6051,7 @@
             // 生成随机排队名额
             const queueNumber = Math.floor(Math.random() * 10) + 1;
             // 显示加载状态
-            musicResult.innerHTML = `<div class="loading"></div><p>正在排队中，您是第 ${queueNumber} 位...</p>`;
+            musicResult.innerHTML = `<div class="loading"></div><p>深度思考生成中，请稍候...</p><div class="thinking-indicator"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div>`;
             
             // 构建请求数据（根据361API文档）
             const requestData = {
@@ -3364,7 +6098,7 @@
                             retryCount++;
                             const waitTime = Math.pow(2, retryCount) * 3000; // 指数退避，增加基础等待时间
                             console.log(`429错误，等待${waitTime/1000}秒后重试 (第${retryCount}次)`);
-                            musicResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，正在排队中... (第${retryCount}次尝试)</p><p style="font-size: 14px; color: #666;">系统已自动增加等待时间，以避免再次触发限制。</p>`;
+                            musicResult.innerHTML = `<div class="loading"></div><p>服务器负载较高，深度思考生成中... (第${retryCount}次尝试)</p><div class="thinking-indicator"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div><p style="font-size: 14px; color: #666;">系统已自动增加等待时间，以避免再次触发限制。</p>`;
                             await new Promise(resolve => setTimeout(resolve, waitTime));
                             continue;
                         }
