@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" href="photo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="photo/logo.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 睿言站点验证 -->
+    <meta name="rs-site-verification" content="bcafcgfrvldmvvrs" />
+    <title>极简设备，极致表达 —— 天马行空创意团队《人生道路之反转》圆满杀青！ - 天马行空创意网</title>
+    <style>
+        /* 复用首页的CSS样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; }
+        .container { width: 1200px; margin: 0 auto; }
+        header { background-color: #fff; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-weight: bold; 
+            color: #0066cc; 
+        }
+        .logo img { 
+            margin-right: 10px; 
+            height: 50px; 
+        }
+        .logo-main { 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+        }
+        .logo-sub { 
+            font-size: 12px; 
+            color: #666; 
+            font-weight: normal; 
+        }
+        .search { display: flex; }
+        .search input { padding: 8px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; }
+        .search button { padding: 8px 15px; background-color: #0066cc; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        nav { background-color: #0066cc; margin-top: 10px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { position: relative; }
+        nav ul li a { display: block; padding: 15px 20px; color: white; text-decoration: none; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #0052a3; }
+        nav ul li .dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: #0066cc; min-width: 200px; z-index: 1000; }
+        nav ul li:hover .dropdown { display: block; }
+        nav ul li .dropdown li { display: block; }
+        .banner {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.2"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.2"/><circle cx="60" cy="80" r="2" fill="white" opacity="0.2"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.2"/><circle cx="90" cy="20" r="1.5" fill="white" opacity="0.2"/></svg>');
+            background-size: 200px 200px;
+            animation: float 15s infinite linear;
+            transition: all 0.5s ease;
+        }
+        
+        @keyframes float {
+            from { transform: translateX(0) translateY(0); }
+            to { transform: translateX(-200px) translateY(-200px); }
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 0 6px 16px rgba(0,0,0,0.35);
+            font-weight: 800;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+        
+        .banner p {
+            font-size: 20px;
+            margin-bottom: 35px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            color: rgba(255,255,255,0.98);
+            font-weight: 400;
+        }
+        .main-content { display: flex; margin-top: 20px; gap: 20px; }
+        .sidebar { width: 250px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .sidebar-section { padding: 15px; border-bottom: 1px solid #eee; }
+        .sidebar-section h3 { color: #0066cc; margin-bottom: 15px; font-size: 18px; }
+        .login-form input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .login-form button { width: 100%; padding: 10px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .login-options { display: flex; justify-content: space-between; margin-top: 10px; font-size: 14px; }
+        .login-options a { color: #0066cc; text-decoration: none; }
+        .other-login { margin-top: 15px; }
+        .sidebar-links { list-style: none; }
+        .sidebar-links li { margin-bottom: 10px; }
+        .sidebar-links li a { color: #333; text-decoration: none; display: block; padding: 5px 0; }
+        .sidebar-links li a:hover { color: #0066cc; }
+        .content { flex: 1; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px; }
+        .content-section { margin-bottom: 30px; }
+        .content-section h2 { color: #0066cc; margin-bottom: 20px; font-size: 22px; }
+        .content-section h3 { color: #333; margin-bottom: 15px; font-size: 18px; }
+        footer { background-color: #333; color: white; text-align: center; padding: 20px 0; margin-top: 30px; }
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        /* 新闻详情样式 */
+        .news-detail {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .news-detail h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .news-detail .news-meta {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .news-detail .news-content {
+            line-height: 1.8;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .news-detail .news-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .news-detail .news-content h2 {
+            color: #333;
+            font-size: 22px;
+            margin: 25px 0 15px;
+        }
+        
+        .news-detail .news-content h3 {
+            color: #444;
+            font-size: 18px;
+            margin: 20px 0 15px;
+        }
+        
+        .news-detail .news-content ul,
+        .news-detail .news-content ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .news-detail .news-content li {
+            margin-bottom: 10px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* 赞赏码广告位 */
+        .appreciation-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+            margin: 20px 0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .appreciation-section h3 {
+            color: #fa709a;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .appreciation-section p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .appreciation-qrcode {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .appreciation-qrcode img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tmxk-cinema.css">
+</head>
+<body class="page-cinema" data-nav-active="about">
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="ambient" aria-hidden="true">
+        <div class="ambient-blob b1"></div>
+        <div class="ambient-blob b2"></div>
+        <div class="ambient-blob b3"></div>
+        <div class="ambient-mesh"></div>
+        <div class="ambient-grid"></div>
+        <span class="ambient-spark s1"></span>
+        <span class="ambient-spark s2"></span>
+        <span class="ambient-spark s3"></span>
+        <span class="ambient-spark s4"></span>
+    </div>
+    <div class="page-wrap">
+    <a href="#main" class="skip-link">跳至主要内容</a>
+<div class="site-top" id="siteTop">
+    <div class="site-top-shell">
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo" aria-label="天马行空创意网首页">
+                <img src="photo/logo.png" alt="天马行空创意网 标志" width="50" height="50">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </a>
+            <div class="slogan">拥抱创意 点亮人生</div>
+            <div class="header-actions">
+                <div class="search">
+                    <input type="search" placeholder="搜索..." aria-label="搜索网站内容">
+                    <button type="button" class="search-btn" aria-label="搜索">🔍</button>
+                </div>
+                <button id="themeToggle" class="theme-btn-cinema" type="button" aria-label="切换主题">🌙</button>
+                <a href="mobile-app.html" class="header-cta-cinema">AI App 下载</a>
+            </div>
+        </div>
+    </header>
+    <nav aria-label="主导航" class="site-nav-exp">
+        <div class="nav-exp-head">
+            <span class="nav-exp-tag">NAV // SYSTEM</span>
+            <span class="nav-exp-line" aria-hidden="true"></span>
+        </div>
+        <div class="container nav-scroll">
+            <ul>
+                <li><a href="index.html" data-nav-index="01" data-nav-key="home">首页</a></li>
+                <li>
+                    <a href="about.html" class="nav-is-active" data-nav-index="02" data-nav-key="about">关于我们</a>
+                    <ul class="dropdown" aria-label="关于我们子菜单">
+                        <li><a href="business-center.html">业务中心</a></li>
+                        <li><a href="news.html">新闻动态</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="team-info.html" aria-haspopup="true" data-nav-index="03" data-nav-key="services">服务系统</a>
+                    <ul class="dropdown" aria-label="服务系统子菜单">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="exam-center.html">在线考试中心</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank" rel="noopener noreferrer">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank" rel="noopener noreferrer" data-nav-index="04" data-nav-key="work">工作系统</a></li>
+                <li>
+                    <a href="download-materials.html" aria-haspopup="true" data-nav-index="05" data-nav-key="download">下载专区</a>
+                    <ul class="dropdown" aria-label="下载专区子菜单">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html" data-nav-index="06" data-nav-key="video">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    </div>
+    <div class="site-top-spacer" id="siteTopSpacer" aria-hidden="true"></div>
+
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <span class="page-hero-tag">NEWS</span>
+            <h1 class="page-hero-title">《人生道路之反转》圆满杀青</h1>
+            <p class="page-hero-desc">极简设备，极致表达 · 团队微短片创作</p>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>服务登录</h3>
+                <form class="login-form">
+                    <input type="text" placeholder="请输入账号/手机">
+                    <input type="password" placeholder="密码">
+                    <button type="submit">登录</button>
+                    <div class="login-options">
+                        <a href="#">手机快捷登录</a>
+                        <a href="register.html">注册></a>
+                    </div>
+                    <div class="other-login">
+                        
+                        <!-- 可以添加第三方登录图标 -->
+                    </div>
+                </form>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>服务范围</h3>
+                <ul class="sidebar-links">
+                    <li><a href="contribute.html">投稿</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>新闻动态</h3>
+                <ul class="sidebar-links">
+                    <li><a href="news.html">MORE+</a></li>
+                </ul>
+            </div>
+            
+            <!-- 赞赏码广告位 -->
+            <div class="sidebar-section" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 8px; margin: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: #fa709a; text-align: center; margin-bottom: 15px; font-size: 16px;">💖 支持我们</h3>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <p style="font-size: 14px; color: #666; margin-bottom: 10px;">如果你喜欢我们的内容，不妨支持一下我们！</p>
+                    <div style="width: 150px; height: 150px; margin: 0 auto 10px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+                        <img src="photo/zsm.jpg" alt="赞赏码" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">扫码支持我们的创作</p>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <p style="font-size: 13px; color: #666;">关注公众号获取更多精彩内容</p>
+                    <p style="font-size: 12px; color: #999; margin-top: 5px;">回复「权限码」获取下载权限</p>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <div class="news-detail">
+                <h1>极简设备，极致表达 —— 天马行空创意团队《人生道路之反转》圆满杀青！</h1>
+                <div class="news-meta">
+                    <span>📅 2024-06-10</span>
+                    <span>👁️ 阅读：96</span>
+                    <span>📝 来源：团队官方</span>
+                </div>
+                <div class="news-content">
+                    <p>当最后一段剪辑素材导出成功，天马行空创意团队凭借两部手机、一个三脚架与一台剪辑电脑，历时数日完成了微短片《人生道路之反转》的全部拍摄与前期制作！没有专业道具加持，没有复杂设备支撑，我们用最极简的配置，最饱满的热情，将青春选择与人生反转的深刻主题，化作了直抵人心的影像作品。</p>
+                    
+                    <p>《人生道路之反转》的故事，藏着每个年轻人都曾经历的青春与迷茫。毕业季的草坪上，三张年轻的脸庞定格在合影里，阿华的稳定工作、阿宾的家业继承、辉哥看似 "自由" 的选择，背后是校园里被弱化的阶层差异，是踏入社会后不得不面对的现实鸿沟。而一年后的快递站重逢，曾经的人生轨迹彻底反转 —— 阿华放弃稳定追寻自由，阿宾从家业继承者沦为收废品从业者，辉哥在平凡的监管岗位上站稳脚跟。这个充满张力的故事，本身就自带打动人心的力量，也让我们坚信，好故事无需复杂道具点缀，真诚便是最好的 "滤镜"。</p>
+                    
+                    <p>拍摄过程中，极简设备既是挑战，也是我们回归创作本质的契机。两部手机轮流承担起拍摄重任，为了捕捉毕业场景的自然光影，我们反复调整拍摄角度，利用自然光勾勒青春轮廓；三脚架成为稳定画面的关键，无论是草坪上的对话场景，还是快递站的重逢戏份，都依靠它保证了镜头的平稳流畅。没有专业收音设备，演员们便刻意放慢语速、清晰发声，在安静的拍摄环境中确保台词清晰可辨；没有定制场景道具，我们便就地取材 —— 草坪即是天然布景，小黄车成为最贴合剧情的 "道具"，让故事更具生活质感。</p>
+                    
+                    <p>演员们的全情投入，更是为影片注入了灵魂。为了还原毕业时的真挚情感，四人反复揣摩角色心态，从对话中的语气起伏，到眼神里的惊讶、释然与感慨，每一个细节都经过多次磨合；拍摄快递站重逢的关键戏份时，演员们精准拿捏住角色重逢后的意外与唏嘘，用自然流露的情绪，传递出 "人生无定途" 的深层感悟。而后期剪辑阶段，一台电脑成为创作的核心阵地，我们逐帧筛选素材，调整画面节奏，搭配贴合剧情的背景音乐，让故事的起承转合更加流畅自然，将文字剧本里的情感张力，最大化呈现在影像中。</p>
+                    
+                    <p>这部短片的完成，不仅是一个故事的落地，更是团队协作与创作热情的见证。拍摄时，有人负责举持手机调整角度，有人紧盯三脚架确保稳定；没有分工明确的专业剧组配置，我们既是演员，也是场务、摄像与剪辑师，每个人都身兼数职，却始终充满干劲 —— 因为我们都坚信，对创作的热爱，能弥补设备的不足；对故事的执着，能跨越条件的局限。</p>
+                    
+                    <p>影片的核心主题，或许正是我们拍摄经历的真实写照："人生无论怎么选择都会有遗憾，但人们总是认为没走的那条路上会开满鲜花"。就像我们用极简设备拍摄的选择，没有专业配置的 "鲜花"，却在全力以赴的过程中，收获了独属于创作的成就感。我们希望这部影片能让每一位观众明白，人生没有既定的完美轨迹，无论选择哪条路，都有属于自己的风景；而创作也无需被设备束缚，只要心怀热爱与真诚，就能让好故事被看见。</p>
+                    
+                    <p>如今，《人生道路之反转》已顺利完成拍摄与前期剪辑，极简设备打造的影像里，藏着最真实的青春与人生。感谢团队四位成员的全力以赴，感谢每一次为了一个镜头的反复尝试，感谢在极简条件下依然坚守的创作初心。</p>
+                    
+                    <p>天马行空创意团队</p>
+                </div>
+                <a href="news.html" class="back-link">← 返回新闻列表</a>
+            </div>
+            
+            <!-- 睿言评论模块 -->
+            <div class="content-section reveal-ready">
+                <h2>留言评论</h2>
+                <div id="RUI-SPEAK" data-app-id="MTc2ODM4NjM2NzExMDg2Ng==" data-app-key="Cc1r4evyAzbk/zJbU+lghMZEvG9wO3Un8xhX5hKc1ro=" data-article-no="news-detail2"></div>
+            </div>
+        </main>
+    </div>
+    </div><!-- /.page-wrap -->
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利. <a href="http://m.tmxkcy.xyz" target="_blank" style="color: #0066cc; text-decoration: none;">手机版</a></p>
+            <div class="disclaimer">
+                <h3>免责声明</h3>
+                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+                <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+            </div>
+        </div>
+    </footer>
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+    
+    <!-- 睿言评论模块脚本 -->
+    <script src="https://h5.ruispeak.cn/rs.js" type="text/javascript"></script>
+    
+    <!-- 动态修改评论模块文本 -->
+    <script>
+        // 等待页面加载完成
+        window.addEventListener('load', function() {
+            // 定期检查评论模块是否加载完成
+            const checkCommentModule = setInterval(function() {
+                let allElementsUpdated = false;
+                
+                // 1. 查找并修改自律公约链接文本
+                const pactLink = document.querySelector('.RS-cg-a[href="https://h5.ruispeak.cn/html/pact.html"]');
+                if (pactLink && pactLink.textContent === '睿言云评《自律公约》') {
+                    pactLink.textContent = '天马行空创意网《自律公约》';
+                }
+                
+                // 2. 查找并修改自律公约标题文本
+                const titleText = document.querySelector('.title-text');
+                if (titleText && titleText.textContent === '睿言云评用户跟帖自律公约') {
+                    titleText.textContent = '天马行空创意创意网用户跟帖自律公告';
+                }
+                
+                // 检查是否所有元素都已更新完成
+                if (pactLink && titleText) {
+                    allElementsUpdated = true;
+                }
+                
+                // 如果所有元素都已更新，清除定时器
+                if (allElementsUpdated) {
+                    clearInterval(checkCommentModule);
+                }
+            }, 500);
+            
+            // 10秒后停止检查，防止无限循环
+            setTimeout(function() {
+                clearInterval(checkCommentModule);
+            }, 10000);
+        });
+    </script>
+    <script src="js/tmxk-cinema.js"></script>
+    <script src="js/search-common.js"></script>
+</body>
+</html>

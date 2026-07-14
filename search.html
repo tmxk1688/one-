@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" href="photo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="photo/logo.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索结果 - 天马行空创意网</title>
+    <style>
+        /* 复用首页的CSS样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; }
+        .container { width: 1200px; margin: 0 auto; }
+        header { background-color: #fff; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-weight: bold; 
+            color: #0066cc; 
+        }
+        .logo img { 
+            margin-right: 10px; 
+            height: 50px; 
+        }
+        .logo-main { 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+        }
+        .logo-sub { 
+            font-size: 12px; 
+            color: #666; 
+            font-weight: normal; 
+        }
+        .search { display: flex; }
+        .search input { 
+            padding: 8px 12px; 
+            width: 300px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px 0 0 4px; 
+            border-right: none; 
+            outline: none; 
+            transition: border-color 0.3s; 
+        }
+        .search input:focus { 
+            border-color: #0066cc; 
+        }
+        .search button { 
+            padding: 8px 15px; 
+            background: linear-gradient(135deg, #0066cc, #00aaff); 
+            color: white; 
+            border: none; 
+            border-radius: 0 4px 4px 0; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            font-weight: bold; 
+        }
+        .search button:hover { 
+            background: linear-gradient(135deg, #00aaff, #0066cc); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+        }
+        nav { background-color: #0066cc; margin-top: 10px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { position: relative; }
+        nav ul li a { display: block; padding: 15px 20px; color: white; text-decoration: none; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #0052a3; }
+        nav ul li .dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: #0066cc; min-width: 200px; z-index: 1000; }
+        nav ul li:hover .dropdown { display: block; }
+        nav ul li .dropdown li { display: block; }
+        .banner { 
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); 
+            color: white; 
+            padding: 60px 0; 
+            text-align: center; 
+            margin-top: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            border-radius: 0 0 10px 10px; 
+        }
+        .banner h1 { 
+            font-size: 32px; 
+            margin-bottom: 20px; 
+        }
+        .main-content { display: flex; margin-top: 20px; gap: 20px; }
+        .sidebar { width: 250px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .sidebar-section { padding: 15px; border-bottom: 1px solid #eee; }
+        .sidebar-section h3 { color: #0066cc; margin-bottom: 15px; font-size: 18px; }
+        .sidebar-links { list-style: none; }
+        .sidebar-links li { margin-bottom: 10px; }
+        .sidebar-links li a { color: #333; text-decoration: none; display: block; padding: 8px 12px; border-radius: 6px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .sidebar-links li a::before { content: ''; position: absolute; left: 0; top: 0; width: 0; height: 100%; background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 102, 204, 0.2)); transition: width 0.3s ease; z-index: -1; }
+        .sidebar-links li a:hover { color: #0066cc; transform: translateX(5px); box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15); }
+        .sidebar-links li a:hover::before { width: 100%; }
+        .content { flex: 1; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px; }
+        .content-section { margin-bottom: 30px; }
+        .content-section h2 { color: #0066cc; margin-bottom: 20px; font-size: 22px; }
+        footer { background-color: #333; color: white; text-align: center; padding: 20px 0; margin-top: 30px; }
+        
+        /* 搜索结果样式 */
+        .search-results-header {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+        }
+        
+        .search-query {
+            color: #0066cc;
+            font-weight: bold;
+        }
+        
+        .search-result {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid #4facfe;
+        }
+        
+        .search-result:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+        
+        .search-result-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .search-result-title a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .search-result-title a:hover {
+            color: #4facfe;
+        }
+        
+        .search-result-content {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .search-result-meta {
+            color: #999;
+            font-size: 14px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .search-highlight {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        /* 分页样式 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        
+        .pagination button {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination button:hover {
+            background: #0066cc;
+            color: white;
+            border-color: #0066cc;
+        }
+        
+        .pagination button.active {
+            background: #0066cc;
+            color: white;
+            border-color: #0066cc;
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* 搜索建议样式 */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestion {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .search-suggestion:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .search-suggestion-highlight {
+            color: #0066cc;
+            font-weight: bold;
+        }
+        
+        /* 空结果样式 */
+        .empty-results {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+        
+        .empty-results h3 {
+            margin-bottom: 10px;
+            color: #666;
+        }
+    </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tmxk-cinema.css">
+</head>
+<body class="page-cinema" data-nav-active="home">
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="ambient" aria-hidden="true">
+        <div class="ambient-blob b1"></div>
+        <div class="ambient-blob b2"></div>
+        <div class="ambient-blob b3"></div>
+        <div class="ambient-mesh"></div>
+        <div class="ambient-grid"></div>
+        <span class="ambient-spark s1"></span>
+        <span class="ambient-spark s2"></span>
+        <span class="ambient-spark s3"></span>
+        <span class="ambient-spark s4"></span>
+    </div>
+    <div class="page-wrap">
+    <a href="#main" class="skip-link">跳至主要内容</a>
+<div class="site-top" id="siteTop">
+    <div class="site-top-shell">
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo" aria-label="天马行空创意网首页">
+                <img src="photo/logo.png" alt="天马行空创意网 标志" width="50" height="50">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </a>
+            <div class="slogan">拥抱创意 点亮人生</div>
+            <div class="header-actions">
+                <div class="search">
+                    <input type="search" placeholder="搜索..." aria-label="搜索网站内容">
+                    <button type="button" class="search-btn" aria-label="搜索">🔍</button>
+                </div>
+                <button id="themeToggle" class="theme-btn-cinema" type="button" aria-label="切换主题">🌙</button>
+                <a href="mobile-app.html" class="header-cta-cinema">AI App 下载</a>
+            </div>
+        </div>
+    </header>
+    <nav aria-label="主导航" class="site-nav-exp">
+        <div class="nav-exp-head">
+            <span class="nav-exp-tag">NAV // SYSTEM</span>
+            <span class="nav-exp-line" aria-hidden="true"></span>
+        </div>
+        <div class="container nav-scroll">
+            <ul>
+                <li><a href="index.html" class="nav-is-active" data-nav-index="01" data-nav-key="home">首页</a></li>
+                <li>
+                    <a href="about.html" data-nav-index="02" data-nav-key="about">关于我们</a>
+                    <ul class="dropdown" aria-label="关于我们子菜单">
+                        <li><a href="business-center.html">业务中心</a></li>
+                        <li><a href="news.html">新闻动态</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="team-info.html" aria-haspopup="true" data-nav-index="03" data-nav-key="services">服务系统</a>
+                    <ul class="dropdown" aria-label="服务系统子菜单">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="exam-center.html">在线考试中心</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank" rel="noopener noreferrer">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank" rel="noopener noreferrer" data-nav-index="04" data-nav-key="work">工作系统</a></li>
+                <li>
+                    <a href="download-materials.html" aria-haspopup="true" data-nav-index="05" data-nav-key="download">下载专区</a>
+                    <ul class="dropdown" aria-label="下载专区子菜单">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html" data-nav-index="06" data-nav-key="video">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    </div>
+    <div class="site-top-spacer" id="siteTopSpacer" aria-hidden="true"></div>
+
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <span class="page-hero-tag">SEARCH</span>
+            <h1 class="page-hero-title">站内搜索</h1>
+            <p class="page-hero-desc">搜索网站内容与资源</p>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>服务范围</h3>
+                <ul class="sidebar-links">
+                    <li><a href="contribute.html">投稿</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>新闻动态</h3>
+                <ul class="sidebar-links">
+                    <li><a href="news.html">MORE+</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <div class="content-section reveal-ready">
+                <div class="search-results-header">
+                    <p>搜索关键词：<span class="search-query" id="searchQueryDisplay"></span></p>
+                    <p id="resultCount"></p>
+                </div>
+                
+                <div id="searchResults"></div>
+                
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </main>
+    </div>
+    </div><!-- /.page-wrap -->
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利. <a href="http://m.tmxkcy.xyz" target="_blank" style="color: #0066cc; text-decoration: none;">手机版</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // 搜索索引数据
+        const searchIndex = [
+            {
+                "title": "首页",
+                "url": "index.html",
+                "content": "天马行空创意网打造更实用的资源和内容",
+                "type": "首页"
+            },
+            {
+                "title": "关于我们",
+                "url": "about.html",
+                "content": "了解天马行空创意团队的发展历程、文化理念和核心优势。团队最初由张生智、李锦华、陈兵三人组建，成立时名为\"八逗笑乐团队\"，开始涉足创意内容创作领域。2023年正式更名为\"天马行空创意团队\"，确立了以创意为核心的发展方向。",
+                "type": "关于我们"
+            },
+            {
+                "title": "新闻动态",
+                "url": "news.html",
+                "content": "了解天马行空创意团队的最新动态和活动。天马行空创意团队2025年举办普通专业技能联合测考试圆满结束！极简设备，极致表达 —— 天马行空创意团队《人生道路之反转》圆满杀青！微电影《绝意人生》1 月 23 日定档。",
+                "type": "新闻"
+            },
+
+            {
+                "title": "天马行空创意团队2025年举办普通专业技能联合测考试圆满结束！",
+                "url": "news-detail1.html",
+                "content": "6月16日，天马行空创意团队举办2025年普通专业综合技能联合考试，团队所有成员参加！考试形式线上线下结合，涵盖团队合作、自媒体运营、拍摄与后期等多个领域，考试时间60分钟，满分100分。",
+                "type": "新闻"
+            },
+            {
+                "title": "极简设备，极致表达 —— 天马行空创意团队《人生道路之反转》圆满杀青！",
+                "url": "news-detail2.html",
+                "content": "当最后一段剪辑素材导出成功，天马行空创意团队凭借两部手机、一个三脚架与一台剪辑电脑，历时数日完成了微短片《人生道路之反转》的全部拍摄与前期制作！没有专业道具加持，没有复杂设备支撑。",
+                "type": "新闻"
+            },
+            {
+                "title": "微电影《绝意人生》1 月 23 日定档 张生智献唱主题曲《我》诠释拼搏力量",
+                "url": "news-detail3.html",
+                "content": "聚焦人生困境与自我救赎的微电影《绝意人生》正式官宣定档 1 月 23 日，同步释出由音乐人张生智倾力打造并献唱的主题曲《我》，以激昂旋律与深刻歌词，提前揭开影片中关于坚持与成长的动人篇章。",
+                "type": "新闻"
+            },
+            {
+                "title": "资料下载",
+                "url": "download-materials.html",
+                "content": "提供各种资料下载，包括天马行空创意团队升职考核试卷（剪辑师、策划员、配音员）、天马行空创意团队微短片《人生道路之反转》剧本、天马行空创意团队离职退团业务办理表、微电影作品发行协议书、演职人员信息表、版权登记说明等。",
+                "type": "下载"
+            },
+            {
+                "title": "软件下载",
+                "url": "download-software.html",
+                "content": "提供各种软件下载服务。",
+                "type": "下载"
+            },
+            {
+                "title": "电子书阅读器",
+                "url": "ebook-reader.html",
+                "content": "在线电子书阅读功能。",
+                "type": "工具"
+            },
+
+            {
+                "title": "在线工具",
+                "url": "online-tools.html",
+                "content": "访问各种实用在线工具，包含录制、设计、AI等工具。",
+                "type": "工具"
+            },
+            {
+                "title": "团队档案信息查询系统",
+                "url": "team-info.html",
+                "content": "团队成员档案信息查询系统。",
+                "type": "系统"
+            },
+            {
+                "title": "视频区",
+                "url": "video.html",
+                "content": "观看团队制作的各种视频内容。",
+                "type": "视频"
+            },
+            {
+                "title": "AI创作",
+                "url": "script-writing.html",
+                "content": "在线AI创作中心，支持保存和分享。",
+                "type": "工具"
+            },
+            {
+                "title": "注册",
+                "url": "register.html",
+                "content": "用户注册页面。",
+                "type": "注册"
+            }
+        ];
+        
+        // 当前搜索状态
+        let currentQuery = '';
+        let currentPage = 1;
+        const resultsPerPage = 10;
+        let filteredResults = [];
+        
+        // DOM元素
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const searchSuggestions = document.getElementById('searchSuggestions');
+        const searchQueryDisplay = document.getElementById('searchQueryDisplay');
+        const resultCount = document.getElementById('resultCount');
+        const searchResults = document.getElementById('searchResults');
+        const pagination = document.getElementById('pagination');
+        
+        // URL参数处理
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialQuery = urlParams.get('q') || '';
+        
+        // 初始化
+        if (initialQuery) {
+            searchInput.value = initialQuery;
+            performSearch(initialQuery);
+        }
+        
+        // 搜索函数
+        function performSearch(query) {
+            const startTime = performance.now();
+            
+            query = query.trim();
+            if (!query) {
+                displayResults([]);
+                return;
+            }
+            
+            currentQuery = query;
+            searchQueryDisplay.textContent = query;
+            
+            // 过滤结果
+            filteredResults = searchIndex.filter(item => {
+                const lowerQuery = query.toLowerCase();
+                return item.title.toLowerCase().includes(lowerQuery) || 
+                       item.content.toLowerCase().includes(lowerQuery) ||
+                       item.type.toLowerCase().includes(lowerQuery);
+            });
+            
+            // 按相关性排序
+            filteredResults.sort((a, b) => {
+                const aScore = calculateRelevance(a, query);
+                const bScore = calculateRelevance(b, query);
+                return bScore - aScore;
+            });
+            
+            // 显示结果
+            displayResults(filteredResults);
+            
+            const endTime = performance.now();
+            console.log(`搜索耗时: ${endTime - startTime}ms`);
+        }
+        
+        // 计算相关性分数
+        function calculateRelevance(item, query) {
+            let score = 0;
+            const lowerQuery = query.toLowerCase();
+            
+            // 标题匹配加分
+            if (item.title.toLowerCase().includes(lowerQuery)) {
+                score += 10;
+            }
+            
+            // 内容匹配加分
+            const contentMatches = (item.content.toLowerCase().match(new RegExp(lowerQuery, 'g')) || []).length;
+            score += contentMatches * 5;
+            
+            // 类型匹配加分
+            if (item.type.toLowerCase().includes(lowerQuery)) {
+                score += 2;
+            }
+            
+            return score;
+        }
+        
+        // 高亮关键词
+        function highlightKeywords(text, query) {
+            if (!query) return text;
+            
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+        
+        // 显示结果
+        function displayResults(results) {
+            currentPage = 1;
+            
+            // 显示结果计数
+            resultCount.textContent = `找到 ${results.length} 条相关结果`;
+            
+            // 显示空结果
+            if (results.length === 0) {
+                searchResults.innerHTML = `
+                    <div class="empty-results">
+                        <h3>没有找到相关结果</h3>
+                        <p>请尝试使用其他关键词搜索</p>
+                        <p style="margin-top: 20px;">
+                            <a href="https://www.baidu.com/s?wd=${encodeURIComponent(currentQuery)}" target="_blank" style="
+                                display: inline-block;
+                                padding: 10px 20px;
+                                background: linear-gradient(135deg, #0066cc, #00aaff);
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 4px;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                font-weight: bold;
+                            ">🔍 在百度搜索 "${currentQuery}"</a>
+                        </p>
+                    </div>
+                `;
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            // 分页显示
+            renderPage(1, results);
+            renderPagination(results.length);
+        }
+        
+        // 渲染当前页
+        function renderPage(page, results) {
+            const startIndex = (page - 1) * resultsPerPage;
+            const endIndex = startIndex + resultsPerPage;
+            const pageResults = results.slice(startIndex, endIndex);
+            
+            searchResults.innerHTML = pageResults.map(result => `
+                <div class="search-result">
+                    <h3 class="search-result-title">
+                        <a href="${result.url}">${highlightKeywords(result.title, currentQuery)}</a>
+                    </h3>
+                    <div class="search-result-content">
+                        ${highlightKeywords(result.content, currentQuery)}
+                    </div>
+                    <div class="search-result-meta">
+                        <span>类型：${result.type}</span>
+                        <span>URL：${result.url}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // 渲染分页
+        function renderPagination(totalResults) {
+            const totalPages = Math.ceil(totalResults / resultsPerPage);
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // 上一页
+            paginationHTML += `
+                <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    上一页
+                </button>
+            `;
+            
+            // 页码
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+                    <button onclick="changePage(${i})" class="${currentPage === i ? 'active' : ''}">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // 下一页
+            paginationHTML += `
+                <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    下一页
+                </button>
+            `;
+            
+            pagination.innerHTML = paginationHTML;
+        }
+        
+        // 切换页码
+        function changePage(page) {
+            if (page < 1 || page > Math.ceil(filteredResults.length / resultsPerPage)) {
+                return;
+            }
+            
+            currentPage = page;
+            renderPage(page, filteredResults);
+            renderPagination(filteredResults.length);
+            
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // 生成搜索建议
+        function generateSuggestions(query) {
+            if (!query) {
+                searchSuggestions.style.display = 'none';
+                return;
+            }
+            
+            const suggestions = searchIndex
+                .filter(item => item.title.toLowerCase().includes(query.toLowerCase()))
+                .slice(0, 5);
+            
+            if (suggestions.length === 0) {
+                searchSuggestions.style.display = 'none';
+                return;
+            }
+            
+            searchSuggestions.innerHTML = suggestions.map(item => `
+                <div class="search-suggestion" onclick="selectSuggestion('${item.title}')">
+                    ${highlightKeywords(item.title, query)}
+                </div>
+            `).join('');
+            
+            searchSuggestions.style.display = 'block';
+        }
+        
+        // 选择建议
+        function selectSuggestion(suggestion) {
+            searchInput.value = suggestion;
+            searchSuggestions.style.display = 'none';
+            performSearch(suggestion);
+        }
+        
+        // 事件监听
+        searchButton.addEventListener('click', () => {
+            performSearch(searchInput.value);
+        });
+        
+        searchInput.addEventListener('input', () => {
+            generateSuggestions(searchInput.value);
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+                searchSuggestions.style.display = 'none';
+            }
+        });
+        
+        // 点击外部关闭建议
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search')) {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+    </script>
+    <script src="js/tmxk-cinema.js"></script>
+    <script src="js/search-common.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面未开放 - 天马行空创意网</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        .lock-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            color: #0066cc;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .back-btn:hover {
+            background-color: #0052a3;
+        }
+    </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tmxk-cinema.css">
+</head>
+<body class="page-cinema" data-nav-active="services">
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="ambient" aria-hidden="true">
+        <div class="ambient-blob b1"></div>
+        <div class="ambient-blob b2"></div>
+        <div class="ambient-blob b3"></div>
+        <div class="ambient-mesh"></div>
+        <div class="ambient-grid"></div>
+        <span class="ambient-spark s1"></span>
+        <span class="ambient-spark s2"></span>
+        <span class="ambient-spark s3"></span>
+        <span class="ambient-spark s4"></span>
+    </div>
+    <div class="page-wrap">
+    <a href="#main" class="skip-link">跳至主要内容</a>
+<div class="site-top" id="siteTop">
+    <div class="site-top-shell">
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo" aria-label="天马行空创意网首页">
+                <img src="photo/logo.png" alt="天马行空创意网 标志" width="50" height="50">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </a>
+            <div class="slogan">拥抱创意 点亮人生</div>
+            <div class="header-actions">
+                <div class="search">
+                    <input type="search" placeholder="搜索..." aria-label="搜索网站内容">
+                    <button type="button" class="search-btn" aria-label="搜索">🔍</button>
+                </div>
+                <button id="themeToggle" class="theme-btn-cinema" type="button" aria-label="切换主题">🌙</button>
+                <a href="mobile-app.html" class="header-cta-cinema">AI App 下载</a>
+            </div>
+        </div>
+    </header>
+    <nav aria-label="主导航" class="site-nav-exp">
+        <div class="nav-exp-head">
+            <span class="nav-exp-tag">NAV // SYSTEM</span>
+            <span class="nav-exp-line" aria-hidden="true"></span>
+        </div>
+        <div class="container nav-scroll">
+            <ul>
+                <li><a href="index.html" data-nav-index="01" data-nav-key="home">首页</a></li>
+                <li>
+                    <a href="about.html" data-nav-index="02" data-nav-key="about">关于我们</a>
+                    <ul class="dropdown" aria-label="关于我们子菜单">
+                        <li><a href="business-center.html">业务中心</a></li>
+                        <li><a href="news.html">新闻动态</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="team-info.html" class="nav-is-active" aria-haspopup="true" data-nav-index="03" data-nav-key="services">服务系统</a>
+                    <ul class="dropdown" aria-label="服务系统子菜单">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="exam-center.html">在线考试中心</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank" rel="noopener noreferrer">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank" rel="noopener noreferrer" data-nav-index="04" data-nav-key="work">工作系统</a></li>
+                <li>
+                    <a href="download-materials.html" aria-haspopup="true" data-nav-index="05" data-nav-key="download">下载专区</a>
+                    <ul class="dropdown" aria-label="下载专区子菜单">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html" data-nav-index="06" data-nav-key="video">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    </div>
+    <div class="site-top-spacer" id="siteTopSpacer" aria-hidden="true"></div>
+
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <span class="page-hero-tag">LOCKED</span>
+            <h1 class="page-hero-title">页面未开放</h1>
+            <p class="page-hero-desc">该页面目前未对外开放，请联系相关负责人</p>
+        </div>
+    </div>
+
+    <div class="lock-page"><div class="container">
+        <div class="lock-icon">🔒</div>
+        <h1>页面未对外开放</h1>
+        <p>抱歉，该页面目前未对外开放。如有需要，请联系相关负责人获取访问权限。</p>
+        <a href="index.html" class="back-btn">返回首页</a>
+    </div>
+    <script src="js/tmxk-cinema.js"></script>
+    <script src="js/search-common.js"></script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" href="photo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="photo/logo.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 睿言站点验证 -->
+    <meta name="rs-site-verification" content="bcafcgfrvldmvvrs" />
+    <title>微电影《绝意人生》1 月 23 日定档 张生智献唱主题曲《我》诠释拼搏力量 - 天马行空创意网</title>
+    <style>
+        /* 复用首页的CSS样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; }
+        .container { width: 1200px; margin: 0 auto; }
+        header { background-color: #fff; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            font-weight: bold; 
+            color: #0066cc; 
+        }
+        .logo img { 
+            margin-right: 10px; 
+            height: 50px; 
+        }
+        .logo-main { 
+            font-size: 24px; 
+            margin-bottom: 2px; 
+        }
+        .logo-sub { 
+            font-size: 12px; 
+            color: #666; 
+            font-weight: normal; 
+        }
+        .search { display: flex; }
+        .search input { padding: 8px; width: 300px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; }
+        .search button { padding: 8px 15px; background-color: #0066cc; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        nav { background-color: #0066cc; margin-top: 10px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { position: relative; }
+        nav ul li a { display: block; padding: 15px 20px; color: white; text-decoration: none; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #0052a3; }
+        nav ul li .dropdown { display: none; position: absolute; top: 100%; left: 0; background-color: #0066cc; min-width: 200px; z-index: 1000; }
+        nav ul li:hover .dropdown { display: block; }
+        nav ul li .dropdown li { display: block; }
+        .banner {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.2"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.2"/><circle cx="60" cy="80" r="2" fill="white" opacity="0.2"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.2"/><circle cx="90" cy="20" r="1.5" fill="white" opacity="0.2"/></svg>');
+            background-size: 200px 200px;
+            animation: float 15s infinite linear;
+            transition: all 0.5s ease;
+        }
+        
+        @keyframes float {
+            from { transform: translateX(0) translateY(0); }
+            to { transform: translateX(-200px) translateY(-200px); }
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 0 6px 16px rgba(0,0,0,0.35);
+            font-weight: 800;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+        
+        .banner p {
+            font-size: 20px;
+            margin-bottom: 35px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            color: rgba(255,255,255,0.98);
+            font-weight: 400;
+        }
+        .main-content { display: flex; margin-top: 20px; gap: 20px; }
+        .sidebar { width: 250px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .sidebar-section { padding: 15px; border-bottom: 1px solid #eee; }
+        .sidebar-section h3 { color: #0066cc; margin-bottom: 15px; font-size: 18px; }
+        .login-form input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .login-form button { width: 100%; padding: 10px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .login-options { display: flex; justify-content: space-between; margin-top: 10px; font-size: 14px; }
+        .login-options a { color: #0066cc; text-decoration: none; }
+        .other-login { margin-top: 15px; }
+        .sidebar-links { list-style: none; }
+        .sidebar-links li { margin-bottom: 10px; }
+        .sidebar-links li a { color: #333; text-decoration: none; display: block; padding: 5px 0; }
+        .sidebar-links li a:hover { color: #0066cc; }
+        .content { flex: 1; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px; }
+        .content-section { margin-bottom: 30px; }
+        .content-section h2 { color: #0066cc; margin-bottom: 20px; font-size: 22px; }
+        .content-section h3 { color: #333; margin-bottom: 15px; font-size: 18px; }
+        footer { background-color: #333; color: white; text-align: center; padding: 20px 0; margin-top: 30px; }
+        /* Disclaimer */
+        .disclaimer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .disclaimer h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .disclaimer p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        /* 新闻详情样式 */
+        .news-detail {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .news-detail h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .news-detail .news-meta {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .news-detail .news-content {
+            line-height: 1.8;
+            color: #555;
+            font-size: 16px;
+        }
+        
+        .news-detail .news-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .news-detail .news-content h2 {
+            color: #333;
+            font-size: 22px;
+            margin: 25px 0 15px;
+        }
+        
+        .news-detail .news-content h3 {
+            color: #444;
+            font-size: 18px;
+            margin: 20px 0 15px;
+        }
+        
+        .news-detail .news-content ul,
+        .news-detail .news-content ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .news-detail .news-content li {
+            margin-bottom: 10px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* 赞赏码广告位 */
+        .appreciation-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+            margin: 20px 0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .appreciation-section h3 {
+            color: #fa709a;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .appreciation-section p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .appreciation-qrcode {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .appreciation-qrcode img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tmxk-cinema.css">
+</head>
+<body class="page-cinema" data-nav-active="about">
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="ambient" aria-hidden="true">
+        <div class="ambient-blob b1"></div>
+        <div class="ambient-blob b2"></div>
+        <div class="ambient-blob b3"></div>
+        <div class="ambient-mesh"></div>
+        <div class="ambient-grid"></div>
+        <span class="ambient-spark s1"></span>
+        <span class="ambient-spark s2"></span>
+        <span class="ambient-spark s3"></span>
+        <span class="ambient-spark s4"></span>
+    </div>
+    <div class="page-wrap">
+    <a href="#main" class="skip-link">跳至主要内容</a>
+<div class="site-top" id="siteTop">
+    <div class="site-top-shell">
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo" aria-label="天马行空创意网首页">
+                <img src="photo/logo.png" alt="天马行空创意网 标志" width="50" height="50">
+                <div>
+                    <div class="logo-main">天马行空创意网</div>
+                    <div class="logo-sub">TianMa Creative Network</div>
+                </div>
+            </a>
+            <div class="slogan">拥抱创意 点亮人生</div>
+            <div class="header-actions">
+                <div class="search">
+                    <input type="search" placeholder="搜索..." aria-label="搜索网站内容">
+                    <button type="button" class="search-btn" aria-label="搜索">🔍</button>
+                </div>
+                <button id="themeToggle" class="theme-btn-cinema" type="button" aria-label="切换主题">🌙</button>
+                <a href="mobile-app.html" class="header-cta-cinema">AI App 下载</a>
+            </div>
+        </div>
+    </header>
+    <nav aria-label="主导航" class="site-nav-exp">
+        <div class="nav-exp-head">
+            <span class="nav-exp-tag">NAV // SYSTEM</span>
+            <span class="nav-exp-line" aria-hidden="true"></span>
+        </div>
+        <div class="container nav-scroll">
+            <ul>
+                <li><a href="index.html" data-nav-index="01" data-nav-key="home">首页</a></li>
+                <li>
+                    <a href="about.html" class="nav-is-active" data-nav-index="02" data-nav-key="about">关于我们</a>
+                    <ul class="dropdown" aria-label="关于我们子菜单">
+                        <li><a href="business-center.html">业务中心</a></li>
+                        <li><a href="news.html">新闻动态</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="team-info.html" aria-haspopup="true" data-nav-index="03" data-nav-key="services">服务系统</a>
+                    <ul class="dropdown" aria-label="服务系统子菜单">
+                        <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                        <li><a href="exam-center.html">在线考试中心</a></li>
+                        <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank" rel="noopener noreferrer">团队考核系统</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank" rel="noopener noreferrer" data-nav-index="04" data-nav-key="work">工作系统</a></li>
+                <li>
+                    <a href="download-materials.html" aria-haspopup="true" data-nav-index="05" data-nav-key="download">下载专区</a>
+                    <ul class="dropdown" aria-label="下载专区子菜单">
+                        <li><a href="download-materials.html">资料</a></li>
+                        <li><a href="download-software.html">软件</a></li>
+                    </ul>
+                </li>
+                <li><a href="video.html" data-nav-index="06" data-nav-key="video">视频区</a></li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    </div>
+    <div class="site-top-spacer" id="siteTopSpacer" aria-hidden="true"></div>
+
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <span class="page-hero-tag">NEWS</span>
+            <h1 class="page-hero-title">微电影《绝意人生》定档</h1>
+            <p class="page-hero-desc">张生智献唱主题曲《我》诠释拼搏力量</p>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>服务登录</h3>
+                <form class="login-form">
+                    <input type="text" placeholder="请输入账号/手机">
+                    <input type="password" placeholder="密码">
+                    <button type="submit">登录</button>
+                    <div class="login-options">
+                        <a href="#">手机快捷登录</a>
+                        <a href="register.html">注册></a>
+                    </div>
+                    <div class="other-login">
+                        
+                        <!-- 可以添加第三方登录图标 -->
+                    </div>
+                </form>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>服务范围</h3>
+                <ul class="sidebar-links">
+                    <li><a href="contribute.html">投稿</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>新闻动态</h3>
+                <ul class="sidebar-links">
+                    <li><a href="news.html">MORE+</a></li>
+                </ul>
+            </div>
+            
+            <!-- 赞赏码广告位 -->
+            <div class="sidebar-section" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 8px; margin: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: #fa709a; text-align: center; margin-bottom: 15px; font-size: 16px;">💖 支持我们</h3>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <p style="font-size: 14px; color: #666; margin-bottom: 10px;">如果你喜欢我们的内容，不妨支持一下我们！</p>
+                    <div style="width: 150px; height: 150px; margin: 0 auto 10px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+                        <img src="photo/zsm.jpg" alt="赞赏码" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">扫码支持我们的创作</p>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; text-align: center;">
+                    <p style="font-size: 13px; color: #666;">关注公众号获取更多精彩内容</p>
+                    <p style="font-size: 12px; color: #999; margin-top: 5px;">回复「权限码」获取下载权限</p>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <div class="news-detail">
+                <h1>微电影《绝意人生》1 月 23 日定档 张生智献唱主题曲《我》诠释拼搏力量</h1>
+                <div class="news-meta">
+                    <span>📅 2023-01-16</span>
+                    <span>👁️ 阅读：156</span>
+                    <span>📝 来源：团队官方</span>
+                </div>
+                <div class="news-content">
+                    <p>聚焦人生困境与自我救赎的微电影《绝意人生》正式官宣定档 1 月 23 日，同步释出由音乐人张生智倾力打造并献唱的主题曲《我》，以激昂旋律与深刻歌词，提前揭开影片中关于坚持与成长的动人篇章。作为一部传递正能量的作品，该片通过真实可感的剧情与极具感染力的音乐，引发观众对人生困境与理想追求的深度共鸣。</p>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="photo/《绝意人生》海报.png" alt="《绝意人生》海报" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <h2>微电影简介：在逆境中坚守初心的励志叙事</h2>
+                    <p>《绝意人生》是由天马行空创意团队倾力打造的励志微电影，影片以 "困境中不放弃" 为核心主题，聚焦普通人在人生低谷中遭遇的迷茫、挣扎与抉择，通过主角的奋斗历程，传递出 "即便生活暗淡，也要坚守信念、奋力拼搏" 的人生态度。影片于 1 月 23 日正式上线，同步发布的定档海报与主题曲《我》，提前为这部充满力量感的作品积攒了超高期待，其真实贴近生活的故事设定，有望引发广泛的社会共鸣。</p>
+                    
+                    <h2>剧情直击：多重困境交织下的救赎之路</h2>
+                    <p>影片剧情围绕主角的人生困境展开，串联起多个现实感十足的故事片段：留守儿童面临债务逼迫的生存危机，甚至遭遇不法分子的威胁；流浪汉在底层挣扎求生，既要躲避无端欺凌，又要为生计奔波；年轻一代在迷茫中寻找出路，在竞争与挑战中坚守理想。这些看似独立的人物命运相互交织，展现了生活中的种种艰难 —— 有被拖欠债务的窘迫，有被恶意对待的委屈，有孤独前行的迷茫。但影片并未止步于展现困境，更着重刻画了角色们的反抗与成长：留守儿童凭借勤奋考入大学改写命运，迷茫的年轻人在互助中找到方向，每个角色都在逆境中坚守底线、奋力拼搏，最终完成自我救赎，印证了 "人生没有绝境，坚持终将遇见光明" 的深层寓意。</p>
+                    
+                    <h2>主题曲《我》：张生智包揽多职，唱响拼搏宣言</h2>
+                    <p>作为影片的灵魂配乐，主题曲《我》于 1 月 16 日提前发行，由张生智亲自操刀作曲作词、编曲，并包揽吉他、电吉他、贝斯、和声及弦乐编写等多重器乐演奏，尽显音乐才华。歌曲时长 3 分 38 秒，采用流行摇滚风格，节奏激昂有力，搭配 "生活还是这样暗淡，注定是这样，停住思考，没犹豫，继续拼搏，没有返回的机会" 等直击人心的歌词，精准捕捉了影片主角在困境中不屈不挠的精神状态，将 "不放弃理想、在逆风中前行" 的信念传递得淋漓尽致。</p>
+                    
+                    <h2>歌曲信息全解析：匠心制作助力情感升华</h2>
+                    <p><strong>核心创作团队：</strong>原唱 / 作曲词 / 编曲 / 器乐演奏张生智，监制李锦华，制作团队为八逗笑乐创意团队（天马行空创意团队），专业阵容为歌曲品质保驾护航。</p>
+                    
+                    <p><strong>制作细节：</strong>歌曲由陈熙隆担任鼓手，Jiaye 负责键盘演奏，混音工作由 Li Jinhua@Eight Funs 完成，制作助理陈兵全程跟进。</p>
+                    
+                    <p><strong>版权与发行：</strong>歌曲所属专辑为《绝意人生》微电影主题曲，OP 与 SP 均为 Badou Music Studio，已在网易云音乐、QQ 音乐等平台上线，同时推出《我（重制版）》及《人生旅途（Demo）》两首关联作品，满足不同听众需求。</p>
+                    
+                    <p><strong>音乐风格：</strong>融合流行与摇滚元素，旋律兼具爆发力与感染力，既贴合影片的励志内核，又具备独立的音乐传播价值，成为推动剧情情感升华的关键力量。</p>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="photo/专辑信息.png" alt="主题曲《我》专辑信息" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <p>微电影《绝意人生》以真实剧情触动人心，主题曲《我》以激昂旋律点燃斗志，两者相辅相成，共同书写了一曲关于坚持与希望的人生赞歌。1 月 23 日，让我们一同走进这部作品，在光影与音乐中感受逆境成长的力量。</p>
+                </div>
+                <a href="news.html" class="back-link">← 返回新闻列表</a>
+            </div>
+            
+            <!-- 睿言评论模块 -->
+            <div class="content-section reveal-ready">
+                <h2>留言评论</h2>
+                <div id="RUI-SPEAK" data-app-id="MTc2ODM4NjM2NzExMDg2Ng==" data-app-key="Cc1r4evyAzbk/zJbU+lghMZEvG9wO3Un8xhX5hKc1ro=" data-article-no="news-detail3"></div>
+            </div>
+        </main>
+    </div>
+    </div><!-- /.page-wrap -->
+    
+    <footer>
+        <div class="container">
+            <p>© 2024 天马行空创意网. 保留所有权利. <a href="http://m.tmxkcy.xyz" target="_blank" style="color: #0066cc; text-decoration: none;">手机版</a></p>
+            <div class="disclaimer">
+                <h3>免责声明</h3>
+                <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+                <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+                <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+                <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+            </div>
+        </div>
+    </footer>
+    <!--Start of Gullchat.com Script-->
+    <script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&wid=693ea57a0ee55c23ceff491f&pid=693ea2fc328f7e8be297b5dc&fm=normal&lt=default"></script>
+    <!--End of Gullchat.com Script-->
+    
+    <!-- 睿言评论模块脚本 -->
+    <script src="https://h5.ruispeak.cn/rs.js" type="text/javascript"></script>
+    
+    <!-- 动态修改评论模块文本 -->
+    <script>
+        // 等待页面加载完成
+        window.addEventListener('load', function() {
+            // 定期检查评论模块是否加载完成
+            const checkCommentModule = setInterval(function() {
+                let allElementsUpdated = false;
+                
+                // 1. 查找并修改自律公约链接文本
+                const pactLink = document.querySelector('.RS-cg-a[href="https://h5.ruispeak.cn/html/pact.html"]');
+                if (pactLink && pactLink.textContent === '睿言云评《自律公约》') {
+                    pactLink.textContent = '天马行空创意网《自律公约》';
+                }
+                
+                // 2. 查找并修改自律公约标题文本
+                const titleText = document.querySelector('.title-text');
+                if (titleText && titleText.textContent === '睿言云评用户跟帖自律公约') {
+                    titleText.textContent = '天马行空创意创意网用户跟帖自律公告';
+                }
+                
+                // 检查是否所有元素都已更新完成
+                if (pactLink && titleText) {
+                    allElementsUpdated = true;
+                }
+                
+                // 如果所有元素都已更新，清除定时器
+                if (allElementsUpdated) {
+                    clearInterval(checkCommentModule);
+                }
+            }, 500);
+            
+            // 10秒后停止检查，防止无限循环
+            setTimeout(function() {
+                clearInterval(checkCommentModule);
+            }, 10000);
+        });
+    </script>
+    <script src="js/tmxk-cinema.js"></script>
+    <script src="js/search-common.js"></script>
+</body>
+</html>

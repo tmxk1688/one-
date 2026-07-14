@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="rs-site-verification" content="bcafcgfrvldmvvrs">
+    <title>新闻动态 - 天马行空创意网 - TianMa Creative Network</title>
+    <meta name="description" content="了解天马行空创意团队的最新动态、产品发布、团队活动与影视创作资讯">
+    <meta name="theme-color" content="#6366f1">
+    <meta property="og:title" content="新闻动态 - 天马行空创意网">
+    <meta property="og:description" content="了解天马行空创意团队的最新动态和活动">
+    <meta property="og:url" content="https://tmxkcy.xyz/news.html">
+    <link rel="icon" href="photo/logo.png" type="image/png">
+    <link rel="shortcut icon" href="photo/logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>document.documentElement.classList.add('js');</script>
+    <style>
+        :root {
+            --bg: #f4f6fc; --surface: #ffffff; --text: #141824; --text-2: #525866; --text-3: #8b93a3; --line: #e4e9f2;
+            --primary: #6366f1; --primary-soft: #eef2ff; --primary-glow: rgba(99,102,241,.45); --cyan: #22d3ee;
+            --grad-brand-vivid: linear-gradient(125deg, #1e1b4b 0%, #3730a3 8%, #4f46e5 20%, #6366f1 32%, #8b5cf6 44%, #c084fc 52%, #e879f9 58%, #06b6d4 72%, #22d3ee 84%, #67e8f9 92%, #818cf8 100%);
+            --grad-mesh: radial-gradient(ellipse 90% 60% at 15% 10%, rgba(99,102,241,.14), transparent 55%), radial-gradient(ellipse 70% 50% at 85% 15%, rgba(34,211,238,.1), transparent 50%), radial-gradient(ellipse 60% 55% at 70% 85%, rgba(168,85,247,.09), transparent 52%), #f4f6fc;
+            --grad-hero: radial-gradient(ellipse 110% 85% at 50% -28%, rgba(99,102,241,.55), transparent 58%), radial-gradient(ellipse 65% 55% at 98% 8%, rgba(34,211,238,.32), transparent 52%), radial-gradient(ellipse 55% 48% at -5% 28%, rgba(139,92,246,.3), transparent 50%);
+            --radius-lg: 24px; --shadow-sm: 0 4px 16px rgba(20,24,36,.06); --shadow-md: 0 8px 32px rgba(20,24,36,.08);
+            --shadow-lg: 0 24px 64px rgba(99,102,241,.18); --shadow-xl: 0 32px 80px rgba(99,102,241,.22);
+            --ease-expo: cubic-bezier(.16,1,.3,1); --focus-color: var(--primary);
+            --font-display: 'Syne', 'Noto Sans SC', sans-serif; --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Noto Sans SC', ui-monospace, monospace; --font: var(--font-body);
+            --bg-primary: var(--surface); --bg-secondary: var(--bg); --text-primary: var(--text); --text-secondary: var(--text-2);
+            --text-muted: var(--text-3); --border-color: var(--line); --glass-bg: rgba(255,255,255,.72);
+            --glass-border: rgba(255,255,255,.8); --glass-inset: rgba(255,255,255,.9); --panel-glass: rgba(255,255,255,.75);
+            --tag-bg: linear-gradient(135deg, rgba(255,255,255,.9), rgba(238,242,255,.7)); --tag-inset: rgba(255,255,255,.8);
+            --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+        }
+        [data-theme="dark"] {
+            color-scheme: dark; --bg: #060a14; --surface: #0f1524; --text: #f1f5f9; --text-2: rgba(226,232,240,.82);
+            --text-3: rgba(148,163,184,.78); --line: rgba(99,102,241,.24); --primary-soft: rgba(99,102,241,.2);
+            --glass-bg: rgba(8,12,24,.84); --glass-border: rgba(99,102,241,.28); --glass-inset: rgba(255,255,255,.08);
+            --panel-glass: rgba(12,18,32,.88); --shadow-sm: 0 4px 16px rgba(0,0,0,.35); --shadow-md: 0 8px 32px rgba(0,0,0,.45);
+            --shadow-lg: 0 20px 56px rgba(0,0,0,.55), 0 0 48px rgba(99,102,241,.12); --shadow-xl: 0 28px 72px rgba(0,0,0,.6);
+            --bg-primary: var(--surface); --bg-secondary: var(--bg); --text-primary: var(--text); --text-secondary: var(--text-2);
+            --text-muted: var(--text-3); --border-color: var(--line);
+            --grad-mesh: radial-gradient(ellipse 90% 60% at 15% 10%, rgba(99,102,241,.24), transparent 55%), radial-gradient(ellipse 70% 50% at 85% 15%, rgba(34,211,238,.16), transparent 50%), #060a14;
+            --tag-bg: linear-gradient(135deg, rgba(17,24,39,.95), rgba(99,102,241,.16)); --tag-inset: rgba(255,255,255,.06);
+        }
+        @keyframes gradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+        @keyframes blobDrift { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.05)} 66%{transform:translate(-20px,15px) scale(.95)} }
+        @keyframes meshDrift { 0%,100%{opacity:.75;transform:scale(1)} 50%{opacity:1;transform:scale(1.03)} }
+        @keyframes sparkTwinkle { 0%,100%{opacity:.2;transform:scale(.8)} 50%{opacity:1;transform:scale(1.2)} }
+        @keyframes heroScan { 0%{transform:translateY(-100%);opacity:0} 10%{opacity:.4} 100%{transform:translateY(400%);opacity:0} }
+        @keyframes heroPulse { 0%,100%{opacity:.4} 50%{opacity:.9} }
+
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth;overflow-x:hidden}
+        body.page-cinema{font-family:var(--font);background:var(--grad-mesh);background-attachment:fixed;color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip}
+        button:focus,a:focus,input:focus{outline:2px solid var(--focus-color);outline-offset:2px;box-shadow:0 0 0 3px rgba(99,102,241,.25)}
+        .container{width:100%;max-width:1240px;margin:0 auto;padding:0 20px}
+        .page-wrap{position:relative;z-index:1}
+
+        .scroll-progress{position:fixed;top:0;left:0;height:3px;z-index:10050;width:0;background:var(--grad-brand-vivid);background-size:300% 100%;animation:gradShift 4s ease infinite;box-shadow:0 0 16px rgba(99,102,241,.6),0 0 32px rgba(34,211,238,.3)}
+        .ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+        .ambient-blob{position:absolute;border-radius:50%;filter:blur(80px);animation:blobDrift 20s ease-in-out infinite}
+        .ambient-blob.b1{width:560px;height:560px;top:-140px;left:-100px;background:radial-gradient(circle,rgba(99,102,241,.55) 0%,rgba(139,92,246,.28) 45%,transparent 70%)}
+        .ambient-blob.b2{width:420px;height:420px;top:28%;right:-120px;background:radial-gradient(circle,rgba(34,211,238,.4) 0%,rgba(6,182,212,.18) 50%,transparent 72%);animation-delay:-7s}
+        .ambient-blob.b3{width:380px;height:380px;bottom:8%;left:28%;background:radial-gradient(circle,rgba(168,85,247,.38) 0%,rgba(217,70,239,.15) 48%,transparent 70%);animation-delay:-14s}
+        .ambient-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 25% 30%,rgba(99,102,241,.12),transparent 60%),radial-gradient(ellipse 55% 45% at 78% 22%,rgba(34,211,238,.1),transparent 55%);animation:meshDrift 22s ease-in-out infinite}
+        .ambient-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(99,102,241,.14) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 60% at 50% 20%,#000 20%,transparent 75%);opacity:.45}
+        .ambient-spark{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--grad-brand-vivid);box-shadow:0 0 10px rgba(99,102,241,.8);animation:sparkTwinkle 3s ease-in-out infinite}
+        .ambient-spark.s1{top:18%;left:12%}.ambient-spark.s2{top:32%;right:18%;animation-delay:-.8s}.ambient-spark.s3{top:62%;left:22%;animation-delay:-1.6s}.ambient-spark.s4{top:78%;right:28%;animation-delay:-2.2s;width:5px;height:5px}
+        .skip-link{position:absolute;top:-40px;left:0;background:var(--primary);color:#fff;padding:8px 16px;text-decoration:none;z-index:9999;transition:top .3s;border-radius:0 0 8px 8px;font-family:var(--font-mono);font-size:11px}
+        .skip-link:focus{top:0}
+
+        body.page-cinema .site-top{position:fixed;left:0;right:0;top:0;z-index:1200}
+        body.page-cinema .site-top-spacer{height:var(--site-top-h,132px);pointer-events:none}
+        body.page-cinema .site-top::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:#f6f8ff;z-index:1201;pointer-events:none}
+        [data-theme="dark"] body.page-cinema .site-top::after{background:#0c1220}
+        .site-top-shell{background:#f6f8ff;border-bottom:2px solid #f6f8ff;box-shadow:0 1px 0 rgba(99,102,241,.1)}
+        [data-theme="dark"] .site-top-shell{background:#0c1220;border-bottom-color:#0c1220;box-shadow:0 1px 0 rgba(99,102,241,.18)}
+        body.page-cinema header{background:transparent;padding:14px 0 8px;box-shadow:none;border:none;position:static}
+        body.page-cinema .header-content{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:nowrap;max-width:1280px;margin:0 auto;padding:0 clamp(16px,3vw,24px)}
+        .logo{display:flex;align-items:center;text-decoration:none;color:inherit}
+        .logo img{width:46px;height:46px;margin-right:12px;border-radius:12px;box-shadow:0 4px 16px rgba(99,102,241,.28)}
+        body.page-cinema .logo-main{font-family:var(--font-display);font-size:1rem;font-weight:800;letter-spacing:-.03em;text-transform:uppercase;background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 7s ease infinite;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        body.page-cinema .logo-sub{font-family:var(--font-mono);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-3);margin-top:2px}
+        body.page-cinema .slogan{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--text-2)}
+        .header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+        .search{display:flex;min-width:180px}
+        body.page-cinema .search input{flex:1;min-width:0;border-radius:0;border:1px solid rgba(99,102,241,.2);background:rgba(99,102,241,.04);padding:10px 14px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text);clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px))}
+        body.page-cinema .search-btn{border:none;cursor:pointer;color:#fff;clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);padding:10px 14px;background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 5s ease infinite;box-shadow:0 4px 16px var(--primary-glow)}
+        .theme-btn-cinema{width:40px;height:40px;border-radius:0;cursor:pointer;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));border:1px solid var(--line);background:var(--panel-glass);color:var(--text-2);font-size:18px;display:grid;place-items:center;transition:transform .25s,border-color .25s,box-shadow .25s}
+        .theme-btn-cinema:hover{transform:translateY(-1px);border-color:rgba(99,102,241,.35);box-shadow:0 4px 16px rgba(99,102,241,.15)}
+        .header-cta-cinema{padding:10px 18px;border-radius:0;text-decoration:none;color:#fff;white-space:nowrap;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 5s ease infinite;box-shadow:0 6px 24px var(--primary-glow);transition:transform .25s,box-shadow .25s}
+        .header-cta-cinema:hover{transform:translateY(-2px);box-shadow:0 10px 32px var(--primary-glow);color:#fff}
+
+        body.page-cinema nav{margin:0;background:transparent;box-shadow:none;overflow:visible}
+        .nav-exp-head{display:flex;align-items:center;gap:12px;padding:8px clamp(16px,3vw,24px) 0;max-width:1280px;margin:0 auto}
+        .nav-exp-tag{font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--primary);padding:4px 8px;border:1px solid rgba(99,102,241,.22);background:rgba(99,102,241,.06);clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px))}
+        .nav-exp-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(99,102,241,.35),rgba(34,211,238,.2),transparent)}
+        body.page-cinema nav ul{display:flex;list-style:none;flex-wrap:wrap;overflow:visible;padding:10px clamp(16px,3vw,24px) 14px;gap:6px;max-width:1280px;margin:0 auto}
+        body.page-cinema nav ul li{position:relative}
+        body.page-cinema nav ul>li>a{display:block;position:relative;padding:9px 16px 9px 14px;text-decoration:none;border-radius:0;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);background:transparent;border:1px solid transparent;transition:color .2s,background .2s,border-color .2s,transform .2s;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))}
+        body.page-cinema nav ul>li>a::before{content:attr(data-nav-index);position:absolute;top:2px;right:6px;font-size:8px;letter-spacing:.06em;opacity:.35;color:var(--primary)}
+        body.page-cinema nav ul>li>a:hover,body.page-cinema nav ul>li>a:focus{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.22);color:var(--primary);transform:translateY(-1px)}
+        body.page-cinema nav ul>li>a.nav-is-active{color:#fff;border-color:rgba(99,102,241,.45);background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 6s ease infinite;box-shadow:0 4px 16px var(--primary-glow)}
+        body.page-cinema nav ul li .dropdown{display:none;position:absolute;top:100%;left:0;min-width:220px;z-index:1300;list-style:none;margin-top:8px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));border:1px solid rgba(99,102,241,.22);background:rgba(255,255,255,.98);box-shadow:0 16px 48px rgba(99,102,241,.15)}
+        [data-theme="dark"] body.page-cinema nav ul li .dropdown{background:rgba(12,18,32,.98)}
+        body.page-cinema nav ul li:hover .dropdown{display:block}
+        body.page-cinema nav ul li .dropdown li a{display:block;padding:12px 20px;color:var(--text);text-decoration:none;font-size:12px;border-bottom:1px solid rgba(99,102,241,.08);transition:background .2s,color .2s}
+        body.page-cinema nav ul li .dropdown li a:hover,body.page-cinema nav ul li .dropdown li a.is-current{background:var(--primary-soft);color:var(--primary)}
+        body.page-cinema nav ul li .dropdown li:last-child a{border-bottom:none}
+
+        .page-hero{position:relative;margin:0 clamp(16px,3vw,24px) 28px;overflow:hidden;clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,28px 100%,0 calc(100% - 28px));background:linear-gradient(145deg,#0a0f1e 0%,#121a32 40%,#1a1040 100%);border:1px solid rgba(99,102,241,.28);box-shadow:0 32px 80px rgba(0,0,0,.35),0 0 80px rgba(99,102,241,.12)}
+        .page-hero::before{content:'';position:absolute;inset:0;background:var(--grad-hero);opacity:.85;pointer-events:none}
+        .page-hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(99,102,241,.18) 1px,transparent 1px);background-size:28px 28px;opacity:.35;pointer-events:none}
+        .page-hero-scan{position:absolute;left:0;right:0;height:2px;z-index:2;background:linear-gradient(90deg,transparent,rgba(34,211,238,.8),transparent);animation:heroScan 6s ease-in-out infinite;pointer-events:none}
+        .page-hero-corner{position:absolute;width:48px;height:48px;z-index:3;pointer-events:none;animation:heroPulse 3s ease-in-out infinite}
+        .page-hero-corner::before,.page-hero-corner::after{content:'';position:absolute;background:linear-gradient(90deg,rgba(99,102,241,.9),rgba(34,211,238,.7));box-shadow:0 0 12px rgba(99,102,241,.6)}
+        .page-hero-corner--tl{top:16px;left:16px}.page-hero-corner--tl::before{top:0;left:0;width:100%;height:2px}.page-hero-corner--tl::after{top:0;left:0;width:2px;height:100%}
+        .page-hero-corner--br{bottom:16px;right:16px;animation-delay:-1.5s}.page-hero-corner--br::before{bottom:0;right:0;width:100%;height:2px}.page-hero-corner--br::after{bottom:0;right:0;width:2px;height:100%}
+        .page-hero-inner{position:relative;z-index:4;padding:clamp(48px,8vw,88px) clamp(28px,5vw,56px) clamp(36px,6vw,56px)}
+        .page-hero-tag{display:inline-block;margin-bottom:20px;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);padding:6px 14px;border:1px solid rgba(34,211,238,.35);background:rgba(34,211,238,.08);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+        .page-hero-title{font-family:var(--font-display);font-size:clamp(2.5rem,7vw,4.5rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;text-transform:uppercase;color:#fff;margin-bottom:16px}
+        .page-hero-title em{font-style:normal;background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 7s ease infinite;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .page-hero-desc{max-width:560px;font-size:.9375rem;line-height:1.75;color:rgba(226,232,240,.78);margin-bottom:36px;padding-left:14px;border-left:2px solid rgba(99,102,241,.5)}
+        .page-hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(99,102,241,.2);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+        .page-hero-stat{padding:20px 18px;background:rgba(8,12,24,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+        .page-hero-stat-val{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2rem);font-weight:800;letter-spacing:-.03em;line-height:1;background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 7s ease infinite;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .page-hero-stat-label{margin-top:8px;font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(148,163,184,.85)}
+
+        body.page-cinema .main-content{display:flex;flex-wrap:nowrap;align-items:flex-start;margin-top:28px;gap:22px;padding:0 clamp(16px,3vw,24px)}
+        body.page-cinema .sidebar,body.page-cinema .content{background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:var(--shadow-md),inset 0 1px 0 var(--glass-inset);border-radius:var(--radius-lg)}
+        body.page-cinema .sidebar{width:268px;flex-shrink:0;overflow:hidden}
+        body.page-cinema .content{flex:1;min-width:0;padding:18px}
+        .sidebar-section{padding:var(--space-md);border-bottom:1px solid var(--border-color)}
+        .sidebar-section:last-child{border-bottom:none}
+        body.page-cinema .sidebar-section h3{color:var(--text);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+        body.page-cinema .sidebar-section h3::after{content:'';display:block;width:20px;height:2px;margin-top:8px;background:var(--grad-brand-vivid)}
+        .login-form input{width:100%;padding:12px 14px;margin-bottom:12px;border:1px solid var(--border-color);border-radius:4px;background:var(--bg-secondary);color:var(--text);font-size:14px}
+        body.page-cinema .login-form button{width:100%;padding:12px;border:none;cursor:pointer;color:#fff;border-radius:4px;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 5s ease infinite;box-shadow:0 6px 20px var(--primary-glow)}
+        .login-options{display:flex;justify-content:space-between;margin-top:10px;font-size:13px}
+        .login-options a{color:var(--primary);text-decoration:none}
+        .sidebar-links{list-style:none}
+        .sidebar-links li{margin-bottom:8px}
+        .sidebar-links a{display:block;padding:8px 12px;color:var(--text-secondary);text-decoration:none;font-size:13px;border-radius:4px;transition:background .2s,color .2s}
+        .sidebar-links a:hover,.sidebar-links a.is-active{background:var(--primary-soft);color:var(--primary)}
+        .sidebar-donate{margin:12px;padding:16px;border-radius:16px;background:var(--grad-mesh);border:1px solid rgba(99,102,241,.12)}
+        .sidebar-donate h3{text-align:center;color:var(--primary)!important}
+        .sidebar-donate p{font-size:.8125rem;color:var(--text-2);text-align:center;margin-bottom:10px}
+        .sidebar-donate .donate-qr{width:130px;height:130px;margin:0 auto 10px;border-radius:12px;overflow:hidden;border:1px solid var(--border-color);background:var(--bg-primary)}
+        .sidebar-donate .donate-qr img{width:100%;height:100%;object-fit:contain}
+        .sidebar-donate .donate-foot{margin-top:10px;padding:10px;background:var(--panel-glass);border-radius:8px;border:1px solid rgba(99,102,241,.1);font-size:.75rem;color:var(--text-3);text-align:center;line-height:1.6}
+
+        .sec-head-block{margin-bottom:var(--space-xl)}
+        .sec-tag{display:inline-block;padding:4px 10px;border-radius:2px;margin-bottom:12px;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);background:var(--tag-bg);border:1px solid rgba(99,102,241,.18);box-shadow:inset 0 1px 0 var(--tag-inset)}
+        body.page-cinema .content-section{position:relative;padding:28px;margin-bottom:var(--space-lg);border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(238,242,255,.25));border:1px solid rgba(99,102,241,.08)}
+        [data-theme="dark"] body.page-cinema .content-section{background:linear-gradient(135deg,rgba(15,21,36,.6),rgba(99,102,241,.06))}
+        body.page-cinema .content-section h2{font-family:var(--font-display);font-size:clamp(1.5rem,3.2vw,2rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:8px;text-transform:uppercase}
+        body.page-cinema .content-section h2 .grad-text{font-family:var(--font-body);text-transform:none;letter-spacing:-.02em;background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 7s ease infinite;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .sec-head-desc{color:var(--text-2);font-size:.875rem;letter-spacing:.03em;line-height:1.7;margin:0 0 var(--space-lg);max-width:520px;padding-left:12px;border-left:2px solid rgba(99,102,241,.35)}
+        html.js body.page-cinema .content-section.reveal-ready{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease-expo),transform .7s var(--ease-expo)}
+        html.js body.page-cinema .content-section.reveal-ready.is-visible{opacity:1;transform:translateY(0)}
+
+        .news-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+        .news-filter-btn{padding:8px 14px;border:1px solid rgba(99,102,241,.18);background:var(--panel-glass);color:var(--text-2);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));transition:background .2s,color .2s,border-color .2s,transform .2s}
+        .news-filter-btn:hover,.news-filter-btn.is-active{background:var(--primary-soft);color:var(--primary);border-color:rgba(99,102,241,.35)}
+        .news-filter-btn.is-active{box-shadow:0 4px 16px rgba(99,102,241,.12)}
+
+        .news-feed{display:flex;flex-direction:column;gap:14px;list-style:none}
+        .news-card{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;padding:24px;text-decoration:none;color:inherit;background:var(--panel-glass);border:1px solid rgba(99,102,241,.12);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));transition:transform .35s var(--ease-expo),border-color .35s,box-shadow .35s}
+        .news-card:hover{transform:translateX(6px);border-color:rgba(99,102,241,.35);box-shadow:var(--shadow-lg)}
+        .news-card.is-hidden{display:none}
+        .news-date{display:flex;flex-direction:column;align-items:center;min-width:64px;padding:12px 10px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.18);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+        .news-date em{font-style:normal;font-family:var(--font-display);font-size:1.75rem;font-weight:800;line-height:1;color:var(--primary);letter-spacing:-.03em}
+        .news-date span{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;color:var(--text-3);margin-top:6px}
+        .news-body{min-width:0}
+        .news-cat{display:inline-block;margin-bottom:10px;font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:3px 8px;border:1px solid rgba(99,102,241,.2);background:rgba(99,102,241,.06)}
+        .news-cat--product{color:var(--cyan);border-color:rgba(34,211,238,.3);background:rgba(34,211,238,.08)}
+        .news-cat--service{color:#a78bfa;border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.08)}
+        .news-cat--team{color:#818cf8;border-color:rgba(129,140,248,.3);background:rgba(129,140,248,.08)}
+        .news-cat--film{color:#f472b6;border-color:rgba(244,114,182,.3);background:rgba(244,114,182,.08)}
+        .news-title{font-family:var(--font-display);font-size:clamp(1rem,2.2vw,1.25rem);font-weight:800;letter-spacing:-.02em;line-height:1.35;color:var(--text);margin-bottom:10px;transition:color .2s}
+        .news-card:hover .news-title{background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 7s ease infinite;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .news-meta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--text-3);text-transform:uppercase}
+        .news-excerpt{color:var(--text-2);font-size:.875rem;line-height:1.75;margin-bottom:14px}
+        .news-more{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);transition:gap .2s}
+        .news-card:hover .news-more{gap:12px}
+
+        .comment-section{margin-top:8px}
+        .comment-section .sec-head-block{margin-bottom:20px}
+
+        body.page-cinema footer{position:relative;z-index:1;margin-top:80px;padding:64px 0 48px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(99,102,241,.35),transparent 60%),linear-gradient(180deg,#0f1524 0%,#060a14 100%);border-top:1px solid rgba(99,102,241,.2);color:rgba(226,232,240,.85)}
+        body.page-cinema footer::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-brand-vivid);background-size:300% 100%;animation:gradShift 4s ease infinite}
+        body.page-cinema footer p,body.page-cinema footer a{color:rgba(226,232,240,.85)}
+        body.page-cinema footer a:hover{color:#fff}
+        body.page-cinema .disclaimer{margin-top:24px;padding:24px;text-align:left;background:rgba(255,255,255,.04);border:1px solid rgba(99,102,241,.15);backdrop-filter:blur(12px);border-radius:12px}
+        body.page-cinema .disclaimer h3{color:#c7d2fe;margin-bottom:12px;font-size:1rem}
+
+        .back-to-top{position:fixed;bottom:30px;right:30px;width:52px;height:52px;background:var(--grad-brand-vivid);background-size:300% 300%;animation:gradShift 5s ease infinite;color:#fff;border:none;cursor:pointer;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));font-size:22px;opacity:0;visibility:hidden;z-index:1000;box-shadow:0 8px 32px var(--primary-glow);transition:opacity .3s,visibility .3s,transform .3s;display:grid;place-items:center}
+        .back-to-top.show{opacity:1;visibility:visible}
+        .back-to-top:hover{transform:translateY(-4px)}
+        .wechat-ad,.social-ad{position:fixed;right:20px;width:140px;background:var(--bg-primary);border:1px solid var(--border-color);border-radius:16px;box-shadow:var(--shadow-lg);padding:15px;z-index:999}
+        .wechat-ad{top:50%;transform:translateY(-50%);z-index:1000}
+        .wechat-ad+.social-ad{top:calc(50% + 240px);transform:translateY(-50%)}
+        .social-ad+.social-ad{top:calc(50% + 390px);transform:translateY(-50%)}
+        .wechat-ad h3,.social-ad h3{color:var(--primary);margin-bottom:12px;font-size:14px;text-align:center;font-weight:700}
+        .wechat-ad .qrcode{width:100px;height:100px;margin:0 auto 10px;border-radius:8px;overflow:hidden;border:1px solid var(--border-color)}
+        .wechat-ad .qrcode img{width:100%;height:100%;object-fit:cover}
+        .wechat-ad p,.social-ad p{text-align:center;font-size:12px;color:var(--text-secondary);margin-bottom:6px}
+        .wechat-ad .close-btn,.social-ad .close-btn{position:absolute;top:8px;right:8px;background:none;border:none;font-size:18px;color:var(--text-muted);cursor:pointer;width:24px;height:24px}
+        .social-ad .social-icon{width:72px;height:72px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px}
+        .douyin-icon{background:linear-gradient(45deg,#ff6b6b,#ffa726)}
+        .bilibili-icon{background:linear-gradient(45deg,#00a1d6,#f59223)}
+
+        @media(max-width:1024px){.page-hero-stats{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){body.page-cinema .main-content{flex-direction:column}body.page-cinema .sidebar{width:100%}body.page-cinema .slogan{display:none}.news-card{grid-template-columns:1fr;gap:14px}.page-hero-stats{grid-template-columns:1fr 1fr}.wechat-ad,.social-ad{display:none}}
+        @media(max-width:480px){.header-actions .search{display:none}.page-hero-stats{grid-template-columns:1fr}.news-date{flex-direction:row;gap:10px;width:fit-content}}
+        @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html.js body.page-cinema .content-section.reveal-ready{opacity:1!important;transform:none!important}.news-card:hover{transform:none!important}}
+    </style>
+</head>
+<body class="page-cinema" data-nav-active="about">
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="ambient" aria-hidden="true">
+    <div class="ambient-blob b1"></div><div class="ambient-blob b2"></div><div class="ambient-blob b3"></div>
+    <div class="ambient-mesh"></div><div class="ambient-grid"></div>
+    <span class="ambient-spark s1"></span><span class="ambient-spark s2"></span><span class="ambient-spark s3"></span><span class="ambient-spark s4"></span>
+</div>
+<div class="page-wrap">
+<a href="#main" class="skip-link">跳至主要内容</a>
+<div class="site-top" id="siteTop">
+<div class="site-top-shell">
+<header>
+    <div class="container header-content">
+        <a href="index.html" class="logo" aria-label="天马行空创意网首页">
+            <img src="photo/logo.png" alt="天马行空创意网 标志" width="50" height="50">
+            <div><div class="logo-main">天马行空创意网</div><div class="logo-sub">TianMa Creative Network</div></div>
+        </a>
+        <div class="slogan">拥抱创意 点亮人生</div>
+        <div class="header-actions">
+            <div class="search">
+                <input type="search" id="searchInput" placeholder="搜索..." aria-label="搜索网站内容">
+                <button type="button" class="search-btn" id="searchBtn" aria-label="搜索">🔍</button>
+            </div>
+            <button id="themeToggle" class="theme-btn-cinema" type="button" aria-label="切换主题">🌙</button>
+            <a href="mobile-app.html" class="header-cta-cinema">AI App 下载</a>
+        </div>
+    </div>
+</header>
+<nav aria-label="主导航" class="site-nav-exp">
+    <div class="nav-exp-head"><span class="nav-exp-tag">NAV // SYSTEM</span><span class="nav-exp-line" aria-hidden="true"></span></div>
+    <div class="container nav-scroll">
+        <ul>
+            <li><a href="index.html" data-nav-index="01" data-nav-key="home">首页</a></li>
+            <li>
+                <a href="about.html" data-nav-index="02" data-nav-key="about">关于我们</a>
+                <ul class="dropdown" aria-label="关于我们子菜单">
+                    <li><a href="business-center.html">业务中心</a></li>
+                    <li><a href="news.html" class="is-current">新闻动态</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="team-info.html" aria-haspopup="true" data-nav-index="03" data-nav-key="services">服务系统</a>
+                <ul class="dropdown" aria-label="服务系统子菜单">
+                    <li><a href="team-info.html">团队档案信息查询系统</a></li>
+                    <li><a href="exam-center.html">在线考试中心</a></li>
+                    <li><a href="https://v.kaoshixing.com/exam/aiInterview/pc/#/list" target="_blank" rel="noopener noreferrer">团队考核系统</a></li>
+                </ul>
+            </li>
+            <li><a href="https://work.weixin.qq.com/wework_admin/frame#/index" target="_blank" rel="noopener noreferrer" data-nav-index="04" data-nav-key="work">工作系统</a></li>
+            <li>
+                <a href="download-materials.html" aria-haspopup="true" data-nav-index="05" data-nav-key="download">下载专区</a>
+                <ul class="dropdown" aria-label="下载专区子菜单">
+                    <li><a href="download-materials.html">资料</a></li>
+                    <li><a href="download-software.html">软件</a></li>
+                </ul>
+            </li>
+            <li><a href="video.html" data-nav-index="06" data-nav-key="video">视频区</a></li>
+        </ul>
+    </div>
+</nav>
+</div>
+</div>
+<div class="site-top-spacer" id="siteTopSpacer" aria-hidden="true"></div>
+
+<div class="page-hero">
+    <div class="page-hero-scan" aria-hidden="true"></div>
+    <div class="page-hero-corner page-hero-corner--tl" aria-hidden="true"></div>
+    <div class="page-hero-corner page-hero-corner--br" aria-hidden="true"></div>
+    <div class="page-hero-inner">
+        <span class="page-hero-tag">NEWS // FEED</span>
+        <h1 class="page-hero-title">新闻<em>动态</em></h1>
+        <p class="page-hero-desc">产品发布、代做上线、团队活动与影视创作 — 记录天马行空创意团队的每一次重要时刻</p>
+        <div class="page-hero-stats">
+            <div class="page-hero-stat"><div class="page-hero-stat-val">5</div><div class="page-hero-stat-label">篇报道</div></div>
+            <div class="page-hero-stat"><div class="page-hero-stat-val">2026</div><div class="page-hero-stat-label">最新年份</div></div>
+            <div class="page-hero-stat"><div class="page-hero-stat-val">4</div><div class="page-hero-stat-label">内容分类</div></div>
+            <div class="page-hero-stat"><div class="page-hero-stat-val">380+</div><div class="page-hero-stat-label">累计阅读</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="container main-content">
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3>服务登录</h3>
+            <form class="login-form" action="index.html" method="get">
+                <input type="text" placeholder="请输入账号/手机" autocomplete="username">
+                <input type="password" placeholder="密码" autocomplete="current-password">
+                <button type="submit">登录</button>
+                <div class="login-options">
+                    <a href="http://m.tmxkcy.xyz" target="_blank" rel="noopener noreferrer">手机快捷登录</a>
+                    <a href="register.html">注册&gt;</a>
+                </div>
+            </form>
+        </div>
+        <div class="sidebar-section">
+            <h3>服务范围</h3>
+            <ul class="sidebar-links">
+                <li><a href="script-writing.html">AI创作</a></li>
+                <li><a href="business-center.html">业务中心</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-section">
+            <h3>新闻分类</h3>
+            <ul class="sidebar-links" id="sidebarFilter">
+                <li><a href="#" data-filter="all" class="is-active">全部动态</a></li>
+                <li><a href="#" data-filter="product">产品发布</a></li>
+                <li><a href="#" data-filter="service">代做服务</a></li>
+                <li><a href="#" data-filter="team">团队活动</a></li>
+                <li><a href="#" data-filter="film">影视创作</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-section sidebar-donate">
+            <h3>💖 支持我们</h3>
+            <p>如果你喜欢我们的内容，不妨支持一下我们！</p>
+            <div class="donate-qr"><img src="photo/zsm.jpg" alt="赞赏码" loading="lazy"></div>
+            <p style="font-size:.75rem;color:var(--text-3);">扫码支持我们的创作</p>
+            <div class="donate-foot">
+                <p>关注公众号获取更多精彩内容</p>
+                <p>回复「权限码」获取下载权限</p>
+            </div>
+        </div>
+    </aside>
+
+    <main id="main" class="content">
+        <div class="content-section reveal-ready">
+            <div class="sec-head-block">
+                <span class="sec-tag">LATEST</span>
+                <h2>最新新闻 · <span class="grad-text">全部报道</span></h2>
+                <p class="sec-head-desc">团队发布、产品上线与业务公告 — 按时间倒序排列</p>
+            </div>
+
+            <div class="news-filter" role="group" aria-label="新闻分类筛选">
+                <button type="button" class="news-filter-btn is-active" data-filter="all">ALL</button>
+                <button type="button" class="news-filter-btn" data-filter="product">PRODUCT</button>
+                <button type="button" class="news-filter-btn" data-filter="service">SERVICE</button>
+                <button type="button" class="news-filter-btn" data-filter="team">TEAM</button>
+                <button type="button" class="news-filter-btn" data-filter="film">FILM</button>
+            </div>
+
+            <ul class="news-feed" id="newsFeed">
+                <li>
+                    <a href="news-detail5.html" class="news-card" data-cat="product">
+                        <div class="news-date"><em>07</em><span>2026-07</span></div>
+                        <div class="news-body">
+                            <span class="news-cat news-cat--product">PRODUCT</span>
+                            <h3 class="news-title">天马行空创意 AI 软件正式发布！Android 版多模态创作 App 上线</h3>
+                            <div class="news-meta"><span>DATE 2026-07-07</span><span>AUTHOR admin</span><span>VIEWS 0</span></div>
+                            <p class="news-excerpt">天马行空创意团队正式发布「天马行空创意 AI」Android 客户端！App 无需配置 API、注册即用；网页版 AI 创作中心需自行配置 API Key。集成对话、图片、视频、音乐与提示词助手，每日签到领积分。</p>
+                            <span class="news-more">阅读全文 →</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="news-detail4.html" class="news-card" data-cat="service">
+                        <div class="news-date"><em>03</em><span>2026-02</span></div>
+                        <div class="news-body">
+                            <span class="news-cat news-cat--service">SERVICE</span>
+                            <h3 class="news-title">重磅官宣：代做上线！视频剪辑 / 海报 / 名片 / 包装，全程代做不费心</h3>
+                            <div class="news-meta"><span>DATE 2026-02-03</span><span>AUTHOR admin</span><span>VIEWS 0</span></div>
+                            <p class="news-excerpt">代做业务全面上线！提供短视频剪辑、影视微制作、特效制作、节目包装、PS/AI 海报设计、修图/P 图/抠图、名片制作等服务，价格公开透明，高效交付，一对一对接，高性价比！</p>
+                            <span class="news-more">阅读全文 →</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="news-detail1.html" class="news-card" data-cat="team">
+                        <div class="news-date"><em>17</em><span>2025-06</span></div>
+                        <div class="news-body">
+                            <span class="news-cat news-cat--team">TEAM</span>
+                            <h3 class="news-title">天马行空创意团队 2025 年普通专业技能联合测考试圆满结束</h3>
+                            <div class="news-meta"><span>DATE 2025-06-17</span><span>AUTHOR admin</span><span>VIEWS 128</span></div>
+                            <p class="news-excerpt">6 月 16 日，团队举办 2025 年普通专业综合技能联合考试，所有成员参加。考试形式线上线下结合，涵盖团队合作、自媒体运营、拍摄与后期等多个领域，考试时间 60 分钟，满分 100 分。</p>
+                            <span class="news-more">阅读全文 →</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="news-detail2.html" class="news-card" data-cat="film">
+                        <div class="news-date"><em>10</em><span>2024-06</span></div>
+                        <div class="news-body">
+                            <span class="news-cat news-cat--film">FILM</span>
+                            <h3 class="news-title">极简设备，极致表达 —— 微短片《人生道路之反转》圆满杀青</h3>
+                            <div class="news-meta"><span>DATE 2024-06-10</span><span>AUTHOR admin</span><span>VIEWS 96</span></div>
+                            <p class="news-excerpt">当最后一段剪辑素材导出成功，团队凭借两部手机、一个三脚架与一台剪辑电脑，历时数日完成了微短片《人生道路之反转》的全部拍摄与前期制作，没有专业道具，没有复杂设备支撑。</p>
+                            <span class="news-more">阅读全文 →</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="news-detail3.html" class="news-card" data-cat="film">
+                        <div class="news-date"><em>16</em><span>2023-01</span></div>
+                        <div class="news-body">
+                            <span class="news-cat news-cat--film">FILM</span>
+                            <h3 class="news-title">微电影《绝意人生》1 月 23 日定档 · 张生智献唱主题曲《我》</h3>
+                            <div class="news-meta"><span>DATE 2023-01-16</span><span>AUTHOR admin</span><span>VIEWS 156</span></div>
+                            <p class="news-excerpt">聚焦人生困境与自我救赎的微电影《绝意人生》正式官宣定档 1 月 23 日，同步释出由音乐人张生智倾力打造并献唱的主题曲《我》，以激昂旋律与深刻歌词，提前揭开影片中关于坚持与成长的动人篇章。</p>
+                            <span class="news-more">阅读全文 →</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-section reveal-ready comment-section">
+            <div class="sec-head-block">
+                <span class="sec-tag">COMMENT</span>
+                <h2>留言评论 · <span class="grad-text">互动交流</span></h2>
+                <p class="sec-head-desc">欢迎留下您的想法与建议</p>
+            </div>
+            <div id="RUI-SPEAK" data-app-id="MTc2ODM4NjM2NzExMDg2Ng==" data-app-key="Cc1r4evyAzbk/zJbU+lghMZEvG9wO3Un8xhX5hKc1ro=" data-article-no=""></div>
+        </div>
+    </main>
+</div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>© 2026 天马行空创意网. 保留所有权利. <a href="http://m.tmxkcy.xyz" target="_blank" rel="noopener noreferrer">手机版</a></p>
+        <div class="disclaimer">
+            <h3>免责声明</h3>
+            <p>本网站尚未进行ICP备案，仅供学习和交流使用。网站内容仅代表作者个人观点，不代表任何官方立场。</p>
+            <p>本网站提供的信息仅供参考，不构成任何投资建议或其他建议。使用本网站信息所造成的任何后果，本网站不承担任何责任。</p>
+            <p>本网站可能包含外部链接，对于这些链接指向的网站内容，本网站不承担任何责任。</p>
+            <p>如有侵权，请联系我们删除相关内容。联系方式：tmxkcytd@foxmail.com</p>
+        </div>
+    </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" title="回到顶部" aria-label="回到顶部">↑</button>
+
+<div class="wechat-ad">
+    <button class="close-btn" id="closeWechatAd" aria-label="关闭">&times;</button>
+    <h3>关注公众号</h3>
+    <div class="qrcode"><img src="photo/gzh.jpg" alt="公众号二维码" loading="lazy"></div>
+    <p>获取更多创意内容</p>
+</div>
+<div class="social-ad">
+    <button class="close-btn" id="closeDouyinAd" aria-label="关闭">&times;</button>
+    <h3>关注抖音</h3>
+    <a href="https://www.douyin.com/user/MS4wLjABAAAAP6ezeyxVFiKKdbqG_w3CrjNnFLSycenlG86g3XwMybQ" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:block;text-align:center;">
+        <div class="social-icon douyin-icon">🎵</div>
+        <p style="color:var(--text-primary);margin-top:8px;">进入抖音</p>
+    </a>
+</div>
+<div class="social-ad">
+    <button class="close-btn" id="closeBilibiliAd" aria-label="关闭">&times;</button>
+    <h3>关注B站</h3>
+    <a href="https://space.bilibili.com/1889102228?spm_id_from=333.337.0.0" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:block;text-align:center;">
+        <div class="social-icon bilibili-icon">📺</div>
+        <p style="color:var(--text-primary);margin-top:8px;">进入B站</p>
+    </a>
+</div>
+
+<script id="gullchat-widget-js" src="https://code.gullchat.com/widget.js?mode=production&amp;wid=693ea57a0ee55c23ceff491f&amp;pid=693ea2fc328f7e8be297b5dc&amp;fm=normal&amp;lt=default" defer></script>
+<script src="https://h5.ruispeak.cn/rs.js" defer></script>
+
+<script>
+(function () {
+    var themeToggle = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    function syncThemeBtn() {
+        if (!themeToggle) return;
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        themeToggle.textContent = dark ? '☀️' : '🌙';
+        themeToggle.setAttribute('aria-label', dark ? '切换到浅色模式' : '切换到深色模式');
+    }
+    syncThemeBtn();
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+            var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (dark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); }
+            else { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
+            syncThemeBtn();
+        });
+    }
+
+    var navKey = document.body.getAttribute('data-nav-active');
+    if (navKey) document.querySelectorAll('nav a[data-nav-key="' + navKey + '"]').forEach(function (a) { a.classList.add('nav-is-active'); });
+
+    var siteTop = document.getElementById('siteTop');
+    function syncSpacer() {
+        var shell = siteTop && siteTop.querySelector('.site-top-shell');
+        if (shell) document.documentElement.style.setProperty('--site-top-h', shell.offsetHeight + 'px');
+    }
+    syncSpacer();
+    window.addEventListener('resize', syncSpacer, { passive: true });
+    window.addEventListener('load', syncSpacer, { passive: true });
+
+    var progress = document.getElementById('scrollProgress');
+    var revealSections = document.querySelectorAll('.reveal-ready');
+    var ticking = false;
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+            var st = window.scrollY || document.documentElement.scrollTop;
+            var dh = document.documentElement.scrollHeight - window.innerHeight;
+            if (progress && dh > 0) progress.style.width = Math.min(100, (st / dh) * 100) + '%';
+            ticking = false;
+        });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (revealSections.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealSections.forEach(function (el) { io.observe(el); });
+    } else {
+        revealSections.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+
+    var backBtn = document.getElementById('backToTop');
+    if (backBtn) {
+        backBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        window.addEventListener('scroll', function () { backBtn.classList.toggle('show', window.scrollY > 300); }, { passive: true });
+    }
+
+    document.querySelectorAll('.wechat-ad .close-btn, .social-ad .close-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (e) { var ad = e.target.closest('.wechat-ad, .social-ad'); if (ad) ad.style.display = 'none'; });
+    });
+
+    var searchBtn = document.getElementById('searchBtn');
+    var searchInput = document.getElementById('searchInput');
+    function doSearch() { var q = (searchInput && searchInput.value || '').trim(); if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q); }
+    if (searchBtn) searchBtn.addEventListener('click', doSearch);
+    if (searchInput) searchInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') doSearch(); });
+
+    function applyFilter(cat) {
+        document.querySelectorAll('.news-filter-btn').forEach(function (btn) {
+            btn.classList.toggle('is-active', btn.getAttribute('data-filter') === cat);
+        });
+        document.querySelectorAll('#sidebarFilter a').forEach(function (link) {
+            link.classList.toggle('is-active', link.getAttribute('data-filter') === cat);
+        });
+        document.querySelectorAll('.news-card').forEach(function (card) {
+            var match = cat === 'all' || card.getAttribute('data-cat') === cat;
+            card.classList.toggle('is-hidden', !match);
+            card.closest('li').style.display = match ? '' : 'none';
+        });
+    }
+    document.querySelectorAll('.news-filter-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { applyFilter(btn.getAttribute('data-filter')); });
+    });
+    document.querySelectorAll('#sidebarFilter a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            applyFilter(link.getAttribute('data-filter'));
+        });
+    });
+
+    window.addEventListener('load', function () {
+        var checkCommentModule = setInterval(function () {
+            var pactLink = document.querySelector('.RS-cg-a[href="https://h5.ruispeak.cn/html/pact.html"]');
+            var titleText = document.querySelector('.title-text');
+            if (pactLink && pactLink.textContent === '睿言云评《自律公约》') pactLink.textContent = '天马行空创意网《自律公约》';
+            if (titleText && titleText.textContent === '睿言云评用户跟帖自律公约') titleText.textContent = '天马行空创意网用户跟帖自律公告';
+            if (pactLink && titleText) clearInterval(checkCommentModule);
+        }, 500);
+        setTimeout(function () { clearInterval(checkCommentModule); }, 10000);
+    });
+})();
+</script>
+</body>
+</html>

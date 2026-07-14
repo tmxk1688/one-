@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "node server/dev-server.js",
+    "start:static": "http-server -p 8080 -c-1",
+    "lan": "node server/gobang-lan-server.js"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "html2pdf.js": "^0.10.1",
+    "http-server": "^14.1.1",
+    "mammoth": "^1.8.0",
+    "marked": "^17.0.1",
+    "pdfjs-dist": "^3.11.174",
+    "ws": "^8.21.0"
+  },
+  "devDependencies": {
+    "@gradio/client": "^2.3.1"
+  }
+}
